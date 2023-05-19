@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@project/auth-main": ["libs/auth-main/src/index.ts"],
+      "@project/home-main": ["libs/home-main/src/index.ts"],
+      "@project/profile-main": ["libs/profile-main/src/index.ts"],
+      "@project/settings-main": ["libs/settings-main/src/index.ts"],
+      "@project/shared/hooks": ["libs/shared/hooks/src/index.ts"],
+      "@project/shared/layout": ["libs/shared/layout/src/index.ts"],
+      "@project/shared/providers": ["libs/shared/providers/src/index.ts"],
+      "@project/shared/store": ["libs/shared/store/src/index.ts"],
+      "@project/shared/types": ["libs/shared/types/src/index.ts"],
+      "@project/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@project/shared/ui/buttons": ["libs/shared/ui/buttons/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
