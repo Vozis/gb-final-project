@@ -1,4 +1,6 @@
 import styles from './auth-main.module.scss';
+import Form from './form/form';
+import Title from './title/title';
 
 /* eslint-disable-next-line */
 export interface AuthMainProps {}
@@ -6,7 +8,8 @@ export interface AuthMainProps {}
 export function AuthMain(props: AuthMainProps) {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to AuthMain!</h1>
+      <Form />
+      <Title />
     </div>
   );
 }

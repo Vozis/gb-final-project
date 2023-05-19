@@ -7,8 +7,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Todo {
-  id String @id @default(cuid())
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("todos")
+  email      String @unique
+  password   String @db.VarChar(200)
+  firstName  String
+  lastName   String
+  userName   String
+  avatarPath String @default("/assets/default-avatar.png") @map("avatar_path")
+
+  hobbies Tags[]
+
+  event Events[]
+
+  // posters  Movie? @relation("posters", fields: [posterId], references: [id])
+  // posterId Int?
+  @@map("user")
+}
+
+model Tags {
+  id        Int    @id @default(autoincrement())
+  name      String
+  shortName String @unique
+
+  user User[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  event   Events? @relation(fields: [eventId], references: [id])
+  eventId Int?
+
+  @@map("tags")
+}
+
+model Events {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String @unique @map("image_url")
+  coordinateX String @map("coordinate_x")
+  coordinateY String @map("coordinate_y")
+
+  tags Tags[]
+
+  eventTime DateTime
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // users User[] @relation('users')
+
+  creator   User? @relation(fields: [creatorId], references: [id])
+  creatorId Int?
+
+  @@map("events")
 }

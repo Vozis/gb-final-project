@@ -5,9 +5,10 @@ export interface InputProps {}
 
 export function Input(props: InputProps) {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to Input!</h1>
-    </div>
+    <label>
+      <span>input</span>
+      <input />
+    </label>
   );
 }
 

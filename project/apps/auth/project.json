@@ -51,7 +51,7 @@
       "options": {
         "buildTarget": "auth:build",
         "hmr": true,
-        "port": 4200
+        "port": 4204
       },
       "configurations": {
         "development": {
@@ -75,7 +75,7 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "auth:build",
-        "port": 4200
+        "port": 4204
       },
       "configurations": {
         "development": {
