@@ -8,3 +8,5 @@ declare module 'settings/Module';
 declare module 'profile/Module';
 
 declare module 'auth/Module';
+
+declare module 'test/Module';
