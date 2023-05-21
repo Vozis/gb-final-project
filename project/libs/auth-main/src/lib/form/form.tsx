@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
+import * as process from 'process';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -16,7 +17,7 @@ export function Form(props: FormProps) {
   } = useForm();
   const onSubmit = async (data: any) => {
     const res = await axios.post('/user', data);
-    localStorage.setItem('user', JSON.stringify(res.data));
+    localStorage.setItem(`/login`, JSON.stringify(res.data));
     console.log(res.data);
   };
 
