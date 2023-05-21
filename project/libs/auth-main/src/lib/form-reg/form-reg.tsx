@@ -17,7 +17,9 @@ export function FormReg(props: FormProps) {
     const res = await axios.post('/user', data);
     console.log(res.data);
   };
+  // ------------------------------------
 
+  // -------------------------------------
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
       <p>Registration form</p>
