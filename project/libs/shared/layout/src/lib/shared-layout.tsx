@@ -3,6 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import Header from './header/header';
 import { IUser } from '@project/shared/types';
 import Footer from './footer/footer';
+import { ToastContainer } from 'react-toastify';
 
 /* eslint-disable-next-line */
 

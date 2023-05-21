@@ -3,13 +3,16 @@ import styles from './app.module.scss';
 
 import NxWelcome from './nx-welcome';
 import List from './components/List';
+import { SharedProviders } from '@project/shared/providers';
+import { SharedLayout } from '@project/shared/layout';
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="profile" />
-      <List />
-    </div>
+    <SharedProviders>
+      <SharedLayout>
+        <List />
+      </SharedLayout>
+    </SharedProviders>
   );
 }
 

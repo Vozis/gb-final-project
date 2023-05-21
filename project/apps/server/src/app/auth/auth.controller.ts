@@ -1,0 +1,37 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { ReturnAuth } from './auth.interface';
+import { LoginAuthDto } from './dto/login-auth.dto';
+import { TokenDto } from './dto/token.dto';
+import { JwtAuthGuard } from './guards/auth.guard';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('register')
+  async register(@Body() dto: CreateUserDto): Promise<ReturnAuth> {
+    return this.authService.register(dto);
+  }
+
+  @Post('login')
+  async login(@Body() dto: LoginAuthDto): Promise<ReturnAuth> {
+    return this.authService.login(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('get-new-tokens')
+  async getNewTokens(@Body() dto: TokenDto): Promise<ReturnAuth> {
+    return this.authService.getNewTokens(dto);
+  }
+}
