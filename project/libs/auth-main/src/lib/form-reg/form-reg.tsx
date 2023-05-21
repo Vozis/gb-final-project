@@ -20,8 +20,9 @@ export function FormReg(props: FormProps) {
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p>registration form</p>
+      <p>Registration form</p>
       <input
+        className={styles.register_form_input}
         placeholder="Enter login"
         {...register('login', { required: true })}
       />
@@ -32,6 +33,7 @@ export function FormReg(props: FormProps) {
       )}
 
       <input
+        className={styles.register_form_input}
         placeholder="Enter password"
         type="password"
         {...register('pass', { required: true })}
@@ -42,7 +44,7 @@ export function FormReg(props: FormProps) {
         </span>
       )}
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" className={styles.sub_btn} />
     </form>
   );
 }

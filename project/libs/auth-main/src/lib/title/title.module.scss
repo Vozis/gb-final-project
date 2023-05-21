@@ -5,3 +5,14 @@
  * .container {
  * }
 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+}
+.title {
+  font-size: 14px;
+}

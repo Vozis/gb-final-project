@@ -8,20 +8,31 @@ import Title from './title/title';
 export interface AuthMainProps {}
 
 export function AuthMain(props: AuthMainProps) {
-  const [ectiveform, setEctiveform] = useState("");
-  
-  // console.log(ectiveform);
-  
-  return (
-    <div className={styles['container']}>
-      <div >
-        <button className={styles.form_btn} onClick={ ()=> setEctiveform('form')}>Login</button>
+  const [ectiveform, setEctiveform] = useState('');
 
-        <button className={styles.form_btn} onClick={ ()=> setEctiveform("form-reg")}>Register</button>
-      </div>
+  // console.log(ectiveform);
+
+  return (
+    <div>
       <Title />
-      {ectiveform === "form" && <Form />}
-      {ectiveform === "form-reg" && <FormReg />}
+      <div className={styles['container_btn']}>
+        <button
+          className={styles.form_btn}
+          onClick={() => setEctiveform('form')}
+        >
+          Sign in
+        </button>
+
+        <button
+          className={styles['form_btn']}
+          onClick={() => setEctiveform('form-reg')}
+        >
+          Sign up
+        </button>
+      </div>
+
+      {ectiveform === 'form' && <Form />}
+      {ectiveform === 'form-reg' && <FormReg />}
     </div>
   );
 }
