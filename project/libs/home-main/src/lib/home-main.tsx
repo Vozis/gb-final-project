@@ -1,8 +1,7 @@
 import styles from './home-main.module.scss';
-import Card from "./card/card";
-import {faker} from '@faker-js/faker';
-import {Search} from "@project/shared/ui";
-
+import Card from './card/card';
+import { faker } from '@faker-js/faker';
+import { Search } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 
@@ -13,12 +12,11 @@ const createCardInfo = () => ({
   description: faker.lorem.words(20),
 });
 
-const createCards  = (count: number) => {
-  return Array.from({length: count}).map(createCardInfo);
+const createCards = (count: number) => {
+  return Array.from({ length: count }).map(createCardInfo);
 };
 
 const MOCK_CARDS = createCards(10);
-
 
 export interface HomeMainProps {}
 
@@ -26,8 +24,8 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   return (
     <div className={styles.container}>
-      <Search  />
-      {MOCK_CARDS.map((card) =>
+      <Search />
+      {MOCK_CARDS.map(card => (
         <Card
           key={card.id}
           id={card.id}
@@ -35,7 +33,7 @@ export function HomeMain(props: HomeMainProps) {
           avatarImgUrl={card.avatarImgUrl}
           description={card.description}
         />
-      )}
+      ))}
     </div>
   );
 }
