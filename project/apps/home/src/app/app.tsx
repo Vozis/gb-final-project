@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import styles from './app/app.module.scss';
 
 import { HomeMain } from '@project/home-main';
 import { SharedProviders } from '@project/shared/providers';
