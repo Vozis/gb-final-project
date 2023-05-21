@@ -1,4 +1,5 @@
 import styles from './card.module.scss';
+
 import {Avatar} from "@project/shared/ui";
 
 /* eslint-disable-next-line */
@@ -25,7 +26,6 @@ export function Card({id, username, avatarImgUrl, description}: CardProps) {
         </div>
         <p>{description}</p>
       </div>
-
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import styles from './home-main.module.scss';
 import Card from './card/card';
+
 import { faker } from '@faker-js/faker';
 import { Search } from '@project/shared/ui';
 
@@ -20,7 +21,6 @@ const MOCK_CARDS = createCards(10);
 
 export interface HomeMainProps {}
 
-//
 export function HomeMain(props: HomeMainProps) {
   return (
     <div className={styles.container}>
