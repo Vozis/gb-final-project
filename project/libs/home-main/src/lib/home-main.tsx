@@ -1,18 +1,39 @@
 import styles from './home-main.module.scss';
 import Card from './card/card';
 
+import { faker } from '@faker-js/faker';
+import { Search } from '@project/shared/ui';
+
 /* eslint-disable-next-line */
+
+const createCardInfo = () => ({
+  id: faker.string.uuid(),
+  username: faker.person.fullName(),
+  avatarImgUrl: faker.image.avatar(),
+  description: faker.lorem.words(20),
+});
+
+const createCards = (count: number) => {
+  return Array.from({ length: count }).map(createCardInfo);
+};
+
+const MOCK_CARDS = createCards(10);
+
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
   return (
     <div className={styles.container}>
-      <h1>Welcome to HomeMain!</h1>
-      <div>
-        <h2 className={styles.title}>Title</h2>
-        <p className={styles.desc}></p>
-      </div>
-      <Card />
+      <Search />
+      {MOCK_CARDS.map(card => (
+        <Card
+          key={card.id}
+          id={card.id}
+          username={card.username}
+          avatarImgUrl={card.avatarImgUrl}
+          description={card.description}
+        />
+      ))}
     </div>
   );
 }
