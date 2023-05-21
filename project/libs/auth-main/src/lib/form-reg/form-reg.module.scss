@@ -1,0 +1,16 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.register_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.err{
+  color: red;
+  font-size: 10px;
+}

@@ -1,29 +1,26 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './form.module.scss';
+import { FormProps } from 'react-router-dom';
+import styles from './form-reg.module.scss';
 
 /* eslint-disable-next-line */
-export interface FormProps {}
+export interface FormRegProps {}
 
-export function Form(props: FormProps) {
-  const [type, setType] = useState();
-
+export function FormReg(props: FormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data: any) => {
     const res = await axios.post('/user', data);
-    localStorage.setItem('user', JSON.stringify(res.data));
     console.log(res.data);
   };
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p>authorization form</p>
-
+      <p>registration form</p>
       <input
         placeholder="Enter login"
         {...register('login', { required: true })}
@@ -50,4 +47,4 @@ export function Form(props: FormProps) {
   );
 }
 
-export default Form;
+export default FormReg;
