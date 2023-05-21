@@ -14,7 +14,10 @@ export function FormReg(props: FormProps) {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const res = await axios.post('/user', data);
+    const res = await axios.post(
+      'http://localhost:3000/api/auth/register',
+      data,
+    );
     console.log(res.data);
   };
   // ------------------------------------

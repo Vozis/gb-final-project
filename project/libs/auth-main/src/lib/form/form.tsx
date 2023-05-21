@@ -15,7 +15,7 @@ export function Form(props: FormProps) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    const res = await axios.post('/user', data);
+    const res = await axios.post('http://localhost:3000/api/auth/login', data);
     localStorage.setItem('user', JSON.stringify(res.data));
     console.log(res.data);
   };
