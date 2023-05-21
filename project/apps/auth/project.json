@@ -19,7 +19,8 @@
         "styles": ["apps/auth/src/styles.scss"],
         "scripts": [],
         "isolatedConfig": true,
-        "webpackConfig": "apps/auth/webpack.config.js"
+        "webpackConfig": "apps/auth/webpack.config.js",
+        "postcssConfig": "apps/auth/postcss.config.js"
       },
       "configurations": {
         "development": {
@@ -51,7 +52,8 @@
       "options": {
         "buildTarget": "auth:build",
         "hmr": true,
-        "port": 4204
+        "port": 4204,
+        "proxyConfig": "apps/auth/proxy.conf.json"
       },
       "configurations": {
         "development": {

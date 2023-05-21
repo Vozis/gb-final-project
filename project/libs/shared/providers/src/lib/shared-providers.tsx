@@ -21,9 +21,9 @@ export const SharedProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <SharedLayout>{children}</SharedLayout>
+        {children}
         <ToastContainer autoClose={2000} />
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Provider>
   );

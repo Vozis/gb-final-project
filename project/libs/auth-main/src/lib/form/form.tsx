@@ -19,22 +19,21 @@ export function Form(props: FormProps) {
 
   const navigate = useNavigate();
 
-  const onSubmit = async data => {
-    console.log(data);
-
-    if (type === 'login') {
-    }
-    const response = await axios.post('http://localhost:5000/api/users', data);
-
-    console.log(response.data);
-  };
+  // const onSubmit = async data => {
+  //   console.log(data);
+  //
+  //   if (type === 'login') {
+  //   }
+  //   const response = await axios.post('http://localhost:5000/api/users', data);
+  //
+  //   console.log(response.data);
+  // };
 
   if (type === 'login') {
     //   await axios.post('/api/login', data);
     // } else {
     //   await axios.post('/api/register', data);
     // }
-
     navigate('/home');
   }
 
@@ -52,9 +51,9 @@ export function Form(props: FormProps) {
       {errors.exampleRequired && <span>This field is required</span>}
 
       <input type="submit" />
-      <button>Login</button>
-      <button onClick={() => setType('login')}>Login</button>
-      <button onClick={() => setType('register')}>regoster</button>
+      <button onClick={() => navigate('/')}>Login</button>
+      {/*<button onClick={() => setType('login')}>Login</button>*/}
+      {/*<button onClick={() => setType('register')}>regoster</button>*/}
     </form>
   );
 }

@@ -2,6 +2,7 @@
 import styles from './app.module.scss';
 
 import NxWelcome from './nx-welcome';
+import { SharedProviders } from '@project/shared/providers';
 
 export function App() {
   return (
