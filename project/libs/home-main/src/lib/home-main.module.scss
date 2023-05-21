@@ -5,19 +5,12 @@
  * .container {
  * }
 */
-
-.container {
+body{
+  font-family: "Roboto", sans-serif;
+  color: #555;
+}
+.container{
+  max-width: 1140px;
   margin: 0 auto;
-  max-width: 960px;
-  padding: 0 20px;
-}
-
-
-.title {
-
-
-}
-
-.desc {
-
+  padding: 15px;
 }

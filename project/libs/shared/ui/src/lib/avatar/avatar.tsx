@@ -1,12 +1,15 @@
 import styles from './avatar.module.scss';
 
-/* eslint-disable-next-line */
-export interface AvatarProps {}
 
-export function Avatar(props: AvatarProps) {
+/* eslint-disable-next-line */
+export interface AvatarProps {
+  avatarUrl?: string
+}
+
+export function Avatar( { avatarUrl }:AvatarProps) {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to Avatar!</h1>
+    <div className={styles.avatarWrapper}>
+      <img className={styles.avatarImg} src={ avatarUrl } alt=""/>
     </div>
   );
 }
