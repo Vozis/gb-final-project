@@ -3,48 +3,54 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  email    String @unique
+  password String @db.VarChar(200)
+
+  firstName  String
+  lastName   String
+  userName   String @unique
+  avatarPath String @default("/assets/default-avatar.png") @map("avatar_path")
+
+  role Role[]
+
+  hobbies Tag[]
+
+  creations Event[] @relation("creations")
+
+  events Event[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email      String @unique
-  password   String @db.VarChar(200)
-  firstName  String
-  lastName   String
-  userName   String
-  avatarPath String @default("/assets/default-avatar.png") @map("avatar_path")
-
-  hobbies Tags[]
-
-  event Events[]
-
-  // posters  Movie? @relation("posters", fields: [posterId], references: [id])
-  // posterId Int?
-  @@map("user")
+  // eventsList UsersOnEvents[]
+  @@map("users")
 }
 
-model Tags {
+model Tag {
   id        Int    @id @default(autoincrement())
   name      String
   shortName String @unique
 
-  user User[]
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  event   Events? @relation(fields: [eventId], references: [id])
+  event   Event? @relation(fields: [eventId], references: [id])
   eventId Int?
 
   @@map("tags")
 }
 
-model Events {
+model Event {
   id          Int    @id @default(autoincrement())
   name        String
   description String
@@ -52,17 +58,34 @@ model Events {
   coordinateX String @map("coordinate_x")
   coordinateY String @map("coordinate_y")
 
-  tags Tags[]
+  tags Tag[]
 
   eventTime DateTime
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  // users User[] @relation('users')
+  users User[]
 
-  creator   User? @relation(fields: [creatorId], references: [id])
-  creatorId Int?
+  creator   User? @relation("creations", fields: [creatorId], references: [id])
+  creatorId Int?  @unique
 
+  // usersList UsersOnEvents[]
   @@map("events")
+}
+
+// model UsersOnEvents {
+//   user       Users    @relation(fields: [userId], references: [id])
+//   userId     Int // relation scalar field (used in the `@relation` attribute above)
+//   event      Events   @relation(fields: [eventId], references: [id])
+//   eventId    Int // relation scalar field (used in the `@relation` attribute above)
+//   assignedAt DateTime @default(now())
+//   assignedBy String
+//
+//   @@id([userId, eventId])
+// }
+
+enum Role {
+  USER
+  ADMIN
 }

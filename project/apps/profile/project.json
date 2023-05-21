@@ -19,7 +19,8 @@
         "styles": ["apps/profile/src/styles.scss"],
         "scripts": [],
         "isolatedConfig": true,
-        "webpackConfig": "apps/profile/webpack.config.js"
+        "webpackConfig": "apps/profile/webpack.config.js",
+        "postcssConfig": "apps/profile/postcss.config.js"
       },
       "configurations": {
         "development": {
@@ -51,7 +52,8 @@
       "options": {
         "buildTarget": "profile:build",
         "hmr": true,
-        "port": 4203
+        "port": 4203,
+        "proxyConfig": "apps/profile/proxy.conf.json"
       },
       "configurations": {
         "development": {

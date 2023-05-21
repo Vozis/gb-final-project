@@ -1,6 +1,11 @@
 // Core libraries such as react, angular, redux, ngrx, etc. must be
 // singletons. Otherwise the applications will not work together.
-const coreLibraries = new Set(['react', 'react-dom', 'react-router-dom']);
+const coreLibraries = new Set([
+  'react',
+  'react-dom',
+  'react-router-dom',
+  '@project/shared/providers',
+]);
 
 module.exports = {
   // Share core libraries, and avoid everything else
