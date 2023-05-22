@@ -15,7 +15,15 @@
         "baseHref": "/",
         "main": "apps/settings/src/main.ts",
         "tsConfig": "apps/settings/tsconfig.app.json",
-        "assets": ["apps/settings/src/favicon.ico", "apps/settings/src/assets"],
+        "assets": [
+          "apps/settings/src/favicon.ico",
+          "apps/settings/src/assets",
+          {
+            "input": "libs/shared/assets",
+            "glob": "**/*",
+            "output": "assets/shared"
+          }
+        ],
         "styles": ["apps/settings/src/styles.scss"],
         "scripts": [],
         "isolatedConfig": true,

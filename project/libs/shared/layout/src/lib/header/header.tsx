@@ -1,7 +1,6 @@
-import styles from './header.module.scss';
 import { IUser } from '@project/shared/types';
 import { Link } from 'react-router-dom';
-import * as React from 'react';
+import styles from './header.module.scss';
 
 /* eslint-disable-next-line */
 export interface HeaderProps {
@@ -10,7 +9,7 @@ export interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   return (
-    <header className={'bg-red-500 flex justify-center items-center py-5'}>
+    <header className={styles.header}>
       <ul className={'flex flex-wrap gap-4'}>
         <li>
           <Link to="/">Home</Link>

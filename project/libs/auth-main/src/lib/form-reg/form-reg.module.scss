@@ -1,0 +1,39 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.register {
+  &_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &_input {
+      border: 1px solid black;
+      border-radius: 5px;
+      text-align: center;
+      margin: 5px 0;
+    }
+  }
+}
+
+.err {
+  color: red;
+  font-size: 10px;
+}
+.sub_btn {
+  border: 1px solid black;
+  border-radius: 21px;
+  padding: 3px 10px;
+  width: 100px;
+  margin: 5px 0;
+
+  &:hover {
+    cursor: pointer;
+    border-color: deepskyblue;
+    color: deepskyblue;
+  }
+}
