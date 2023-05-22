@@ -1,7 +1,13 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.btn {
+  @apply flex items-center justify-center gap-4;
+  border: 1px solid black;
+  border-radius: 21px;
+  margin: 5px 0;
+  padding: 3px 10px;
+
+  &:hover {
+    border-color: deepskyblue;
+    color: deepskyblue;
+    cursor: pointer;
+  }
+}

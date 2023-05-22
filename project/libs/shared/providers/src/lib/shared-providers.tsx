@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 /* eslint-disable-next-line */
 
 import { FC, PropsWithChildren } from 'react';
