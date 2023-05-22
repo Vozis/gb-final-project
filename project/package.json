@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx run-many --parallel --target=serve --projects=server,shell",
     "auth": "nx serve auth",
-    "server": "nx serve server",
+    "server": "cd apps/server && npx prisma generate && nx serve server",
     "shell": "nx serve shell",
     "build": "nx affected:build --all --configuration=production",
     "build:server": "nx build server",
