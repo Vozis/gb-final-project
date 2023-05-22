@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
+<<<<<<< HEAD
+=======
+import * as process from 'process';
+import { Button } from '@project/shared/ui';
+import { errorCatch } from '@project/shared/utils';
+import { catchError } from 'rxjs';
+import toastError from '../../../../shared/ui/src/lib/toasts/toast/toast';
+import { toast } from 'react-toastify';
+>>>>>>> 8c027520d900c405bd0a947d4cc55207f2a626e3
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -12,14 +21,20 @@ export function Form(props: FormProps) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    const res = await axios.post('http://localhost:3000/api/auth/login', data);
-    localStorage.setItem('user', JSON.stringify(res.data));
-    console.log(res.data);
+    try {
+      console.log(data);
+      const res = await axios.post('/api/auth/login', data);
+      console.log(res.data);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      toast.success('Login Success');
+    } catch (err) {
+      toast.error(errorCatch(err));
+    }
   };
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p>Sign in to APP</p>
+      <p className={'text-xl mb-4'}>Войдите, чтобы продолжить</p>
 
       <input
         className={styles.register_form_input}
@@ -36,7 +51,7 @@ export function Form(props: FormProps) {
         className={styles.register_form_input}
         placeholder="Enter password"
         type="password"
-        {...register('pass', { required: true })}
+        {...register('password', { required: true })}
       />
       {errors.pass && (
         <span className={styles['err']}>
@@ -44,7 +59,7 @@ export function Form(props: FormProps) {
         </span>
       )}
 
-      <input type="submit" value="Submit" className={styles.sub_btn} />
+      <Button type={'submit'}>Продолжить</Button>
     </form>
   );
 }

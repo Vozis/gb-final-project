@@ -1,3 +1,4 @@
+export * from './lib/toasts/toast/toast';
 export * from './lib/search/search';
 
 export * from './lib/test/test';

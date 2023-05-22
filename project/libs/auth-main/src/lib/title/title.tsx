@@ -6,8 +6,8 @@ export interface TitleProps {}
 export function Title(props: TitleProps) {
   return (
     <div className={styles['container']}>
-      <h2>Welcome!</h2>
-      <p className={styles.title}>Please login or regist.</p>
+      <img src={'/assets/shared/auth-image.PNG'} className={'w-28 h-28'} />
+      <h2 className={'text-2xl'}>Добро пожаловать</h2>
     </div>
   );
 }
