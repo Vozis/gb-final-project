@@ -16,16 +16,17 @@ export function Form(props: FormProps) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    const res = await axios.post('/user', data);
-    localStorage.setItem(`/login`, JSON.stringify(res.data));
+    const res = await axios.post('http://localhost:3000/api/auth/login', data);
+    localStorage.setItem('user', JSON.stringify(res.data));
     console.log(res.data);
   };
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p>authorization form</p>
+      <p>Sign in to APP</p>
 
       <input
+        className={styles.register_form_input}
         placeholder="Enter login"
         {...register('login', { required: true })}
       />
@@ -36,6 +37,7 @@ export function Form(props: FormProps) {
       )}
 
       <input
+        className={styles.register_form_input}
         placeholder="Enter password"
         type="password"
         {...register('pass', { required: true })}
@@ -46,7 +48,7 @@ export function Form(props: FormProps) {
         </span>
       )}
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" className={styles.sub_btn} />
     </form>
   );
 }

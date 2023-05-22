@@ -5,3 +5,17 @@
  * .container {
  * }
 */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(71, 115, 217, 1) 0%,
+    rgba(29, 60, 227, 1) 100%
+  );
+  color: white;
+  padding: 20px;
+}

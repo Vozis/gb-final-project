@@ -14,14 +14,20 @@ export function FormReg(props: FormProps) {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const res = await axios.post('/user', data);
+    const res = await axios.post(
+      'http://localhost:3000/api/auth/register',
+      data,
+    );
     console.log(res.data);
   };
+  // ------------------------------------
 
+  // -------------------------------------
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p>registration form</p>
+      <p>Registration form</p>
       <input
+        className={styles.register_form_input}
         placeholder="Enter login"
         {...register('login', { required: true })}
       />
@@ -32,6 +38,7 @@ export function FormReg(props: FormProps) {
       )}
 
       <input
+        className={styles.register_form_input}
         placeholder="Enter password"
         type="password"
         {...register('pass', { required: true })}
@@ -42,7 +49,7 @@ export function FormReg(props: FormProps) {
         </span>
       )}
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" className={styles.sub_btn} />
     </form>
   );
 }
