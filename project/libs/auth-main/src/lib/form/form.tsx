@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
+import * as process from 'process';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
