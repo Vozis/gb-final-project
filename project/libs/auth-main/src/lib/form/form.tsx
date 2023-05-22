@@ -1,15 +1,11 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
-import * as process from 'process';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
 
 export function Form(props: FormProps) {
-  const [type, setType] = useState();
-
   const {
     register,
     handleSubmit,
@@ -28,7 +24,7 @@ export function Form(props: FormProps) {
       <input
         className={styles.register_form_input}
         placeholder="Enter login"
-        {...register('login', { required: true })}
+        {...register('email', { required: true })}
       />
       {errors.login && (
         <span className={styles['err']}>
