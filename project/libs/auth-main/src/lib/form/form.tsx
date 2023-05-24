@@ -2,7 +2,6 @@ import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './form.module.scss';
 
@@ -15,7 +14,6 @@ export function Form(props: FormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
     try {
