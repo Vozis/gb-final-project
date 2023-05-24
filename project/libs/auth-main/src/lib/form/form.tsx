@@ -1,12 +1,8 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
-import * as process from 'process';
 import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
-import { catchError } from 'rxjs';
-import toastError from '../../../../shared/ui/src/lib/toasts/toast/toast';
 import { toast } from 'react-toastify';
 
 /* eslint-disable-next-line */

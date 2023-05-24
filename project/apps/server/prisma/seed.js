@@ -1,10 +1,8 @@
-import * as dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import slugify from 'slugify';
 
 import { cities } from './cities.js';
 
-dotenv.config();
 
 // initialize Prisma Client
 const prisma = new PrismaClient();

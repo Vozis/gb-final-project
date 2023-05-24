@@ -9,6 +9,7 @@ export class CreateTagDto {
   @IsString({
     message: 'shortName is required',
   })
+  // @IsOptional()
   shortName: string;
 
   @IsString({

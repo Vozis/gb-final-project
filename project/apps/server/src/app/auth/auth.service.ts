@@ -13,10 +13,10 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { IReturnUserObject, ReturnAuth } from './auth.interface';
 import { TokenDto } from './dto/token.dto';
-import { fileUploadHelper } from '@project/shared/utils';
 import { ITokens } from '@project/shared/types';
 import { Express } from 'express';
 import 'multer';
+import { fileUploadHelper } from '../../utils/file-upload.helper';
 
 @Injectable()
 export class AuthService {
@@ -30,6 +30,8 @@ export class AuthService {
     dto: CreateUserDto,
     avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
+    console.log(dto);
+
     const _user = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
