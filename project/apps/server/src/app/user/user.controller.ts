@@ -14,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
+import { ToggleDto } from '../tag/dto/create-tag.dto';
 
 @Controller('users')
 export class UserController {
@@ -38,5 +39,11 @@ export class UserController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
+  }
+
+  @Put('profile/toggle')
+  @Auth()
+  async toggle(@User('id') id: number, @Body() toggleDto: ToggleDto) {
+    return this.userService.toggle(id, toggleDto);
   }
 }
