@@ -109,5 +109,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "browser": {
+    "fs": false
+  }
 }
