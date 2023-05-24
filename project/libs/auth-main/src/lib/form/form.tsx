@@ -19,7 +19,8 @@ export function Form(props: FormProps) {
 
   const onSubmit = async (data: any) => {
     try {
-      console.log('data: ', data);
+      // Меняем здесь
+      console.log(data);
       const res = await axios.post('/api/auth/login', data);
       // Изменить здесь
       console.log('res.data: ', res.data);
