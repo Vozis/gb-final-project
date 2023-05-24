@@ -1,13 +1,9 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './form.module.scss';
-import * as process from 'process';
 import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
-import { catchError } from 'rxjs';
-import toastError from '../../../../shared/ui/src/lib/toasts/toast/toast';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import styles from './form.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -20,6 +16,7 @@ export function Form(props: FormProps) {
   } = useForm();
   const onSubmit = async (data: any) => {
     try {
+      // Меняем здесь
       console.log(data);
       const res = await axios.post('/api/auth/login', data);
       console.log(res.data);
