@@ -1,12 +1,10 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './form.module.scss';
-import * as process from 'process';
 import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import styles from './form.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -23,7 +21,7 @@ export function Form(props: FormProps) {
     try {
       console.log('data: ', data);
       const res = await axios.post('/api/auth/login', data);
-
+      // Изменить здесь
       console.log('res.data: ', res.data);
 
       localStorage.setItem('user', JSON.stringify(res.data));
