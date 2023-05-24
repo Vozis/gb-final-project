@@ -1,0 +1,21 @@
+.register {
+  &_form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    &_input {
+      border: 1px solid black;
+      border-radius: 5px;
+      margin: 5px 0;
+      text-align: center;
+    }
+  }
+}
+
+.err {
+  color: red;
+  font-size: 10px;
+}
+
+

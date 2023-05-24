@@ -1,15 +1,10 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
-.card{
+
+.card {
   box-sizing: border-box;
   margin-bottom: 20px;
 }
-.cardWrapper{
+
+.cardWrapper {
   min-width: 320px;
   padding: 15px;
   box-shadow: 0 2px 15px -2px rgba(34, 60, 80, 0.2);
@@ -18,28 +13,45 @@
   flex-direction: column;
 
 }
-.cardHeader{
+
+.cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.cardHeader span{
+
+.cardHeader span {
   color: #999;
   font-size: 14px;
   font-weight: 300;
 }
-.cardUserInfo{
+
+.cardUserInfo {
   display: flex;
   align-items: center;
   flex-grow: 1;
 }
-.cardUsername{
+
+.cardUsername {
   text-decoration: none;
   display: block;
   color: #555;
   font-size: 22px;
   transition: all ease;
 }
-.cardUsername:hover{
+
+.cardUsername:hover {
   color: #333;
+}
+
+.cardBody {
+  margin-top: 10px;
+}
+
+.cardButton {
+  width: 200px;
+  height: 40px;
+  border: 1px solid #555;
+  margin-left: auto;
+  margin-top: 10px;
 }

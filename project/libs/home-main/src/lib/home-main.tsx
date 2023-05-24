@@ -20,7 +20,6 @@ const MOCK_CARDS = createCards(10);
 
 export interface HomeMainProps {}
 
-//
 export function HomeMain(props: HomeMainProps) {
   return (
     <div className={styles.container}>

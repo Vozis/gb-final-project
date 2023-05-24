@@ -5,8 +5,8 @@ export interface FooterProps {}
 
 export function Footer(props: FooterProps) {
   return (
-    <footer className={'bg-yellow-600 py-5 flex justify-center items-center'}>
-      <h1>Welcome to Footer!</h1>
+    <footer className={styles.footer}>
+      <h1>The work of the coolest team!</h1>
     </footer>
   );
 }
