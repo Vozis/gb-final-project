@@ -14,6 +14,7 @@ export function Form(props: FormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data: any) => {
     try {
       // Меняем здесь
