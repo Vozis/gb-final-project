@@ -1,0 +1,2072 @@
+[
+  {
+    "id": 622,
+    "name": "Кувандык",
+    "shortName": "kuvandyk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:01.584",
+    "updated_at": "2023-05-23 20:05:01.584",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 623,
+    "name": "Курманаевка",
+    "shortName": "kurmanaevka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:01.677",
+    "updated_at": "2023-05-23 20:05:01.677",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 624,
+    "name": "Матвеевка",
+    "shortName": "matveevka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.081",
+    "updated_at": "2023-05-23 20:05:03.081",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 625,
+    "name": "Медногорск",
+    "shortName": "mednogorsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.175",
+    "updated_at": "2023-05-23 20:05:03.175",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 626,
+    "name": "Новоорск",
+    "shortName": "novoorsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.269",
+    "updated_at": "2023-05-23 20:05:03.269",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 627,
+    "name": "Новосергиевка",
+    "shortName": "novosergievka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.362",
+    "updated_at": "2023-05-23 20:05:03.362",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 628,
+    "name": "Новотроицк",
+    "shortName": "novotroick",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.454",
+    "updated_at": "2023-05-23 20:05:03.454",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 629,
+    "name": "Октябрьское",
+    "shortName": "oktyabrskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.546",
+    "updated_at": "2023-05-23 20:05:03.546",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 630,
+    "name": "Оренбург",
+    "shortName": "orenburg",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.636",
+    "updated_at": "2023-05-23 20:05:03.636",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 631,
+    "name": "Орск",
+    "shortName": "orsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:03.728",
+    "updated_at": "2023-05-23 20:05:03.728",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 636,
+    "name": "Чугуевка",
+    "shortName": "chuguevka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:54.924",
+    "updated_at": "2023-05-23 20:05:54.924",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 637,
+    "name": "Яковлевка",
+    "shortName": "yakovlevka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.035",
+    "updated_at": "2023-05-23 20:05:55.035",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 638,
+    "name": "Бежаницы",
+    "shortName": "bezhanicy",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.107",
+    "updated_at": "2023-05-23 20:05:55.107",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 639,
+    "name": "Великие Луки",
+    "shortName": "velikie-luki",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.179",
+    "updated_at": "2023-05-23 20:05:55.179",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 640,
+    "name": "Гдов",
+    "shortName": "gdov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.252",
+    "updated_at": "2023-05-23 20:05:55.252",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 641,
+    "name": "Дедовичи",
+    "shortName": "dedovichi",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.325",
+    "updated_at": "2023-05-23 20:05:55.325",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 642,
+    "name": "Дно",
+    "shortName": "dno",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.398",
+    "updated_at": "2023-05-23 20:05:55.398",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 643,
+    "name": "Заплюсье",
+    "shortName": "zaplyuse",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.471",
+    "updated_at": "2023-05-23 20:05:55.471",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 644,
+    "name": "Идрица",
+    "shortName": "idrica",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.545",
+    "updated_at": "2023-05-23 20:05:55.545",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 645,
+    "name": "Красногородское",
+    "shortName": "krasnogorodskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.62",
+    "updated_at": "2023-05-23 20:05:55.62",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 646,
+    "name": "Кунья",
+    "shortName": "kunya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.693",
+    "updated_at": "2023-05-23 20:05:55.693",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 647,
+    "name": "Локня",
+    "shortName": "loknya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.765",
+    "updated_at": "2023-05-23 20:05:55.765",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 648,
+    "name": "Невель",
+    "shortName": "nevel",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.838",
+    "updated_at": "2023-05-23 20:05:55.838",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 649,
+    "name": "Новоржев",
+    "shortName": "novorzhev",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.91",
+    "updated_at": "2023-05-23 20:05:55.91",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 650,
+    "name": "Новосокольники",
+    "shortName": "novosokolniki",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:55.982",
+    "updated_at": "2023-05-23 20:05:55.982",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 651,
+    "name": "Опочка",
+    "shortName": "opochka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.054",
+    "updated_at": "2023-05-23 20:05:56.054",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 652,
+    "name": "Остров",
+    "shortName": "ostrov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.127",
+    "updated_at": "2023-05-23 20:05:56.127",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 653,
+    "name": "Палкино",
+    "shortName": "palkino",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.201",
+    "updated_at": "2023-05-23 20:05:56.201",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 654,
+    "name": "Печоры",
+    "shortName": "pechory",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.276",
+    "updated_at": "2023-05-23 20:05:56.276",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 655,
+    "name": "Плюсса",
+    "shortName": "plyussa",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.349",
+    "updated_at": "2023-05-23 20:05:56.349",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 656,
+    "name": "Порхов",
+    "shortName": "porhov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.423",
+    "updated_at": "2023-05-23 20:05:56.423",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 657,
+    "name": "Псков",
+    "shortName": "pskov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.496",
+    "updated_at": "2023-05-23 20:05:56.496",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 658,
+    "name": "Пустошка",
+    "shortName": "pustoshka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.569",
+    "updated_at": "2023-05-23 20:05:56.569",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 659,
+    "name": "Пушкинские Горы",
+    "shortName": "pushkinskie-gory",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.643",
+    "updated_at": "2023-05-23 20:05:56.643",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 660,
+    "name": "Пыталово",
+    "shortName": "pytalovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.715",
+    "updated_at": "2023-05-23 20:05:56.715",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 661,
+    "name": "Себеж",
+    "shortName": "sebezh",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.796",
+    "updated_at": "2023-05-23 20:05:56.796",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 662,
+    "name": "Струги-Красные",
+    "shortName": "strugi-krasnye",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.87",
+    "updated_at": "2023-05-23 20:05:56.87",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 663,
+    "name": "Усвяты",
+    "shortName": "usvyaty",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:56.942",
+    "updated_at": "2023-05-23 20:05:56.942",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 664,
+    "name": "Азов",
+    "shortName": "azov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.014",
+    "updated_at": "2023-05-23 20:05:57.014",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 665,
+    "name": "Аксай",
+    "shortName": "aksaj",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.087",
+    "updated_at": "2023-05-23 20:05:57.087",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 666,
+    "name": "Алмазный",
+    "shortName": "almaznyj",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.159",
+    "updated_at": "2023-05-23 20:05:57.159",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 667,
+    "name": "Аютинск",
+    "shortName": "ayutinsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.232",
+    "updated_at": "2023-05-23 20:05:57.232",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 668,
+    "name": "Багаевский",
+    "shortName": "bagaevskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.305",
+    "updated_at": "2023-05-23 20:05:57.305",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 669,
+    "name": "Батайск",
+    "shortName": "batajsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.38",
+    "updated_at": "2023-05-23 20:05:57.38",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 670,
+    "name": "Белая Калитва",
+    "shortName": "belaya-kalitva",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.454",
+    "updated_at": "2023-05-23 20:05:57.454",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 671,
+    "name": "Боковская",
+    "shortName": "bokovskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.526",
+    "updated_at": "2023-05-23 20:05:57.526",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 672,
+    "name": "Большая Мартыновка",
+    "shortName": "bolshaya-martynovka",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.602",
+    "updated_at": "2023-05-23 20:05:57.602",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 673,
+    "name": "Вешенская",
+    "shortName": "veshenskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.675",
+    "updated_at": "2023-05-23 20:05:57.675",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 674,
+    "name": "Волгодонск",
+    "shortName": "volgodonsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.751",
+    "updated_at": "2023-05-23 20:05:57.751",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 675,
+    "name": "Восход",
+    "shortName": "voshod",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.824",
+    "updated_at": "2023-05-23 20:05:57.824",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 676,
+    "name": "Гигант",
+    "shortName": "gigant",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.897",
+    "updated_at": "2023-05-23 20:05:57.897",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 677,
+    "name": "Горняцкий",
+    "shortName": "gornyackij",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:57.97",
+    "updated_at": "2023-05-23 20:05:57.97",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 678,
+    "name": "Гуково",
+    "shortName": "gukovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.043",
+    "updated_at": "2023-05-23 20:05:58.043",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 679,
+    "name": "Донецк",
+    "shortName": "doneck",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.116",
+    "updated_at": "2023-05-23 20:05:58.116",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 680,
+    "name": "Донской",
+    "shortName": "donskoj",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.192",
+    "updated_at": "2023-05-23 20:05:58.192",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 681,
+    "name": "Дубовское",
+    "shortName": "dubovskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.273",
+    "updated_at": "2023-05-23 20:05:58.273",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 682,
+    "name": "Егорлыкская",
+    "shortName": "egorlykskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.351",
+    "updated_at": "2023-05-23 20:05:58.351",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 683,
+    "name": "Жирнов",
+    "shortName": "zhirnov",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.424",
+    "updated_at": "2023-05-23 20:05:58.424",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 684,
+    "name": "Заветное",
+    "shortName": "zavetnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.496",
+    "updated_at": "2023-05-23 20:05:58.496",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 685,
+    "name": "Заводской",
+    "shortName": "zavodskoj",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.57",
+    "updated_at": "2023-05-23 20:05:58.57",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 686,
+    "name": "Зверево",
+    "shortName": "zverevo",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.643",
+    "updated_at": "2023-05-23 20:05:58.643",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 687,
+    "name": "Зерноград",
+    "shortName": "zernograd",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.716",
+    "updated_at": "2023-05-23 20:05:58.716",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 688,
+    "name": "Зимовники",
+    "shortName": "zimovniki",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.789",
+    "updated_at": "2023-05-23 20:05:58.789",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 689,
+    "name": "Кагальницкая",
+    "shortName": "kagalnickaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.863",
+    "updated_at": "2023-05-23 20:05:58.863",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 690,
+    "name": "Казанская",
+    "shortName": "kazanskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:58.938",
+    "updated_at": "2023-05-23 20:05:58.938",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 691,
+    "name": "Каменоломни",
+    "shortName": "kamenolomni",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.012",
+    "updated_at": "2023-05-23 20:05:59.012",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 692,
+    "name": "Каменск-Шахтинский",
+    "shortName": "kamensk-shahtinskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.086",
+    "updated_at": "2023-05-23 20:05:59.086",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 693,
+    "name": "Кашары",
+    "shortName": "kashary",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.159",
+    "updated_at": "2023-05-23 20:05:59.159",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 694,
+    "name": "Коксовый",
+    "shortName": "koksovyj",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.233",
+    "updated_at": "2023-05-23 20:05:59.233",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 695,
+    "name": "Константиновск",
+    "shortName": "konstantinovsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.306",
+    "updated_at": "2023-05-23 20:05:59.306",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 696,
+    "name": "Красный Сулин",
+    "shortName": "krasnyj-sulin",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.38",
+    "updated_at": "2023-05-23 20:05:59.38",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 697,
+    "name": "Куйбышево",
+    "shortName": "kujbyshevo",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.453",
+    "updated_at": "2023-05-23 20:05:59.453",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 698,
+    "name": "Матвеев Курган",
+    "shortName": "matveev-kurgan",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.526",
+    "updated_at": "2023-05-23 20:05:59.526",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 699,
+    "name": "Мигулинская",
+    "shortName": "migulinskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.599",
+    "updated_at": "2023-05-23 20:05:59.599",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 700,
+    "name": "Миллерово",
+    "shortName": "millerovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.673",
+    "updated_at": "2023-05-23 20:05:59.673",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 701,
+    "name": "Милютинская",
+    "shortName": "milyutinskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.751",
+    "updated_at": "2023-05-23 20:05:59.751",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 702,
+    "name": "Морозовск",
+    "shortName": "morozovsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.825",
+    "updated_at": "2023-05-23 20:05:59.825",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 703,
+    "name": "Новочеркасск",
+    "shortName": "novocherkassk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.903",
+    "updated_at": "2023-05-23 20:05:59.903",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 704,
+    "name": "Новошахтинск",
+    "shortName": "novoshahtinsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:05:59.979",
+    "updated_at": "2023-05-23 20:05:59.979",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 705,
+    "name": "Обливская",
+    "shortName": "oblivskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.053",
+    "updated_at": "2023-05-23 20:06:00.053",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 706,
+    "name": "Орловский",
+    "shortName": "orlovskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.127",
+    "updated_at": "2023-05-23 20:06:00.127",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 707,
+    "name": "Песчанокопское",
+    "shortName": "peschanokopskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.201",
+    "updated_at": "2023-05-23 20:06:00.201",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 708,
+    "name": "Покровское",
+    "shortName": "pokrovskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.278",
+    "updated_at": "2023-05-23 20:06:00.278",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 709,
+    "name": "Пролетарск",
+    "shortName": "proletarsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.352",
+    "updated_at": "2023-05-23 20:06:00.352",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 710,
+    "name": "Ремонтное",
+    "shortName": "remontnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.424",
+    "updated_at": "2023-05-23 20:06:00.424",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 711,
+    "name": "Родионово-Несветайская",
+    "shortName": "rodionovo-nesvetajskaya",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.497",
+    "updated_at": "2023-05-23 20:06:00.497",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 712,
+    "name": "Ростов-на-Дону",
+    "shortName": "rostov-na-donu",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.57",
+    "updated_at": "2023-05-23 20:06:00.57",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 713,
+    "name": "Сальск",
+    "shortName": "salsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.643",
+    "updated_at": "2023-05-23 20:06:00.643",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 714,
+    "name": "Семикаракорск",
+    "shortName": "semikarakorsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.715",
+    "updated_at": "2023-05-23 20:06:00.715",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 715,
+    "name": "Таганрог",
+    "shortName": "taganrog",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.788",
+    "updated_at": "2023-05-23 20:06:00.788",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 716,
+    "name": "Тарасовский",
+    "shortName": "tarasovskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.862",
+    "updated_at": "2023-05-23 20:06:00.862",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 717,
+    "name": "Тацинский",
+    "shortName": "tacinskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:00.934",
+    "updated_at": "2023-05-23 20:06:00.934",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 718,
+    "name": "Усть-Донецкий",
+    "shortName": "ust-doneckij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.007",
+    "updated_at": "2023-05-23 20:06:01.007",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 719,
+    "name": "Целина",
+    "shortName": "celina",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.08",
+    "updated_at": "2023-05-23 20:06:01.08",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 720,
+    "name": "Цимлянск",
+    "shortName": "cimlyansk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.154",
+    "updated_at": "2023-05-23 20:06:01.154",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 721,
+    "name": "Чалтырь",
+    "shortName": "chaltyr",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.228",
+    "updated_at": "2023-05-23 20:06:01.228",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 722,
+    "name": "Чертково",
+    "shortName": "chertkovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.308",
+    "updated_at": "2023-05-23 20:06:01.308",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 723,
+    "name": "Шахты",
+    "shortName": "shahty",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.388",
+    "updated_at": "2023-05-23 20:06:01.388",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 724,
+    "name": "Шолоховский",
+    "shortName": "sholohovskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.463",
+    "updated_at": "2023-05-23 20:06:01.463",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 725,
+    "name": "Александро-Невский",
+    "shortName": "aleksandro-nevskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:01.537",
+    "updated_at": "2023-05-23 20:06:01.537",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 728,
+    "name": "Михайлов",
+    "shortName": "mihajlov",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:40.561",
+    "updated_at": "2023-05-23 20:06:40.561",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 729,
+    "name": "Пителино",
+    "shortName": "pitelino",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:40.721",
+    "updated_at": "2023-05-23 20:06:40.721",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 730,
+    "name": "Пронск",
+    "shortName": "pronsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:40.814",
+    "updated_at": "2023-05-23 20:06:40.814",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 731,
+    "name": "Путятино",
+    "shortName": "putyatino",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:40.909",
+    "updated_at": "2023-05-23 20:06:40.909",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 732,
+    "name": "Рыбное",
+    "shortName": "rybnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.002",
+    "updated_at": "2023-05-23 20:06:41.002",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 733,
+    "name": "Ряжск",
+    "shortName": "ryazhsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.095",
+    "updated_at": "2023-05-23 20:06:41.095",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 734,
+    "name": "Рязань",
+    "shortName": "ryazan",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.188",
+    "updated_at": "2023-05-23 20:06:41.188",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 735,
+    "name": "Сапожок",
+    "shortName": "sapozhok",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.281",
+    "updated_at": "2023-05-23 20:06:41.281",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 736,
+    "name": "Сараи",
+    "shortName": "sarai",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.374",
+    "updated_at": "2023-05-23 20:06:41.374",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 737,
+    "name": "Сасово",
+    "shortName": "sasovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.466",
+    "updated_at": "2023-05-23 20:06:41.466",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 738,
+    "name": "Скопин",
+    "shortName": "skopin",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.561",
+    "updated_at": "2023-05-23 20:06:41.561",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 739,
+    "name": "Спас-Клепики",
+    "shortName": "spas-klepiki",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.654",
+    "updated_at": "2023-05-23 20:06:41.654",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 740,
+    "name": "Спасск-Рязанский",
+    "shortName": "spassk-ryazanskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.746",
+    "updated_at": "2023-05-23 20:06:41.746",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 741,
+    "name": "Старожилово",
+    "shortName": "starozhilovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.839",
+    "updated_at": "2023-05-23 20:06:41.839",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 742,
+    "name": "Ухолово",
+    "shortName": "uholovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:41.931",
+    "updated_at": "2023-05-23 20:06:41.931",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 743,
+    "name": "Чучково",
+    "shortName": "chuchkovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:42.024",
+    "updated_at": "2023-05-23 20:06:42.024",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 744,
+    "name": "Шацк",
+    "shortName": "shack",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:42.116",
+    "updated_at": "2023-05-23 20:06:42.116",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 745,
+    "name": "Шилово",
+    "shortName": "shilovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:06:42.213",
+    "updated_at": "2023-05-23 20:06:42.213",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 749,
+    "name": "Богатое",
+    "shortName": "bogatoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.404",
+    "updated_at": "2023-05-23 20:07:14.404",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 750,
+    "name": "Богатырь",
+    "shortName": "bogatyr",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.562",
+    "updated_at": "2023-05-23 20:07:14.562",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 751,
+    "name": "Большая Глущица",
+    "shortName": "bolshaya-glushica",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.663",
+    "updated_at": "2023-05-23 20:07:14.663",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 752,
+    "name": "Большая Черниговка",
+    "shortName": "bolshaya-chernigovka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.76",
+    "updated_at": "2023-05-23 20:07:14.76",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 753,
+    "name": "Борское",
+    "shortName": "borskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.856",
+    "updated_at": "2023-05-23 20:07:14.856",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 754,
+    "name": "Волжский",
+    "shortName": "volzhskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:14.956",
+    "updated_at": "2023-05-23 20:07:14.956",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 755,
+    "name": "Жигулевск",
+    "shortName": "zhigulevsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.055",
+    "updated_at": "2023-05-23 20:07:15.055",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 756,
+    "name": "Зольное",
+    "shortName": "zolnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.152",
+    "updated_at": "2023-05-23 20:07:15.152",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 757,
+    "name": "Исаклы",
+    "shortName": "isakly",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.25",
+    "updated_at": "2023-05-23 20:07:15.25",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 758,
+    "name": "Камышла",
+    "shortName": "kamyshla",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.346",
+    "updated_at": "2023-05-23 20:07:15.346",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 759,
+    "name": "Кинель",
+    "shortName": "kinel",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.442",
+    "updated_at": "2023-05-23 20:07:15.442",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 760,
+    "name": "Кинель-Черкасы",
+    "shortName": "kinel-cherkasy",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.537",
+    "updated_at": "2023-05-23 20:07:15.537",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 761,
+    "name": "Клявлино",
+    "shortName": "klyavlino",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.633",
+    "updated_at": "2023-05-23 20:07:15.633",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 762,
+    "name": "Кошки",
+    "shortName": "koshki",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.732",
+    "updated_at": "2023-05-23 20:07:15.732",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 763,
+    "name": "Красноармейское",
+    "shortName": "krasnoarmejskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:15.83",
+    "updated_at": "2023-05-23 20:07:15.83",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 765,
+    "name": "Челно-Вершины",
+    "shortName": "chelno-vershiny",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:25.725",
+    "updated_at": "2023-05-23 20:07:25.725",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 766,
+    "name": "Шентала",
+    "shortName": "shentala",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:25.865",
+    "updated_at": "2023-05-23 20:07:25.865",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 767,
+    "name": "Шигоны",
+    "shortName": "shigony",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:25.961",
+    "updated_at": "2023-05-23 20:07:25.961",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 768,
+    "name": "Александров Гай",
+    "shortName": "aleksandrov-gaj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.054",
+    "updated_at": "2023-05-23 20:07:26.054",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 769,
+    "name": "Аркадак",
+    "shortName": "arkadak",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.146",
+    "updated_at": "2023-05-23 20:07:26.146",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 770,
+    "name": "Аткарск",
+    "shortName": "atkarsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.239",
+    "updated_at": "2023-05-23 20:07:26.239",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 771,
+    "name": "Базарный Карабулак",
+    "shortName": "bazarnyj-karabulak",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.331",
+    "updated_at": "2023-05-23 20:07:26.331",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 772,
+    "name": "Балаково",
+    "shortName": "balakovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.424",
+    "updated_at": "2023-05-23 20:07:26.424",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 773,
+    "name": "Балашов",
+    "shortName": "balashov",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.516",
+    "updated_at": "2023-05-23 20:07:26.516",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 774,
+    "name": "Балтай",
+    "shortName": "baltaj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.608",
+    "updated_at": "2023-05-23 20:07:26.608",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 775,
+    "name": "Возрождение",
+    "shortName": "vozrozhdenie",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.7",
+    "updated_at": "2023-05-23 20:07:26.7",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 776,
+    "name": "Вольск",
+    "shortName": "volsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.792",
+    "updated_at": "2023-05-23 20:07:26.792",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 777,
+    "name": "Воскресенское",
+    "shortName": "voskresenskoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.885",
+    "updated_at": "2023-05-23 20:07:26.885",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 778,
+    "name": "Горный",
+    "shortName": "gornyj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:26.978",
+    "updated_at": "2023-05-23 20:07:26.978",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 779,
+    "name": "Дергачи",
+    "shortName": "dergachi",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:27.07",
+    "updated_at": "2023-05-23 20:07:27.07",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 780,
+    "name": "Духовницкое",
+    "shortName": "duhovnickoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:27.161",
+    "updated_at": "2023-05-23 20:07:27.161",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 781,
+    "name": "Екатериновка",
+    "shortName": "ekaterinovka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:27.255",
+    "updated_at": "2023-05-23 20:07:27.255",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 782,
+    "name": "Ершов",
+    "shortName": "ershov",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:27.348",
+    "updated_at": "2023-05-23 20:07:27.348",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 783,
+    "name": "Заречный",
+    "shortName": "zarechnyj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:27.44",
+    "updated_at": "2023-05-23 20:07:27.44",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 785,
+    "name": "Перелюб",
+    "shortName": "perelyub",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.415",
+    "updated_at": "2023-05-23 20:07:40.415",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 786,
+    "name": "Петровск",
+    "shortName": "petrovsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.571",
+    "updated_at": "2023-05-23 20:07:40.571",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 787,
+    "name": "Питерка",
+    "shortName": "piterka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.668",
+    "updated_at": "2023-05-23 20:07:40.668",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 788,
+    "name": "Пугачев",
+    "shortName": "pugachev",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.765",
+    "updated_at": "2023-05-23 20:07:40.765",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 789,
+    "name": "Ровное",
+    "shortName": "rovnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.865",
+    "updated_at": "2023-05-23 20:07:40.865",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 790,
+    "name": "Романовка",
+    "shortName": "romanovka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:40.963",
+    "updated_at": "2023-05-23 20:07:40.963",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 791,
+    "name": "Ртищево",
+    "shortName": "rtishevo",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.061",
+    "updated_at": "2023-05-23 20:07:41.061",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 792,
+    "name": "Самойловка",
+    "shortName": "samojlovka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.156",
+    "updated_at": "2023-05-23 20:07:41.156",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 793,
+    "name": "Саратов",
+    "shortName": "saratov",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.253",
+    "updated_at": "2023-05-23 20:07:41.253",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 794,
+    "name": "Степное",
+    "shortName": "stepnoe",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.349",
+    "updated_at": "2023-05-23 20:07:41.349",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 795,
+    "name": "Татищево",
+    "shortName": "tatishevo",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.446",
+    "updated_at": "2023-05-23 20:07:41.446",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 796,
+    "name": "Турки",
+    "shortName": "turki",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.542",
+    "updated_at": "2023-05-23 20:07:41.542",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 797,
+    "name": "Хвалынск",
+    "shortName": "hvalynsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.637",
+    "updated_at": "2023-05-23 20:07:41.637",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 798,
+    "name": "Энгельс",
+    "shortName": "engels",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.733",
+    "updated_at": "2023-05-23 20:07:41.733",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 799,
+    "name": "Абый",
+    "shortName": "abyj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.829",
+    "updated_at": "2023-05-23 20:07:41.829",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 800,
+    "name": "Алдан",
+    "shortName": "aldan",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:41.925",
+    "updated_at": "2023-05-23 20:07:41.925",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 801,
+    "name": "Амга",
+    "shortName": "amga",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.024",
+    "updated_at": "2023-05-23 20:07:42.024",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 802,
+    "name": "Батагай",
+    "shortName": "batagaj",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.122",
+    "updated_at": "2023-05-23 20:07:42.122",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 803,
+    "name": "Бердигестях",
+    "shortName": "berdigestyah",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.218",
+    "updated_at": "2023-05-23 20:07:42.218",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 804,
+    "name": "Беркакит",
+    "shortName": "berkakit",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.316",
+    "updated_at": "2023-05-23 20:07:42.316",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 805,
+    "name": "Бестях",
+    "shortName": "bestyah",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.412",
+    "updated_at": "2023-05-23 20:07:42.412",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 806,
+    "name": "Борогонцы",
+    "shortName": "borogoncy",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.509",
+    "updated_at": "2023-05-23 20:07:42.509",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 807,
+    "name": "Верхневилюйск",
+    "shortName": "verhnevilyujsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.605",
+    "updated_at": "2023-05-23 20:07:42.605",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 808,
+    "name": "Верхнеколымск",
+    "shortName": "verhnekolymsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.702",
+    "updated_at": "2023-05-23 20:07:42.702",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 809,
+    "name": "Верхоянск",
+    "shortName": "verhoyansk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.797",
+    "updated_at": "2023-05-23 20:07:42.797",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 810,
+    "name": "Вилюйск",
+    "shortName": "vilyujsk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.893",
+    "updated_at": "2023-05-23 20:07:42.893",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 811,
+    "name": "Витим",
+    "shortName": "vitim",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:42.99",
+    "updated_at": "2023-05-23 20:07:42.99",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 812,
+    "name": "Власово",
+    "shortName": "vlasovo",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.087",
+    "updated_at": "2023-05-23 20:07:43.087",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 813,
+    "name": "Жиганск",
+    "shortName": "zhigansk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.183",
+    "updated_at": "2023-05-23 20:07:43.183",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 814,
+    "name": "Зырянка",
+    "shortName": "zyryanka",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.28",
+    "updated_at": "2023-05-23 20:07:43.28",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 815,
+    "name": "Кангалассы",
+    "shortName": "kangalassy",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.378",
+    "updated_at": "2023-05-23 20:07:43.378",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 816,
+    "name": "Канкунский",
+    "shortName": "kankunskij",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.476",
+    "updated_at": "2023-05-23 20:07:43.476",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 817,
+    "name": "Ленск",
+    "shortName": "lensk",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.572",
+    "updated_at": "2023-05-23 20:07:43.572",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 818,
+    "name": "Майя",
+    "shortName": "majya",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.67",
+    "updated_at": "2023-05-23 20:07:43.67",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 819,
+    "name": "Менкеря",
+    "shortName": "menkerya",
+    "userId": null,
+    "created_at": "2023-05-23 20:07:43.768",
+    "updated_at": "2023-05-23 20:07:43.768",
+    "eventId": null,
+    "type": "city"
+  },
+  {
+    "id": 822,
+    "name": "Воллейбол",
+    "shortName": "voleyball",
+    "userId": null,
+    "created_at": "2023-05-23 20:50:47.775",
+    "updated_at": "2023-05-23 20:57:38.751",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 823,
+    "name": "Баскетбол",
+    "shortName": "basketball",
+    "userId": null,
+    "created_at": "2023-05-23 20:51:03.129",
+    "updated_at": "2023-05-23 20:57:25.664",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 824,
+    "name": "Футбол",
+    "shortName": "Football",
+    "userId": null,
+    "created_at": "2023-05-23 20:51:13.64",
+    "updated_at": "2023-05-23 20:51:13.64",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 825,
+    "name": "Мини-футбол",
+    "shortName": "mini-football",
+    "userId": null,
+    "created_at": "2023-05-23 20:51:24.921",
+    "updated_at": "2023-05-23 20:51:24.921",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 826,
+    "name": "Большой теннис",
+    "shortName": "tennis",
+    "userId": null,
+    "created_at": "2023-05-23 20:51:40.437",
+    "updated_at": "2023-05-23 20:51:40.437",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 827,
+    "name": "Настольный теннис",
+    "shortName": "ping-pong",
+    "userId": null,
+    "created_at": "2023-05-23 20:51:52.507",
+    "updated_at": "2023-05-23 20:51:52.507",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 828,
+    "name": "Бег",
+    "shortName": "running",
+    "userId": null,
+    "created_at": "2023-05-24 05:59:05.355",
+    "updated_at": "2023-05-24 05:59:05.355",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 829,
+    "name": "Катание на роликах",
+    "shortName": "roller-skating",
+    "userId": null,
+    "created_at": "2023-05-24 06:00:06.7",
+    "updated_at": "2023-05-24 06:00:06.7",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 830,
+    "name": "Катание на коньках",
+    "shortName": "skating",
+    "userId": null,
+    "created_at": "2023-05-24 06:00:37.927",
+    "updated_at": "2023-05-24 06:00:37.927",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 831,
+    "name": "Велопрогулка",
+    "shortName": "bike-ride",
+    "userId": null,
+    "created_at": "2023-05-24 06:01:31.534",
+    "updated_at": "2023-05-24 06:01:31.534",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 832,
+    "name": "Катание на скейтборде",
+    "shortName": "skateboarding",
+    "userId": null,
+    "created_at": "2023-05-24 06:02:20.084",
+    "updated_at": "2023-05-24 06:02:20.084",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 833,
+    "name": "Катание на лонгборде",
+    "shortName": "longboarding",
+    "userId": null,
+    "created_at": "2023-05-24 06:02:37.623",
+    "updated_at": "2023-05-24 06:02:37.623",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 834,
+    "name": "Плавание",
+    "shortName": "swimming",
+    "userId": null,
+    "created_at": "2023-05-24 06:02:48.665",
+    "updated_at": "2023-05-24 06:02:48.665",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 835,
+    "name": "Сквош",
+    "shortName": "squash",
+    "userId": null,
+    "created_at": "2023-05-24 06:03:33.188",
+    "updated_at": "2023-05-24 06:03:33.188",
+    "eventId": null,
+    "type": "sports"
+  },
+  {
+    "id": 836,
+    "name": "Утро",
+    "shortName": "morning",
+    "userId": null,
+    "created_at": "2023-05-24 06:04:13.727",
+    "updated_at": "2023-05-24 06:04:13.727",
+    "eventId": null,
+    "type": "time"
+  },
+  {
+    "id": 837,
+    "name": "День",
+    "shortName": "day",
+    "userId": null,
+    "created_at": "2023-05-24 06:04:28.167",
+    "updated_at": "2023-05-24 06:04:28.167",
+    "eventId": null,
+    "type": "time"
+  },
+  {
+    "id": 838,
+    "name": "Вечер",
+    "shortName": "evening",
+    "userId": null,
+    "created_at": "2023-05-24 06:05:03.06",
+    "updated_at": "2023-05-24 06:05:03.06",
+    "eventId": null,
+    "type": "time"
+  },
+  {
+    "id": 839,
+    "name": "Ночь",
+    "shortName": "night",
+    "userId": null,
+    "created_at": "2023-05-24 06:05:14.084",
+    "updated_at": "2023-05-24 06:05:14.084",
+    "eventId": null,
+    "type": "time"
+  },
+  {
+    "id": 841,
+    "name": "Зал",
+    "shortName": "hall",
+    "userId": null,
+    "created_at": "2023-05-24 06:10:23.996",
+    "updated_at": "2023-05-24 06:10:23.996",
+    "eventId": null,
+    "type": "place"
+  },
+  {
+    "id": 842,
+    "name": "Улица",
+    "shortName": "outside",
+    "userId": null,
+    "created_at": "2023-05-24 06:10:39.935",
+    "updated_at": "2023-05-24 06:10:39.935",
+    "eventId": null,
+    "type": "place"
+  }
+]

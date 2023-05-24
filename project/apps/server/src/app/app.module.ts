@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { path } from 'app-root-path';
 import { AuthModule } from './auth/auth.module';
+import { TagModule } from './tag/tag.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UserModule,
     AuthModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
