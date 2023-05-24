@@ -8,19 +8,31 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Role, User } from '@prisma/client';
 import { hash } from 'argon2';
+import { v4 as uuidv4 } from 'uuid';
+import { ToggleDto } from '../tag/dto/create-tag.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
+    console.log(createUserDto);
+
     return this.prisma.user.create({
       data: {
         ...createUserDto,
         password: await hash(createUserDto.password),
-        firstName: '',
-        lastName: '',
-        userName: '',
+        firstName: createUserDto.firstName ? createUserDto.firstName : 'User',
+        lastName: createUserDto.lastName ? createUserDto.lastName : 'Cool',
+        userName: createUserDto.userName ? createUserDto.userName : uuidv4(),
         role: Role.USER,
+        hobbies: {
+          [createUserDto.hobbies && 'connect']: createUserDto.hobbies.map(
+            id => ({ id: +id }),
+          ),
+        },
+      },
+      include: {
+        hobbies: true,
       },
     });
   }
@@ -41,6 +53,10 @@ export class UserService {
   async getById(id: number): Promise<User> {
     const _user = await this.prisma.user.findUnique({
       where: { id },
+      include: {
+        hobbies: true,
+        favorites: true,
+      },
     });
 
     if (!_user) throw new NotFoundException('User not found');
@@ -85,6 +101,23 @@ export class UserService {
           password: updateUserDto.password
             ? await hash(updateUserDto.password)
             : user.password,
+          hobbies: {
+            [updateUserDto.hobbies && 'connect']: updateUserDto.hobbies.map(
+              id => ({ id }),
+            ),
+          },
+        },
+        include: {
+          hobbies: {
+            select: {
+              name: true,
+            },
+          },
+          favorites: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
     }
@@ -93,6 +126,44 @@ export class UserService {
   async remove(id: number): Promise<User> {
     return this.prisma.user.delete({
       where: { id },
+    });
+  }
+
+  async toggle(id: number, dto: ToggleDto): Promise<User> {
+    const isExist = await this.prisma.user
+      .count({
+        where: {
+          id: id,
+          [dto.type]: {
+            some: {
+              id: dto.toggleId,
+            },
+          },
+        },
+      })
+      .then(Boolean);
+
+    return this.prisma.user.update({
+      where: { id: id },
+      data: {
+        [dto.type]: {
+          [isExist ? 'disconnect' : 'connect']: {
+            id: dto.toggleId,
+          },
+        },
+      },
+      include: {
+        hobbies: {
+          select: {
+            name: true,
+          },
+        },
+        favorites: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   }
 }

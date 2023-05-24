@@ -10,24 +10,22 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
-  email    String @unique
-  password String @db.VarChar(200)
-
-  firstName  String
-  lastName   String
-  userName   String @unique
+  email      String @unique
+  password   String @db.VarChar(200)
+  firstName  String @map("first_name")
+  lastName   String @map("last_name")
+  userName   String @unique @map("user_name")
   avatarPath String @default("/assets/default-avatar.png") @map("avatar_path")
-
-  role Role[]
+  role       Role[]
 
   hobbies Tag[]
 
-  creations Event[] @relation("creations")
-
-  events Event[]
-
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  creations Event[] @relation("creations")
+  events    Event[] @relation("events")
+  favorites Event[] @relation("favorites")
 
   // eventsList UsersOnEvents[]
   @@map("users")
@@ -37,38 +35,35 @@ model Tag {
   id        Int    @id @default(autoincrement())
   name      String
   shortName String @unique
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  type      String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  event   Event? @relation(fields: [eventId], references: [id])
-  eventId Int?
+  users  User[]
+  events Event[]
 
   @@map("tags")
 }
 
 model Event {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
-  description String
-  imageUrl    String @unique @map("image_url")
-  coordinateX String @map("coordinate_x")
-  coordinateY String @map("coordinate_y")
+  description String?
+  imageUrl    String  @unique @map("image_url")
+  coordinateX String? @map("coordinate_x")
+  coordinateY String? @map("coordinate_y")
 
-  tags Tag[]
-
-  eventTime DateTime
+  eventTime DateTime?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  users User[]
-
-  creator   User? @relation("creations", fields: [creatorId], references: [id])
-  creatorId Int?  @unique
+  tags             Tag[]
+  users            User[] @relation("events")
+  usersOfFavorites User[] @relation("favorites")
+  creator          User?  @relation("creations", fields: [creatorId], references: [id])
+  creatorId        Int?   @unique
 
   // usersList UsersOnEvents[]
   @@map("events")

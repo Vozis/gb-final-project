@@ -10,10 +10,13 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { User } from '@prisma/client';
 import { verify } from 'argon2';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { ITokens } from '../../../../../libs/shared/types/src/lib/token.types';
 import { JwtService } from '@nestjs/jwt';
 import { IReturnUserObject, ReturnAuth } from './auth.interface';
 import { TokenDto } from './dto/token.dto';
+import { fileUploadHelper } from '@project/shared/utils';
+import { ITokens } from '@project/shared/types';
+import { Express } from 'express';
+import 'multer';
 
 @Injectable()
 export class AuthService {
@@ -23,12 +26,19 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(dto: CreateUserDto): Promise<ReturnAuth> {
+  async register(
+    dto: CreateUserDto,
+    avatar: Express.Multer.File,
+  ): Promise<ReturnAuth> {
     const _user = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
 
     if (_user) throw new BadRequestException('Email already exists');
+
+    if (avatar) {
+      dto.avatarPath = await fileUploadHelper(avatar, 'users');
+    }
 
     const user = await this.userService.create(dto);
     const returnUser = this.returnUserObject(user);
