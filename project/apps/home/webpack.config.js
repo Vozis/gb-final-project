@@ -1,10 +1,14 @@
 const { composePlugins, withNx } = require('@nx/webpack');
 const { withReact } = require('@nx/react');
-const { withModuleFederation } = require('@nx/react/module-federation');
+const withModuleFederation = require('@nx/react/module-federation');
+const { merge } = require('webpack-merge');
+
+const moduleFederationConfig = require('./module-federation.config');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 const baseConfig = require('./module-federation.config');
 
-const config = {
+const federationModuleConfig = {
   ...baseConfig,
 };
 
@@ -12,5 +16,13 @@ const config = {
 module.exports = composePlugins(
   withNx(),
   withReact(),
-  withModuleFederation(config),
+  async (config, { options, context }) => {
+    config.plugins.push(new NodePolyfillPlugin());
+
+    const federatedModules = await withModuleFederation({
+      ...federationModuleConfig,
+    });
+
+    return merge(federatedModules(config, { options, context }), {});
+  },
 );
