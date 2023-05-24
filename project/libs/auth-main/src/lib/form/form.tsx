@@ -1,17 +1,14 @@
-<<<<<<< HEAD
 import axios from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.scss';
 import * as process from 'process';
-=======
 import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import styles from './form.module.scss';
->>>>>>> 4c78944 (download changes from the master branch from the repository)
 
 /* eslint-disable-next-line */
 export interface FormProps {}
