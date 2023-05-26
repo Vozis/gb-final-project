@@ -3,6 +3,9 @@ import Card from './card/card';
 
 import { faker } from '@faker-js/faker';
 import { Search } from '@project/shared/ui';
+import { AuthContext } from '@project/shared/store';
+import { useContext } from 'react';
+import { useAuthRedux } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
 
@@ -22,6 +25,10 @@ const MOCK_CARDS = createCards(10);
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
+  const { user } = useAuthRedux();
+
+  console.log(user);
+
   return (
     <div className={styles.container}>
       <Search />

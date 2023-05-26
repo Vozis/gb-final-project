@@ -10,7 +10,7 @@ export function App() {
   return (
     <SharedProviders>
       <SharedLayout>
-        <AuthMain />
+        <AuthMain />;
       </SharedLayout>
     </SharedProviders>
   );

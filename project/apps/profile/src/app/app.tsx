@@ -5,14 +5,13 @@ import { SharedProviders } from '@project/shared/providers';
 import List from './components/List';
 
 import '../styles.scss';
+import { ProfileMain } from '@project/profile-main';
 
 export function App() {
   return (
-    <SharedProviders>
-      <SharedLayout>
-        <List />
-      </SharedLayout>
-    </SharedProviders>
+    <SharedLayout>
+      <ProfileMain />;
+    </SharedLayout>
   );
 }
 

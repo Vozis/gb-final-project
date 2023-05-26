@@ -111,6 +111,5 @@
       }
     }
   },
-  "tags": [],
-  "implicitDependencies": ["home", "auth", "profile", "settings"]
+  "tags": []
 }
