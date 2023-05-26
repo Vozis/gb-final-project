@@ -10,7 +10,7 @@ export function App() {
   return (
     <SharedProviders>
       <SharedLayout>
-        <HomeMain />
+        <HomeMain />;
       </SharedLayout>
     </SharedProviders>
   );

@@ -15,8 +15,6 @@ import { ToggleDto } from '../tag/dto/create-tag.dto';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
-    console.log(createUserDto);
-
     return this.prisma.user.create({
       data: {
         ...createUserDto,
@@ -26,9 +24,9 @@ export class UserService {
         userName: createUserDto.userName ? createUserDto.userName : uuidv4(),
         role: Role.USER,
         hobbies: {
-          [createUserDto.hobbies && 'connect']: createUserDto.hobbies.map(
-            id => ({ id: +id }),
-          ),
+          connect: createUserDto.hobbies
+            ? createUserDto.hobbies.map(id => ({ id: +id }))
+            : { shortName: 'empty' },
         },
       },
       include: {
@@ -102,9 +100,10 @@ export class UserService {
             ? await hash(updateUserDto.password)
             : user.password,
           hobbies: {
-            [updateUserDto.hobbies && 'connect']: updateUserDto.hobbies.map(
-              id => ({ id }),
-            ),
+            set: [],
+            connect: updateUserDto.hobbies
+              ? updateUserDto.hobbies.map(id => ({ id }))
+              : [],
           },
         },
         include: {

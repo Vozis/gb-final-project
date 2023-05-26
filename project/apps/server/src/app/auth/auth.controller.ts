@@ -37,8 +37,6 @@ export class AuthController {
   async login(@Body() dto: LoginAuthDto): Promise<ReturnAuth> {
     return this.authService.login(dto);
   }
-
-  @UseGuards(JwtAuthGuard)
   @Post('get-new-tokens')
   async getNewTokens(@Body() dto: TokenDto): Promise<ReturnAuth> {
     return this.authService.getNewTokens(dto);

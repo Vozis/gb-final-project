@@ -4,6 +4,7 @@ import FormReg from './form-reg/form-reg';
 import Form from './form/form';
 import cn from 'clsx';
 import Title from './title/title';
+import { useAuthRedirect } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface AuthMainProps {}

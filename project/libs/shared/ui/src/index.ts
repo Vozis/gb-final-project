@@ -1,3 +1,5 @@
+export * from './lib/form/select/select';
+export * from './lib/form/select/select';
 export * from './lib/icons/material-icon';
 export * from './lib/toasts/toast/toast';
 export * from './lib/search/search';
