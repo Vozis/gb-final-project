@@ -1,10 +1,10 @@
+import { Button } from '@project/shared/ui';
+import { errorCatch } from '@project/shared/utils';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { FormProps } from 'react-router-dom';
-import styles from './form-reg.module.scss';
-import { Button } from '@project/shared/ui';
 import { toast } from 'react-toastify';
-import { errorCatch } from '@project/shared/utils';
+import styles from './form-reg.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormRegProps {}
