@@ -17,8 +17,6 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { TokenDto } from './dto/token.dto';
 import { JwtAuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
-import 'multer';
 
 @Controller('auth')
 export class AuthController {

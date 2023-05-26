@@ -27,8 +27,6 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
-  console.log(user);
-
   return (
     <div className={styles.container}>
       <Search />

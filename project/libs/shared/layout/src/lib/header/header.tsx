@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { User } from '@prisma/client';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
@@ -9,6 +9,8 @@ export interface HeaderProps {}
 
 export function Header(props: HeaderProps) {
   const { user } = useAuthRedux();
+
+  const navigate = useNavigate();
 
   const { logout } = useActions();
 
@@ -28,11 +30,19 @@ export function Header(props: HeaderProps) {
           <Link to="/settings">Settings</Link>
         </li>
       </ul>
-      <div>
+      <div
+        className={'border-l px-4 ml-5 flex items-center justify-between gap-4'}
+      >
         <span>{user?.userName}</span>
-        <Button type={'button'} onClick={() => logout()}>
-          Выйти
-        </Button>
+        {user ? (
+          <Button type={'button'} onClick={() => logout()}>
+            Выйти
+          </Button>
+        ) : (
+          <Button type={'button'} onClick={() => navigate('/auth')}>
+            Войти
+          </Button>
+        )}
       </div>
     </header>
   );

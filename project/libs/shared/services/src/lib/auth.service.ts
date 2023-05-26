@@ -16,7 +16,6 @@ export const AuthService = {
   },
 
   async login(data: ILogin) {
-    console.log(data);
     const response = await axiosClassic.post<IAuthResponse>(
       '/auth/login',
       data,

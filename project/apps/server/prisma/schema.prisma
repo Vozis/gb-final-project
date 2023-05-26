@@ -50,7 +50,7 @@ model Event {
   id          Int     @id @default(autoincrement())
   name        String
   description String?
-  imageUrl    String  @unique @map("image_url")
+  imageUrl    String  @unique @default("/assets/default-event.png") @map("image_url")
   coordinateX String? @map("coordinate_x")
   coordinateY String? @map("coordinate_y")
 
@@ -63,7 +63,7 @@ model Event {
   users            User[] @relation("events")
   usersOfFavorites User[] @relation("favorites")
   creator          User?  @relation("creations", fields: [creatorId], references: [id])
-  creatorId        Int?   @unique
+  creatorId        Int?
 
   // usersList UsersOnEvents[]
   @@map("events")
