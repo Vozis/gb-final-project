@@ -1,10 +1,12 @@
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import styles from './form.module.scss';
 import { Button } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
+
+import styles from './form.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -23,6 +25,7 @@ export function Form(props: FormProps) {
   const onSubmit = async (data: any) => {
     console.log(data);
     login(data);
+
   };
 
   return (
