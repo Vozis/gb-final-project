@@ -3,12 +3,13 @@ import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Tag } from '@prisma/client';
+import { returnTagObject, TagSelect } from './returnTagObject';
 
 @Injectable()
 export class TagService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createTagDto: CreateTagDto, userId?: number): Promise<Tag> {
+  async create(createTagDto: CreateTagDto): Promise<TagSelect> {
     const _tag = await this.prisma.tag.findUnique({
       where: {
         shortName: createTagDto.shortName,
@@ -17,58 +18,55 @@ export class TagService {
 
     if (_tag) throw new BadRequestException('Tag already exists');
 
-    if (userId) {
-      return this.prisma.tag.create({
-        data: {
-          name: createTagDto.name,
-          shortName: createTagDto.shortName,
-          type: createTagDto.type,
-        },
-      });
-    } else {
-      return this.prisma.tag.create({
-        data: {
-          name: createTagDto.name,
-          shortName: createTagDto.shortName,
-          type: createTagDto.type,
-        },
-      });
-    }
+    return this.prisma.tag.create({
+      data: {
+        name: createTagDto.name,
+        shortName: createTagDto.shortName,
+        type: createTagDto.type,
+      },
+      select: returnTagObject,
+    });
   }
 
   async getAll(): Promise<Tag[]> {
     return this.prisma.tag.findMany();
   }
 
-  async getByType(type: string): Promise<Tag[]> {
-    const _tag = await this.prisma.tag.findFirst({
-      where: {
-        type,
-      },
-    });
+  async getByType(type: string): Promise<TagSelect[]> {
+    const isExistTag = await this.prisma.tag
+      .findFirst({
+        where: {
+          type,
+        },
+      })
+      .then(Boolean);
 
-    if (!_tag) throw new BadRequestException('Tag does not exist');
+    if (!isExistTag) throw new BadRequestException('Tag does not exist');
 
     return this.prisma.tag.findMany({
       where: { type },
+      select: returnTagObject,
     });
   }
 
-  async getByShortName(shortName: string): Promise<Tag> {
-    const _tag = await this.prisma.tag.findUnique({
-      where: {
-        shortName,
-      },
-    });
+  async getByShortName(shortName: string): Promise<TagSelect> {
+    const isExistTag = await this.prisma.tag
+      .findUnique({
+        where: {
+          shortName,
+        },
+      })
+      .then(Boolean);
 
-    if (!_tag) throw new BadRequestException('Tag does not exist');
+    if (!isExistTag) throw new BadRequestException('Tag does not exist');
 
     return this.prisma.tag.findUnique({
       where: { shortName },
+      select: returnTagObject,
     });
   }
 
-  async update(id: number, updateTagDto: UpdateTagDto): Promise<Tag> {
+  async update(id: number, updateTagDto: UpdateTagDto): Promise<TagSelect> {
     if (updateTagDto.shortName) {
       const _tag = await this.prisma.tag.findUnique({
         where: { shortName: updateTagDto.shortName },

@@ -35,22 +35,22 @@ export function ProfileMain(props: ProfileMainProps) {
     mode: 'onChange',
   });
 
-  const { isLoading: isLoadingTags, data: times } = useQuery(
-    ['get-tags-count'],
-    () => axios.get<ITag[]>('/api/tags/by-type/count'),
-    {
-      select: ({ data: times }) =>
-        times.map(
-          (time): IOption => ({
-            label: time.name,
-            value: time.id,
-          }),
-        ),
-      onError: err => {
-        toast.error(errorCatch(err));
-      },
-    },
-  );
+  // const { isLoading: isLoadingTags, data: times } = useQuery(
+  //   ['get-tags-count'],
+  //   () => axios.get<ITag[]>('/api/tags/by-type/count'),
+  //   {
+  //     select: ({ data: times }) =>
+  //       times.map(
+  //         (time): IOption => ({
+  //           label: time.name,
+  //           value: time.id,
+  //         }),
+  //       ),
+  //     onError: err => {
+  //       toast.error(errorCatch(err));
+  //     },
+  //   },
+  // );
 
   const { mutateAsync } = useMutation(['update-user'], data =>
     axios.put('/api/users/profile', data),
@@ -73,26 +73,27 @@ export function ProfileMain(props: ProfileMainProps) {
   };
 
   return (
-    <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <Controller
-          name={'times'}
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <SelectField
-              options={times || []}
-              field={field}
-              placeholder={'Выбери подходящее время'}
-              isMulti={true}
-              isLoading={isLoadingTags}
-              error={error}
-            />
-          )}
-        />
-      </div>
-
-      <Button type={'submit'}>Изменить</Button>
-    </form>
+    <div>hello</div>
+    // <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
+    //   <div>
+    //     <Controller
+    //       name={'times'}
+    //       control={control}
+    //       render={({ field, fieldState: { error } }) => (
+    //         <SelectField
+    //           options={times || []}
+    //           field={field}
+    //           placeholder={'Выбери подходящее время'}
+    //           isMulti={true}
+    //           isLoading={isLoadingTags}
+    //           error={error}
+    //         />
+    //       )}
+    //     />
+    //   </div>
+    //
+    //   <Button type={'submit'}>Изменить</Button>
+    // </form>
   );
 }
 

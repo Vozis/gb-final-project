@@ -10,7 +10,7 @@
     "build": "nx affected:build --all --configuration=production",
     "test": "nx run-many --target=test --all",
     "prisma-migrate": "cd apps/server && npx prisma migrate dev",
-    "prisma-reset": "cd apps/server && npx prisma db yreset"
+    "prisma-reset": "cd apps/server && npx prisma db reset"
   },
   "private": true,
   "devDependencies": {

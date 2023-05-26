@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { path } from 'app-root-path';
 import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
+import { EventModule } from './event/event.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +23,7 @@ import { TagModule } from './tag/tag.module';
     UserModule,
     AuthModule,
     TagModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
