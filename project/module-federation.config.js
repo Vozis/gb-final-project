@@ -4,7 +4,11 @@ const coreLibraries = new Set([
   'react',
   'react-dom',
   'react-router-dom',
+  'redux',
+  'react-redux',
+  '@tanstack/react-query',
   '@project/shared/providers',
+  '@project/shared/layout',
 ]);
 
 module.exports = {

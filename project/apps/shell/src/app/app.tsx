@@ -3,9 +3,9 @@ import * as React from 'react';
 import NxWelcome from './nx-welcome';
 
 import { Link, Route, Routes } from 'react-router-dom';
-import { SharedProviders } from '@project/shared/providers';
 
 import '../styles.scss';
+import { SharedProviders } from '@project/shared/providers';
 
 const Auth = React.lazy(() => import('auth/Module'));
 
