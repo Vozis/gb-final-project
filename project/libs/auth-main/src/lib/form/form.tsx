@@ -3,28 +3,29 @@ import { errorCatch } from '@project/shared/utils';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
+import { useActions, useAuthRedirect } from '@project/shared/hooks';
+
 import styles from './form.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
 
 export function Form(props: FormProps) {
+  useAuthRedirect();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const { login } = useActions();
+
   const onSubmit = async (data: any) => {
-    try {
-      // Меняем здесь
-      console.log(data);
-      const res = await axios.post('/api/auth/login', data);
-      console.log(res.data);
-      localStorage.setItem('user', JSON.stringify(res.data));
-      toast.success('Login Success');
-    } catch (err) {
-      toast.error(errorCatch(err));
-    }
+    console.log(data);
+    login(data);
+
   };
 
   return (

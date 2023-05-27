@@ -14,6 +14,7 @@ import { TagService } from './tag.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
 import { Tag } from '@prisma/client';
+import { TagSelect } from './returnTagObject';
 
 @Controller('tags')
 export class TagController {
@@ -23,7 +24,7 @@ export class TagController {
 
   @Post()
   @HttpCode(200)
-  async create(@Body() createTagDto: CreateTagDto): Promise<Tag> {
+  async create(@Body() createTagDto: CreateTagDto): Promise<TagSelect> {
     return this.tagService.create(createTagDto);
   }
 
@@ -33,12 +34,14 @@ export class TagController {
   }
 
   @Get('by-type/:type')
-  async getByType(@Param('type') type: string): Promise<Tag[]> {
+  async getByType(@Param('type') type: string): Promise<TagSelect[]> {
     return this.tagService.getByType(type);
   }
 
   @Get(':shortname')
-  async getByShortName(@Param('shortname') shortName: string): Promise<Tag> {
+  async getByShortName(
+    @Param('shortname') shortName: string,
+  ): Promise<TagSelect> {
     return this.tagService.getByShortName(shortName);
   }
 
@@ -46,13 +49,13 @@ export class TagController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTagDto: UpdateTagDto,
-  ): Promise<Tag> {
+  ): Promise<TagSelect> {
     return this.tagService.update(id, updateTagDto);
   }
 
   @Delete(':id')
   @HttpCode(200)
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<Tag> {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<TagSelect> {
     return this.tagService.delete(id);
   }
 }

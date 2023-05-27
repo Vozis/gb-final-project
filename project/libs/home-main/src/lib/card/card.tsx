@@ -28,7 +28,7 @@ export function Card({ id, cardTitle, cardImgUrl, description }: CardProps) {
           <div className={styles.cardTags}>
             <Tag onClick={() => console.log('sports')}>Sports</Tag>
             <Tag className={styles.cardTagPlace}>Place</Tag>
-            <Tag>Count</Tag>
+            <Tag className={styles.cardTagCount}>Count</Tag>
             <Tag>Time</Tag>
           </div>
           <Button

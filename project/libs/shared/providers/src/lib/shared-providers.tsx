@@ -1,15 +1,10 @@
 import { ToastContainer } from 'react-toastify';
-import { store } from '@project/shared/store';
-import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
 import 'react-toastify/dist/ReactToastify.css';
-
-/* eslint-disable-next-line */
-
 import { FC, PropsWithChildren } from 'react';
-import { SharedLayout } from '@project/shared/layout';
+import { AuthProvider } from './AuthProvider';
+import { ReduxProvider } from './ReduxProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,14 +16,12 @@ const queryClient = new QueryClient({
 
 export const SharedProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Provider store={store}>
+    <ReduxProvider>
       <QueryClientProvider client={queryClient}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <ToastContainer autoClose={2000} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </Provider>
+    </ReduxProvider>
   );
 };
-
-export default SharedProviders;

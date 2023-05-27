@@ -10,18 +10,18 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
-import { ToggleDto } from '../tag/dto/create-tag.dto';
+import { Role, User as UserModel } from '@prisma/client';
+import { ToggleDto } from '../../utils/toggle.dto';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   // Users
 
-  @Auth('ADMIN')
+  @Auth()
   @Get('profile')
   async getProfile(@User('id') id: number) {
     return this.userService.getById(id);
@@ -40,6 +40,12 @@ export class UserController {
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
   }
+
+  // @Get('profile/favorites')
+  // @Auth()
+  // async getFavorites(@User('id') id: number) {
+  //   return this.userService.getAll();
+  // }
 
   @Put('profile/toggle')
   @Auth()

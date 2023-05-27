@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IField } from '@project/shared/types';
 import cn from 'clsx';
 
@@ -11,9 +11,9 @@ const Field = forwardRef<HTMLInputElement, IField>(
       <div className={cn(styles.field)} style={style}>
         <label>
           <span>{placeholder}</span>
-          <input ref={ref} type={type} {...rest} />
-          {error && <div className={styles.error}>{errorCatch(error)}</div>}
+          <input className={cn(styles.input)} ref={ref} type={type} {...rest} />
         </label>
+        {error && <div className={styles.error}>{errorCatch(error)}</div>}
       </div>
     );
   },
