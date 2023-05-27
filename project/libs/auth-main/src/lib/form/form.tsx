@@ -1,8 +1,5 @@
 import { Button } from '@project/shared/ui';
-import { errorCatch } from '@project/shared/utils';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
 
@@ -25,7 +22,6 @@ export function Form(props: FormProps) {
   const onSubmit = async (data: any) => {
     console.log(data);
     login(data);
-
   };
 
   return (
