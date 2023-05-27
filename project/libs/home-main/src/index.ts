@@ -1,3 +1,4 @@
+export * from './lib/card-list/card-list';
 
 export * from './lib/button/button';
 
