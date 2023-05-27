@@ -17,8 +17,6 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { TokenDto } from './dto/token.dto';
 import { JwtAuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
-import 'multer';
 
 @Controller('auth')
 export class AuthController {
@@ -37,8 +35,6 @@ export class AuthController {
   async login(@Body() dto: LoginAuthDto): Promise<ReturnAuth> {
     return this.authService.login(dto);
   }
-
-  @UseGuards(JwtAuthGuard)
   @Post('get-new-tokens')
   async getNewTokens(@Body() dto: TokenDto): Promise<ReturnAuth> {
     return this.authService.getNewTokens(dto);

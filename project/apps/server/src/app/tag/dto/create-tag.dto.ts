@@ -17,18 +17,3 @@ export class CreateTagDto {
   })
   type: string;
 }
-
-export class ToggleDto {
-  @IsString({
-    message: 'Type is required',
-  })
-  type: string;
-
-  @IsNumber(
-    {},
-    {
-      message: 'Value is required',
-    },
-  )
-  toggleId: number;
-}
