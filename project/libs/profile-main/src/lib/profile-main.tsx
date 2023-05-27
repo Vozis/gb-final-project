@@ -1,15 +1,12 @@
-import styles from './profile-main.module.scss';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { errorCatch } from '@project/shared/utils';
+import { IOption, ITag, IUserEdit } from '@project/shared/types';
 import { Button } from '@project/shared/ui';
-import { IOption, IUserEdit } from '@project/shared/types';
+import { errorCatch } from '@project/shared/utils';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ITag } from '@project/shared/types';
+import axios from 'axios';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import SelectField from '../../../shared/ui/src/lib/form/select/select';
-import { useEffect, useState } from 'react';
-import { User } from '@prisma/client';
+import styles from './profile-main.module.scss';
 
 /* eslint-disable-next-line */
 export interface ProfileMainProps {}
@@ -74,6 +71,7 @@ export function ProfileMain(props: ProfileMainProps) {
 
   return (
     <div>hello</div>
+
     // <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
     //   <div>
     //     <Controller
