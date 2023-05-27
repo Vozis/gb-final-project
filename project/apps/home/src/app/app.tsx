@@ -6,6 +6,7 @@ import { SharedProviders } from '@project/shared/providers';
 import { SharedLayout } from '@project/shared/layout';
 
 import '../styles.scss';
+
 export function App() {
   return (
     <SharedProviders>
