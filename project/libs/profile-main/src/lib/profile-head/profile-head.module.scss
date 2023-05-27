@@ -1,0 +1,26 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile {
+  &_load_img {
+    color: darkblue;
+    font-size: 10px;
+  }
+  &_load_img:hover {
+    color: deepskyblue;
+    cursor: pointer;
+  }
+  &_user_div {
+    display: flex;
+    gap: 10px;
+  }
+}

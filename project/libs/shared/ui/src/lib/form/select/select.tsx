@@ -1,10 +1,10 @@
 import styles from './select.module.scss';
 
+import { IOption, ISelect } from '@project/shared/types';
+import { errorCatch } from '@project/shared/utils';
 import { FC } from 'react';
 import Select, { OnChangeValue } from 'react-select';
-import { errorCatch } from '@project/shared/utils';
 import makeAnimated from 'react-select/animated';
-import { IOption, ISelect } from '@project/shared/types';
 
 const animatedComponents = makeAnimated();
 
@@ -50,6 +50,7 @@ const SelectField: FC<ISelect> = ({
           isLoading={isLoading}
           value={getValue()}
           onChange={onChange}
+          isClearable={false}
         />
       </label>
       {error && <div className={styles.error}>{errorCatch(error)}</div>}
