@@ -74,6 +74,7 @@ export function ProfileMain(props: ProfileMainProps) {
 
   return (
     <div>hello</div>
+
     // <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
     //   <div>
     //     <Controller
