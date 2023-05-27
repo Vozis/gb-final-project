@@ -112,5 +112,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["home"]
+  "implicitDependencies": ["home", "auth", "profile", "settings"]
 }

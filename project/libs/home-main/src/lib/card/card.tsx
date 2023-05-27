@@ -1,32 +1,44 @@
 import styles from './card.module.scss';
 
-import { Avatar } from '@project/shared/ui';
-import Button from '../button/button';
+import { Button } from '../../../../shared/ui/src/lib/button/button';
+import { Tag } from '../../../../shared/ui/src/lib/tag/tag';
 
 /* eslint-disable-next-line */
 export interface CardProps {
   id: string;
-  username: string;
-  avatarImgUrl: string;
+  cardTitle: string;
+  cardImgUrl: string;
   description: string;
 }
 
-export function Card({ id, username, avatarImgUrl, description }: CardProps) {
+export function Card({ id, cardTitle, cardImgUrl, description }: CardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.cardWrapper}>
-        <div className={styles.cardHeader}>
-          <div className={styles.cardUserInfo}>
-            <Avatar avatarUrl={avatarImgUrl} />
-            <a href="/" className={styles.cardUsername}>
-              {username}
-            </a>
-          </div>
-          <span>1 minute ago</span>
+        <div className={styles.cardImageWrapper}>
+          <img src={cardImgUrl} alt={cardTitle + 'img'} />
         </div>
-        <div className={styles.cardBody}></div>
-        <p>{description}</p>
-        <button className={styles.cardButton}>Join</button>
+        <div className={styles.cardUserInfo}>
+          {/*<MaterialIcon name={'MdAccountBox'} className={styles.cardIcon} />*/}
+          {/*<Avatar avatarUrl={avatarImgUrl} />*/}
+
+          <a href="/" className={styles.cardTitle}>
+            {cardTitle}
+          </a>
+          <div className={styles.cardTags}>
+            <Tag onClick={() => console.log('sports')}>Sports</Tag>
+            <Tag className={styles.cardTagPlace}>Place</Tag>
+            <Tag>Count</Tag>
+            <Tag>Time</Tag>
+          </div>
+          <Button
+            type={'button'}
+            className={styles.cardBtn}
+            onClick={() => alert('click')}
+          >
+            Join
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Test from './test';
+import CardList from './card-list';
 
-describe('Test', () => {
+describe('CardList', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Test />);
+    const { baseElement } = render(<CardList />);
     expect(baseElement).toBeTruthy();
   });
 });

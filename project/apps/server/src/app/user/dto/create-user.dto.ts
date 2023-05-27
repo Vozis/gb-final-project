@@ -6,11 +6,13 @@ import {
   IsString,
   MinLength,
   IsNotEmpty,
+  IsArray,
 } from 'class-validator';
 
 import { Prisma } from '@prisma/client';
 
-export class CreateUserDto implements Prisma.UserUpdateInput {
+// implements Prisma.UserUpdateInput
+export class CreateUserDto {
   @IsEmail(
     {},
     {
@@ -40,10 +42,15 @@ export class CreateUserDto implements Prisma.UserUpdateInput {
   @IsString({
     message: 'Имя должно быть строкой',
   })
-  userName?: string;
+  userName: string;
 
   @IsString({
     message: 'Имя должно быть строкой',
   })
+  @IsOptional()
   avatarPath?: string;
+
+  @IsArray()
+  @IsOptional()
+  hobbies?: [number];
 }

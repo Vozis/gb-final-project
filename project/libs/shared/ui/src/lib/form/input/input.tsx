@@ -1,15 +1,24 @@
+import { FC, forwardRef } from 'react';
+import { IField } from '@project/shared/types';
+import cn from 'clsx';
+
 import styles from './input.module.scss';
+import { errorCatch } from '@project/shared/utils';
 
-/* eslint-disable-next-line */
-export interface InputProps {}
+const Field = forwardRef<HTMLInputElement, IField>(
+  ({ placeholder, error, type = 'text', style, ...rest }, ref) => {
+    return (
+      <div className={cn(styles.field)} style={style}>
+        <label>
+          <span>{placeholder}</span>
+          <input ref={ref} type={type} {...rest} />
+          {error && <div className={styles.error}>{errorCatch(error)}</div>}
+        </label>
+      </div>
+    );
+  },
+);
 
-export function Input(props: InputProps) {
-  return (
-    <label>
-      <span>input</span>
-      <input />
-    </label>
-  );
-}
+Field.displayName = 'Field';
 
-export default Input;
+export default Field;

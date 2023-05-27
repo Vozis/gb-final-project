@@ -5,13 +5,44 @@
 }
 
 .cardWrapper {
-  min-width: 320px;
-  padding: 15px;
+  //min-width: 320px;
+  //padding: 15px;
   box-shadow: 0 2px 15px -2px rgba(34, 60, 80, 0.2);
+  border-radius: 20px;
 
   display: flex;
-  flex-direction: column;
 
+}
+
+.cardImageWrapper {
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  flex-basis: 180px;
+  border-radius: 20px 0 0 20px;
+  //clip-path: polygon(0 0, 100% 0, 12% 100%, 0 100%)
+
+}
+
+.cardImageWrapper::before {
+  display: block; // это блочный элемент
+  content: ''; // без него псевдоэлемент не отрисуется
+  width: 80px; // на всю ширину блока-родителя
+  height: 100%; // высота скошенного края
+  //background: black; // цвет скошенного края
+  position: absolute; // позиционируем относительно block
+  top: 0; // пристроим к верхней части блока
+  right: 0; // пристроим к левой части блока
+  transform: translateX(0%); // сдвигаем вверх на 30 пикселей
+  background: linear-gradient(to top left, #fff 50%, rgba(255, 0, 0, 0) 48%);
+
+}
+
+.cardImageWrapper img {
+  max-width: 100%;
+  object-fit: cover;
+  height: auto;
 }
 
 .cardHeader {
@@ -28,30 +59,39 @@
 
 .cardUserInfo {
   display: flex;
+  flex-direction: column;
   align-items: center;
   flex-grow: 1;
+  padding: 15px;
 }
 
-.cardUsername {
+.cardTitle {
   text-decoration: none;
   display: block;
   color: #555;
-  font-size: 22px;
+  font-size: 18px;
   transition: all ease;
+  margin-bottom: 30px;
 }
 
-.cardUsername:hover {
-  color: #333;
+.cardTags {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.cardBody {
-  margin-top: 10px;
+.cardIcon {
+  font-size: 30px;
+  color: pink;
 }
 
-.cardButton {
-  width: 200px;
+.cardBtn {
   height: 40px;
-  border: 1px solid #555;
+  padding: 0 20px;
   margin-left: auto;
   margin-top: 10px;
+  align-self: flex-end;
+}
+
+.cardTagPlace {
+  background-color: pink;
 }
