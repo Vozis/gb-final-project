@@ -1,0 +1,17 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &_btn {
+    display: flex;
+    gap: 10px;
+    margin: 19px 4px;
+  }
+}

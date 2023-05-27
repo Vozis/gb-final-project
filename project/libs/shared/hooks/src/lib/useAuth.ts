@@ -1,13 +1,11 @@
-import { useUser } from './useUser';
-import { useLocalStorage } from './useLocalStorage';
-import { useEffect } from 'react';
-import { IAuthResponse, ILogin, IRegister } from '@project/shared/types';
-import axios from 'axios';
-import { useCookies } from './useCookies';
 import { AuthService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { ILogin, IRegister } from '@project/shared/types';
 import { errorCatch } from '@project/shared/utils';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useLocalStorage } from './useLocalStorage';
+import { useUser } from './useUser';
 
 export const useAuth = () => {
   const { user, addUser, removeUser, setUser } = useUser();
