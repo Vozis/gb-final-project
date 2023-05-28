@@ -56,8 +56,6 @@ export function ProfileMain(props: ProfileMainProps) {
   const onSubmit: SubmitHandler<IUserEdit> = async data => {
     const formData = new FormData();
 
-    console.log(data);
-
     // try {
     //   console.log(data);
     //   const res = await axios.post('/api/auth/login', data);
