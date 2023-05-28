@@ -1,3 +1,4 @@
+export * from './lib/modal/modal';
 export * from './lib/form/select/select';
 export * from './lib/icons/material-icon';
 export * from './lib/toasts/toast/toast';

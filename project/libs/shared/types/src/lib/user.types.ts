@@ -4,6 +4,11 @@ import { IEvent } from './event.types';
 
 export interface IUser extends User {}
 
+export interface IEventUser {
+  id: number;
+  userName: string;
+}
+
 export interface IUserEdit
   extends Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'role'> {
   hobbies?: ITag[] | [];

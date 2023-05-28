@@ -3,15 +3,14 @@ import slugify from 'slugify';
 
 import { cities } from './cities.js';
 
-
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
 const createTag = async quantity => {
   const tags = [];
 
-  for (let i = 1800; i < quantity; i += 1) {
-    const name = cities[i].city;
+  for (let i = 2500; i < quantity; i += 1) {
+    const name = `${cities[i].city} | ${cities[i].region}`;
     const shortName = slugify(name, {
       locale: 'en',
       lower: true,
