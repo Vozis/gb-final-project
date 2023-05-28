@@ -20,34 +20,34 @@ export function CreateEventForm(props: CreateEventFormProps) {
     console.log(data);
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Field
-          placeholder={'Название'}
-          {...register('name', { required: true })}
-        />
-        <Field
-          placeholder={'Описание'}
-          {...register('description', { required: true })}
-        />
-        {/*<Controller*/}
-        {/*        name={'times'}*/}
-        {/*        control={control}*/}
-        {/*        render={({ field, fieldState: { error } }) => (*/}
-        {/*          <SelectField*/}
-        {/*            options={times || []}*/}
-        {/*            field={field}*/}
-        {/*            placeholder={'Выбери подходящее время'}*/}
-        {/*            isMulti={true}*/}
-        {/*            isLoading={isLoadingTags}*/}
-        {/*            error={error}*/}
-        {/*          />*/}
-        {/*        )}*/}
-        {/*/>*/}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Field
+        placeholder={'Название'}
+        {...register('name', { required: true })}
+      />
+      <Field
+        placeholder={'Описание'}
+        {...register('description', { required: true })}
+      />
+      {/*<Controller*/}
+      {/*        name={'times'}*/}
+      {/*        control={control}*/}
+      {/*        render={({ field, fieldState: { error } }) => (*/}
+      {/*          <SelectField*/}
+      {/*            options={times || []}*/}
+      {/*            field={field}*/}
+      {/*            placeholder={'Выбери подходящее время'}*/}
+      {/*            isMulti={true}*/}
+      {/*            isLoading={isLoadingTags}*/}
+      {/*            error={error}*/}
+      {/*          />*/}
+      {/*        )}*/}
+      {/*/>*/}
 
-        <Button type={'submit'}>Создать</Button>
-      </form>
-    </div>
+      <Button className={styles.formBtn} type={'submit'}>
+        Создать
+      </Button>
+    </form>
   );
 }
 
