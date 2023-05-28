@@ -1,11 +1,7 @@
-import { Role, User } from '@prisma/client';
-
-export interface IReturnUserObject extends Omit<User, 'password'> {}
+import { UserSelect } from '../user/returnUserObject';
 
 export interface ReturnAuth {
-  user: IReturnUserObject;
+  user: UserSelect;
   accessToken: string;
   refreshToken: string;
 }
-
-// export type TypeRole = 'USER' | 'ADMIN';

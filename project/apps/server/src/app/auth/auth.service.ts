@@ -7,16 +7,16 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { verify } from 'argon2';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { IReturnUserObject, ReturnAuth } from './auth.interface';
+import { ReturnAuth } from './auth.interface';
 import { TokenDto } from './dto/token.dto';
 import { ITokens } from '@project/shared/types';
-import { Express } from 'express';
-import 'multer';
+
 import { fileUploadHelper } from '../../utils/file-upload.helper';
+import { UserSelect } from '../user/returnUserObject';
 
 @Injectable()
 export class AuthService {
@@ -30,19 +30,29 @@ export class AuthService {
     dto: CreateUserDto,
     avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
-    console.log(dto);
-
-    const _user = await this.prisma.user.findUnique({
-      where: { email: dto.email },
+    const isEmailUser = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    const isUserNameUser = await this.prisma.user.findUnique({
+      where: {
+        userName: dto.userName,
+      },
     });
 
-    if (_user) throw new BadRequestException('Email already exists');
+    if (isEmailUser) throw new BadRequestException('Email already exists');
+    if (isUserNameUser)
+      throw new BadRequestException('UserName already exists');
 
     if (avatar) {
       dto.avatarPath = await fileUploadHelper(avatar, 'users');
     }
 
+    console.log('auth/dto', dto);
+
     const user = await this.userService.create(dto);
+
     const returnUser = this.returnUserObject(user);
     const tokens = await this.createTokens(returnUser);
 
@@ -65,11 +75,13 @@ export class AuthService {
   async getNewTokens({ refreshToken }: TokenDto): Promise<ReturnAuth> {
     if (!refreshToken) throw new BadRequestException('Please login');
 
-    const user = await this.jwtService.verifyAsync<User>(refreshToken);
+    const result = await this.jwtService.verifyAsync<User>(refreshToken);
 
-    if (!user) {
+    if (!result) {
       throw new UnauthorizedException('Invalid refresh token or expired token');
     }
+
+    const user = await this.userService.getById(result.id);
 
     const returnUser = this.returnUserObject(user);
 
@@ -81,8 +93,8 @@ export class AuthService {
     };
   }
 
-  async validateUser(dto: LoginAuthDto): Promise<IReturnUserObject> {
-    const _user = await this.userService.getByEmail(dto.email);
+  async validateUser(dto: LoginAuthDto): Promise<UserSelect> {
+    const _user = await this.userService.getForAuth(dto.email);
 
     if (!_user) throw new NotFoundException('User not found');
 
@@ -98,7 +110,7 @@ export class AuthService {
     return null;
   }
 
-  private async createTokens(dto: IReturnUserObject): Promise<ITokens> {
+  private async createTokens(dto: UserSelect): Promise<ITokens> {
     const payload: Partial<User> = {
       id: dto.id,
       email: dto.email,
@@ -120,7 +132,7 @@ export class AuthService {
     };
   }
 
-  private returnUserObject(user: User): IReturnUserObject {
+  private returnUserObject(user: UserSelect): UserSelect {
     const { password, ...result } = user;
 
     return result;

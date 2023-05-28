@@ -9,12 +9,18 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Role, User } from '@prisma/client';
 import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
-import { ToggleDto } from '../tag/dto/create-tag.dto';
+import { ToggleDto } from '../../utils/toggle.dto';
+import {
+  returnUserFullObject,
+  returnUserObject,
+  UserFullSelect,
+  UserSelect,
+} from './returnUserObject';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserSelect> {
     return this.prisma.user.create({
       data: {
         ...createUserDto,
@@ -24,37 +30,28 @@ export class UserService {
         userName: createUserDto.userName ? createUserDto.userName : uuidv4(),
         role: Role.USER,
         hobbies: {
-          connect: createUserDto.hobbies
-            ? createUserDto.hobbies.map(id => ({ id: +id }))
-            : { shortName: 'empty' },
+          connect:
+            typeof createUserDto.hobbies === 'object'
+              ? createUserDto.hobbies.map(id => ({ id: +id }))
+              : createUserDto.hobbies
+              ? { id: +createUserDto.hobbies }
+              : { shortName: 'empty' },
         },
       },
-      include: {
-        hobbies: true,
-      },
+      select: returnUserObject,
     });
   }
 
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<UserSelect[]> {
     return this.prisma.user.findMany({
-      include: {
-        hobbies: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
+      select: returnUserObject,
     });
   }
 
-  async getById(id: number): Promise<User> {
+  async getById(id: number): Promise<UserSelect> {
     const _user = await this.prisma.user.findUnique({
       where: { id },
-      include: {
-        hobbies: true,
-        favorites: true,
-      },
+      select: returnUserObject,
     });
 
     if (!_user) throw new NotFoundException('User not found');
@@ -62,9 +59,10 @@ export class UserService {
     return _user;
   }
 
-  async getByEmail(email: string): Promise<User> {
+  async getByEmail(email: string): Promise<UserSelect> {
     const _user = await this.prisma.user.findUnique({
       where: { email },
+      select: returnUserObject,
     });
 
     if (!_user) throw new NotFoundException('User not found');
@@ -72,9 +70,21 @@ export class UserService {
     return _user;
   }
 
-  async getByUserName(userName: string): Promise<User> {
+  async getForAuth(email: string): Promise<UserFullSelect> {
+    const _user = await this.prisma.user.findUnique({
+      where: { email },
+      select: returnUserFullObject,
+    });
+
+    if (!_user) throw new NotFoundException('User not found');
+
+    return _user;
+  }
+
+  async getByUserName(userName: string): Promise<UserSelect> {
     const _user = await this.prisma.user.findUnique({
       where: { userName },
+      select: returnUserObject,
     });
 
     if (!_user) throw new NotFoundException('User not found');
@@ -82,7 +92,9 @@ export class UserService {
     return _user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  // async getFavorites(): Promise<I> {}
+
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserSelect> {
     if (updateUserDto.email) {
       const isSameUser = await this.getByEmail(updateUserDto.email);
       if (isSameUser && isSameUser.id !== id)
@@ -106,18 +118,7 @@ export class UserService {
               : [],
           },
         },
-        include: {
-          hobbies: {
-            select: {
-              name: true,
-            },
-          },
-          favorites: {
-            select: {
-              name: true,
-            },
-          },
-        },
+        select: returnUserObject,
       });
     }
   }
@@ -128,7 +129,7 @@ export class UserService {
     });
   }
 
-  async toggle(id: number, dto: ToggleDto): Promise<User> {
+  async toggle(id: number, dto: ToggleDto): Promise<UserSelect> {
     const isExist = await this.prisma.user
       .count({
         where: {
@@ -151,18 +152,7 @@ export class UserService {
           },
         },
       },
-      include: {
-        hobbies: {
-          select: {
-            name: true,
-          },
-        },
-        favorites: {
-          select: {
-            name: true,
-          },
-        },
-      },
+      select: returnUserObject,
     });
   }
 }

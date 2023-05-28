@@ -1,44 +1,37 @@
-import Card from './card/card';
-import styles from './home-main.module.scss';
-
-import { faker } from '@faker-js/faker';
-import { useAuthRedux } from '@project/shared/hooks';
+import { EventService } from '@project/shared/services';
 import { Search } from '@project/shared/ui';
+import { useQuery } from '@tanstack/react-query';
+import CardList from './card-list/card-list';
+import styles from './home-main.module.scss';
 
 /* eslint-disable-next-line */
 
-const createCardInfo = () => ({
-  id: faker.string.uuid(),
-  username: faker.person.fullName(),
-  avatarImgUrl: faker.image.avatar(),
-  description: faker.lorem.words(20),
-});
-
-const createCards = (count: number) => {
-  return Array.from({ length: count }).map(createCardInfo);
-};
-
-const MOCK_CARDS = createCards(10);
+// const createCardInfo = () => ({
+//   id: faker.string.uuid(),
+//   cardTitle: faker.person.jobTitle(),
+//   cardImgUrl: faker.image.urlLoremFlickr({ category: 'sports' }),
+//   description: faker.lorem.words(20),
+// });
+//
+// const createCards = (count: number) => {
+//   return Array.from({ length: count }).map(createCardInfo);
+// };
+//
+// const MOCK_CARDS = createCards(10);
 
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
-  const { user } = useAuthRedux();
-
-  console.log('home-main', user);
-
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ['get-all-events'],
+    queryFn: () => EventService.getAllEvents(),
+  });
+  console.log(data);
   return (
     <div className={styles.container}>
       <Search />
-      {MOCK_CARDS.map(card => (
-        <Card
-          key={card.id}
-          id={card.id}
-          username={card.username}
-          avatarImgUrl={card.avatarImgUrl}
-          description={card.description}
-        />
-      ))}
+
+      <CardList list={data?.data || []} />
     </div>
   );
 }

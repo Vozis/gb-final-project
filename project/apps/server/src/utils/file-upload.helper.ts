@@ -4,14 +4,12 @@ import 'multer';
 import { ensureDir, writeFile } from 'fs-extra';
 import { v4 as uuidv4 } from 'uuid';
 
-// @ts-ignore
 export const fileUploadHelper = async (
   file: Express.Multer.File,
   folder: string,
 ) => {
   const uploadFolder = `${path}/apps/server/src/assets/${folder}`;
-
-  console.log('uploadFolder', uploadFolder);
+  // const uploadFolder = `${path}/libs/shared/assets/${folder}`;
 
   await ensureDir(uploadFolder);
 

@@ -17,8 +17,6 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { TokenDto } from './dto/token.dto';
 import { JwtAuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
-import 'multer';
 
 @Controller('auth')
 export class AuthController {
@@ -30,6 +28,8 @@ export class AuthController {
     @Body() dto: CreateUserDto,
     @UploadedFile() avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
+    console.log('auth/avatar', avatar);
+
     return this.authService.register(dto, avatar);
   }
 

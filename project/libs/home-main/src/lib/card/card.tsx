@@ -1,30 +1,42 @@
 import styles from './card.module.scss';
-import cn from 'clsx';
-
-import { Avatar } from '@project/shared/ui';
+import { Button, Tag } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface CardProps {
   id: string;
-  username: string;
-  avatarImgUrl: string;
+  name: string;
+  imageUrl: string;
   description: string;
 }
 
-export function Card({ id, username, avatarImgUrl, description }: CardProps) {
+export function Card({ id, name, imageUrl, description }: CardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.cardWrapper}>
-        <div className={styles.cardHeader}>
-          <div className={styles.cardUserInfo}>
-            <Avatar avatarUrl={avatarImgUrl} />
-            <a href="/" className={styles.cardUsername}>
-              {username}
-            </a>
-          </div>
-          <span>1 minute ago</span>
+        <div className={styles.cardImageWrapper}>
+          <img src={imageUrl} alt={name + 'img'} />
         </div>
-        <p>{description}</p>
+        <div className={styles.cardUserInfo}>
+          {/*<MaterialIcon name={'MdAccountBox'} className={styles.cardIcon} />*/}
+          {/*<Avatar avatarUrl={avatarImgUrl} />*/}
+
+          <a href="/" className={styles.cardTitle}>
+            {name}
+          </a>
+          <div className={styles.cardTags}>
+            <Tag onClick={() => console.log('sports')}>Sports</Tag>
+            <Tag className={styles.cardTagPlace}>Place</Tag>
+            <Tag className={styles.cardTagCount}>Count</Tag>
+            <Tag>Time</Tag>
+          </div>
+          <Button
+            type={'button'}
+            className={styles.cardBtn}
+            onClick={() => alert('click')}
+          >
+            Join
+          </Button>
+        </div>
       </div>
     </div>
   );

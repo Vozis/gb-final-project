@@ -11,7 +11,12 @@ const axiosOptions = {
   },
 };
 
-export const axiosClassic = axios.create(axiosOptions);
+export const axiosClassic = axios.create({
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 export const axiosAuth = axios.create(axiosOptions);
 
