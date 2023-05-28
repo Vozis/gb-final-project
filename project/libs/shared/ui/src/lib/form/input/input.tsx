@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import styles from './input.module.scss';
 import { errorCatch } from '@project/shared/utils';
 
-const Field = forwardRef<HTMLInputElement, IField>(
+export const Field = forwardRef<HTMLInputElement, IField>(
   ({ placeholder, error, type = 'text', style, ...rest }, ref) => {
     return (
       <div className={clsx(styles.field)} style={style}>
@@ -25,5 +25,3 @@ const Field = forwardRef<HTMLInputElement, IField>(
 );
 
 Field.displayName = 'Field';
-
-export default Field;

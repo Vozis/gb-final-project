@@ -16,6 +16,6 @@ export interface IRegister {
   firstName: string;
   lastName: string;
   userName: string;
-  avatarPath?: string;
+  avatar?: string;
   hobbies?: number[];
 }

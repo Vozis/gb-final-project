@@ -1,8 +1,7 @@
 import styles from './create-event-form.module.scss';
-import { Button } from '@project/shared/ui';
-import Field from '../../../../shared/ui/src/lib/form/input/input';
+import { Button, Field } from '@project/shared/ui';
+
 import { Controller, useForm } from 'react-hook-form';
-import SelectField from '../../../../shared/ui/src/lib/form/select/select';
 
 /* eslint-disable-next-line */
 export interface CreateEventFormProps {}

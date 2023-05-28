@@ -22,6 +22,11 @@
             "input": "libs/shared/assets",
             "glob": "**/*",
             "output": "assets/shared"
+          },
+          {
+            "input": "libs/shared/assets",
+            "glob": "**/*",
+            "output": "assets/uploads"
           }
         ],
         "styles": ["apps/auth/src/styles.scss"],
