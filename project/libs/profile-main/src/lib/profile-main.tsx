@@ -72,6 +72,28 @@ export function ProfileMain(props: ProfileMainProps) {
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
       <div>
+        <div className="p-2">
+          <label htmlFor="">Бадминтон</label>
+          <input
+            type="checkbox"
+            value="Badminton"
+            placeholder="Badminton"
+            {...register('times', { required: true })} // не понял почему times, должно быть role причем массив
+            className="mx-3" // сделать через силект
+          />
+        </div>
+        <div className="p-2">
+          <label htmlFor="">Футбол</label>
+          <input
+            type="checkbox"
+            value="football"
+            placeholder="football"
+            {...register('times', { required: true })}
+            className="mx-3"
+          />
+        </div>
+      </div>
+      <div>
         <Controller
           name={'times'}
           control={control}

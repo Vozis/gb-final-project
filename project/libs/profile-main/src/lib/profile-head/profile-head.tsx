@@ -1,4 +1,4 @@
-import { useAuthRedux } from '@project/shared/hooks';
+import { useAuthRedux, useUser } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {}

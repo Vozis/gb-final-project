@@ -20,7 +20,7 @@ export function Form(props: FormProps) {
   const { login } = useActions();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    console.log('Profile', data);
     login(data);
   };
 

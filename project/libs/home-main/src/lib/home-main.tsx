@@ -1,11 +1,9 @@
-import styles from './home-main.module.scss';
 import Card from './card/card';
+import styles from './home-main.module.scss';
 
 import { faker } from '@faker-js/faker';
-import { Search } from '@project/shared/ui';
-import { AuthContext } from '@project/shared/store';
-import { useContext } from 'react';
 import { useAuthRedux } from '@project/shared/hooks';
+import { Search } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 
@@ -27,7 +25,7 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
-  console.log(user);
+  console.log('home-main', user);
 
   return (
     <div className={styles.container}>
