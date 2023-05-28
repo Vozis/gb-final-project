@@ -9,7 +9,7 @@ import makeAnimated from 'react-select/animated';
 const animatedComponents = makeAnimated();
 
 /* eslint-disable-next-line */
-const SelectField: FC<ISelect> = ({
+export const SelectField: FC<ISelect> = ({
   field,
   isLoading,
   error,
@@ -23,7 +23,7 @@ const SelectField: FC<ISelect> = ({
         ? options.filter(option => field.value.indexOf(option.value) >= 0)
         : options.find(option => option.value === field.value);
 
-      console.log(item);
+      // console.log(item);
       return item;
     } else {
       return isMulti ? [] : '';
@@ -57,5 +57,3 @@ const SelectField: FC<ISelect> = ({
     </div>
   );
 };
-
-export default SelectField;

@@ -6,8 +6,8 @@ import Card from '../card/card';
 export interface CardListProps {
   list: {
     id: string;
-    cardTitle: string;
-    cardImgUrl: string;
+    name: string;
+    imageUrl: string;
     description: string;
   }[];
 }
@@ -19,8 +19,8 @@ export function CardList({ list }: CardListProps) {
         <Card
           key={card.id}
           id={card.id}
-          cardTitle={card.cardTitle}
-          cardImgUrl={card.cardImgUrl}
+          name={card.name}
+          imageUrl={card.imageUrl}
           description={card.description}
         />
       ))}

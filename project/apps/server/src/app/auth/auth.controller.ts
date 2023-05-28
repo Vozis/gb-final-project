@@ -28,6 +28,8 @@ export class AuthController {
     @Body() dto: CreateUserDto,
     @UploadedFile() avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
+    console.log('auth/avatar', avatar);
+
     return this.authService.register(dto, avatar);
   }
 

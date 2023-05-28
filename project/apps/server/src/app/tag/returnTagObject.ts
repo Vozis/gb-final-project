@@ -6,9 +6,6 @@ export const returnTagObject: Prisma.TagSelect = {
   name: true,
   shortName: true,
   type: true,
-  events: {
-    select: returnEventObject,
-  },
 };
 
 export const returnTagFullObject: Prisma.TagSelect = {
