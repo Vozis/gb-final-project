@@ -1,6 +1,6 @@
 import cn from 'clsx';
 import { useState } from 'react';
-import ProfileMain from '../profile-main';
+import ProfileHobbies from '../profile-hobbies/profile-hobbies';
 import ProfileSettings from '../profile-settings/profile-settings';
 import styles from './profile-form.module.scss';
 
@@ -8,7 +8,7 @@ import styles from './profile-form.module.scss';
 export interface ProfileFormProps {}
 
 export function ProfileForm(props: ProfileFormProps) {
-  const [activeForm, setActiveForm] = useState<string>('profileMain');
+  const [activeForm, setActiveForm] = useState<string>('profileHobbies');
 
   return (
     <div className={styles['container']}>
@@ -16,9 +16,9 @@ export function ProfileForm(props: ProfileFormProps) {
         <button
           className={cn('text-black', {
             ['text-[#1F3EE3] border-b border-[#1F3EE3]']:
-              activeForm === 'profileMain',
+              activeForm === 'profileHobbies',
           })}
-          onClick={() => setActiveForm('profileMain')}
+          onClick={() => setActiveForm('profileHobbies')}
         >
           Увлечения
         </button>
@@ -32,7 +32,11 @@ export function ProfileForm(props: ProfileFormProps) {
           Настройки
         </button>
       </div>
-      {activeForm === 'profileMain' ? <ProfileMain /> : <ProfileSettings />}
+      {activeForm === 'profileHobbies' ? (
+        <ProfileHobbies />
+      ) : (
+        <ProfileSettings />
+      )}
     </div>
   );
 }
