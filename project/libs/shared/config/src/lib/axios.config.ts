@@ -1,8 +1,8 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useCookies } from '@project/shared/hooks';
+
 import { errorCatch } from '@project/shared/utils';
 import { AuthService } from '@project/shared/services';
+import Cookies from 'js-cookie';
 
 const axiosOptions = {
   baseURL: '/api',
@@ -21,12 +21,10 @@ export const axiosClassic = axios.create({
 export const axiosAuth = axios.create(axiosOptions);
 
 axiosAuth.interceptors.request.use(config => {
-  const { getCookie } = useCookies();
-
-  const accessToken = getCookie('accessToken');
+  const accessToken = Cookies.get('accessToken');
 
   if (config.headers && accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
   }
 
   return config;
@@ -35,7 +33,6 @@ axiosAuth.interceptors.request.use(config => {
 axiosAuth.interceptors.response.use(
   config => config,
   async error => {
-    const { removeCookie } = useCookies();
     const originalRequest = error.config;
     if (
       (error.response.status === 401 ||
@@ -50,8 +47,8 @@ axiosAuth.interceptors.response.use(
         return axiosAuth.request(originalRequest);
       } catch (error) {
         if (errorCatch(error) === 'jwt expired') {
-          removeCookie('accessToken');
-          removeCookie('refreshToken');
+          Cookies.remove('accessToken');
+          Cookies.remove('refreshToken');
         }
       }
     }

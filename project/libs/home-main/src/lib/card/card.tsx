@@ -1,20 +1,21 @@
 import styles from './card.module.scss';
 import { Button, Tag } from '@project/shared/ui';
+import { IEvent, ITag } from '@project/shared/types';
+import { FC } from 'react';
 
 /* eslint-disable-next-line */
 export interface CardProps {
-  id: string;
-  name: string;
-  imageUrl: string;
-  description: string;
+  event: IEvent;
 }
 
-export function Card({ id, name, imageUrl, description }: CardProps) {
+export const Card: FC<CardProps> = ({
+  event: { imageUrl, name, description, tags },
+}) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardWrapper}>
         <div className={styles.cardImageWrapper}>
-          <img src={imageUrl} alt={name + 'img'} />
+          <img src={imageUrl} alt={name} />
         </div>
         <div className={styles.cardUserInfo}>
           {/*<MaterialIcon name={'MdAccountBox'} className={styles.cardIcon} />*/}
@@ -24,10 +25,11 @@ export function Card({ id, name, imageUrl, description }: CardProps) {
             {name}
           </a>
           <div className={styles.cardTags}>
-            <Tag onClick={() => console.log('sports')}>Sports</Tag>
-            <Tag className={styles.cardTagPlace}>Place</Tag>
-            <Tag className={styles.cardTagCount}>Count</Tag>
-            <Tag>Time</Tag>
+            {tags.map(tag => (
+              <Tag key={tag.id} className={styles.cardTagPlace}>
+                {tag.name}
+              </Tag>
+            ))}
           </div>
           <Button
             type={'button'}
@@ -40,6 +42,6 @@ export function Card({ id, name, imageUrl, description }: CardProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;
