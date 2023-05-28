@@ -30,9 +30,12 @@ export class UserService {
         userName: createUserDto.userName ? createUserDto.userName : uuidv4(),
         role: Role.USER,
         hobbies: {
-          connect: createUserDto.hobbies
-            ? createUserDto.hobbies.map(id => ({ id: +id }))
-            : { shortName: 'empty' },
+          connect:
+            typeof createUserDto.hobbies === 'object'
+              ? createUserDto.hobbies.map(id => ({ id: +id }))
+              : createUserDto.hobbies
+              ? { id: +createUserDto.hobbies }
+              : { shortName: 'empty' },
         },
       },
       select: returnUserObject,

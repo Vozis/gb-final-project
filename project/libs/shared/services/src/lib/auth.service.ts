@@ -4,10 +4,15 @@ import { removeTokensFromStorage, saveToStorage } from '@project/shared/utils';
 import Cookies from 'js-cookie';
 
 export const AuthService = {
-  async register(data: IRegister) {
+  async register(data: FormData) {
     const response = await axiosClassic.post<IAuthResponse>(
       '/auth/register',
       data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
     );
 
     if (response.data.accessToken) saveToStorage(response.data);

@@ -24,7 +24,10 @@ export class TagService {
         shortName: createTagDto.shortName,
         type: createTagDto.type,
       },
-      select: returnTagObject,
+      select: {
+        ...returnTagObject,
+        events: false,
+      },
     });
   }
 

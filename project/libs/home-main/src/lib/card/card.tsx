@@ -1,7 +1,5 @@
 import styles from './card.module.scss';
-
-import { Button } from '../../../../shared/ui/src/lib/button/button';
-import { Tag } from '../../../../shared/ui/src/lib/tag/tag';
+import { Button, Tag } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface CardProps {

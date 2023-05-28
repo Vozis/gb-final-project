@@ -25,7 +25,7 @@ export const useAuth = () => {
   //   }
   // }, [user]);
 
-  const register = async (data: IRegister) => {
+  const register = async (data: FormData) => {
     try {
       const response = await AuthService.register(data);
       toast.success('Успешный вход');

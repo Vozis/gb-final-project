@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import SelectField from '../../../shared/ui/src/lib/form/select/select';
+
 import styles from './profile-main.module.scss';
 
 /* eslint-disable-next-line */

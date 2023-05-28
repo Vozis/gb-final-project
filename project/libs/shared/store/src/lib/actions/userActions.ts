@@ -4,10 +4,11 @@ import { AuthService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 
-export const register = createAsyncThunk<IAuthResponse, IRegister>(
+export const register = createAsyncThunk<IAuthResponse, FormData>(
   'auth/register',
   async (data, thunkAPI) => {
     try {
+      console.log(data);
       const response = await AuthService.register(data);
       toast.success('Register success', {
         toastId: 'register-success',
