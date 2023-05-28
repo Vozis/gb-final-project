@@ -2,7 +2,7 @@ import styles from './create-event-form.module.scss';
 import { Button, Field, SelectField } from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IOption, IRegister } from '@project/shared/types';
+import { IOption, IEvent } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
@@ -124,6 +124,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
       console.log(`${key}: ${value}`);
     }
 
+    // @ts-ignore
     mutateAsync(formData);
 
     // register(formData);
