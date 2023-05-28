@@ -1,28 +1,18 @@
 import styles from './card-list.module.scss';
 
 import Card from '../card/card';
+import { IEvent } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface CardListProps {
-  list: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    description: string;
-  }[];
+  list: IEvent[];
 }
 
 export function CardList({ list }: CardListProps) {
   return (
     <div>
       {list.map(card => (
-        <Card
-          key={card.id}
-          id={card.id}
-          name={card.name}
-          imageUrl={card.imageUrl}
-          description={card.description}
-        />
+        <Card key={card.id} event={card} />
       ))}
     </div>
   );

@@ -59,10 +59,10 @@ export function FormReg(props: FormProps) {
       formData.append('avatar', data.avatar[0]);
     }
 
-    // /* @ts-ignore */
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    /* @ts-ignore */
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     register(formData);
   };

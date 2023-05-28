@@ -18,3 +18,13 @@ export interface IEvent {
 export interface IEventResponse {
   events: IEvent[];
 }
+
+export interface ICreateEvent {
+  name: string;
+  description: string;
+  image: string;
+  sport: number[];
+  place: number[];
+  city: number[];
+  count: number[];
+}

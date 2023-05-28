@@ -3,7 +3,7 @@ import { IEvent, IEventResponse } from '@project/shared/types';
 
 export const EventService = {
   async getAllEvents(searchTerm?: string) {
-    return axiosClassic.get<IEventResponse>('/events/all', {
+    return axiosClassic.get<IEvent[]>('/events/all', {
       params: searchTerm
         ? {
             searchTerm,
@@ -17,6 +17,6 @@ export const EventService = {
   },
 
   async createEvent(data: FormData) {
-    return axiosAuth.post<IEvent>('/events/create', data);
+    return axiosAuth.post<IEvent>('/events', data);
   },
 };

@@ -28,11 +28,15 @@ export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
   const [modalActive, setModalActive] = useState(false);
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ['get-all-events'],
-    queryFn: () => EventService.getAllEvents(),
-  });
-  // console.log(data);
+
+  const { isLoading, isError, data, error } = useQuery(
+    ['get-all-events'],
+    () => EventService.getAllEvents(),
+    {
+      select: ({ data }) => data,
+    },
+  );
+
   return (
     <div className={styles.container}>
       <Button
@@ -44,9 +48,9 @@ export function HomeMain(props: HomeMainProps) {
       </Button>
 
       <Modal active={modalActive} setActive={setModalActive}>
-        <CreateEventForm />
+        <CreateEventForm setActive={setModalActive} />
       </Modal>
-      <CardList list={data?.data || []} />
+      <CardList list={data || []} />
     </div>
   );
 }

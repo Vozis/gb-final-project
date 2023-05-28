@@ -2,17 +2,20 @@ import styles from './create-event-form.module.scss';
 import { Button, Field, SelectField } from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IOption, IEvent } from '@project/shared/types';
+import { IOption, IEvent, ICreateEvent } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import axios from 'axios';
+import React from 'react';
 
 /* eslint-disable-next-line */
-export interface CreateEventFormProps {}
+export interface CreateEventFormProps {
+  setActive: React.Dispatch<any>;
+}
 
-export function CreateEventForm(props: CreateEventFormProps) {
+export function CreateEventForm({ setActive }: CreateEventFormProps) {
   const {
     register,
     handleSubmit,
@@ -20,7 +23,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
     setValue,
     getValues,
     control,
-  } = useForm();
+  } = useForm<ICreateEvent>();
 
   const { data: sports, isLoading: isSportsLoading } = useQuery(
     ['get-sport-tags'],
@@ -86,12 +89,18 @@ export function CreateEventForm(props: CreateEventFormProps) {
       },
     },
   );
-  const { mutateAsync } = useMutation(['create-event'], data =>
-    EventService.createEvent(data),
+
+  const { mutateAsync, isSuccess } = useMutation(
+    ['create-event'],
+    (data: FormData) => EventService.createEvent(data),
+    {
+      onSuccess: () => {
+        toast.success('Event created successfully');
+      },
+    },
   );
 
-  const onSubmit: SubmitHandler<any> = async data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ICreateEvent> = async data => {
     const formData = new FormData();
     const tags = [];
 
@@ -111,23 +120,24 @@ export function CreateEventForm(props: CreateEventFormProps) {
     if (data.image) {
       formData.append('image', data.image[0]);
     }
-    tags.push(data.sport[0]);
+
     tags.push(data.place[0]);
+    tags.push(data.sport[0]);
     tags.push(data.city[0]);
     tags.push(data.count[0]);
+
     tags.forEach(item => {
-      formData.append('tags', item);
+      formData.append('tags[]', String(item));
     });
 
     /* @ts-ignore */
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     // @ts-ignore
-    mutateAsync(formData);
-
-    // register(formData);
+    await mutateAsync(formData);
+    setActive(false);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
