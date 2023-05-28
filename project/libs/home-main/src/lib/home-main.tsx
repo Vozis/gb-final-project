@@ -32,7 +32,7 @@ export function HomeMain(props: HomeMainProps) {
     queryKey: ['get-all-events'],
     queryFn: () => EventService.getAllEvents(),
   });
-  console.log(data);
+  // console.log(data);
   return (
     <div className={styles.container}>
       <Button
