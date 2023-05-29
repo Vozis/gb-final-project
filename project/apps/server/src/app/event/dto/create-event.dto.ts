@@ -18,7 +18,7 @@ export class CreateEventDto {
   description: string;
 
   @IsString()
-  @ValidateIf(data => data !== null)
+  @IsOptional()
   imageUrl?: string;
 
   @IsString()

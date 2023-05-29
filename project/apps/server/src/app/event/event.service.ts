@@ -19,7 +19,7 @@ export class EventService {
     dto: CreateEventDto,
     image: Express.Multer.File,
   ): Promise<EventSelect> {
-    console.log(dto);
+    console.log(dto.tags);
 
     if (image) {
       dto.imageUrl = await fileUploadHelper(image, 'events');
@@ -29,7 +29,8 @@ export class EventService {
       data: {
         name: dto.name,
         description: dto.description,
-        imageUrl: dto.imageUrl ? dto.imageUrl : '/assets/default-event.png',
+        imageUrl: dto.imageUrl,
+        // imageUrl: dto.imageUrl ? dto.imageUrl : '/assets/default-event.png',
         coordinateX: dto.coordinateX ? dto.coordinateX : '0',
         coordinateY: dto.coordinateY ? dto.coordinateY : '0',
         eventTime: dto.eventTime ? dto.eventTime : new Date().toISOString(),
@@ -136,6 +137,9 @@ export class EventService {
     return this.prisma.event.findMany({
       where: eventsSearchFilter,
       select: returnEventObject,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 

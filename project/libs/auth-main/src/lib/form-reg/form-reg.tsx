@@ -1,4 +1,4 @@
-import { useActions } from '@project/shared/hooks';
+import { useActions, useAuthRedirect } from '@project/shared/hooks';
 import { Button, Field, SelectField } from '@project/shared/ui';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { FormProps } from 'react-router-dom';
@@ -13,6 +13,8 @@ import { errorCatch } from '@project/shared/utils';
 export interface FormRegProps {}
 
 export function FormReg(props: FormProps) {
+  useAuthRedirect();
+
   const {
     register: registerInput,
     handleSubmit,
