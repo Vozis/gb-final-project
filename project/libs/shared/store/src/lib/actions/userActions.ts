@@ -8,7 +8,6 @@ export const register = createAsyncThunk<IAuthResponse, FormData>(
   'auth/register',
   async (data, thunkAPI) => {
     try {
-      console.log(data);
       const response = await AuthService.register(data);
       toast.success('Register success', {
         toastId: 'register-success',

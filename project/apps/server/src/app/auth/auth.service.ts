@@ -30,6 +30,8 @@ export class AuthService {
     dto: CreateUserDto,
     avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
+    console.log('avatar', avatar);
+
     const isEmailUser = await this.prisma.user.findUnique({
       where: {
         email: dto.email,

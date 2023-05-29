@@ -17,6 +17,10 @@ export const EventService = {
   },
 
   async createEvent(data: FormData) {
-    return axiosAuth.post<IEvent>('/events', data);
+    return axiosAuth.post<IEvent>('/events', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 };

@@ -3,7 +3,7 @@ import { Button, Field, SelectField } from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IOption, IEvent, ICreateEvent } from '@project/shared/types';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
@@ -90,11 +90,14 @@ export function CreateEventForm({ setActive }: CreateEventFormProps) {
     },
   );
 
+  const queryClient = useQueryClient();
+
   const { mutateAsync, isSuccess } = useMutation(
     ['create-event'],
     (data: FormData) => EventService.createEvent(data),
     {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(['get-all-events']);
         toast.success('Event created successfully');
       },
     },
@@ -121,10 +124,20 @@ export function CreateEventForm({ setActive }: CreateEventFormProps) {
       formData.append('image', data.image[0]);
     }
 
-    tags.push(data.place[0]);
-    tags.push(data.sport[0]);
-    tags.push(data.city[0]);
-    tags.push(data.count[0]);
+    if (data.sport) {
+      tags.push(data.sport[0]);
+    }
+    if (data.place) {
+      tags.push(data.place[0]);
+    }
+
+    if (data.count) {
+      tags.push(data.count[0]);
+    }
+
+    if (data.city) {
+      tags.push(data.city[0]);
+    }
 
     tags.forEach(item => {
       formData.append('tags[]', String(item));
