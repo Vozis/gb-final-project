@@ -23,7 +23,7 @@
   outline: none;
   font-size: 14px;
   background: none;
-  border: 2px solid #ddd;
+  border: 2px solid #5b5b5b;
   transition: border-color 0.3s ease;
 }
 
@@ -36,20 +36,22 @@
   text-overflow: ellipsis;
   top: 50%;
   transform: translateY(-50%);
-  color: #aaa;
+  color: #5b5b5b;
+  font-size: 16px;
   transition: top 0.3s ease,
   color 0.3s ease,
   font-size 0.3s ease;
 }
 
-.fieldLabel input:placeholder-shown,
+.fieldLabel input:not(:placeholder-shown),
 .fieldLabel input:focus {
-  outline: 2px solid #222;
+  border-color: #222;
   transition-delay: 0.1s
 }
 
-.fieldLabel input:focus + .placeholder,
-.fieldLabel input:placeholder-shown + .placeholder {
+
+.fieldLabel input:not(:placeholder-shown) + .placeholder,
+.fieldLabel input:focus + .placeholder {
   top: 0;
   font-size: 14px;
   color: #222;

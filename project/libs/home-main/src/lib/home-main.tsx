@@ -9,19 +9,6 @@ import { useState } from 'react';
 
 /* eslint-disable-next-line */
 
-// const createCardInfo = () => ({
-//   id: faker.string.uuid(),
-//   cardTitle: faker.person.jobTitle(),
-//   cardImgUrl: faker.image.urlLoremFlickr({ category: 'sports' }),
-//   description: faker.lorem.words(20),
-// });
-//
-// const createCards = (count: number) => {
-//   return Array.from({ length: count }).map(createCardInfo);
-// };
-//
-// const MOCK_CARDS = createCards(10);
-
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
@@ -34,6 +21,8 @@ export function HomeMain(props: HomeMainProps) {
       select: ({ data }) => data,
     },
   );
+
+  console.log(data);
 
   return (
     <div className={styles.container}>
@@ -48,7 +37,13 @@ export function HomeMain(props: HomeMainProps) {
       <Modal active={modalActive} setActive={setModalActive}>
         <CreateEventForm setActive={setModalActive} />
       </Modal>
-      <CardList list={data || []} />
+      {isLoading ? (
+        <div>Загрузка...</div>
+      ) : data?.length ? (
+        <CardList list={data || []} />
+      ) : (
+        <div>Созданных событий пока нет :(</div>
+      )}
     </div>
   );
 }

@@ -8,7 +8,7 @@ export interface TagProps extends HTMLAttributes<HTMLButtonElement> {}
 export function Tag({ children, className, onClick }: TagProps) {
   return (
     <button className={clsx(styles.tag, className)} onClick={onClick}>
-      <span>{children}</span>
+      <span className={'px-2'}>{children}</span>
     </button>
   );
 }
