@@ -224,7 +224,12 @@ export function CreateEventForm({ setActive }: CreateEventFormProps) {
         )}
       />
 
-      <Button className={styles.formBtn} type={'submit'}>
+      <Button
+        className={
+          'bg-sky-500 text-gray-100 rounded-md px-8 mt-5 border-none hover:bg-sky-700 hover:text-white'
+        }
+        type={'submit'}
+      >
         Создать
       </Button>
     </form>
