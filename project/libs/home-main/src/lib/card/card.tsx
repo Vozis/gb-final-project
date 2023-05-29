@@ -26,7 +26,7 @@ export const Card: FC<CardProps> = ({
           </a>
           <div className={styles.cardTags}>
             {tags.map(tag => (
-              <Tag key={tag.id} className={styles.cardTagPlace}>
+              <Tag key={tag.id} className={styles.cardTag}>
                 {tag.name}
               </Tag>
             ))}

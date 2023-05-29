@@ -2,12 +2,11 @@ import styles from './create-event-form.module.scss';
 import { Button, Field, SelectField } from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IOption, IEvent, ICreateEvent } from '@project/shared/types';
+import { IOption, ICreateEvent } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
-import axios from 'axios';
 import React from 'react';
 
 /* eslint-disable-next-line */
