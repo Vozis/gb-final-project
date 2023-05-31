@@ -45,7 +45,7 @@ export class EventController {
 
   @Get('all')
   async getAllEvents(
-    @Query('searchTerm') searchTerm?: string,
+    @Query('searchTerm') searchTerm?: Array<any>,
   ): Promise<EventSelect[]> {
     return this.eventService.getAllEvents(searchTerm);
   }

@@ -31,11 +31,18 @@ model User {
   @@map("users")
 }
 
+model TypeTag {
+  id        Int    @id @default(autoincrement())
+  name      String
+
+  @@map("type_tags")
+}
+
 model Tag {
   id        Int    @id @default(autoincrement())
   name      String
   shortName String @unique
-  type      String
+  type      TypeTag[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
