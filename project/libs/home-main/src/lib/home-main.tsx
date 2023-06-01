@@ -1,10 +1,10 @@
 import styles from './home-main.module.scss';
-import { Button, Modal } from '@project/shared/ui';
+import { Button, MaterialIcon, Modal } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 import CreateEventForm from './create-event-form/create-event-form';
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
-import MaterialIcon from '../../../shared/ui/src/lib/icons/material-icon';
+
 import { useState } from 'react';
 
 /* eslint-disable-next-line */
@@ -21,8 +21,6 @@ export function HomeMain(props: HomeMainProps) {
       select: ({ data }) => data,
     },
   );
-
-  console.log(data);
 
   return (
     <div className={styles.container}>

@@ -1,8 +1,9 @@
 import styles from './modal.module.scss';
 import React from 'react';
 import clsx from 'clsx';
-import MaterialIcon from '../icons/material-icon';
+
 import { Button } from '../button/button';
+import { MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface ModalProps {
