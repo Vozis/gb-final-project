@@ -49,11 +49,13 @@ export class EventController {
   ): Promise<EventSelect[]> {
     return this.eventService.getAllEvents(searchTerm);
   }
+
   @Auth()
   @Get('')
   async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
     return this.eventService.getUserEvents(id);
   }
+
   @Auth()
   @Get('by-user-hobbies')
   async getByUserTags(@User('id') id: number): Promise<EventSelect[]> {
