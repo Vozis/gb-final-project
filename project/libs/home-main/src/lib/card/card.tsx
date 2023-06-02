@@ -12,7 +12,6 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({
   event: { imageUrl, name, description, tags },
 }) => {
-  console.log(tags);
   return (
     <div className={styles.card}>
       <div className={styles.cardWrapper}>
