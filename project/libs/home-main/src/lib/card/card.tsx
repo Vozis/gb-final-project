@@ -1,5 +1,5 @@
 import styles from './card.module.scss';
-import { Button, Tag } from '@project/shared/ui';
+import { Button, MaterialIcon, Tag } from '@project/shared/ui';
 import { IEvent, ITag } from '@project/shared/types';
 import { FC } from 'react';
 import clsx from 'clsx';

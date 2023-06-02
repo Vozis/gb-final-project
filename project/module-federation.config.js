@@ -9,6 +9,7 @@ const coreLibraries = new Set([
   '@tanstack/react-query',
   '@project/shared/providers',
   '@project/shared/layout',
+  '@emotion/react',
 ]);
 
 module.exports = {
