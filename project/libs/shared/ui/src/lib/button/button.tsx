@@ -9,8 +9,8 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 
 export function Button({
   children,
-  onClick,
   className,
+  onClick,
   type,
   ...rest
 }: ButtonProps) {
