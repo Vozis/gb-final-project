@@ -35,6 +35,8 @@ model TypeTag {
   id        Int    @id @default(autoincrement())
   name      String
 
+  tag Tag[]
+
   @@map("type_tags")
 }
 
