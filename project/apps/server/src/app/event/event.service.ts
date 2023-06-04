@@ -84,56 +84,18 @@ export class EventService {
     });
   }
 
-  async getAllEvents(searchTerm?: string): Promise<EventSelect[]> {
-    const eventsSearchFilter: Prisma.EventWhereInput = searchTerm
-      ? {
-          OR: [
-            {
-              name: {
-                contains: searchTerm,
-                mode: 'insensitive',
-              },
-            },
-            {
-              description: {
-                contains: searchTerm,
-                mode: 'insensitive',
-              },
-            },
-            {
-              tags: {
-                some: {
-                  name: {
-                    contains: searchTerm,
-                    mode: 'insensitive',
-                  },
-                },
-              },
-            },
-            {
-              tags: {
-                some: {
-                  shortName: {
-                    contains: searchTerm,
-                    mode: 'insensitive',
-                  },
-                },
-              },
-            },
-            {
-              users: {
-                some: {
-                  userName: {
-                    contains: searchTerm,
-                    mode: 'insensitive',
-                  },
-                },
-              },
-            },
-          ],
+  // TODO: переделать входящий параметр как клас и настроить валидацию возможных входящих параметров
+  async getAllEvents(searchTerm?: Array<any>): Promise<EventSelect[]> {
+    let search: object[];
+    if (searchTerm.length !== 0) {
+      searchTerm.forEach( data => {
+        search[data.paramsSearch] = {
+          contains: data?.valuesSearch,
+          mode: 'insensitive',
         }
-      : {};
-
+      })
+    }
+    const eventsSearchFilter: Prisma.EventWhereInput = search ? { OR: search } : {};
     return this.prisma.event.findMany({
       where: eventsSearchFilter,
       select: returnEventObject,
