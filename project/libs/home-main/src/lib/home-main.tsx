@@ -1,5 +1,5 @@
 import styles from './home-main.module.scss';
-import { Button, MaterialIcon, Modal } from '@project/shared/ui';
+import { Button, MaterialIcon, Modal, Search } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 import CreateEventForm from './create-event-form/create-event-form';
 import { useQuery } from '@tanstack/react-query';
@@ -24,6 +24,7 @@ export function HomeMain(props: HomeMainProps) {
 
   return (
     <div className={styles.container}>
+      <Search list={data || []}></Search>
       <Button
         type={'button'}
         className={styles.btnAddEvent}
@@ -31,7 +32,6 @@ export function HomeMain(props: HomeMainProps) {
       >
         <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
       </Button>
-
       <Modal active={modalActive} setActive={setModalActive}>
         <CreateEventForm setActive={setModalActive} />
       </Modal>
