@@ -30,16 +30,16 @@ export const EventService = {
   async toggleUser(id: number, data: IToggle) {
     const res = axiosAuth.post<IEvent>(EventApi.toggleUser(id), data);
 
-    await toast.promise(res, {
-      pending: 'Posting',
-      success: {
-        render({ data }) {
-          return `Добавили событие ${data?.data.name}`;
-        },
-        icon: '🟢',
-      },
-      error: 'error message',
-    });
+    // await toast.promise(res, {
+    //   pending: 'Posting',
+    //   success: {
+    //     render({ data }) {
+    //       return `Добавили событие ${data?.data.name}`;
+    //     },
+    //     icon: '🟢',
+    //   },
+    //   error: 'error message',
+    // });
 
     return res.then(data => data);
   },

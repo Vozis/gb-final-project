@@ -69,7 +69,7 @@ export function ProfileMain(props: ProfileMainProps) {
     <div className={styles['container']}>
       {/* <h1>Welcome to ProfileHobbies!</h1> */}
       <ProfileHead />
-      <ProfileForm />
+      {/*<ProfileForm />*/}
     </div>
   );
 }
