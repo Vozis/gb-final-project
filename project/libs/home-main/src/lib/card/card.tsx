@@ -3,7 +3,7 @@ import { Button, MaterialIcon, Tag } from '@project/shared/ui';
 import { IEvent, ITag, IToggle } from '@project/shared/types';
 import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
@@ -17,19 +17,21 @@ export interface CardProps {
 }
 
 export const Card: FC<CardProps> = ({
-  event: { imageUrl, name, description, tags, id },
+  event: { imageUrl, name, description, tags, id, users },
 }) => {
   const [isFavourite, setIsFavourite] = useState(false);
   const { user } = useAuthRedux();
 
-  const { mutateAsync } = useMutation(
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, data } = useMutation(
     ['toggle-user-to-event'],
     (toggleId: number) =>
       EventService.toggleUser(id, { toggleId, type: 'users' }),
     {
-      onSuccess: data => {
-        console.log(data.data.name);
-        toast.success('Вы успешно присоединились к событию', {
+      onSuccess: async data => {
+        await queryClient.invalidateQueries(['get-all-events']);
+        toast.success('Изменение статуса участия прошло успешно', {
           containerId: 1,
           toastId: 'toggle-user',
         });
@@ -38,8 +40,6 @@ export const Card: FC<CardProps> = ({
   );
 
   const handleToggle = async (toggleId: number) => {
-    console.log(toggleId);
-
     await mutateAsync(toggleId);
   };
   const handleFavouriteBtn = () => {
@@ -68,8 +68,8 @@ export const Card: FC<CardProps> = ({
         ></button>
       )}
       <div className={styles.card__info}>
-        <Link to={`/events/${id}`}>
-          <span className={styles.card__title}>{name}</span>
+        <Link to={`/events/${id}`} className={styles.card__title}>
+          {name}
         </Link>
         <div className={styles.card__tags}>
           {tags.map(tag => (
@@ -92,7 +92,9 @@ export const Card: FC<CardProps> = ({
             className={styles.card__btn}
             onClick={() => handleToggle(user.id)}
           >
-            Присоединиться
+            {users.some(item => user.id === item.id)
+              ? 'Отказаться'
+              : 'Присоединиться'}
           </Button>
         )}
       </div>

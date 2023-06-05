@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "front": "nx run-many --parallel --target=serve --projects=shell,auth,home,profile,create-event",
+    "front": "nx serve shell --devRemotes=auth,home,single-event,create-event,profile",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "auth": "nx serve auth",
     "shell": "nx serve shell",

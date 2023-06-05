@@ -10,7 +10,17 @@ export function ProfileHead(props: ProfileHeadProps) {
   return (
     <div className={styles.container}>
       <p>{user?.userName}</p>
-      <img src={'/assets/shared/auth-image.PNG'} className={'w-28 h-28'} />
+      <img
+        src={user?.avatarPath}
+        alt={'avatar'}
+        className={'w-42 h-42'}
+        style={{
+          borderRadius: '200px',
+          width: '250px',
+          height: '250px',
+          backgroundSize: 'cover',
+        }}
+      />
       <p className={styles.profile_load_img}>Загрузить аватар</p>
       <div className={styles.profile_user_div}>
         <p className={styles.profile_user_name}>{user?.firstName}</p>
