@@ -6,10 +6,11 @@ const coreLibraries = new Set([
   'react-router-dom',
   'redux',
   'react-redux',
+  'react-toastify',
+  '@emotion/react',
   '@tanstack/react-query',
   '@project/shared/providers',
   '@project/shared/layout',
-  '@emotion/react',
 ]);
 
 module.exports = {

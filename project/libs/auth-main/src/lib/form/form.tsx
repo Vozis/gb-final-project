@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
 
 import styles from './form.module.scss';
+import { toast } from 'react-toastify';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -20,17 +21,17 @@ export function Form(props: FormProps) {
   const { login } = useActions();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    console.log('Profile', data);
     login(data);
   };
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p className={'text-xl mb-4'}>Войдите, чтобы продолжить</p>
+      <p className={styles.register_title}>Войдите, чтобы продолжить</p>
 
       <input
         className={styles.register_form_input}
-        placeholder="Enter login"
+        placeholder="Login"
         {...register('email', { required: true })}
       />
       {errors.login && (
@@ -41,7 +42,7 @@ export function Form(props: FormProps) {
 
       <input
         className={styles.register_form_input}
-        placeholder="Enter password"
+        placeholder="Password"
         type="password"
         {...register('password', { required: true })}
       />
@@ -50,8 +51,12 @@ export function Form(props: FormProps) {
           The password field must not be empty!
         </span>
       )}
-
-      <Button type={'submit'}>Продолжить</Button>
+      <div className={styles.register_form_save}>
+        <p className={styles.register_form_save_title}>Забыли пароль?</p>
+      </div>
+      <Button type={'submit'} className={styles.register_form_btn}>
+        ВОЙТИ
+      </Button>
     </form>
   );
 }

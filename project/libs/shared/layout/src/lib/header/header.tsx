@@ -20,9 +20,9 @@ export function Header(props: HeaderProps) {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/auth">Auth</Link>
-        </li>
+        {/*<li>*/}
+        {/*  <Link to="/auth">Auth</Link>*/}
+        {/*</li>*/}
         <li>
           <Link to="/profile">Profile</Link>
         </li>

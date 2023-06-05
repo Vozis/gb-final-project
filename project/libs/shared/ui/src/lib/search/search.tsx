@@ -5,38 +5,29 @@ import { IEvent } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface SearchProps {
-  list: IEvent[];
+  searchInput: string;
+  setSearchInput: (value: string) => void;
 }
 
-export function Search({ list }: SearchProps) {
-  const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState(list);
+export function Search({ setSearchInput, searchInput }: SearchProps) {
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
-
-  useEffect(() => {
-    const result = list.filter(item =>
-      item.name.toLowerCase().includes(searchInput),
-    );
-    setSearchResult(result);
-    console.log(searchResult);
-  }, [list, searchInput]);
 
   return (
     <div className={clsx(styles.search)}>
       <form action="" method="get" className={styles.search__wrapper}>
         <input
           className={styles.search__input}
-          name="search"
+          name="s"
           placeholder="Поиск"
           type="text"
-          value={searchInput}
+          defaultValue={searchInput}
           onChange={handleSearchInput}
         />
-        <button className={styles.search__button} type="button">
-          Filter
-        </button>
+        {/*<button className={styles.search__button} type="submit">*/}
+        {/*  Filter*/}
+        {/*</button>*/}
       </form>
     </div>
   );

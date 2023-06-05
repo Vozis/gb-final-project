@@ -30,6 +30,9 @@
           }
         ],
         "styles": ["apps/auth/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/styles"]
+        },
         "scripts": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/auth/webpack.config.js",
@@ -66,7 +69,7 @@
         "buildTarget": "auth:build",
         "hmr": true,
         "port": 4204,
-        "proxyConfig": "apps/auth/proxy.conf.json"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {

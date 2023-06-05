@@ -28,8 +28,8 @@ export const login = createAsyncThunk<IAuthResponse, ILogin>(
       const response = await AuthService.login(data);
       toast.success('Login success', {
         toastId: 'login-success',
+        containerId: 1,
       });
-
       return response.data;
     } catch (err) {
       toast.error(errorCatch(err));
@@ -52,6 +52,7 @@ export const checkAuth = createAsyncThunk<IAuthResponse>(
       const response = await AuthService.getNewTokens();
       toast.success('Check Auth success', {
         toastId: 'check-auth-success',
+        containerId: 1,
       });
 
       return response.data;

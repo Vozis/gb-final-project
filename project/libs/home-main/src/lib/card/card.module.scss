@@ -7,6 +7,7 @@
   height: 290px;
   position: relative;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.29);
+  z-index: 99;
 
 
   &__favouriteBtn {
@@ -22,6 +23,7 @@
     background-color: transparent;
     padding: 0;
     display: flex;
+    z-index: 1000;
 
 
     &::before {
@@ -37,9 +39,12 @@
       transition: all 250ms ease-out;
     }
 
-    &:hover::before {
-      background-image: url("../../../../shared/assets/heart-hover.svg");
+
+    &__active::before {
+      background-image: url("../../../../shared/assets/heart-active.svg");
     }
+
+
   }
 
 
@@ -53,7 +58,7 @@
     border: 0;
     border-radius: $border-radius;
     padding: 10px 12px;
-    background-color: $primary-color;
+    background-color: #2e6d9c;
     color: #f2f2f2;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -61,8 +66,8 @@
     transition: background-color 250ms ease-out;
 
     &:hover {
-      background-color: lighten($primary-color, 25%);
-      color: #FFFFFF;
+      background-color: lighten(#2e6d9c, 25%);
+      color: #f8f8f8;
     }
   }
 
@@ -88,6 +93,7 @@
     background-color: $primary-color;
   }
 }
+
 
 //.card {
 //  box-sizing: border-box;

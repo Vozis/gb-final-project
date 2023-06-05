@@ -3,10 +3,12 @@
 
 declare module 'home/Module';
 
-declare module 'settings/Module';
-
 declare module 'profile/Module';
 
 declare module 'auth/Module';
 
 declare module 'test/Module';
+
+declare module 'single-event/Module';
+
+declare module 'create-event/Module';

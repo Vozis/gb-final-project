@@ -24,7 +24,12 @@
             "output": "assets/shared"
           }
         ],
-        "styles": ["apps/shell/src/styles.scss"],
+        "styles": [
+          "apps/shell/src/styles.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/styles"]
+        },
         "scripts": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/shell/webpack.config.js",
@@ -61,7 +66,7 @@
         "buildTarget": "shell:build",
         "hmr": true,
         "port": 4200,
-        "proxyConfig": "apps/shell/proxy.conf.json"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -111,5 +116,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["home", "auth"]
 }

@@ -12,8 +12,11 @@ export class CreateTagDto {
   // @IsOptional()
   shortName: string;
 
-  @IsString({
-    message: 'Type is required',
-  })
-  type: string;
+  @IsNumber(
+    {},
+    {
+      message: 'Type is required',
+    },
+  )
+  typeId: number;
 }

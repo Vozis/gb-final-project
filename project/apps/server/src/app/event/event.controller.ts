@@ -18,6 +18,8 @@ import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { EventSelect } from './returnEventObject';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { SearchEventDto } from './dto/search-event.dto';
+import { ToggleDto } from '../../utils/toggle.dto';
 
 @Controller('events')
 export class EventController {
@@ -38,16 +40,16 @@ export class EventController {
   @Post(':eventId/toggle-user')
   async toggleUsers(
     @Param('eventId', ParseIntPipe) eventId: number,
-    @Body('id', ParseIntPipe) id: number,
+    @Body() toggleDto: ToggleDto,
   ): Promise<EventSelect> {
-    return this.eventService.toggle(eventId, { type: 'users', toggleId: id });
+    return this.eventService.toggle(eventId, toggleDto);
   }
 
   @Get('all')
   async getAllEvents(
-    @Query('searchTerm') searchTerm?: string,
+    @Query('searchArray') searchArray?: SearchEventDto[],
   ): Promise<EventSelect[]> {
-    return this.eventService.getAllEvents(searchTerm);
+    return this.eventService.getAllEvents(searchArray);
   }
 
   @Auth()
