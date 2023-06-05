@@ -21,20 +21,20 @@ export function Search({ list }: SearchProps) {
     );
     setSearchResult(result);
     console.log(searchResult);
-  }, [searchInput]);
+  }, [list, searchInput]);
 
   return (
     <div className={clsx(styles.search)}>
       <form action="" method="get" className={styles.search__wrapper}>
         <input
           className={styles.search__input}
-          name="s"
+          name="search"
           placeholder="Поиск"
           type="text"
           value={searchInput}
           onChange={handleSearchInput}
         />
-        <button className={styles.search__button} type="submit">
+        <button className={styles.search__button} type="button">
           Filter
         </button>
       </form>

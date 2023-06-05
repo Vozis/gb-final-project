@@ -26,28 +26,30 @@ export const Card: FC<CardProps> = ({
         <a href="/" className={styles.card__title}>
           {name}
         </a>
-        <div className={styles.card__tags}>
-          {tags.map(tag => (
-            <Tag
-              key={tag.id}
-              className={clsx({
-                'bg-red-300 hover:bg-red-400': tag.type === 'count',
-                [styles.card__tag_place]: tag.type === 'place',
-                'bg-green-300 hover:bg-green-400': tag.type === 'city',
-                'bg-cyan-300 hover:bg-cyan-400': tag.type === 'sport',
-              })}
-            >
-              {tag.name}
-            </Tag>
-          ))}
+        <div>
+          <div className={styles.card__tags}>
+            {tags.map(tag => (
+              <Tag
+                key={tag.id}
+                className={clsx({
+                  'bg-red-300 hover:bg-red-400': tag.type === 'count',
+                  [styles.card__tag_place]: tag.type === 'place',
+                  'bg-green-300 hover:bg-green-400': tag.type === 'city',
+                  'bg-cyan-300 hover:bg-cyan-400': tag.type === 'sport',
+                })}
+              >
+                {tag.name}
+              </Tag>
+            ))}
+          </div>
+          <Button
+            type={'button'}
+            className={styles.card__btn}
+            onClick={() => alert('click')}
+          >
+            Присоединиться
+          </Button>
         </div>
-        <Button
-          type={'button'}
-          className={styles.card__btn}
-          onClick={() => alert('click')}
-        >
-          Присоединиться
-        </Button>
       </div>
     </div>
   );
