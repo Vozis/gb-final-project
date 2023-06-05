@@ -101,6 +101,7 @@
     "graceful-fs": "^4.2.11",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "os-browserify": "^0.3.0",
     "passport": "^0.6.0",

@@ -1,7 +1,7 @@
 import styles from './card.module.scss';
 import { Button, MaterialIcon, Tag } from '@project/shared/ui';
 import { IEvent, ITag, IToggle } from '@project/shared/types';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
@@ -19,6 +19,8 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({
   event: { imageUrl, name, description, tags, id, users },
 }) => {
+  const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
+
   const { user } = useAuthRedux();
 
   const queryClient = useQueryClient();
@@ -41,6 +43,21 @@ export const Card: FC<CardProps> = ({
   const handleToggle = async (toggleId: number) => {
     await mutateAsync(toggleId);
   };
+  const handleFavouriteBtn = () => {
+    if (!isFavourite) setIsFavourite(!isFavourite);
+  };
+
+  useEffect(() => {
+    !isFavourite
+      ? toast.success('Удалено из избранного', {
+          containerId: 1,
+          toastId: 'toggle-favorite',
+        })
+      : toast.success('Добавлено в избранное', {
+          containerId: 1,
+          toastId: 'toggle-favorite',
+        });
+  }, [isFavourite]);
 
   return (
     <div
@@ -51,7 +68,14 @@ export const Card: FC<CardProps> = ({
         backgroundPosition: 'center',
       }}
     >
-      <button className={styles.card__favouriteBtn}></button>
+      {user && (
+        <button
+          className={clsx(styles.card__favouriteBtn, {
+            [styles.card__favouriteBtn__active]: isFavourite,
+          })}
+          onClick={handleFavouriteBtn}
+        ></button>
+      )}
       <div className={styles.card__info}>
         <Link to={`/events/${id}`} className={styles.card__title}>
           {name}
