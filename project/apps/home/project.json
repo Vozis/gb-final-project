@@ -23,6 +23,9 @@
           }
         ],
         "styles": ["apps/home/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/styles"]
+        },
         "scripts": [],
         "isolatedConfig": true,
         "webpackConfig": "apps/home/webpack.config.js",
@@ -59,7 +62,7 @@
         "buildTarget": "home:build",
         "hmr": true,
         "port": 4201,
-        "proxyConfig": "apps/home/proxy.conf.json"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {

@@ -49,7 +49,7 @@ export class UserController {
 
   @Put('profile/toggle')
   @Auth()
-  async toggle(@User('id') id: number, @Body() toggleDto: ToggleDto) {
+  async toggleHobbies(@User('id') id: number, @Body() toggleDto: ToggleDto) {
     return this.userService.toggle(id, toggleDto);
   }
 }

@@ -1,13 +1,11 @@
-import { IOption, ITag, IUserEdit } from '@project/shared/types';
-import { Button } from '@project/shared/ui';
-import { errorCatch } from '@project/shared/utils';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-
+import { SubmitHandler, useForm } from 'react-hook-form';
+import ProfileForm from './profile-form/profile-form';
+import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
 
+import axios from 'axios';
+import { IUserEdit } from '@project/shared/types';
+import { useMutation } from '@tanstack/react-query';
 /* eslint-disable-next-line */
 export interface ProfileMainProps {}
 
@@ -68,29 +66,11 @@ export function ProfileMain(props: ProfileMainProps) {
   };
 
   return (
-    <div>hello</div>
-
-    // <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-    //   <div>
-    //     <Controller
-    //       name={'times'}
-    //       control={control}
-    //       render={({ field, fieldState: { error } }) => (
-    //         <SelectField
-    //           options={times || []}
-    //           field={field}
-    //           placeholder={'Выбери подходящее время'}
-    //           isMulti={true}
-    //           isLoading={isLoadingTags}
-    //           error={error}
-    //         />
-    //       )}
-    //     />
-    //   </div>
-    //
-    //   <Button type={'submit'}>Изменить</Button>
-    // </form>
+    <div className={styles['container']}>
+      {/* <h1>Welcome to ProfileHobbies!</h1> */}
+      <ProfileHead />
+      <ProfileForm />
+    </div>
   );
 }
-
 export default ProfileMain;

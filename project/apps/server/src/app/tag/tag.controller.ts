@@ -33,9 +33,11 @@ export class TagController {
     return this.tagService.getAll();
   }
 
-  @Get('by-type/:type')
-  async getByType(@Param('type') type: string): Promise<TagSelect[]> {
-    return this.tagService.getByType(type);
+  @Get('by-type/:typeId')
+  async getByType(
+    @Param('typeId', ParseIntPipe) typeId: number,
+  ): Promise<TagSelect[]> {
+    return this.tagService.getByType(typeId);
   }
 
   @Get(':shortname')

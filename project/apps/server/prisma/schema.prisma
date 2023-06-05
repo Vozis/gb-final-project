@@ -27,15 +27,27 @@ model User {
   events    Event[] @relation("events")
   favorites Event[] @relation("favorites")
 
+  friends         User[] @relation("userFriends")
+  friendsRelation User[] @relation("userFriends")
+
   // eventsList UsersOnEvents[]
   @@map("users")
 }
 
+model TypeTag {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  tag Tag[]
+
+  @@map("type_tags")
+}
+
 model Tag {
-  id        Int    @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
-  shortName String @unique
-  type      String
+  shortName String    @unique
+  type      TypeTag[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -62,8 +74,9 @@ model Event {
   tags             Tag[]
   users            User[] @relation("events")
   usersOfFavorites User[] @relation("favorites")
-  creator          User?  @relation("creations", fields: [creatorId], references: [id])
-  creatorId        Int?
+
+  creator   User? @relation("creations", fields: [creatorId], references: [id])
+  creatorId Int?
 
   // usersList UsersOnEvents[]
   @@map("events")

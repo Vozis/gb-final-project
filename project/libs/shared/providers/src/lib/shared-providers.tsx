@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FC, PropsWithChildren } from 'react';
 import { AuthProvider } from './AuthProvider';
 import { ReduxProvider } from './ReduxProvider';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,8 +20,6 @@ export const SharedProviders: FC<PropsWithChildren> = ({ children }) => {
     <ReduxProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>{children}</AuthProvider>
-        <ToastContainer autoClose={2000} />
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ReduxProvider>
   );

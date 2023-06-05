@@ -1,6 +1,5 @@
 .field {
   position: relative;
-
 }
 
 .fieldLabel {
@@ -38,17 +37,14 @@
   transform: translateY(-50%);
   color: #5b5b5b;
   font-size: 16px;
-  transition: top 0.3s ease,
-  color 0.3s ease,
-  font-size 0.3s ease;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
 }
 
 .fieldLabel input:not(:placeholder-shown),
 .fieldLabel input:focus {
   border-color: #222;
-  transition-delay: 0.1s
+  transition-delay: 0.1s;
 }
-
 
 .fieldLabel input:not(:placeholder-shown) + .placeholder,
 .fieldLabel input:focus + .placeholder {
@@ -58,5 +54,6 @@
 }
 
 .error {
-
+  color: red;
+  margin: -14px 0px 0px 13px;
 }
