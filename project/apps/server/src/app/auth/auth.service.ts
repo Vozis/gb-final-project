@@ -30,8 +30,6 @@ export class AuthService {
     dto: CreateUserDto,
     avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
-    console.log('avatar', avatar);
-
     const isEmailUser = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
@@ -121,12 +119,14 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '2h',
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
       expiresIn: '30d',
     });
+
+    const expireDate = this.jwtService.decode(accessToken);
 
     return {
       accessToken,

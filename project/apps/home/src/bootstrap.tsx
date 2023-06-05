@@ -3,8 +3,6 @@ import * as ReactDOM from 'react-dom/client';
 
 import App from './app/app';
 import { BrowserRouter } from 'react-router-dom';
-import { SharedProviders } from '@project/shared/providers';
-import { SharedLayout } from '@project/shared/layout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

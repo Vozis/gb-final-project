@@ -1,12 +1,12 @@
 import { IAuthResponse, ILogin, IRegister } from '@project/shared/types';
-import { axiosClassic } from '@project/shared/config';
+import { AuthApi, axiosClassic } from '@project/shared/config';
 import { removeTokensFromStorage, saveToStorage } from '@project/shared/utils';
 import Cookies from 'js-cookie';
 
 export const AuthService = {
   async register(data: FormData) {
     const response = await axiosClassic.post<IAuthResponse>(
-      '/auth/register',
+      AuthApi.register,
       data,
       {
         headers: {
@@ -22,7 +22,7 @@ export const AuthService = {
 
   async login(data: ILogin) {
     const response = await axiosClassic.post<IAuthResponse>(
-      '/auth/login',
+      AuthApi.login,
       data,
     );
 
@@ -43,7 +43,7 @@ export const AuthService = {
     }
 
     const response = await axiosClassic.post<IAuthResponse>(
-      'auth/get-new-tokens',
+      AuthApi.getNewTokens,
       { refreshToken: jsonToken },
     );
 

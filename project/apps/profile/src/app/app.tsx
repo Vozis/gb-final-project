@@ -1,4 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import '../styles.scss';
 
 import { ProfileMain } from '@project/profile-main';
 import { SharedLayout } from '@project/shared/layout';

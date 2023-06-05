@@ -6,6 +6,7 @@ import { ToggleDto } from '../../utils/toggle.dto';
 import { UserService } from '../user/user.service';
 import { EventSelect, returnEventObject } from './returnEventObject';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
+import { SearchEventDto } from './dto/search-event.dto';
 
 @Injectable()
 export class EventService {
@@ -60,7 +61,7 @@ export class EventService {
       .count({
         where: {
           id: id,
-          [dto.type]: {
+          users: {
             some: {
               id: dto.toggleId,
             },
@@ -68,8 +69,6 @@ export class EventService {
         },
       })
       .then(Boolean);
-
-    if (!isExist) throw new NotFoundException('Event not found');
 
     return this.prisma.event.update({
       where: { id: id },
@@ -85,17 +84,21 @@ export class EventService {
   }
 
   // TODO: переделать входящий параметр как клас и настроить валидацию возможных входящих параметров
-  async getAllEvents(searchTerm?: Array<any>): Promise<EventSelect[]> {
-    let search: object[];
-    if (searchTerm.length !== 0) {
-      searchTerm.forEach( data => {
-        search[data.paramsSearch] = {
-          contains: data?.valuesSearch,
+  async getAllEvents(searchArray?: SearchEventDto[]): Promise<EventSelect[]> {
+    let search = {};
+    if (searchArray.length !== 0) {
+      searchArray.forEach(item => {
+        search[item.paramsSearch] = {
+          contains: item?.valuesSearch,
           mode: 'insensitive',
-        }
-      })
+        };
+      });
     }
-    const eventsSearchFilter: Prisma.EventWhereInput = search ? { OR: search } : {};
+
+    const eventsSearchFilter: Prisma.EventWhereInput = search
+      ? { OR: [search] }
+      : {};
+
     return this.prisma.event.findMany({
       where: eventsSearchFilter,
       select: returnEventObject,

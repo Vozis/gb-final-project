@@ -1,19 +1,26 @@
+import '../styles.scss';
 import * as React from 'react';
 
-import NxWelcome from './nx-welcome';
+import { Link, Route, Routes, createBrowserRouter } from 'react-router-dom';
 
-import { Link, Route, Routes } from 'react-router-dom';
-
-import '../styles.scss';
 import { SharedProviders } from '@project/shared/providers';
+
+const CreateEvent = React.lazy(() => import('create-event/Module'));
+
+const SingleEvent = React.lazy(() => import('single-event/Module'));
 
 const Auth = React.lazy(() => import('auth/Module'));
 
 const Profile = React.lazy(() => import('profile/Module'));
 
-const Settings = React.lazy(() => import('settings/Module'));
-
 const Home = React.lazy(() => import('home/Module'));
+
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <Home />,
+//   },
+// ]);
 
 export function App() {
   return (
@@ -35,9 +42,10 @@ export function App() {
         {/*</ul>*/}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/create-event" element={<CreateEvent />} />
+          <Route path="/events/:id" element={<SingleEvent />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
         </Routes>
       </React.Suspense>
     </SharedProviders>

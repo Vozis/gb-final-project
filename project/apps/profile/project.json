@@ -59,7 +59,7 @@
         "buildTarget": "profile:build",
         "hmr": true,
         "port": 4203,
-        "proxyConfig": "apps/profile/proxy.conf.json"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {

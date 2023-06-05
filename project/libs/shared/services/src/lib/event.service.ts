@@ -1,26 +1,46 @@
-import { axiosAuth, axiosClassic } from '@project/shared/config';
-import { IEvent, IEventResponse } from '@project/shared/types';
+import { axiosAuth, axiosClassic, EventApi } from '@project/shared/config';
+import {
+  IEvent,
+  IEventResponse,
+  ISearch,
+  ISearchItem,
+  IToggle,
+} from '@project/shared/types';
+import { toast } from 'react-toastify';
 
 export const EventService = {
-  async getAllEvents(searchTerm?: string) {
-    return axiosClassic.get<IEvent[]>('/events/all', {
-      params: searchTerm
-        ? {
-            searchTerm,
-          }
-        : {},
+  async getAllEvents(searchArray?: ISearchItem[]) {
+    return axiosClassic.get<IEvent[]>(EventApi.getAll, {
+      params: searchArray ? { searchArray } : {},
     });
   },
 
   async getByUserTags() {
-    return axiosAuth.get<IEventResponse>('/events/by-user-hobbies');
+    return axiosAuth.get<IEventResponse>(EventApi.getByUserHobbies);
   },
 
   async createEvent(data: FormData) {
-    return axiosAuth.post<IEvent>('/events', data, {
+    return axiosAuth.post<IEvent>(EventApi.createEvent, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+  },
+
+  async toggleUser(id: number, data: IToggle) {
+    const res = axiosAuth.post<IEvent>(EventApi.toggleUser(id), data);
+
+    await toast.promise(res, {
+      pending: 'Posting',
+      success: {
+        render({ data }) {
+          return `Добавили событие ${data?.data.name}`;
+        },
+        icon: '🟢',
+      },
+      error: 'error message',
+    });
+
+    return res.then(data => data);
   },
 };

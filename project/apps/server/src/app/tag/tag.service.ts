@@ -22,7 +22,11 @@ export class TagService {
       data: {
         name: createTagDto.name,
         shortName: createTagDto.shortName,
-        type: createTagDto.type,
+        type: {
+          connect: {
+            id: createTagDto.typeId,
+          },
+        },
       },
       select: {
         ...returnTagObject,
@@ -35,11 +39,15 @@ export class TagService {
     return this.prisma.tag.findMany();
   }
 
-  async getByType(type: string): Promise<TagSelect[]> {
+  async getByType(typeId: number): Promise<TagSelect[]> {
     const isExistTag = await this.prisma.tag
       .findFirst({
         where: {
-          type,
+          type: {
+            some: {
+              id: typeId,
+            },
+          },
         },
       })
       .then(Boolean);
@@ -47,7 +55,13 @@ export class TagService {
     if (!isExistTag) throw new BadRequestException('Tag does not exist');
 
     return this.prisma.tag.findMany({
-      where: { type },
+      where: {
+        type: {
+          some: {
+            id: typeId,
+          },
+        },
+      },
       select: returnTagObject,
     });
   }

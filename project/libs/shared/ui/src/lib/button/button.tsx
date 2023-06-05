@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 /* eslint-disable-next-line */
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  type: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export function Button({
@@ -18,7 +18,7 @@ export function Button({
     <button
       className={clsx(styles.btn, className)}
       onClick={onClick}
-      type={type}
+      type={type ? type : 'button'}
       {...rest}
     >
       {children}

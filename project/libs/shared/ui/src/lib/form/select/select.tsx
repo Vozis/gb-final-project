@@ -1,3 +1,4 @@
+import './react-select.scss';
 import styles from './select.module.scss';
 
 import { IOption, ISelect } from '@project/shared/types';

@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@project/auth-main": ["libs/auth-main/src/index.ts"],
+      "@project/create-event-main": ["libs/create-event-main/src/index.ts"],
       "@project/home-main": ["libs/home-main/src/index.ts"],
       "@project/profile-main": ["libs/profile-main/src/index.ts"],
       "@project/server/src/app/tag": ["libs/server/src/app/tag/src/index.ts"],
@@ -31,6 +32,7 @@
       "@project/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@project/shared/ui/buttons": ["libs/shared/ui/buttons/src/index.ts"],
       "@project/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@project/single-event-main": ["libs/single-event-main/src/index.ts"],
       "@project/uploads": ["libs/uploads/src/index.ts"]
     }
   },

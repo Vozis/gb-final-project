@@ -6,3 +6,4 @@ export * from './lib/useAuth';
 export * from './lib/useActions';
 export * from './lib/useAuthRedux';
 export * from './lib/useAuthRedirect';
+export * from './lib/useTest';

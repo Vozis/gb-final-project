@@ -11,8 +11,10 @@ import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
 import { ToggleDto } from '../../utils/toggle.dto';
 import {
+  returnAuthUserObject,
   returnUserFullObject,
   returnUserObject,
+  UserAuthSelect,
   UserFullSelect,
   UserSelect,
 } from './returnUserObject';
@@ -70,10 +72,10 @@ export class UserService {
     return _user;
   }
 
-  async getForAuth(email: string): Promise<UserFullSelect> {
+  async getForAuth(email: string): Promise<UserAuthSelect> {
     const _user = await this.prisma.user.findUnique({
       where: { email },
-      select: returnUserFullObject,
+      select: returnAuthUserObject,
     });
 
     if (!_user) throw new NotFoundException('User not found');
