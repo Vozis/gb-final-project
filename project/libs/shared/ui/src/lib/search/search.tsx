@@ -25,9 +25,9 @@ export function Search({ setSearchInput, searchInput }: SearchProps) {
           defaultValue={searchInput}
           onChange={handleSearchInput}
         />
-        <button className={styles.search__button} type="submit">
-          Filter
-        </button>
+        {/*<button className={styles.search__button} type="submit">*/}
+        {/*  Filter*/}
+        {/*</button>*/}
       </form>
     </div>
   );
