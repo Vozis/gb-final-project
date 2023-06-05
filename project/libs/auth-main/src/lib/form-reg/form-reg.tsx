@@ -41,22 +41,22 @@ export function FormReg(props: FormProps) {
 
   const { register } = useActions();
 
-  const { data: sportKinds, isLoading } = useQuery(
-    ['get-hobbies'],
-    () => TagService.getByType('sport'),
-    {
-      select: ({ data }) =>
-        data.map(
-          (item): IOption => ({
-            label: item.name,
-            value: item.id,
-          }),
-        ),
-      onError: err => {
-        toast.error(errorCatch(err));
-      },
-    },
-  );
+  // const { data: sportKinds, isLoading } = useQuery(
+  //   ['get-hobbies'],
+  //   () => TagService.getByType('sport'),
+  //   {
+  //     select: ({ data }) =>
+  //       data.map(
+  //         (item): IOption => ({
+  //           label: item.name,
+  //           value: item.id,
+  //         }),
+  //       ),
+  //     onError: err => {
+  //       toast.error(errorCatch(err));
+  //     },
+  //   },
+  // );
 
   const onSubmit: SubmitHandler<IRegister> = async data => {
     const formData = new FormData();
@@ -139,20 +139,20 @@ export function FormReg(props: FormProps) {
         </div>
       </div>
       {/* --------------------------------------------- */}
-      <Controller
-        name={'hobbies'}
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <SelectField
-            options={sportKinds || []}
-            field={field}
-            placeholder={'Выбери свои хобби...'}
-            isMulti={true}
-            isLoading={isLoading}
-            error={error}
-          />
-        )}
-      />
+      {/*<Controller*/}
+      {/*  name={'hobbies'}*/}
+      {/*  control={control}*/}
+      {/*  render={({ field, fieldState: { error } }) => (*/}
+      {/*    <SelectField*/}
+      {/*      options={sportKinds || []}*/}
+      {/*      field={field}*/}
+      {/*      placeholder={'Выбери свои хобби...'}*/}
+      {/*      isMulti={true}*/}
+      {/*      isLoading={isLoading}*/}
+      {/*      error={error}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*/>*/}
 
       <Button type={'submit'} className={styles.register_form_btn}>
         Продолжить

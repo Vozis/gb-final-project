@@ -26,9 +26,6 @@ export function Header(props: HeaderProps) {
         <li>
           <Link to="/profile">Profile</Link>
         </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
       </ul>
       <div
         className={'border-l px-4 ml-5 flex items-center justify-between gap-4'}
