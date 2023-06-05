@@ -1,7 +1,7 @@
 import styles from './card.module.scss';
 import { Button, MaterialIcon, Tag } from '@project/shared/ui';
 import { IEvent, ITag, IToggle } from '@project/shared/types';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
@@ -19,7 +19,8 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({
   event: { imageUrl, name, description, tags, id, users },
 }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
+
   const { user } = useAuthRedux();
 
   const queryClient = useQueryClient();
@@ -43,13 +44,21 @@ export const Card: FC<CardProps> = ({
     await mutateAsync(toggleId);
   };
   const handleFavouriteBtn = () => {
-    setIsFavourite(!isFavourite);
+    if (!isFavourite) setIsFavourite(!isFavourite);
   };
+
   useEffect(() => {
-    isFavourite && toast.success('Добавлено в избранное');
+    !isFavourite
+      ? toast.success('Удалено из избранного', {
+          containerId: 1,
+          toastId: 'toggle-favorite',
+        })
+      : toast.success('Добавлено в избранное', {
+          containerId: 1,
+          toastId: 'toggle-favorite',
+        });
   }, [isFavourite]);
 
-  // if (isFavourite) toast('Добавлено в избранное');
   return (
     <div
       className={styles.card}
