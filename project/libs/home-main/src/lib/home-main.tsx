@@ -1,14 +1,15 @@
+
 import styles from './home-main.module.scss';
 import { Button, MaterialIcon, Modal, Search } from '@project/shared/ui';
-import { CardList } from './card-list/card-list';
-import CreateEventForm from './create-event-form/create-event-form';
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
+import { CardList } from './card-list/card-list';
+import CreateEventForm from './create-event-form/create-event-form';
+import styles from './home-main.module.scss';
 
 import { useState } from 'react';
 
 /* eslint-disable-next-line */
-
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {

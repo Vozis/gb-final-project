@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@project/uploads": ["libs/uploads/src/index.ts"],
       "@project/auth-main": ["libs/auth-main/src/index.ts"],
       "@project/home-main": ["libs/home-main/src/index.ts"],
       "@project/profile-main": ["libs/profile-main/src/index.ts"],
@@ -31,7 +30,8 @@
       "@project/shared/types": ["libs/shared/types/src/index.ts"],
       "@project/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@project/shared/ui/buttons": ["libs/shared/ui/buttons/src/index.ts"],
-      "@project/shared/utils": ["libs/shared/utils/src/index.ts"]
+      "@project/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@project/uploads": ["libs/uploads/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
