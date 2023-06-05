@@ -1,18 +1,33 @@
-import { useActions } from '@project/shared/hooks';
-import { Button, Field, SelectField } from '@project/shared/ui';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { FormProps } from 'react-router-dom';
-import styles from './form-reg.module.scss';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useActions, useAuthRedirect } from '@project/shared/hooks';
 import { TagService } from '@project/shared/services';
 import { IOption, IRegister } from '@project/shared/types';
-import { toast } from 'react-toastify';
+import { Button, Field, SelectField } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { AiOutlineUpload } from 'react-icons/ai';
+import { IconContext } from 'react-icons/lib';
+import { FormProps } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import styles from './form-reg.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormRegProps {}
 
 export function FormReg(props: FormProps) {
+  useAuthRedirect();
+  // --------------------------
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedName, setSelectedName] = useState('');
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setSelectedName(file.name);
+    // Additional validation logic
+  };
+  // ---------------------------
   const {
     register: registerInput,
     handleSubmit,
@@ -59,18 +74,19 @@ export function FormReg(props: FormProps) {
       formData.append('avatar', data.avatar[0]);
     }
 
-    // /* @ts-ignore */
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    /* @ts-ignore */
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     register(formData);
   };
 
   return (
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
-      <p className={'text-xl mb-4'}>Сперва нужно зарегистрироваться 🙃</p>
+      <p className={styles.register_form_title}>Регистрация</p>
       <Field
+        // className={styles.err}
         {...registerInput('userName', { required: 'Без ника никак' })}
         placeholder={'Ваш ник...'}
         error={errors.userName}
@@ -95,11 +111,34 @@ export function FormReg(props: FormProps) {
         placeholder={'Ваш пароль...'}
         error={errors.password}
       />
-      <input
+      {/* <input
         type={'file'}
         placeholder={'Добавь аватар'}
         {...registerInput('avatar')}
-      />
+      /> */}
+      {/* --------------------------------------- */}
+      <div className={styles.app}>
+        <div className={styles.parent}>
+          <div className={styles.file_upload}>
+            <IconContext.Provider value={{ color: '#2E6D9C', size: '50px' }}>
+              <div>
+                <AiOutlineUpload />
+              </div>
+            </IconContext.Provider>
+            <h4 className={styles.file_upload_h3}>
+              {' '}
+              {selectedName || 'Кликните что бы загрузить'}
+            </h4>
+            <p>Максимальный размер 10mb</p>
+            <input
+              type={'file'}
+              {...registerInput('avatar')}
+              onChange={handleFileChange}
+            />
+          </div>
+        </div>
+      </div>
+      {/* --------------------------------------------- */}
       <Controller
         name={'hobbies'}
         control={control}
@@ -115,7 +154,9 @@ export function FormReg(props: FormProps) {
         )}
       />
 
-      <Button type={'submit'}>Продолжить</Button>
+      <Button type={'submit'} className={styles.register_form_btn}>
+        Продолжить
+      </Button>
     </form>
   );
 }

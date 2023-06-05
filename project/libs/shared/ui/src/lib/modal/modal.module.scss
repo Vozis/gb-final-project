@@ -1,0 +1,51 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+
+  &__content {
+    position: relative;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    transform: scale(0.5);
+    transition: all 0.3s ease-out;
+    z-index: 10;
+
+    &.active {
+      transform: scale(1);
+
+    }
+
+  }
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__btnClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 11;
+  }
+
+}

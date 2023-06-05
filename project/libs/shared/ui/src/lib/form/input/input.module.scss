@@ -1,17 +1,59 @@
 .field {
-
-
+  position: relative;
 }
 
-.field label {
-  color: #555555;
+.fieldLabel {
+  position: relative;
+  font-size: 14px;
+  border-top: 20px solid transparent;
+  margin-bottom: 5px;
+  display: inline-block;
+  padding: 12px;
 }
 
 .input {
-  display: block;
-  border: 1px solid #555555;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 12px;
+  width: 300px;
+  border-radius: 3px;
+  outline: none;
+  font-size: 14px;
+  background: none;
+  border: 2px solid #5b5b5b;
+  transition: border-color 0.3s ease;
+}
+
+.placeholder {
+  position: absolute;
+  left: 24px;
+  //width: calc(100% - 24px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5b5b5b;
+  font-size: 16px;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+}
+
+.fieldLabel input:not(:placeholder-shown),
+.fieldLabel input:focus {
+  border-color: #222;
+  transition-delay: 0.1s;
+}
+
+.fieldLabel input:not(:placeholder-shown) + .placeholder,
+.fieldLabel input:focus + .placeholder {
+  top: 0;
+  font-size: 14px;
+  color: #222;
 }
 
 .error {
-
+  color: red;
+  margin: -14px 0px 0px 13px;
 }

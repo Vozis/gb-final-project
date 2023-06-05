@@ -5,3 +5,13 @@
  * .container {
  * }
 */
+.selectContainer {
+  color: black;
+  width: 320px;
+  margin-top: 20px;
+}
+
+.selectContainer:last-child {
+  border: 2px solid #5b5b5b;
+  border-radius: 8px;
+}

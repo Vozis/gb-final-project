@@ -9,9 +9,15 @@ export const Field = forwardRef<HTMLInputElement, IField>(
   ({ placeholder, error, type = 'text', style, ...rest }, ref) => {
     return (
       <div className={cn(styles.field)} style={style}>
-        <label>
-          <span>{placeholder}</span>
-          <input className={cn(styles.input)} ref={ref} type={type} {...rest} />
+        <label className={styles.fieldLabel}>
+          <input
+            className={cn(styles.input)}
+            ref={ref}
+            type={type}
+            {...rest}
+            placeholder={' '}
+          />
+          <span className={styles.placeholder}>{placeholder}</span>
         </label>
         {error && <div className={styles.error}>{errorCatch(error)}</div>}
       </div>

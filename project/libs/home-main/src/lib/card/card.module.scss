@@ -32,6 +32,7 @@
   height: 100%; // высота скошенного края
   //background: black; // цвет скошенного края
   position: absolute; // позиционируем относительно block
+  z-index: 2;
   top: 0; // пристроим к верхней части блока
   right: 0; // пристроим к левой части блока
   transform: translateX(0%); // сдвигаем вверх на 30 пикселей
@@ -77,6 +78,7 @@
 .cardTags {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
 }
 
 .cardIcon {

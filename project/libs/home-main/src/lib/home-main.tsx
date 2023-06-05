@@ -1,37 +1,46 @@
 import { EventService } from '@project/shared/services';
-import { Search } from '@project/shared/ui';
+import { Button, MaterialIcon, Modal } from '@project/shared/ui';
 import { useQuery } from '@tanstack/react-query';
-import CardList from './card-list/card-list';
+import { CardList } from './card-list/card-list';
+import CreateEventForm from './create-event-form/create-event-form';
 import styles from './home-main.module.scss';
 
+import { useState } from 'react';
+
 /* eslint-disable-next-line */
-
-// const createCardInfo = () => ({
-//   id: faker.string.uuid(),
-//   cardTitle: faker.person.jobTitle(),
-//   cardImgUrl: faker.image.urlLoremFlickr({ category: 'sports' }),
-//   description: faker.lorem.words(20),
-// });
-//
-// const createCards = (count: number) => {
-//   return Array.from({ length: count }).map(createCardInfo);
-// };
-//
-// const MOCK_CARDS = createCards(10);
-
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ['get-all-events'],
-    queryFn: () => EventService.getAllEvents(),
-  });
-  console.log(data);
+  const [modalActive, setModalActive] = useState(false);
+
+  const { isLoading, isError, data, error } = useQuery(
+    ['get-all-events'],
+    () => EventService.getAllEvents(),
+    {
+      select: ({ data }) => data,
+    },
+  );
+
   return (
     <div className={styles.container}>
-      <Search />
+      <Button
+        type={'button'}
+        className={styles.btnAddEvent}
+        onClick={() => setModalActive(true)}
+      >
+        <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
+      </Button>
 
-      <CardList list={data?.data || []} />
+      <Modal active={modalActive} setActive={setModalActive}>
+        <CreateEventForm setActive={setModalActive} />
+      </Modal>
+      {isLoading ? (
+        <div>Загрузка...</div>
+      ) : data?.length ? (
+        <CardList list={data || []} />
+      ) : (
+        <div>Созданных событий пока нет :(</div>
+      )}
     </div>
   );
 }

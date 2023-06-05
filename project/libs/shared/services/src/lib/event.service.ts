@@ -1,15 +1,26 @@
 import { axiosAuth, axiosClassic } from '@project/shared/config';
+import { IEvent, IEventResponse } from '@project/shared/types';
 
 export const EventService = {
-  async getAllEvents() {
-    return axiosClassic.get('/events/all');
+  async getAllEvents(searchTerm?: string) {
+    return axiosClassic.get<IEvent[]>('/events/all', {
+      params: searchTerm
+        ? {
+            searchTerm,
+          }
+        : {},
+    });
   },
 
   async getByUserTags() {
-    return axiosAuth.get('/events/by-user-hobbies');
+    return axiosAuth.get<IEventResponse>('/events/by-user-hobbies');
   },
 
-  async createEvent(data: any) {
-    return axiosAuth.post('/events/create', data);
+  async createEvent(data: FormData) {
+    return axiosAuth.post<IEvent>('/events', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 };

@@ -50,7 +50,7 @@ model Event {
   id          Int     @id @default(autoincrement())
   name        String
   description String?
-  imageUrl    String  @unique @default("/assets/default-event.png") @map("image_url")
+  imageUrl    String  @default("/assets/default-event.png") @map("image_url")
   coordinateX String? @map("coordinate_x")
   coordinateY String? @map("coordinate_y")
 
