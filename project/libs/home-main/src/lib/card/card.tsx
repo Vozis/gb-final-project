@@ -44,18 +44,18 @@ export const Card: FC<CardProps> = ({
     await mutateAsync(toggleId);
   };
   const handleFavouriteBtn = () => {
-    if (!isFavourite) setIsFavourite(!isFavourite);
+    setIsFavourite(!isFavourite);
   };
 
   useEffect(() => {
     !isFavourite
       ? toast.success('Удалено из избранного', {
           containerId: 1,
-          toastId: 'toggle-favorite',
+          toastId: 'toggle-delete-favorite',
         })
       : toast.success('Добавлено в избранное', {
           containerId: 1,
-          toastId: 'toggle-favorite',
+          toastId: 'toggle-add-favorite',
         });
   }, [isFavourite]);
 
