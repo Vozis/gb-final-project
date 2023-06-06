@@ -44,9 +44,7 @@ export class TagService {
       .findFirst({
         where: {
           type: {
-            some: {
-              id: typeId,
-            },
+            id: typeId,
           },
         },
       })
@@ -57,9 +55,7 @@ export class TagService {
     return this.prisma.tag.findMany({
       where: {
         type: {
-          some: {
-            id: typeId,
-          },
+          id: typeId,
         },
       },
       select: returnTagObject,

@@ -1,4 +1,8 @@
+@use 'libs/shared/styles/variables' as v;
+
+
 .layout {
+  background-color: v.$background-color;
   display: grid;
   grid-template-areas:
 'header'
@@ -16,6 +20,7 @@
 
 .layout > main {
   grid-area: main;
+  margin-top: 15px;
   max-width: 1200px;
 }
 

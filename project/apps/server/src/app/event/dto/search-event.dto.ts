@@ -1,11 +1,35 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class SearchEventDto {
-  @IsString()
-  @IsOptional()
-  paramsSearch: string;
+class SearchEventDto {
+  paramsSearch?: string;
+  valuesSearch?: string;
+}
 
-  @IsString()
+class FilterNestedFieldsDto {
+  paramsCategory?: string;
+  paramsType?: string;
+  nestedFieldValue?: number | string;
+}
+
+class FilterEventFieldsDto {
+  paramsFilter?: string;
+  eventFieldValue?: number | string;
+}
+
+export class FilterSearchDto {
+  @Type(() => SearchEventDto)
+  @ValidateNested()
   @IsOptional()
-  valuesSearch: string;
+  searchParams: SearchEventDto[];
+
+  @Type(() => FilterNestedFieldsDto)
+  @ValidateNested()
+  @IsOptional()
+  filterNestedFieldsParams: FilterNestedFieldsDto[];
+
+  @Type(() => FilterEventFieldsDto)
+  @ValidateNested()
+  @IsOptional()
+  filterEventFieldsParams: FilterEventFieldsDto[];
 }

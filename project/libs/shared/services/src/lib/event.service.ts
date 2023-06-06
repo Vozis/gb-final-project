@@ -9,9 +9,9 @@ import {
 import { toast } from 'react-toastify';
 
 export const EventService = {
-  async getAllEvents(searchArray?: ISearchItem[]) {
+  async getAllEvents(filterSearchDto?: ISearch) {
     return axiosClassic.get<IEvent[]>(EventApi.getAll, {
-      params: searchArray ? { searchArray } : {},
+      params: filterSearchDto ? filterSearchDto : {},
     });
   },
 

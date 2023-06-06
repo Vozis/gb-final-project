@@ -1,6 +1,6 @@
 import styles from './button.module.scss';
 import React, { HTMLAttributes, PropsWithChildren } from 'react';
-import clsx from 'clsx';
+import cn from 'clsx';
 
 /* eslint-disable-next-line */
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -16,7 +16,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={clsx(styles.btn, className)}
+      className={cn(styles.btn, className)}
       onClick={onClick}
       type={type ? type : 'button'}
       {...rest}
