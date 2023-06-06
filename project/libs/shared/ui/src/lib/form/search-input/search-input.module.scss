@@ -1,0 +1,45 @@
+@use 'libs/shared/styles/variables' as v;
+
+.search {
+  box-sizing: border-box;
+  width: 100%;
+
+  @media (min-width: 540px) {
+    width: 480px;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    border: none;
+    border-radius: v.$border-radius;
+    //box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.29);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 300;
+    height: 40px;
+    padding: 0 12px;
+    width: 100%;
+
+    &::placeholder {
+      color: #999999;
+      font-size: 16px;
+    }
+  }
+
+  &__button {
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: inherit;
+    font-size: 16px;
+    margin-left: 5px;
+    padding: 10px 18px;
+    width: 90px;
+  }
+}
+

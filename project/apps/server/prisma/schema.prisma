@@ -44,13 +44,15 @@ model TypeTag {
 }
 
 model Tag {
-  id        Int       @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   name      String
-  shortName String    @unique
-  type      TypeTag[]
+  shortName String @unique
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  type   TypeTag @relation(fields: [typeId], references: [id])
+  typeId Int     @default(1) @map("type_id")
 
   users  User[]
   events Event[]

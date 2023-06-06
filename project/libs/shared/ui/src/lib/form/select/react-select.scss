@@ -1,11 +1,16 @@
+@use 'libs/shared/styles/variables' as v;
+
+
 /* React Select */
 .custom-select {
   &__control {
-    background-color: transparent !important;
+    background-color: #FFFFFF !important;
     border: none !important;
     border-bottom: 1px solid #66676e !important;
-    border-radius: 0 !important;
+    border-radius: 12px !important;
     box-shadow: none !important;
+    min-width: 300px;
+    @apply px-4 py-2;
 
     &--menu-is-open {
       border-color: var(--primary-color) !important;

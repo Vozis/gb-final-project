@@ -6,7 +6,7 @@ import styles from './input.module.scss';
 import { errorCatch } from '@project/shared/utils';
 
 export const Field = forwardRef<HTMLInputElement, IField>(
-  ({ placeholder, error, type = 'text', style, ...rest }, ref) => {
+  ({ placeholder, error, type = 'text', style, onChange, ...rest }, ref) => {
     return (
       <div className={cn(styles.field)} style={style}>
         <label className={styles.fieldLabel}>
@@ -14,8 +14,9 @@ export const Field = forwardRef<HTMLInputElement, IField>(
             className={cn(styles.input)}
             ref={ref}
             type={type}
-            {...rest}
             placeholder={' '}
+            onChange={onChange}
+            {...rest}
           />
           <span className={styles.placeholder}>{placeholder}</span>
         </label>

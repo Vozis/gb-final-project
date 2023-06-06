@@ -42,10 +42,8 @@ export const SelectField: FC<ISelect> = ({
   return (
     <div className={styles.selectContainer}>
       <label>
-        <span>{placeholder}</span>
         <Select
-          // classNamePrefix={'custom-select'}
-
+          classNamePrefix={'custom-select'}
           options={options}
           isMulti={isMulti}
           components={animatedComponents}
@@ -53,7 +51,8 @@ export const SelectField: FC<ISelect> = ({
           value={getValue()}
           onChange={onChange}
           isClearable={false}
-          className={styles.selectContainer}
+          // className={styles.selectContainer}
+          placeholder={placeholder}
         />
       </label>
       {error && <div className={styles.error}>{errorCatch(error)}</div>}
