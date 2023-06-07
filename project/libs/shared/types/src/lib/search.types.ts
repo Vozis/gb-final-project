@@ -3,6 +3,25 @@ export interface ISearchItem {
   valuesSearch: string;
 }
 
+export interface IFilterNestedFieldsItem {
+  paramsCategory: string;
+  paramsType: string;
+  nestedFieldValue: number | string;
+}
+
+export interface IFilterEventFieldsItem {
+  paramsFilter: string;
+  eventFieldValue: number | string;
+}
+
 export interface ISearch {
-  items: ISearchItem[];
+  searchParams?: ISearchItem[];
+  filterNestedFieldsParams?: IFilterNestedFieldsItem[];
+  filterEventFieldsParams?: IFilterEventFieldsItem[];
+}
+
+export interface ISearchForm {
+  valuesSearch?: string;
+  paramsSearch?: string;
+  tags?: string[];
 }

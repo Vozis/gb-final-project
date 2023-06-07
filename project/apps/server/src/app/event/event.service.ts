@@ -6,7 +6,7 @@ import { ToggleDto } from '../../utils/toggle.dto';
 import { UserService } from '../user/user.service';
 import { EventSelect, returnEventObject } from './returnEventObject';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
-import { SearchEventDto } from './dto/search-event.dto';
+import { FilterSearchDto } from './dto/search-event.dto';
 
 @Injectable()
 export class EventService {
@@ -83,11 +83,18 @@ export class EventService {
     });
   }
 
-  // TODO: переделать входящий параметр как клас и настроить валидацию возможных входящих параметров
-  async getAllEvents(searchArray?: SearchEventDto[]): Promise<EventSelect[]> {
+  async getAllEvents(
+    filterSearchDto?: FilterSearchDto,
+  ): Promise<EventSelect[]> {
     let search = {};
-    if (searchArray.length !== 0) {
-      searchArray.forEach(item => {
+    let filterTag = [];
+    let filterParams = [];
+
+    if (
+      filterSearchDto.searchParams &&
+      filterSearchDto.searchParams?.length !== 0
+    ) {
+      filterSearchDto.searchParams.forEach(item => {
         search[item.paramsSearch] = {
           contains: item?.valuesSearch,
           mode: 'insensitive',
@@ -95,17 +102,64 @@ export class EventService {
       });
     }
 
+    if (
+      filterSearchDto.filterNestedFieldsParams &&
+      filterSearchDto.filterNestedFieldsParams.length !== 0
+    ) {
+      filterSearchDto.filterNestedFieldsParams.forEach((item, index) => {
+        filterTag[index] = {
+          [item.paramsCategory]: {
+            some: {
+              [item.paramsType]: +item.nestedFieldValue,
+            },
+          },
+        };
+      });
+    }
+
+    if (
+      filterSearchDto.filterEventFieldsParams &&
+      filterSearchDto.filterEventFieldsParams.length !== 0
+    ) {
+      filterSearchDto.filterEventFieldsParams.forEach((item, index) => {
+        filterParams[index] = {
+          [item.paramsFilter]: {
+            id: +item.eventFieldValue,
+          },
+        };
+      });
+    }
+
+    // console.log('filterParams', filterParams);
+    // console.log('search', search);
+
     const eventsSearchFilter: Prisma.EventWhereInput = search
-      ? { OR: [search] }
+      ? {
+          AND: [
+            search,
+            {
+              AND: filterTag,
+            },
+            {
+              AND: filterParams,
+            },
+          ],
+        }
       : {};
 
-    return this.prisma.event.findMany({
+    // console.log('eventsSearchFilter', eventsSearchFilter);
+
+    const result = await this.prisma.event.findMany({
       where: eventsSearchFilter,
       select: returnEventObject,
       orderBy: {
         createdAt: 'desc',
       },
     });
+
+    if (!result) throw new NotFoundException('По запросу нет событий');
+
+    return result;
   }
 
   async getUserEvents(userId: number): Promise<EventSelect[]> {

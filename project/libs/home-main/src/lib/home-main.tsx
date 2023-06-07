@@ -1,54 +1,74 @@
 import styles from './home-main.module.scss';
-import { Button, MaterialIcon, Modal, Search } from '@project/shared/ui';
+import {
+  Button,
+  Field,
+  Filter,
+  MaterialIcon,
+  Modal,
+  RadioField,
+  SearchField,
+  SelectField,
+  SkeletonLoader,
+} from '@project/shared/ui';
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
 import { CardList } from './card-list/card-list';
 import CreateEventForm from './create-event-form/create-event-form';
 
 import { useEffect, useState } from 'react';
-import { IEvent, ISearch, ISearchItem } from '@project/shared/types';
+import {
+  IEvent,
+  IOption,
+  ISearch,
+  ISearchForm,
+  ISearchItem,
+} from '@project/shared/types';
 import { useDebounce } from 'usehooks-ts';
 import axios from 'axios';
 import { useAuthRedux } from '@project/shared/hooks';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import debounce from 'debounce';
+import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
 
+const options: IOption[] = [
+  { value: 1, label: 'Более 5 человек' },
+  { value: 2, label: 'До 5 человек' },
+];
+
 export function HomeMain(props: HomeMainProps) {
   // const { user } = useAuthRedux();
   const [modalActive, setModalActive] = useState<boolean>(false);
-  const [searchInput, setSearchInput] = useState<string>('');
-  const [filterParamsArray, setFilterParamsArray] = useState<ISearchItem[]>([]);
+  const [filterParamsArray, setFilterParamsArray] = useState<ISearch>({});
 
-  const debounceSearchInput = useDebounce(searchInput, 500);
+  // const {
+  //   isLoading,
+  //   isError,
+  //   data: events,
+  //   error,
+  // } = useQuery(
+  //   ['get-all-events', filterParamsArray],
+  //   () => EventService.getAllEvents(filterParamsArray),
+  //   {
+  //     select: ({ data }) => data,
+  //     enabled: !!filterParamsArray,
+  //   },
+  // );
 
-  const { isLoading, isError, data, error } = useQuery(
-    ['get-all-events', debounceSearchInput],
-    () =>
-      EventService.getAllEvents([
-        { paramsSearch: 'name', valuesSearch: debounceSearchInput },
-      ]),
-    {
-      select: ({ data }) => data,
-    },
+  const { isLoading, events, onSubmit } = useFilter(
+    filterParamsArray,
+    setFilterParamsArray,
   );
 
   return (
     <div className={styles.container}>
-      <Search searchInput={searchInput} setSearchInput={setSearchInput} />
-      {/*<Button*/}
-      {/*  className={styles.btnAddEvent}*/}
-      {/*  onClick={() => setModalActive(true)}*/}
-      {/*>*/}
-      {/*  <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />*/}
-      {/*</Button>*/}
-      {/*<Modal active={modalActive} setActive={setModalActive}>*/}
-      {/*  /!*<CreateEventForm setActive={setModalActive} />*!/*/}
-      {/*</Modal>*/}
+      <Filter onSubmit={onSubmit} />
       {isLoading ? (
-        <div>Загрузка...</div>
-      ) : data?.length ? (
-        <CardList list={data || []} />
+        <SkeletonLoader count={1} height={48} className={'mt-4'} />
+      ) : events?.length ? (
+        <CardList list={events || []} />
       ) : (
         <div>Созданных событий пока нет :(</div>
       )}

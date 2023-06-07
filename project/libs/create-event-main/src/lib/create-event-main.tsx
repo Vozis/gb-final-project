@@ -9,7 +9,15 @@ export function CreateEventMain(props: CreateEventMainProps) {
 
   return (
     <div className={styles['container']}>
-      <h1>Welcome to CreateEventMain! {id}</h1>
+      {/*<Button*/}
+      {/*  className={styles.btnAddEvent}*/}
+      {/*  onClick={() => setModalActive(true)}*/}
+      {/*>*/}
+      {/*  <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />*/}
+      {/*</Button>*/}
+      {/*<Modal active={modalActive} setActive={setModalActive}>*/}
+      {/*  /!*<CreateEventForm setActive={setModalActive} />*!/*/}
+      {/*</Modal>*/}
     </div>
   );
 }

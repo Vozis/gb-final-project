@@ -5,10 +5,7 @@
 [type='reset'],
 [type='submit']
 {
-  @apply flex items-center justify-center gap-4;
-  border: 1px solid v.$primary-color;
-  margin: 5px 0;
-  padding: 3px 10px;
+  @apply flex items-center justify-center gap-4 px-2 py-2 box-border;
 
   &:hover {
     cursor: pointer;

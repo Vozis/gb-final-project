@@ -138,7 +138,7 @@ export function FormReg(props: FormProps) {
           </div>
         </div>
       </div>
-      {/* --------------------------------------------- */}
+      {/*--------------------------------------------- */}
       {/*<Controller*/}
       {/*  name={'hobbies'}*/}
       {/*  control={control}*/}

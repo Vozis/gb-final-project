@@ -19,7 +19,7 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({
   event: { imageUrl, name, description, tags, id, users },
 }) => {
-  const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
   const { user } = useAuthRedux();
 
@@ -51,11 +51,11 @@ export const Card: FC<CardProps> = ({
     !isFavourite
       ? toast.success('Удалено из избранного', {
           containerId: 1,
-          toastId: 'toggle-delete-favorite',
+          toastId: 'add-to-favorite',
         })
       : toast.success('Добавлено в избранное', {
           containerId: 1,
-          toastId: 'toggle-add-favorite',
+          toastId: 'delete-from-favorite',
         });
   }, [isFavourite]);
 
