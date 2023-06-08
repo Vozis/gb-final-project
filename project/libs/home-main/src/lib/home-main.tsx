@@ -1,34 +1,13 @@
 import styles from './home-main.module.scss';
-import {
-  Button,
-  Field,
-  Filter,
-  MaterialIcon,
-  Modal,
-  RadioField,
-  SearchField,
-  SelectField,
-  SkeletonLoader,
-} from '@project/shared/ui';
-import { useQuery } from '@tanstack/react-query';
-import { EventService } from '@project/shared/services';
+import { Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
-import CreateEventForm from './create-event-form/create-event-form';
 
-import { useEffect, useState } from 'react';
-import {
-  IEvent,
-  IOption,
-  ISearch,
-  ISearchForm,
-  ISearchItem,
-} from '@project/shared/types';
-import { useDebounce } from 'usehooks-ts';
-import axios from 'axios';
-import { useAuthRedux } from '@project/shared/hooks';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import debounce from 'debounce';
+import React from 'react';
+import { IOption } from '@project/shared/types';
+import { useActions, useFilterState } from '@project/shared/hooks';
 import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
+import { CardSkeleton } from './card/card-skeleton';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
@@ -40,8 +19,10 @@ const options: IOption[] = [
 
 export function HomeMain(props: HomeMainProps) {
   // const { user } = useAuthRedux();
-  const [modalActive, setModalActive] = useState<boolean>(false);
-  const [filterParamsArray, setFilterParamsArray] = useState<ISearch>({});
+  // const [modalActive, setModalActive] = useState<boolean>(false);
+  const { filterParamsArray } = useFilterState();
+
+  const { setFilterParamsArray } = useActions();
 
   // const {
   //   isLoading,
@@ -64,9 +45,12 @@ export function HomeMain(props: HomeMainProps) {
 
   return (
     <div className={styles.container}>
+      <Link to={'/create-event'}>
+        <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
+      </Link>
       <Filter onSubmit={onSubmit} />
       {isLoading ? (
-        <SkeletonLoader count={1} height={48} className={'mt-4'} />
+        <CardSkeleton count={3} />
       ) : events?.length ? (
         <CardList list={events || []} />
       ) : (

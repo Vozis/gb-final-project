@@ -4,6 +4,7 @@ import { InputHTMLAttributes } from 'react';
 export interface IFieldProps {
   placeholder: string;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  visibility?: boolean;
 }
 
 type TypedInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps;

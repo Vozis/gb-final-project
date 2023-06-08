@@ -18,6 +18,12 @@ export const returnUserObject: Prisma.UserSelect = {
     select: {
       id: true,
       name: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   },
   favorites: {
@@ -61,19 +67,38 @@ export const returnAuthUserObject: Prisma.UserSelect = {
   userName: true,
   password: true,
   role: true,
+  firstName: true,
+  lastName: true,
   avatarPath: true,
-  creations: false,
+  creations: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
   hobbies: {
     select: {
       id: true,
+      name: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   },
   favorites: {
     select: {
       id: true,
+      name: true,
     },
   },
-  events: false,
+  events: {
+    select: {
+      id: true,
+    },
+  },
 };
 
 export const returnUserFullObject: Prisma.UserSelect = {

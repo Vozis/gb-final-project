@@ -1,14 +1,20 @@
 import { getStoreLocal } from '@project/shared/utils';
 import { createSlice } from '@reduxjs/toolkit';
-import { checkAuth, login, logout, register } from '../actions/userActions';
+import {
+  checkAuth,
+  getProfile,
+  login,
+  logout,
+  register,
+} from '../actions/userActions';
 import { IUser } from '@project/shared/types';
 
-export interface IInitialState {
+export interface IInitialUserState {
   user: IUser | null;
   isLoading: boolean;
 }
 
-const initialState: IInitialState = {
+const initialState: IInitialUserState = {
   user: getStoreLocal('user'),
   isLoading: false,
 };
@@ -48,6 +54,10 @@ const userSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+      })
+      .addCase(getProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
       });
   },
 });

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IAuthResponse, ILogin, IRegister } from '@project/shared/types';
-import { AuthService } from '@project/shared/services';
+import { IAuthResponse, ILogin, IRegister, IUser } from '@project/shared/types';
+import { AuthService, UserService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 
@@ -61,6 +61,18 @@ export const checkAuth = createAsyncThunk<IAuthResponse>(
         toast.error(errorCatch(err));
         thunkAPI.dispatch(logout());
       }
+      return thunkAPI.rejectWithValue(err);
+    }
+  },
+);
+
+export const getProfile = createAsyncThunk<IUser>(
+  'user/get-profile',
+  async (_, thunkAPI) => {
+    try {
+      const response = await UserService.getProfile();
+      return response.data;
+    } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
   },

@@ -110,12 +110,9 @@ export function FormReg(props: FormProps) {
         {...registerInput('password', { required: 'Без пароля никак' })}
         placeholder={'Ваш пароль...'}
         error={errors.password}
+        visibility
+        type={'password'}
       />
-      {/* <input
-        type={'file'}
-        placeholder={'Добавь аватар'}
-        {...registerInput('avatar')}
-      /> */}
       {/* --------------------------------------- */}
       <div className={styles.app}>
         <div className={styles.parent}>

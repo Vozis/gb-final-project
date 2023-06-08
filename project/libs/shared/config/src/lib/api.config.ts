@@ -22,8 +22,9 @@ export const TagApi = {
 };
 
 export const UserApi = {
-  getProfile: '/user/profile',
-  updateProfile: '/user/profile',
+  getProfile: '/users/profile',
+  updateProfile: '/users/profile',
+  toggle: 'users/profile/toggle',
 };
 
 export const TypeApi = {};
