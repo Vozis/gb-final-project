@@ -41,6 +41,7 @@ export function ProfileHead(props: ProfileHeadProps) {
           </div>
         </div>
       </div>
+      
       <button
         className={styles.profile__settingBtn}
         onClick={() => console.log('settings')}
