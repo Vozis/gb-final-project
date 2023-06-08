@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './header.module.scss';
 import { User } from '@prisma/client';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 import { Button } from '@project/shared/ui';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './header.module.scss';
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}
