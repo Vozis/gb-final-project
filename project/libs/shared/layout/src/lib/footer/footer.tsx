@@ -6,7 +6,9 @@ export interface FooterProps {}
 export function Footer(props: FooterProps) {
   return (
     <footer className={styles.footer}>
-      <h1>The work of the coolest team!</h1>
+      <div className={styles.footer_none}>
+        <h1>The work of the coolest team!</h1>
+      </div>
     </footer>
   );
 }
