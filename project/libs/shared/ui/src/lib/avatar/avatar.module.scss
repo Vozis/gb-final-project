@@ -1,22 +1,63 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+
+
+.container {
+  align-items: center;
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+}
 
 .avatarWrapper {
-  box-sizing: border-box;
-  width: 70px;
-  height: 70px;
   border-radius: 50%;
+  box-sizing: border-box;
+  height: 70px;
   overflow: hidden;
+  width: 70px;
 }
 
 .avatarImg {
-  width: 100%;
+  border-radius: inherit;
   height: auto;
   object-fit: cover;
-  border-radius: inherit;
+  width: 100%;
 }
+
+.info {
+  margin-left: 20px;
+}
+
+.username {
+  color: #949494;
+  font-size: 14px;
+}
+
+.fullname {
+  color: #353535;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.infoIconsBox {
+  align-items: center;
+  display: flex;
+}
+
+.infoIconGroup {
+  align-items: center;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+  & span {
+    color: #949494;
+    font-size: 14px;
+  }
+}
+
+.infoIcon {
+  color: #949494;
+  font-size: 22px;
+}
+
+

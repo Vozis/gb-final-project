@@ -21,12 +21,14 @@ export interface TabsProps {
 
 const tabVariant = {
   active: {
+    width: '55%',
     transition: {
       type: 'tween',
       duration: 0.4,
     },
   },
   inactive: {
+    width: '15%',
     transition: {
       type: 'tween',
       duration: 0.4,

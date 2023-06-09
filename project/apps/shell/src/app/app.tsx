@@ -29,7 +29,7 @@ const Home = React.lazy(() => import('home/Module'));
 export function App() {
   return (
     <SharedProviders>
-      <React.Suspense fallback={null}>
+      <React.Suspense fallback={<p>Loading...</p>}>
         {/*<ul>*/}
         {/*  <li>*/}
         {/*    <Link to="/">Home</Link>*/}

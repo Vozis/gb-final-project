@@ -6,65 +6,18 @@
  * }
 */
 .container {
-  display: flex;
   align-items: center;
-  position: relative;
+  display: flex;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .profile {
 
-
-  &__img_wrapper {
-    width: 90px;
-    height: 90px;
-  }
-
-
-  &__info {
-    margin-left: 20px;
-
-  }
-
-  &__username {
-    color: #949494;
-    font-size: 14px;
-  }
-
-  &__user_fullname {
-    color: #353535;
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  &__infoIconsBox {
-    display: flex;
-    align-items: center;
-  }
-
-  &__infoIconGroup {
-    display: flex;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-right: 8px;
-    }
-
-    & span {
-      color: #949494;
-      font-size: 14px;
-    }
-  }
-
-  &__infoIcon {
-    font-size: 22px;
-    color: #949494;
-  }
-
   &__settingBtn {
     position: absolute;
-    top: 0;
     right: 0;
+    top: 0;
 
     &_icon {
       color: #949494;
