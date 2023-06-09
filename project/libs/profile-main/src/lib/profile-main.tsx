@@ -8,8 +8,6 @@ import { IEvent, IUserEdit } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Tabs, TabsProps } from '@project/shared/ui';
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import { errorCatch } from '@project/shared/utils';
 
 /* eslint-disable-next-line */
 
