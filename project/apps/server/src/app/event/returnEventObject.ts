@@ -1,5 +1,8 @@
 import { Prisma } from '@prisma/client';
-import { returnUserObject } from '../user/returnUserObject';
+import {
+  returnUserObject,
+  returnUserSingleEventObject,
+} from '../user/returnUserObject';
 import { returnTagObject } from '../tag/returnTagObject';
 
 export const returnEventObject: Prisma.EventSelect = {
@@ -33,11 +36,13 @@ export const returnEventFullObject: Prisma.EventSelect = {
   name: true,
   description: true,
   imageUrl: true,
-  creator: true,
+  creator: {
+    select: returnUserSingleEventObject,
+  },
   coordinateX: true,
   coordinateY: true,
   users: {
-    select: returnUserObject,
+    select: returnUserSingleEventObject,
   },
   tags: {
     select: returnTagObject,

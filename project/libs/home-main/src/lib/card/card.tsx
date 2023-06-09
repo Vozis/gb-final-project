@@ -1,6 +1,6 @@
 import styles from './card.module.scss';
 import { Button, FavoriteButton, Tag } from '@project/shared/ui';
-import { IEvent } from '@project/shared/types';
+import { IEvent, IEventForCard } from '@project/shared/types';
 import { FC } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ import { Link, redirect } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface CardProps {
-  event: IEvent;
+  event: IEventForCard;
 }
 
 export const Card: FC<CardProps> = ({ event }) => {
