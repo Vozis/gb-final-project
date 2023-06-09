@@ -1,6 +1,5 @@
-import { Event } from '@prisma/client';
-import { IEventUser } from './user.types';
 import { ITag } from './tag.types';
+import { IEventUser } from './user.types';
 
 export interface IEvent {
   id: number;
