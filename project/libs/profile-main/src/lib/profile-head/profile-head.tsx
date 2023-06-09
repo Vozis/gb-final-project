@@ -1,6 +1,6 @@
 import { useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
-import { MaterialIcon } from '@project/shared/ui';
+import { Avatar, MaterialIcon } from '@project/shared/ui';
 import { login } from '../../../../shared/store/src/lib/actions/userActions';
 import * as events from 'events';
 
@@ -13,13 +13,11 @@ export function ProfileHead(props: ProfileHeadProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.profile__img_wrapper}>
-        <img
-          src={user?.avatarPath}
-          alt={'avatar'}
-          className={styles.profile__img}
-        />
-      </div>
+      <Avatar
+        avatarUrl={user?.avatarPath}
+        alt={'avatar'}
+        className={styles.profile__img_wrapper}
+      />
       <div
         className={styles.profile__info}
         onClick={() => console.log('модальное окно с информацией')}

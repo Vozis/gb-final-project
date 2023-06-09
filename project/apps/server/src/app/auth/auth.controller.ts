@@ -17,10 +17,14 @@ import { LoginAuthDto } from './dto/login-auth.dto';
 import { TokenDto } from './dto/token.dto';
 import { JwtAuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { MailService } from '../mail/mail.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly mailService: MailService,
+  ) {}
 
   @Post('register')
   @UseInterceptors(FileInterceptor('avatar'))
@@ -28,9 +32,9 @@ export class AuthController {
     @Body() dto: CreateUserDto,
     @UploadedFile() avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
-    console.log('auth/avatar', avatar);
-
-    return this.authService.register(dto, avatar);
+    const user = await this.authService.register(dto, avatar);
+    await this.mailService.sendEmailConfirmation(dto.email);
+    return user;
   }
 
   @Post('login')

@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Skeleton from './skeleton';
+import FavoriteButton from './favorite-button';
 
-describe('Skeleton', () => {
+describe('FavoriteButton', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Skeleton />);
+    const { baseElement } = render(<FavoriteButton />);
     expect(baseElement).toBeTruthy();
   });
 });

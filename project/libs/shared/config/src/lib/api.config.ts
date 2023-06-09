@@ -22,8 +22,14 @@ export const TagApi = {
 };
 
 export const UserApi = {
-  getProfile: '/user/profile',
-  updateProfile: '/user/profile',
+  getProfile: '/users/profile',
+  updateProfile: '/users/profile',
+  toggle: 'users/profile/toggle',
+};
+
+export const MailApi = {
+  confirmEmail: 'mail/confirm',
+  resendConfirmationLink: 'mail/resend-confirmation-link',
 };
 
 export const TypeApi = {};

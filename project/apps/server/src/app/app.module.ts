@@ -11,6 +11,7 @@ import { path } from 'app-root-path';
 import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
 import { EventModule } from './event/event.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { EventModule } from './event/event.module';
     AuthModule,
     TagModule,
     EventModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

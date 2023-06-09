@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { IAuthResponse, ITokens } from '@project/shared/types';
+import { IAuthResponse, ITokens, IUser } from '@project/shared/types';
 export const saveTokensToStorage = (data: ITokens) => {
   Cookies.set('accessToken', JSON.stringify(data.accessToken));
   Cookies.set('refreshToken', JSON.stringify(data.refreshToken));

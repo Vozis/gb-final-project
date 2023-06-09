@@ -6,16 +6,17 @@
  * }
 */
 
-.avatarWrapper{
+.avatarWrapper {
   box-sizing: border-box;
   width: 70px;
   height: 70px;
-  background-color: pink;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 15px;
 }
-.avatarImg{
+
+.avatarImg {
   width: 100%;
+  height: auto;
   object-fit: cover;
+  border-radius: inherit;
 }

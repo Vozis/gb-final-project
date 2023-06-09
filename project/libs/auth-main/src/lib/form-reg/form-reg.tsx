@@ -60,7 +60,6 @@ export function FormReg(props: FormProps) {
 
   const onSubmit: SubmitHandler<IRegister> = async data => {
     const formData = new FormData();
-    console.log(data.avatar);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry => entry[0] !== 'hobbies' && entry[0] !== 'avatar',
@@ -70,14 +69,14 @@ export function FormReg(props: FormProps) {
       formData.append(entry[0], entry[1]);
     });
 
-    if (data.avatar) {
+    if (data.avatar?.length) {
       formData.append('avatar', data.avatar[0]);
     }
 
     /* @ts-ignore */
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     register(formData);
   };
@@ -110,12 +109,9 @@ export function FormReg(props: FormProps) {
         {...registerInput('password', { required: 'Без пароля никак' })}
         placeholder={'Ваш пароль...'}
         error={errors.password}
+        visibility
+        type={'password'}
       />
-      {/* <input
-        type={'file'}
-        placeholder={'Добавь аватар'}
-        {...registerInput('avatar')}
-      /> */}
       {/* --------------------------------------- */}
       <div className={styles.app}>
         <div className={styles.parent}>
@@ -133,7 +129,7 @@ export function FormReg(props: FormProps) {
             <input
               type={'file'}
               {...registerInput('avatar')}
-              onChange={handleFileChange}
+              // onChange={handleFileChange}
             />
           </div>
         </div>

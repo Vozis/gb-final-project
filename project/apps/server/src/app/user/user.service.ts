@@ -157,4 +157,14 @@ export class UserService {
       select: returnUserObject,
     });
   }
+
+  async makeEmailConfirmed(email: string) {
+    return this.prisma.user.update({
+      where: { email },
+      data: {
+        isConfirmed: true,
+      },
+      select: returnUserObject,
+    });
+  }
 }
