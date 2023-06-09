@@ -13,6 +13,9 @@ export const EventApi = {
   toggleUser(id: number) {
     return `events/${String(id)}/toggle-user`;
   },
+  getSingleEvent(id: string) {
+    return `events/${id}`;
+  },
 };
 
 export const TagApi = {

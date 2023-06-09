@@ -1,11 +1,32 @@
 import styles from './single-event-main.module.scss';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { EventService } from '@project/shared/services';
+import { toast } from 'react-toastify';
 
 /* eslint-disable-next-line */
 export interface SingleEventMainProps {}
 
 export function SingleEventMain(props: SingleEventMainProps) {
   const { id } = useParams();
+
+  if (!id) return null;
+
+  const { isLoading, data: event } = useQuery(
+    ['get-single-event'],
+    () => EventService.getSingleEvent(id),
+    {
+      select: ({ data }) => data,
+      onSuccess: () => {
+        toast.success('Событие успешно получено', {
+          containerId: 1,
+          toastId: 'get-single-event',
+        });
+      },
+    },
+  );
+
+  console.log('event:', event);
 
   return (
     <div className={styles['container']}>

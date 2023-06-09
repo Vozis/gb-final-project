@@ -20,7 +20,7 @@ export class MailService {
     const _user = await this.userService.getByEmail(email);
     const payload: { email: string } = { email: _user.email };
     const token = await this.jwtService.signAsync(payload, {
-      expiresIn: '30s',
+      expiresIn: '1d',
     });
     const url = `${this.configService.get<string>(
       'EMAIL_CONFIRMATION_URL',
