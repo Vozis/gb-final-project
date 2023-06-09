@@ -1,10 +1,11 @@
-import { Button } from '@project/shared/ui';
-import { useForm } from 'react-hook-form';
+import { Button, Field } from '@project/shared/ui';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
 
 import styles from './form.module.scss';
 import { toast } from 'react-toastify';
+import { ILogin } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -16,12 +17,11 @@ export function Form(props: FormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<ILogin>();
 
   const { login } = useActions();
 
-  const onSubmit = async (data: any) => {
-    console.log('Profile', data);
+  const onSubmit: SubmitHandler<ILogin> = async data => {
     login(data);
   };
 
@@ -29,28 +29,20 @@ export function Form(props: FormProps) {
     <form className={styles['register_form']} onSubmit={handleSubmit(onSubmit)}>
       <p className={styles.register_title}>Войдите, чтобы продолжить</p>
 
-      <input
-        className={styles.register_form_input}
-        placeholder="Login"
-        {...register('email', { required: true })}
+      <Field
+        {...register('email', { required: 'Без email никак' })}
+        placeholder={'Ваш email...'}
+        error={errors.email}
       />
-      {errors.login && (
-        <span className={styles['err']}>
-          The login field must not be empty!
-        </span>
-      )}
 
-      <input
-        className={styles.register_form_input}
-        placeholder="Password"
-        type="password"
-        {...register('password', { required: true })}
+      <Field
+        {...register('password', { required: 'Без пароля никак' })}
+        placeholder={'Ваш пароль...'}
+        error={errors.password}
+        visibility
+        type={'password'}
       />
-      {errors.pass && (
-        <span className={styles['err']}>
-          The password field must not be empty!
-        </span>
-      )}
+
       <div className={styles.register_form_save}>
         <p className={styles.register_form_save_title}>Забыли пароль?</p>
       </div>

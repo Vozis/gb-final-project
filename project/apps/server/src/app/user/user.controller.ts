@@ -47,9 +47,15 @@ export class UserController {
   //   return this.userService.getAll();
   // }
 
+  // @Put('profile/favorites')
+  // @Auth()
+  // async toggleFavorites(@User('id') id: number, @Body() toggleDto: ToggleDto) {
+  //   return this.userService.toggle(id, toggleDto);
+  // }
+
   @Put('profile/toggle')
   @Auth()
-  async toggleHobbies(@User('id') id: number, @Body() toggleDto: ToggleDto) {
+  async toggle(@User('id') id: number, @Body() toggleDto: ToggleDto) {
     return this.userService.toggle(id, toggleDto);
   }
 }

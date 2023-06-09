@@ -9,7 +9,6 @@ export interface AuthMainProps {}
 
 export function AuthMain(props: AuthMainProps) {
   const [activeForm, setActiveForm] = useState<string>('form');
-  console.log('activeForm: ', activeForm);
 
   return (
     <div className={styles.container_form}>

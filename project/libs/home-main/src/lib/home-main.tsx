@@ -1,34 +1,20 @@
 import styles from './home-main.module.scss';
-import {
-  Button,
-  Field,
-  Filter,
-  MaterialIcon,
-  Modal,
-  RadioField,
-  SearchField,
-  SelectField,
-  SkeletonLoader,
-} from '@project/shared/ui';
-import { useQuery } from '@tanstack/react-query';
-import { EventService } from '@project/shared/services';
+import { Avatar, Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
-import CreateEventForm from './create-event-form/create-event-form';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { IOption } from '@project/shared/types';
 import {
-  IEvent,
-  IOption,
-  ISearch,
-  ISearchForm,
-  ISearchItem,
-} from '@project/shared/types';
-import { useDebounce } from 'usehooks-ts';
-import axios from 'axios';
-import { useAuthRedux } from '@project/shared/hooks';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import debounce from 'debounce';
+  useActions,
+  useAuthRedux,
+  useFilterState,
+} from '@project/shared/hooks';
 import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
+import { CardSkeleton } from './card/card-skeleton';
+import { Link } from 'react-router-dom';
+import cn from 'clsx';
+import { useMutation } from '@tanstack/react-query';
+import { MailService } from '@project/shared/services';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
@@ -39,23 +25,17 @@ const options: IOption[] = [
 ];
 
 export function HomeMain(props: HomeMainProps) {
-  // const { user } = useAuthRedux();
-  const [modalActive, setModalActive] = useState<boolean>(false);
-  const [filterParamsArray, setFilterParamsArray] = useState<ISearch>({});
+  const { user } = useAuthRedux();
+  const { setFilterParamsArray, getProfile } = useActions();
+  const { filterParamsArray } = useFilterState();
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: events,
-  //   error,
-  // } = useQuery(
-  //   ['get-all-events', filterParamsArray],
-  //   () => EventService.getAllEvents(filterParamsArray),
-  //   {
-  //     select: ({ data }) => data,
-  //     enabled: !!filterParamsArray,
-  //   },
-  // );
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const { mutateAsync } = useMutation(['resend-confirmation-link'], () =>
+    MailService.resendConfirmationLink(),
+  );
 
   const { isLoading, events, onSubmit } = useFilter(
     filterParamsArray,
@@ -64,9 +44,39 @@ export function HomeMain(props: HomeMainProps) {
 
   return (
     <div className={styles.container}>
+      <div>
+        {user && (
+          <Avatar
+            user={user}
+            className={styles.profile__img_wrapper}
+            isName
+            isPhoto
+          />
+        )}
+        {!user?.isConfirmed && (
+          <p>
+            Для создания события необходимо подтвердить email. Проверьте свою
+            почту или{' '}
+            <span
+              onClick={() => mutateAsync()}
+              className={'text-blue-500 underline '}
+            >
+              отправьте новый запрос
+            </span>
+          </p>
+        )}
+      </div>
+      <Link
+        to={'/create-event'}
+        className={cn({
+          'pointer-events-none text-red-500': !user?.isConfirmed,
+        })}
+      >
+        <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
+      </Link>
       <Filter onSubmit={onSubmit} />
       {isLoading ? (
-        <SkeletonLoader count={1} height={48} className={'mt-4'} />
+        <CardSkeleton count={3} />
       ) : events?.length ? (
         <CardList list={events || []} />
       ) : (

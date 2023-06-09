@@ -1,0 +1,11 @@
+.btn,
+[type='button'],
+[type='reset'],
+[type='submit']
+{
+  @apply flex items-center justify-center gap-4 px-2 py-2 box-border;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

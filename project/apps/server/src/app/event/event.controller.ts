@@ -11,6 +11,7 @@ import {
   UseInterceptors,
   UploadedFile,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -21,6 +22,7 @@ import { EventSelect } from './returnEventObject';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FilterSearchDto } from './dto/search-event.dto';
 import { ToggleDto } from '../../utils/toggle.dto';
+import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
 
 @Controller('events')
 export class EventController {
@@ -29,6 +31,7 @@ export class EventController {
   @Auth()
   @Post('')
   @UseInterceptors(FileInterceptor('image'))
+  @UseGuards(EmailConfirmationGuard)
   async createEvent(
     @User('id') id: number,
     @Body() dto: CreateEventDto,

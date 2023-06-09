@@ -5,6 +5,10 @@ import { Link, Route, Routes, createBrowserRouter } from 'react-router-dom';
 
 import { SharedProviders } from '@project/shared/providers';
 
+const ConfirmEmail = React.lazy(() => import('confirm-email/Module'));
+
+const Hello = React.lazy(() => import('hello/Module'));
+
 const CreateEvent = React.lazy(() => import('create-event/Module'));
 
 const SingleEvent = React.lazy(() => import('single-event/Module'));
@@ -25,7 +29,7 @@ const Home = React.lazy(() => import('home/Module'));
 export function App() {
   return (
     <SharedProviders>
-      <React.Suspense fallback={null}>
+      <React.Suspense fallback={<p>Loading...</p>}>
         {/*<ul>*/}
         {/*  <li>*/}
         {/*    <Link to="/">Home</Link>*/}
@@ -42,6 +46,8 @@ export function App() {
         {/*</ul>*/}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/confirm-email" element={<ConfirmEmail />} />
+          <Route path="/hello" element={<Hello />} />
           <Route path="/create-event" element={<CreateEvent />} />
           <Route path="/events/:id" element={<SingleEvent />} />
           <Route path="/auth" element={<Auth />} />

@@ -1,11 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './header.module.scss';
-import { User } from '@prisma/client';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
-import { Button } from '@project/shared/ui';
+import { BiIcon, Button, MaterialIcon } from '@project/shared/ui';
+import {
+  AiOutlineHome,
+  AiOutlineLogin,
+  AiOutlineProfile,
+} from 'react-icons/ai';
+import { IconContext } from 'react-icons/lib';
+import { NavLink, useNavigate } from 'react-router-dom';
+import styles from './header.module.scss';
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}
+
+const setActive = ({ isActive }: { isActive: any }) =>
+  isActive ? 'active_link' : '';
 
 export function Header(props: HeaderProps) {
   const { user } = useAuthRedux();
@@ -16,29 +24,54 @@ export function Header(props: HeaderProps) {
 
   return (
     <header className={styles.header}>
-      <ul className={'flex flex-wrap gap-4'}>
+      <ul className={'flex flex-wrap gap-5'}>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? styles.active_link : styles.on_active_link
+            }
+          >
+            <AiOutlineHome className={'text-[30px]'} />
+            <span>Главная</span>
+          </NavLink>
         </li>
         {/*<li>*/}
         {/*  <Link to="/auth">Auth</Link>*/}
         {/*</li>*/}
         <li>
-          <Link to="/profile">Profile</Link>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? styles.active_link : styles.on_active_link
+            }
+          >
+            <AiOutlineProfile className={'text-[30px]'} />
+            <span>Профиль</span>
+          </NavLink>
         </li>
       </ul>
-      <div
-        className={'border-l px-4 ml-5 flex items-center justify-between gap-4'}
-      >
-        <span>{user?.userName}</span>
+      <div className={styles.header_btn_login}>
+        {/* <span>{user?.userName}</span> */}
         {user ? (
-          <Button type={'button'} onClick={() => logout()}>
+          <Button
+            // className={styles.active_link}
+            className={'underline'}
+            type={'button'}
+            onClick={() => logout()}
+          >
             Выйти
           </Button>
         ) : (
-          <Button type={'button'} onClick={() => navigate('/auth')}>
-            Войти
-          </Button>
+          <NavLink
+            to="/auth"
+            className={({ isActive }) =>
+              isActive ? styles.active_link : styles.on_active_link
+            }
+          >
+            <AiOutlineLogin className={'text-[30px]'} />
+            <span>Войти</span>
+          </NavLink>
         )}
       </div>
     </header>

@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 export const returnUserObject: Prisma.UserSelect = {
   id: true,
   email: true,
+  isConfirmed: true,
   firstName: true,
   lastName: true,
   userName: true,
@@ -18,6 +19,12 @@ export const returnUserObject: Prisma.UserSelect = {
     select: {
       id: true,
       name: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   },
   favorites: {
@@ -40,6 +47,7 @@ export const returnHomeUserObject: Prisma.UserSelect = {
   firstName: true,
   lastName: true,
   userName: true,
+  isConfirmed: true,
   role: true,
   avatarPath: true,
   creations: false,
@@ -60,25 +68,46 @@ export const returnAuthUserObject: Prisma.UserSelect = {
   id: true,
   userName: true,
   password: true,
+  isConfirmed: true,
   role: true,
+  firstName: true,
+  lastName: true,
   avatarPath: true,
-  creations: false,
+  creations: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
   hobbies: {
     select: {
       id: true,
+      name: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   },
   favorites: {
     select: {
       id: true,
+      name: true,
     },
   },
-  events: false,
+  events: {
+    select: {
+      id: true,
+    },
+  },
 };
 
 export const returnUserFullObject: Prisma.UserSelect = {
   id: true,
   email: true,
+  isConfirmed: true,
   password: true,
   firstName: true,
   lastName: true,

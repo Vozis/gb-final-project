@@ -28,7 +28,7 @@ export class AuthService {
 
   async register(
     dto: CreateUserDto,
-    avatar: Express.Multer.File,
+    avatar?: Express.Multer.File,
   ): Promise<ReturnAuth> {
     const isEmailUser = await this.prisma.user.findUnique({
       where: {
@@ -42,14 +42,13 @@ export class AuthService {
     });
 
     if (isEmailUser) throw new BadRequestException('Email already exists');
+
     if (isUserNameUser)
       throw new BadRequestException('UserName already exists');
 
     if (avatar) {
       dto.avatarPath = await fileUploadHelper(avatar, 'users');
     }
-
-    console.log('auth/dto', dto);
 
     const user = await this.userService.create(dto);
 

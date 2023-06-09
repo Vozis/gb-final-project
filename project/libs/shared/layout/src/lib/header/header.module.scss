@@ -1,21 +1,45 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+@use 'libs/shared/styles/variables' as v;
+
 .header {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(75, 175, 231, 1) 0%,
-    rgba(29, 129, 227, 1) 100%
-  );
+  background: #ffffff;
+  border-radius: 15px 15px 0 0;
+  bottom: 0;
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
+  color: blue;
+  display: flex;
+  justify-content: space-evenly;
+  left: 0;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  transition-duration: 1s;
+  z-index: 100;
+}
+.on_active_link {
+  display: flex;
+  margin: 10px;
+  & span {
+    display: none;
+  }
+}
+
+.active_link {
+  align-items: center;
+  background-color: v.$primary-color !important;
+  border-radius: 40px;
   color: white;
-  padding: 20px 0;
+  cursor: pointer;
+  display: flex;
+  padding: 10px 14px;
+}
+
+@media (min-width: 500px) {
+  .header {
+    border-radius: 0;
+    bottom: 0;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+  }
 }

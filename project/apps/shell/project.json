@@ -117,5 +117,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["home", "auth"]
+  "implicitDependencies": ["home", "auth", "profile", "single-event", "create-event", "confirm-email"]
 }

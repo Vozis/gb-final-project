@@ -1,13 +1,13 @@
 import styles from './card.module.scss';
-import { Button, MaterialIcon, Tag } from '@project/shared/ui';
-import { IEvent, ITag, IToggle } from '@project/shared/types';
-import { FC, useEffect, useLayoutEffect, useState } from 'react';
+import { Button, FavoriteButton, Tag } from '@project/shared/ui';
+import { IEvent } from '@project/shared/types';
+import { FC } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
 // import toast from 'react-hot-toast';
 
@@ -16,19 +16,19 @@ export interface CardProps {
   event: IEvent;
 }
 
-export const Card: FC<CardProps> = ({
-  event: { imageUrl, name, description, tags, id, users },
-}) => {
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
-
+export const Card: FC<CardProps> = ({ event }) => {
   const { user } = useAuthRedux();
+
+  if (!user) {
+    redirect('/auth');
+  }
 
   const queryClient = useQueryClient();
 
   const { mutateAsync, data } = useMutation(
     ['toggle-user-to-event'],
     (toggleId: number) =>
-      EventService.toggleUser(id, { toggleId, type: 'users' }),
+      EventService.toggleUser(event.id, { toggleId, type: 'users' }),
     {
       onSuccess: async data => {
         await queryClient.invalidateQueries(['get-all-events']);
@@ -43,45 +43,23 @@ export const Card: FC<CardProps> = ({
   const handleToggle = async (toggleId: number) => {
     await mutateAsync(toggleId);
   };
-  const handleFavouriteBtn = () => {
-    setIsFavourite(!isFavourite);
-  };
-
-  useEffect(() => {
-    !isFavourite
-      ? toast.success('Удалено из избранного', {
-          containerId: 1,
-          toastId: 'add-to-favorite',
-        })
-      : toast.success('Добавлено в избранное', {
-          containerId: 1,
-          toastId: 'delete-from-favorite',
-        });
-  }, [isFavourite]);
 
   return (
     <div
       className={styles.card}
       style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), linear-gradient(180deg, rgba(0, 0, 0, 0) 50.51%, rgba(0, 0, 0, 0.64) 79.75%), url(${imageUrl})`,
+        backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), linear-gradient(180deg, rgba(0, 0, 0, 0) 40.0%, rgba(0, 0, 0, 0.80) 80.0%), url(${event.imageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {user && (
-        <button
-          className={clsx(styles.card__favouriteBtn, {
-            [styles.card__favouriteBtn__active]: isFavourite,
-          })}
-          onClick={handleFavouriteBtn}
-        ></button>
-      )}
+      {user && <FavoriteButton eventId={event.id} />}
       <div className={styles.card__info}>
-        <Link to={`/events/${id}`} className={styles.card__title}>
-          {name}
+        <Link to={`/events/${event.id}`} className={styles.card__title}>
+          {event.name}
         </Link>
         <div className={styles.card__tags}>
-          {tags.map(tag => (
+          {event.tags.map(tag => (
             <Tag
               key={tag.id}
               className={clsx({
@@ -101,7 +79,7 @@ export const Card: FC<CardProps> = ({
             className={styles.card__btn}
             onClick={() => handleToggle(user.id)}
           >
-            {users.some(item => user.id === item.id)
+            {event.users.some(item => user.id === item.id)
               ? 'Отказаться'
               : 'Присоединиться'}
           </Button>

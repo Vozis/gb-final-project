@@ -6,21 +6,22 @@
  * }
 */
 .container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
 }
+
 .profile {
-  &_load_img {
-    color: darkblue;
-    font-size: 10px;
-  }
-  &_load_img:hover {
-    color: deepskyblue;
-    cursor: pointer;
-  }
-  &_user_div {
-    display: flex;
-    gap: 10px;
+
+  &__settingBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &_icon {
+      color: #949494;
+      font-size: 30px;
+    }
   }
 }

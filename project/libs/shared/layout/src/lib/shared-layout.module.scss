@@ -1,13 +1,12 @@
 @use 'libs/shared/styles/variables' as v;
 
-
 .layout {
   background-color: v.$background-color;
   display: grid;
   grid-template-areas:
-'header'
-'main'
-'footer';
+    'header'
+    'main'
+    'footer';
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
@@ -26,7 +25,7 @@
 
 .layout > footer {
   grid-area: footer;
-  margin-top: 20px;
+  // margin-top: 20px;
 }
 
 .containerContent {
