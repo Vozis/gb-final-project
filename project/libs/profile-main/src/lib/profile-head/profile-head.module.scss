@@ -9,22 +9,17 @@
   display: flex;
   align-items: center;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .profile {
+
+
   &__img_wrapper {
     width: 90px;
     height: 90px;
-    border-radius: 50%;
-    overflow: hidden;
   }
 
-  &__img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: inherit;
-  }
 
   &__info {
     margin-left: 20px;
