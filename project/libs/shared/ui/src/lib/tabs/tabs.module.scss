@@ -5,6 +5,11 @@
  * .container {
  * }
 */
+$active-color: #04145C;
+
+:export {
+  active_color: $active-color;
+}
 
 .tabs {
   display: flex;
@@ -13,39 +18,53 @@
   color: #353535;
   background-color: #F1F1F1;
   box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 40px;
 
   &__tab {
     padding: 12px 8px;
     cursor: pointer;
     position: relative;
+    flex-grow: 1;
+    text-align: center;
 
     &::before {
       content: '';
-      display: block;
       position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 2px;
       width: 100%;
-
-      transition: all .2s ease-out;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0.2;
+      border-radius: 40px;
+      background: none;
+      transition: background .2s ease-out;
     }
 
     &_selected {
-      border: 1px solid #FFFFFF;
       //background-color: #2e6d9c;
       &::before {
-        background-color: #2e6d9c;
+        background: #2e6d9c;
       }
     }
   }
 
   &__label {
-    color: #2e6d9c;
+    color: #555;
 
     &_selected {
-      color: #FFFFFF;
+      color: #555;
     }
 
+  }
+
+  &__content {
+    display: none;
+    background-color: #999999;
+
+    &_selected {
+      color: #04145C;
+      display: block;
+    }
   }
 }
