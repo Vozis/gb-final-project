@@ -1,13 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import ProfileForm from './profile-form/profile-form';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
 
 import axios from 'axios';
-import { IEvent, IUserEdit } from '@project/shared/types';
+import { IUserEdit } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Tabs, TabsProps } from '@project/shared/ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* eslint-disable-next-line */
 
@@ -16,12 +15,15 @@ export interface ProfileMainProps {
 }
 
 const tabs = [
-  { id: '1', label: 'Мои события' },
-  { id: '2', label: 'Участвую' },
+  {
+    id: '1',
+    label: 'Мои события',
+    content: 'content tab 1',
+  },
+  { id: '2', label: 'Участвую', content: 'content tab 2' },
 ];
 
 export function ProfileMain(props: ProfileMainProps) {
-  const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
   // const [user, setUser] = useState<User>({});
   //
   // useEffect(() => {
@@ -30,9 +32,6 @@ export function ProfileMain(props: ProfileMainProps) {
   //     setUser(JSON.parse(localUser));
   //   }
   // }, []);
-  const handleTabClick = (id: string) => {
-    setSelectedTabId(id);
-  };
 
   const {
     register,
@@ -85,13 +84,13 @@ export function ProfileMain(props: ProfileMainProps) {
       {/* <h1>Welcome to ProfileHobbies!</h1> */}
       <ProfileHead />
       {/*<ProfileForm />*/}
-      <Tabs tabs={tabs} onClick={handleTabClick} selectedId={selectedTabId} />
-      <div className="TabsPage-Content">
-        {selectedTabId === tabs[0].id && <div>Созданные карточки</div>}
-        {selectedTabId === tabs[1].id && (
-          <div>Список событий в которых участвует</div>
-        )}
-      </div>
+      <Tabs tabs={tabs} />
+      {/*<div className="TabsPage-Content">*/}
+      {/*  {selectedTabId === tabs[0].id && <div>Созданные карточки</div>}*/}
+      {/*  {selectedTabId === tabs[1].id && (*/}
+      {/*    <div>Список событий в которых участвует</div>*/}
+      {/*  )}*/}
+      {/*</div>*/}
     </div>
   );
 }

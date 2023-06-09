@@ -25,8 +25,11 @@ export function SingleEventMain(props: SingleEventMainProps) {
     },
   );
 
+  if (!event) return null;
+
   console.log('event:', event);
-  console.log('event creator:', event?.creator?.id);
+  console.log('event:', event.imageUrl);
+  console.log('event:', event.creator.avatarPath);
 
   return (
     <div className={styles['container']}>

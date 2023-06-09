@@ -104,6 +104,14 @@ export const returnAuthUserObject: Prisma.UserSelect = {
   },
 };
 
+export const returnUserSingleEventObject: Prisma.UserSelect = {
+  id: true,
+  firstName: true,
+  lastName: true,
+  userName: true,
+  avatarPath: true,
+};
+
 export const returnUserFullObject: Prisma.UserSelect = {
   id: true,
   email: true,
@@ -130,6 +138,10 @@ export type UserHomeSelect = Prisma.UserGetPayload<{
 
 export type UserAuthSelect = Prisma.UserGetPayload<{
   select: typeof returnAuthUserObject;
+}>;
+
+export type UserSingleEventSelect = Prisma.UserGetPayload<{
+  select: typeof returnUserSingleEventObject;
 }>;
 
 export type UserFullSelect = Prisma.UserGetPayload<{

@@ -1,12 +1,12 @@
 import styles from './card-list.module.scss';
 
 import Card from '../card/card';
-import { IEvent } from '@project/shared/types';
+import { IEvent, IEventForCard } from '@project/shared/types';
 import { FC } from 'react';
 
 /* eslint-disable-next-line */
 export interface CardListProps {
-  list: IEvent[];
+  list: IEventForCard[];
 }
 
 export const CardList: FC<CardListProps> = ({ list }) => {

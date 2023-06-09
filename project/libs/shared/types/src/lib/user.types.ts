@@ -1,6 +1,7 @@
 import { Prisma, User } from '@prisma/client';
 import { ITag } from './tag.types';
 import { IEvent } from './event.types';
+import { Role } from '.prisma/client';
 
 export interface IUser extends User {
   favorites?: IEvent[] | [];
@@ -13,6 +14,14 @@ export interface IUser extends User {
 export interface IEventUser {
   id: number;
   userName: string;
+}
+
+export interface IUserSingleEvent {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  avatarPath: string;
 }
 
 export interface IUserEdit

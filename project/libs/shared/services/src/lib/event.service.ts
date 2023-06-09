@@ -1,6 +1,7 @@
 import { axiosAuth, axiosClassic, EventApi } from '@project/shared/config';
 import {
   IEvent,
+  IEventForCard,
   IEventResponse,
   ISearch,
   ISearchItem,
@@ -9,10 +10,8 @@ import {
 import { toast } from 'react-toastify';
 
 export const EventService = {
-  async getAllEvents(filterSearchDto?: ISearch) {
-    return axiosClassic.get<IEvent[]>(EventApi.getAll, {
-      params: filterSearchDto ? filterSearchDto : {},
-    });
+  async getAllEvents(data?: ISearch) {
+    return axiosClassic.post<IEventForCard[]>(EventApi.getAll, data);
   },
 
   async getSingleEvent(id: string) {
