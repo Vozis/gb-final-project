@@ -1,5 +1,5 @@
 import { useActions, useAuthRedux } from '@project/shared/hooks';
-import { Button } from '@project/shared/ui';
+import { BiIcon, Button, MaterialIcon } from '@project/shared/ui';
 import {
   AiOutlineHome,
   AiOutlineLogin,
@@ -32,12 +32,8 @@ export function Header(props: HeaderProps) {
               isActive ? styles.active_link : styles.on_active_link
             }
           >
-            <IconContext.Provider value={{ color: 'inherit', size: '30px' }}>
-              <div>
-                <AiOutlineHome />
-              </div>
-            </IconContext.Provider>
-            <p>Главная</p>
+            <AiOutlineHome className={'text-[30px]'} />
+            <span>Главная</span>
           </NavLink>
         </li>
         {/*<li>*/}
@@ -50,12 +46,8 @@ export function Header(props: HeaderProps) {
               isActive ? styles.active_link : styles.on_active_link
             }
           >
-            <IconContext.Provider value={{ color: 'inherit', size: '30px' }}>
-              <div>
-                <AiOutlineProfile />
-              </div>
-            </IconContext.Provider>
-            <p>Профиль</p>
+            <AiOutlineProfile className={'text-[30px]'} />
+            <span>Профиль</span>
           </NavLink>
         </li>
       </ul>
@@ -63,28 +55,22 @@ export function Header(props: HeaderProps) {
         {/* <span>{user?.userName}</span> */}
         {user ? (
           <Button
-            className={styles.active_link}
+            // className={styles.active_link}
+            className={'underline'}
             type={'button'}
             onClick={() => logout()}
           >
             Выйти
           </Button>
         ) : (
-          // <Button type={'button'} onClick={() => navigate('/auth')}>
-          //   Войти
-          // </Button>
           <NavLink
             to="/auth"
             className={({ isActive }) =>
               isActive ? styles.active_link : styles.on_active_link
             }
           >
-            <IconContext.Provider value={{ color: 'inherit', size: '30px' }}>
-              <div>
-                <AiOutlineLogin />
-              </div>
-            </IconContext.Provider>
-            <p>Войти</p>
+            <AiOutlineLogin className={'text-[30px]'} />
+            <span>Войти</span>
           </NavLink>
         )}
       </div>

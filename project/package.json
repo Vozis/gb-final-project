@@ -1,7 +1,11 @@
 {
   "name": "@project/source",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.5.1"
+  },
   "scripts": {
     "front": "nx serve shell --devRemotes=auth,home,single-event,create-event,profile,confirm-email,hello",
     "server": "cd apps/server && npx prisma generate && nx serve server",
@@ -101,6 +105,7 @@
     "crypto-browserify": "^3.12.0",
     "debounce": "^1.2.1",
     "ejs": "^3.1.9",
+    "framer-motion": "^10.12.16",
     "fs-extra": "^11.1.1",
     "graceful-fs": "^4.2.11",
     "handlebars": "^4.7.7",
@@ -109,7 +114,6 @@
     "moment": "^2.29.4",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "nodemailer": "^6.9.3",
-    "os-browserify": "^0.3.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
@@ -129,7 +133,6 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "slugify": "^1.6.6",
-    "stream-browserify": "^3.0.0",
     "tslib": "^2.3.0",
     "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.0",
