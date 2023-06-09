@@ -121,7 +121,10 @@ export class EventService {
         filterTag[index] = {
           [item.paramsCategory]: {
             some: {
-              [item.paramsType]: +item.nestedFieldValue,
+              [item.paramsType]:
+                typeof item.nestedFieldValue === 'number'
+                  ? +item.nestedFieldValue
+                  : item.nestedFieldValue,
             },
           },
         };
@@ -135,7 +138,10 @@ export class EventService {
       filterSearchDto.filterEventFieldsParams.forEach((item, index) => {
         filterParams[index] = {
           [item.paramsFilter]: {
-            id: +item.eventFieldValue,
+            id:
+              typeof item.eventFieldValue === 'number'
+                ? +item.eventFieldValue
+                : item.eventFieldValue,
           },
         };
       });
@@ -146,7 +152,7 @@ export class EventService {
 
     const eventsSearchFilter: Prisma.EventWhereInput = search
       ? {
-          AND: [
+          OR: [
             search,
             {
               AND: filterTag,

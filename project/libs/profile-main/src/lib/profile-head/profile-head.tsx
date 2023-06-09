@@ -1,7 +1,7 @@
 import { useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Avatar, MaterialIcon } from '@project/shared/ui';
-import { login } from '../../../../shared/store/src/lib/actions/userActions';
+import { useNavigate } from 'react-router-dom';
 import * as events from 'events';
 
 /* eslint-disable-next-line */
@@ -10,7 +10,12 @@ export interface ProfileHeadProps {}
 export function ProfileHead(props: ProfileHeadProps) {
   const { user } = useAuthRedux();
 
-  if (!user) return null;
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/auth');
+    return null;
+  }
   // console.log('user: ', user);
 
   return (
