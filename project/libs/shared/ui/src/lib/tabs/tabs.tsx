@@ -1,47 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tabs.module.scss';
+import { motion } from 'framer-motion';
 
 /* eslint-disable-next-line */
 export interface ITab {
-  id: string;
+  id: string | number;
   label?: string;
+  content?: string;
+  color?: string;
 }
 
 export interface TabsProps {
   className?: string;
-  selectedId: string;
+  selectedId?: number;
   tabs: ITab[];
-  onClick: (id: string) => void;
+  onClick?: (id: number) => void;
 }
 
-export const Tabs: FC<TabsProps> = ({
-  className,
-  selectedId,
-  tabs,
-  onClick,
-}) => {
+const tabVariant = {
+  active: {
+    width: '55%',
+    transition: {
+      type: 'tween',
+      duration: 0.4,
+    },
+  },
+  inactive: {
+    width: '15%',
+    transition: {
+      type: 'tween',
+      duration: 0.4,
+    },
+  },
+};
+
+export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
+  const [activeTabIndex, setActiveTabIndex] = useState(selectedId);
+
+  const handleTabClick = (id: number) => {
+    setActiveTabIndex(id);
+  };
+
   return (
-    <div className={clsx(styles.tabs, className)}>
-      {tabs &&
-        tabs.map(tab => (
-          <div
-            className={clsx(styles.tabs__tab, {
-              [styles.tabs__tab_selected]: tab.id === selectedId,
-            })}
-            key={tab.id}
-            onClick={() => onClick(tab.id)}
-          >
-            <div
-              className={clsx(styles.tabs__label, {
-                [styles.tabs__label_selected]: tab.id === selectedId,
+    <div>
+      <ul className={clsx(styles.tabs, className)}>
+        {tabs &&
+          tabs.map((tab, index) => (
+            <motion.li
+              className={clsx(styles.tabs__tab, {
+                [styles.tabs__tab_selected]: activeTabIndex === index,
               })}
+              key={tab.id}
+              onClick={() => handleTabClick(index)}
+              variants={tabVariant}
+              animate={activeTabIndex === index ? 'active' : 'inactive'}
             >
-              {tab.label}
-            </div>
-          </div>
-        ))}
+              <span
+                className={clsx(styles.tabs__label, {
+                  [styles.tabs__label_selected]: activeTabIndex === index,
+                })}
+              >
+                {tab.label}
+              </span>
+            </motion.li>
+          ))}
+      </ul>
+      {tabs.map((tab, index) => (
+        <div
+          role={'tabpanel'}
+          key={tab.id}
+          className={clsx(styles.tabs__content, {
+            [styles.tabs__content_selected]: activeTabIndex === index,
+          })}
+        >
+          {tab.content}
+        </div>
+      ))}
     </div>
   );
 };

@@ -41,6 +41,7 @@ export function HomeMain(props: HomeMainProps) {
     filterParamsArray,
     setFilterParamsArray,
   );
+  console.log(user);
 
   return (
     <div className={styles.container}>
