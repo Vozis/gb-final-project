@@ -12,3 +12,7 @@ declare module 'test/Module';
 declare module 'single-event/Module';
 
 declare module 'create-event/Module';
+
+declare module 'hello/Module';
+
+declare module 'confirm-email/Module';

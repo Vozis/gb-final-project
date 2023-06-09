@@ -1,0 +1,109 @@
+{
+  "name": "confirm-email",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/confirm-email/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/confirm-email",
+        "index": "apps/confirm-email/src/index.html",
+        "baseHref": "/",
+        "main": "apps/confirm-email/src/main.ts",
+        "tsConfig": "apps/confirm-email/tsconfig.app.json",
+        "assets": [
+          "apps/confirm-email/src/favicon.ico",
+          "apps/confirm-email/src/assets"
+        ],
+        "styles": ["apps/confirm-email/src/styles.scss"],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/confirm-email/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/confirm-email/src/environments/environment.ts",
+              "with": "apps/confirm-email/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/confirm-email/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "confirm-email:build",
+        "hmr": true,
+        "port": 4208,
+        "proxyConfig": "proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "confirm-email:build:development"
+        },
+        "production": {
+          "buildTarget": "confirm-email:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/confirm-email/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "confirm-email:build",
+        "port": 4208
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "confirm-email:build:development"
+        },
+        "production": {
+          "buildTarget": "confirm-email:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/confirm-email/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

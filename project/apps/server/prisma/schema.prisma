@@ -10,13 +10,14 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
-  email      String @unique
-  password   String @db.VarChar(200)
-  firstName  String @map("first_name")
-  lastName   String @map("last_name")
-  userName   String @unique @map("user_name")
-  avatarPath String @default("/assets/default-avatar.png") @map("avatar_path")
-  role       Role[]
+  email       String  @unique
+  isConfirmed Boolean @default(false)
+  password    String  @db.VarChar(200)
+  firstName   String  @map("first_name")
+  lastName    String  @map("last_name")
+  userName    String  @unique @map("user_name")
+  avatarPath  String  @default("/assets/default-avatar.png") @map("avatar_path")
+  role        Role[]
 
   hobbies Tag[]
 

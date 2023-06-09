@@ -2,12 +2,19 @@ import styles from './home-main.module.scss';
 import { Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IOption } from '@project/shared/types';
-import { useActions, useFilterState } from '@project/shared/hooks';
+import {
+  useActions,
+  useAuthRedux,
+  useFilterState,
+} from '@project/shared/hooks';
 import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
 import { CardSkeleton } from './card/card-skeleton';
 import { Link } from 'react-router-dom';
+import cn from 'clsx';
+import { useMutation } from '@tanstack/react-query';
+import { MailService } from '@project/shared/services';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
@@ -18,25 +25,17 @@ const options: IOption[] = [
 ];
 
 export function HomeMain(props: HomeMainProps) {
-  // const { user } = useAuthRedux();
-  // const [modalActive, setModalActive] = useState<boolean>(false);
+  const { user } = useAuthRedux();
+  const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
 
-  const { setFilterParamsArray } = useActions();
+  useEffect(() => {
+    getProfile();
+  }, []);
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: events,
-  //   error,
-  // } = useQuery(
-  //   ['get-all-events', filterParamsArray],
-  //   () => EventService.getAllEvents(filterParamsArray),
-  //   {
-  //     select: ({ data }) => data,
-  //     enabled: !!filterParamsArray,
-  //   },
-  // );
+  const { mutateAsync } = useMutation(['resend-confirmation-link'], () =>
+    MailService.resendConfirmationLink(),
+  );
 
   const { isLoading, events, onSubmit } = useFilter(
     filterParamsArray,
@@ -45,7 +44,24 @@ export function HomeMain(props: HomeMainProps) {
 
   return (
     <div className={styles.container}>
-      <Link to={'/create-event'}>
+      {!user?.isConfirmed && (
+        <p>
+          Для создания события необходимо подтвердить email. Проверьте свою
+          почту или{' '}
+          <span
+            onClick={() => mutateAsync()}
+            className={'text-blue-500 underline '}
+          >
+            отправьте новый запрос
+          </span>
+        </p>
+      )}
+      <Link
+        to={'/create-event'}
+        className={cn({
+          'pointer-events-none text-red-500': !user?.isConfirmed,
+        })}
+      >
         <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
       </Link>
       <Filter onSubmit={onSubmit} />

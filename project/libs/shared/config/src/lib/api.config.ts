@@ -27,4 +27,9 @@ export const UserApi = {
   toggle: 'users/profile/toggle',
 };
 
+export const MailApi = {
+  confirmEmail: 'mail/confirm',
+  resendConfirmationLink: 'mail/resend-confirmation-link',
+};
+
 export const TypeApi = {};
