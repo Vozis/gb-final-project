@@ -48,7 +48,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
       onSubmit={handleSubmit(onSubmit)}
       className={'flex flex-col gap-4 items-start mb-14'}
     >
-      <div className={'flex gap-4 items-center'}>
+      <div className={'flex gap-4 items-center w-full'}>
         <SearchField
           {...register('valuesSearch')}
           placeholder={'Просто начните писать...'}

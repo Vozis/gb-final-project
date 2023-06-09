@@ -1,0 +1,53 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+
+.tabs {
+  align-items: center;
+  background-color: #F1F1F1;
+  box-sizing: border-box;
+  color: #353535;
+  display: flex;
+  justify-content: space-between;
+
+  &__tab {
+    cursor: pointer;
+    padding: 12px 8px;
+    position: relative;
+    text-align: center;
+    width: 50%;
+
+    &::before {
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      transition: all .2s ease-out;
+
+      width: 100%;
+    }
+
+    &_selected {
+      border: 1px solid #FFFFFF;
+      //background-color: #2e6d9c;
+      &::before {
+        background-color: #2e6d9c;
+      }
+    }
+  }
+
+  &__label {
+    color: #2e6d9c;
+
+    &_selected {
+      color: #FFFFFF;
+    }
+
+  }
+}

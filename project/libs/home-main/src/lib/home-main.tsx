@@ -1,5 +1,5 @@
 import styles from './home-main.module.scss';
-import { Filter, MaterialIcon } from '@project/shared/ui';
+import { Avatar, Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 
 import React, { useEffect } from 'react';
@@ -44,18 +44,28 @@ export function HomeMain(props: HomeMainProps) {
 
   return (
     <div className={styles.container}>
-      {!user?.isConfirmed && (
-        <p>
-          Для создания события необходимо подтвердить email. Проверьте свою
-          почту или{' '}
-          <span
-            onClick={() => mutateAsync()}
-            className={'text-blue-500 underline '}
-          >
-            отправьте новый запрос
-          </span>
-        </p>
-      )}
+      <div>
+        {user && (
+          <Avatar
+            user={user}
+            className={styles.profile__img_wrapper}
+            isName
+            isPhoto
+          />
+        )}
+        {!user?.isConfirmed && (
+          <p>
+            Для создания события необходимо подтвердить email. Проверьте свою
+            почту или{' '}
+            <span
+              onClick={() => mutateAsync()}
+              className={'text-blue-500 underline '}
+            >
+              отправьте новый запрос
+            </span>
+          </p>
+        )}
+      </div>
       <Link
         to={'/create-event'}
         className={cn({

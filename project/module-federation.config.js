@@ -11,7 +11,6 @@ const coreLibraries = new Set([
   '@tanstack/react-query',
   '@project/shared/providers',
   '@project/shared/layout',
-  '@project/shared/layout',
   'framer-motion',
 ]);
 
