@@ -15,6 +15,10 @@ export const EventService = {
     });
   },
 
+  async getSingleEvent(id: string) {
+    return axiosClassic.get<IEvent>(EventApi.getSingleEvent(id));
+  },
+
   async getByUserTags() {
     return axiosAuth.get<IEventResponse>(EventApi.getByUserHobbies);
   },

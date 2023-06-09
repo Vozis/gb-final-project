@@ -4,7 +4,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { UserService } from '../user/user.service';
-import { EventSelect, returnEventObject } from './returnEventObject';
+import {
+  EventSelect,
+  returnEventFullObject,
+  returnEventObject,
+} from './returnEventObject';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { FilterSearchDto } from './dto/search-event.dto';
 
@@ -80,6 +84,13 @@ export class EventService {
         },
       },
       select: returnEventObject,
+    });
+  }
+
+  async getById(id: number): Promise<EventSelect> {
+    return this.prisma.event.findUnique({
+      where: { id },
+      select: returnEventFullObject,
     });
   }
 
