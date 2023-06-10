@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
 import { EventModule } from './event/event.module';
 import { MailModule } from './mail/mail.module';
+import { TypeTagModule } from './type-tag/type-tag.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { MailModule } from './mail/mail.module';
     TagModule,
     EventModule,
     MailModule,
+    TypeTagModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
