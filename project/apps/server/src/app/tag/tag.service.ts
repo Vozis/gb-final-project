@@ -28,34 +28,33 @@ export class TagService {
           },
         },
       },
-      select: {
-        ...returnTagObject,
-        events: false,
-      },
+      select: returnTagObject,
     });
   }
 
-  async getAll(): Promise<Tag[]> {
-    return this.prisma.tag.findMany();
+  async getAll(): Promise<TagSelect[]> {
+    return this.prisma.tag.findMany({
+      select: returnTagObject,
+    });
   }
 
-  async getByType(typeId: number): Promise<TagSelect[]> {
+  async getByType(type: string): Promise<TagSelect[]> {
     const isExistTag = await this.prisma.tag
       .findFirst({
         where: {
           type: {
-            id: typeId,
+            name: type,
           },
         },
       })
       .then(Boolean);
 
-    if (!isExistTag) throw new BadRequestException('Tag does not exist');
+    if (!isExistTag) throw new BadRequestException('Type does not exist');
 
     return this.prisma.tag.findMany({
       where: {
         type: {
-          id: typeId,
+          name: type,
         },
       },
       select: returnTagObject,
