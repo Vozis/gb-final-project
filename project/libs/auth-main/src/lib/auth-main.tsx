@@ -8,7 +8,7 @@ import Form from './form/form';
 export interface AuthMainProps {}
 
 export function AuthMain(props: AuthMainProps) {
-  const [activeForm, setActiveForm] = useState<string>('form');
+  const [activeForm, setActiveForm] = useState<'form' | 'form-reg'>('form');
 
   return (
     <div className={styles.container_form}>

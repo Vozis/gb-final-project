@@ -10,3 +10,8 @@ export interface IFieldProps {
 type TypedInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps;
 
 export interface IField extends TypedInputPropsField {}
+
+export interface IResetPasswordForm {
+  password: string;
+  confirmPassword: string;
+}
