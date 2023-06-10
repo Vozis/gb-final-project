@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Title from './title';
+import FormReset from './form-reset';
 
-describe('Title', () => {
+describe('FormReset', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Title />);
+    const { baseElement } = render(<FormReset />);
     expect(baseElement).toBeTruthy();
   });
 });

@@ -8,3 +8,4 @@ export * from './lib/auth.types';
 export * from './lib/event.types';
 export * from './lib/search.types';
 export * from './lib/toggle.types';
+export * from './lib/mail.types';

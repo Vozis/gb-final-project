@@ -35,6 +35,7 @@ export function FormReg(props: FormProps) {
     control,
     setValue,
     getValues,
+    watch,
   } = useForm<IRegister>({
     mode: 'onChange',
   });
@@ -62,7 +63,10 @@ export function FormReg(props: FormProps) {
     const formData = new FormData();
 
     const entries: [string, any][] = Object.entries(data).filter(
-      entry => entry[0] !== 'hobbies' && entry[0] !== 'avatar',
+      entry =>
+        entry[0] !== 'hobbies' &&
+        entry[0] !== 'avatar' &&
+        entry[0] !== 'confirmPassword',
     );
 
     entries.forEach(entry => {
@@ -111,6 +115,18 @@ export function FormReg(props: FormProps) {
         error={errors.password}
         visibility
         type={'password'}
+      />
+      <Field
+        {...registerInput('confirmPassword', {
+          required: 'Без ввода пароля никак',
+          validate: (value: string) => {
+            if (watch('password') !== value) return 'Пароли должны совпадать';
+          },
+        })}
+        placeholder={'Подтвердите пароль...'}
+        error={errors.confirmPassword}
+        type={'password'}
+        visibility
       />
       {/* --------------------------------------- */}
       <div className={styles.app}>

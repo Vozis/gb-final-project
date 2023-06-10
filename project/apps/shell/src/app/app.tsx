@@ -5,6 +5,8 @@ import { Link, Route, Routes, createBrowserRouter } from 'react-router-dom';
 
 import { SharedProviders } from '@project/shared/providers';
 
+const ResetPassword = React.lazy(() => import('reset-password/Module'));
+
 const ConfirmEmail = React.lazy(() => import('confirm-email/Module'));
 
 const Hello = React.lazy(() => import('hello/Module'));
@@ -46,6 +48,7 @@ export function App() {
         {/*</ul>*/}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/hello" element={<Hello />} />
           <Route path="/create-event" element={<CreateEvent />} />

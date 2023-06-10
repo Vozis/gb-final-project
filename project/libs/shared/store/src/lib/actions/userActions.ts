@@ -9,8 +9,13 @@ export const register = createAsyncThunk<IAuthResponse, FormData>(
   async (data, thunkAPI) => {
     try {
       const response = await AuthService.register(data);
-      toast.success('Register success', {
+      toast.success('Регистрация прошла успешно', {
         toastId: 'register-success',
+        containerId: 1,
+      });
+      toast.info('На указанный email отправлено сообщение для подтверждения', {
+        toastId: 'send-email-link',
+        containerId: 1,
       });
 
       return response.data;
@@ -26,7 +31,7 @@ export const login = createAsyncThunk<IAuthResponse, ILogin>(
   async (data, thunkAPI) => {
     try {
       const response = await AuthService.login(data);
-      toast.success('Login success', {
+      toast.success('Вход выполнен успешно', {
         toastId: 'login-success',
         containerId: 1,
       });

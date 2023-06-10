@@ -37,7 +37,7 @@ model User {
 
 model TypeTag {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
 
   tag Tag[]
 

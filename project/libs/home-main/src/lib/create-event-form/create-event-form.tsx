@@ -12,6 +12,7 @@ import React from 'react';
 export interface CreateEventFormProps {}
 
 export function CreateEventForm(props: CreateEventFormProps) {
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -21,39 +22,39 @@ export function CreateEventForm(props: CreateEventFormProps) {
     control,
   } = useForm<ICreateEvent>();
 
-  // const { data: sports, isLoading: isSportsLoading } = useQuery(
-  //   ['get-sport-tags'],
-  //   () => TagService.getByType('sport'),
-  //   {
-  //     select: ({ data }) =>
-  //       data.map(
-  //         (item): IOption => ({
-  //           label: item.name,
-  //           value: item.id,
-  //         }),
-  //       ),
-  //     onError: err => {
-  //       toast.error(errorCatch(err));
-  //     },
-  //   },
-  // );
+  const { data: sports, isLoading: isSportsLoading } = useQuery(
+    ['get-sport-tags'],
+    () => TagService.getByType('sport'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
 
-  // const { data: place, isLoading: isPlaceLoading } = useQuery(
-  //   ['get-place-tags'],
-  //   () => TagService.getByType('place'),
-  //   {
-  //     select: ({ data }) =>
-  //       data.map(
-  //         (item): IOption => ({
-  //           label: item.name,
-  //           value: item.id,
-  //         }),
-  //       ),
-  //     onError: err => {
-  //       toast.error(errorCatch(err));
-  //     },
-  //   },
-  // );
+  const { data: place, isLoading: isPlaceLoading } = useQuery(
+    ['get-place-tags'],
+    () => TagService.getByType('place'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
 
   // const { data: city, isLoading: isCityLoading } = useQuery(
   //   ['get-city-tags'],
@@ -71,24 +72,28 @@ export function CreateEventForm(props: CreateEventFormProps) {
   //     },
   //   },
   // );
-  // const { data: count, isLoading: isCountLoading } = useQuery(
-  //   ['get-count-tags'],
-  //   () => TagService.getByType('count'),
-  //   {
-  //     select: ({ data }) =>
-  //       data.map(
-  //         (item): IOption => ({
-  //           label: item.name,
-  //           value: item.id,
-  //         }),
-  //       ),
-  //     onError: err => {
-  //       toast.error(errorCatch(err));
-  //     },
-  //   },
-  // );
 
-  const queryClient = useQueryClient();
+  const { data: count, isLoading: isCountLoading } = useQuery(
+    ['get-count-tags'],
+    () => TagService.getByType('count'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
+
+  console.log('sports: ', sports);
+  console.log('count: ', count);
+  // console.log('city: ', city);
+  console.log('place: ', place);
 
   const { mutateAsync, isSuccess } = useMutation(
     ['create-event'],
