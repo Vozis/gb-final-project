@@ -23,6 +23,7 @@ const tabVariant = {
   active: {
     width: '55%',
     transition: {
+      ease: 'easeInOut',
       type: 'tween',
       duration: 0.4,
     },
@@ -30,6 +31,7 @@ const tabVariant = {
   inactive: {
     width: '15%',
     transition: {
+      ease: 'easeInOut',
       type: 'tween',
       duration: 0.4,
     },

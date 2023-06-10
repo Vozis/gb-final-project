@@ -11,7 +11,7 @@ export function ProfileHead(props: ProfileHeadProps) {
   const { user } = useAuthRedux();
 
   if (!user) return null;
-  // console.log('user: ', user);
+  console.log('user: ', user);
 
   return (
     <div className={styles.container}>

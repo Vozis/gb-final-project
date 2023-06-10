@@ -81,16 +81,9 @@ export function ProfileMain(props: ProfileMainProps) {
 
   return (
     <div className={styles['container']}>
-      {/* <h1>Welcome to ProfileHobbies!</h1> */}
       <ProfileHead />
       {/*<ProfileForm />*/}
       <Tabs tabs={tabs} />
-      {/*<div className="TabsPage-Content">*/}
-      {/*  {selectedTabId === tabs[0].id && <div>Созданные карточки</div>}*/}
-      {/*  {selectedTabId === tabs[1].id && (*/}
-      {/*    <div>Список событий в которых участвует</div>*/}
-      {/*  )}*/}
-      {/*</div>*/}
     </div>
   );
 }
