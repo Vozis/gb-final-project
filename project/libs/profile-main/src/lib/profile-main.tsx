@@ -1,27 +1,25 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
-
 import axios from 'axios';
-import { IUserEdit } from '@project/shared/types';
+import {
+  IEventForCard,
+  IEventUser,
+  ISearch,
+  IUserEdit,
+} from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Tabs, TabsProps } from '@project/shared/ui';
-import React, { useEffect, useState } from 'react';
+import { useAuthRedux } from '@project/shared/hooks';
+import { useNavigate } from 'react-router-dom';
+import { EventService } from '@project/shared/services';
+import { use } from 'passport';
 
 /* eslint-disable-next-line */
 
 export interface ProfileMainProps {
   tabs?: TabsProps;
 }
-
-const tabs = [
-  {
-    id: '1',
-    label: 'Мои события',
-    content: 'content tab 1',
-  },
-  { id: '2', label: 'Участвую', content: 'content tab 2' },
-];
 
 export function ProfileMain(props: ProfileMainProps) {
   // const [user, setUser] = useState<User>({});
@@ -32,7 +30,19 @@ export function ProfileMain(props: ProfileMainProps) {
   //     setUser(JSON.parse(localUser));
   //   }
   // }, []);
-
+  const { user } = useAuthRedux();
+  const navigate = useNavigate();
+  const {
+    isLoading,
+    data: profileEvents,
+    isError,
+    error,
+  } = useQuery(['get-profile-events'], () =>
+    EventService.getAllEvents(filterProfileParamsArray),
+  );
+  const { mutateAsync } = useMutation(['update-user'], data =>
+    axios.put('/api/users/profile', data),
+  );
   const {
     register,
     handleSubmit,
@@ -43,6 +53,54 @@ export function ProfileMain(props: ProfileMainProps) {
   } = useForm<IUserEdit>({
     mode: 'onChange',
   });
+
+  if (!user) {
+    navigate('/auth');
+    return null;
+  }
+
+  const filterProfileParamsArray: ISearch = {
+    filterNestedFieldsParams: [
+      {
+        paramsCategory: 'users',
+        paramsType: 'id',
+        nestedFieldValue: user.id,
+      },
+    ],
+    filterEventFieldsParams: [
+      {
+        paramsFilter: 'creator',
+        eventFieldValue: user.id,
+      },
+    ],
+  };
+  if (!profileEvents) return null;
+  const data = profileEvents.data;
+  const myEvents = () => {
+    const myArr = data.filter(event => event.creator?.id === user.id);
+    if (!myArr.length) return null;
+    return myArr;
+  };
+  console.log('myEvents ', myEvents());
+  const participationArr = data.filter(event =>
+    event.users?.some(item => item.id === user.id),
+  );
+  console.log('part: ', participationArr);
+
+  const tabs = [
+    {
+      id: '1',
+      label: 'Мои события',
+      content: myEvents(),
+    },
+    {
+      id: '2',
+      label: 'Участвую',
+      content: participationArr,
+    },
+  ];
+
+  // console.log(profileEvents.data);
 
   // const { isLoading: isLoadingTags, data: times } = useQuery(
   //   ['get-tags-count'],
@@ -61,10 +119,6 @@ export function ProfileMain(props: ProfileMainProps) {
   //   },
   // );
 
-  const { mutateAsync } = useMutation(['update-user'], data =>
-    axios.put('/api/users/profile', data),
-  );
-
   const onSubmit: SubmitHandler<IUserEdit> = async data => {
     const formData = new FormData();
 
@@ -81,16 +135,8 @@ export function ProfileMain(props: ProfileMainProps) {
 
   return (
     <div className={styles['container']}>
-      {/* <h1>Welcome to ProfileHobbies!</h1> */}
       <ProfileHead />
-      {/*<ProfileForm />*/}
       <Tabs tabs={tabs} />
-      {/*<div className="TabsPage-Content">*/}
-      {/*  {selectedTabId === tabs[0].id && <div>Созданные карточки</div>}*/}
-      {/*  {selectedTabId === tabs[1].id && (*/}
-      {/*    <div>Список событий в которых участвует</div>*/}
-      {/*  )}*/}
-      {/*</div>*/}
     </div>
   );
 }

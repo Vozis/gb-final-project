@@ -3,13 +3,14 @@ import type { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tabs.module.scss';
 import { motion } from 'framer-motion';
+import { IEventForCard } from '@project/shared/types';
+import { CardList } from '@project/home-main';
 
 /* eslint-disable-next-line */
 export interface ITab {
   id: string | number;
   label?: string;
-  content?: string;
-  color?: string;
+  content?: IEventForCard[] | null;
 }
 
 export interface TabsProps {
@@ -77,7 +78,11 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
             [styles.tabs__content_selected]: activeTabIndex === index,
           })}
         >
-          {tab.content}
+          {tab.content && tab.content.length !== 0 ? (
+            <CardList list={tab.content} />
+          ) : (
+            <p>List is empty</p>
+          )}
         </div>
       ))}
     </div>
