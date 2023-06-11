@@ -3,7 +3,7 @@ import { Avatar, Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 
 import React, { useEffect } from 'react';
-import { IOption } from '@project/shared/types';
+import { IOption, ISearch } from '@project/shared/types';
 import {
   useActions,
   useAuthRedux,
@@ -13,8 +13,8 @@ import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
 import { CardSkeleton } from './card/card-skeleton';
 import { Link } from 'react-router-dom';
 import cn from 'clsx';
-import { useMutation } from '@tanstack/react-query';
-import { MailService } from '@project/shared/services';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { EventService, MailService } from '@project/shared/services';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
@@ -26,6 +26,7 @@ const options: IOption[] = [
 
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
+
   const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
 
@@ -41,7 +42,26 @@ export function HomeMain(props: HomeMainProps) {
     filterParamsArray,
     setFilterParamsArray,
   );
-  console.log(user);
+
+  // const filterParamsArray1: ISearch = {
+  //   filterNestedFieldsParams: [
+  //     {
+  //       paramsCategory: 'users',
+  //       paramsType: 'id',
+  //       nestedFieldValue: user.id,
+  //     },
+  //   ],
+  //   filterEventFieldsParams: [
+  //     {
+  //       paramsFilter: 'creator',
+  //       eventFieldValue: user.id,
+  //     },
+  //   ],
+  // };
+  //
+  // const { data } = useQuery([''], () =>
+  //   EventService.getAllEvents(filterParamsArray1),
+  // );
 
   return (
     <div className={styles.container}>

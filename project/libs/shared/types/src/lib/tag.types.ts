@@ -2,7 +2,8 @@ export interface ITag {
   id: number;
   name: string;
   shortName: string;
-  type: string;
+  typeId: number;
+  type?: string;
 }
 
 export interface ITagResponse {

@@ -1,7 +1,7 @@
 import styles from './card.module.scss';
 import { Button, FavoriteButton, Tag } from '@project/shared/ui';
-import { IEvent } from '@project/shared/types';
-import { FC } from 'react';
+import { IEvent, IEventForCard } from '@project/shared/types';
+import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
@@ -13,7 +13,7 @@ import { Link, redirect } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface CardProps {
-  event: IEvent;
+  event: IEventForCard;
 }
 
 export const Card: FC<CardProps> = ({ event }) => {
@@ -79,7 +79,7 @@ export const Card: FC<CardProps> = ({ event }) => {
             className={styles.card__btn}
             onClick={() => handleToggle(user.id)}
           >
-            {event.users.some(item => user.id === item.id)
+            {event.users && event.users.some(item => user.id === item.id)
               ? 'Отказаться'
               : 'Присоединиться'}
           </Button>

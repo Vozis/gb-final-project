@@ -4,7 +4,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { UserService } from '../user/user.service';
-import { EventSelect, returnEventObject } from './returnEventObject';
+import {
+  EventSelect,
+  returnEventFullObject,
+  returnEventObject,
+} from './returnEventObject';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { FilterSearchDto } from './dto/search-event.dto';
 
@@ -83,6 +87,13 @@ export class EventService {
     });
   }
 
+  async getById(id: number): Promise<EventSelect> {
+    return this.prisma.event.findUnique({
+      where: { id },
+      select: returnEventFullObject,
+    });
+  }
+
   async getAllEvents(
     filterSearchDto?: FilterSearchDto,
   ): Promise<EventSelect[]> {
@@ -110,7 +121,10 @@ export class EventService {
         filterTag[index] = {
           [item.paramsCategory]: {
             some: {
-              [item.paramsType]: +item.nestedFieldValue,
+              [item.paramsType]:
+                typeof item.nestedFieldValue === 'number'
+                  ? +item.nestedFieldValue
+                  : item.nestedFieldValue,
             },
           },
         };
@@ -124,7 +138,10 @@ export class EventService {
       filterSearchDto.filterEventFieldsParams.forEach((item, index) => {
         filterParams[index] = {
           [item.paramsFilter]: {
-            id: +item.eventFieldValue,
+            id:
+              typeof item.eventFieldValue === 'number'
+                ? +item.eventFieldValue
+                : item.eventFieldValue,
           },
         };
       });
@@ -135,7 +152,7 @@ export class EventService {
 
     const eventsSearchFilter: Prisma.EventWhereInput = search
       ? {
-          AND: [
+          OR: [
             search,
             {
               AND: filterTag,

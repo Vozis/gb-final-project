@@ -49,18 +49,22 @@ export class EventController {
     return this.eventService.toggle(eventId, toggleDto);
   }
 
-  @Get('all')
+  @Post('all')
   @HttpCode(200)
   async getAllEvents(
-    @Query() filterSearchDto?: FilterSearchDto,
+    @Body() filterSearchDto?: FilterSearchDto,
   ): Promise<EventSelect[]> {
     return this.eventService.getAllEvents(filterSearchDto);
   }
-
   @Auth()
-  @Get('')
+  @Get('my-events')
   async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
     return this.eventService.getUserEvents(id);
+  }
+
+  @Get(':id')
+  async getById(@Param('id', ParseIntPipe) id: number) {
+    return this.eventService.getById(id);
   }
 
   @Auth()
