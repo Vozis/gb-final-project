@@ -10,14 +10,6 @@ import styles from './single-event-main.module.scss';
 export interface SingleEventMainProps {
   tabs?: TabsProps;
 }
-const tabs = [
-  {
-    id: '1',
-    label: 'Описание',
-    content: 'content tab 1',
-  },
-  { id: '2', label: 'Участвуют', content: 'content tab 2' },
-];
 
 export function SingleEventMain(props: SingleEventMainProps) {
   const { id } = useParams();
@@ -37,10 +29,18 @@ export function SingleEventMain(props: SingleEventMainProps) {
       },
     },
   );
-
   if (!event) return null;
 
   console.log('event:', event);
+
+  const tabs = [
+    {
+      id: '1',
+      label: 'Описание',
+      content: event.description,
+    },
+    { id: '2', label: 'Участвуют', content: 'content tab 2' },
+  ];
 
   return (
     <div className={styles['container']}>

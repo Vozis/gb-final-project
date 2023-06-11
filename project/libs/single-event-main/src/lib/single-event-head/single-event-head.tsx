@@ -43,21 +43,23 @@ export function SingleEventHead(props: SingleEventHeadProps) {
           }}
         >
           <h1 className={styles.card_title}>{event.name}</h1>
-          <div>
+          <div className={styles.card_user}>
             <img
               className={styles.avatarImg}
               src={event.creator.avatarPath}
               alt={'avatar'}
             />
-            <div>
+            <div className={styles.card_user_title}>
               <p className={styles.card_subtitle}>
                 {event.creator.firstName} {event.creator.lastName}
               </p>
-              <AiTwotoneStar className={'text-[10px]'} />
-              <p className={styles.card_rating}>4.8</p>
+              <div className={styles.card_user_rating}>
+                <AiTwotoneStar className={'text-[15px], text-amber-400'} />
+                <p className={styles.card_rating}>4.8</p>
+              </div>
             </div>
           </div>
-          <div>
+          <div className={styles.card_place}>
             <BiMap className={'text-[20px]'} />
             <p className={styles.card_subtitle}>Москва</p>
           </div>
