@@ -1,5 +1,15 @@
-import { axiosAuth, UserApi } from '@project/shared/config';
-import { IToggle, IUser, IUserEdit } from '@project/shared/types';
+import {
+  AuthApi,
+  axiosAuth,
+  axiosClassic,
+  UserApi,
+} from '@project/shared/config';
+import {
+  IResetPassword,
+  IToggle,
+  IUser,
+  IUserEdit,
+} from '@project/shared/types';
 import { saveToStorage } from '@project/shared/utils';
 
 export const UserService = {
@@ -18,5 +28,9 @@ export const UserService = {
 
   async toggleFavorite(data: IToggle) {
     return axiosAuth.put(UserApi.toggle, data);
+  },
+
+  async resetPassword(data: IResetPassword) {
+    return axiosClassic.put(UserApi.resetPassword, data);
   },
 };

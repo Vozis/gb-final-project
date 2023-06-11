@@ -29,8 +29,16 @@ export class UserController {
 
   @Auth()
   @Put('profile')
-  updateProfile(@User('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+  async updateProfile(
+    @User('id') id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.update(id, updateUserDto);
+  }
+
+  @Put('profile/reset-password')
+  async resetPassword(@Body() dto: { id: number; data: UpdateUserDto }) {
+    return this.userService.update(dto.id, dto.data);
   }
 
   // Admins

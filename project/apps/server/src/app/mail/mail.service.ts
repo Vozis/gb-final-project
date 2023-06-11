@@ -16,21 +16,56 @@ export class MailService {
     private readonly configService: ConfigService,
   ) {}
 
+  // Send Email Massages
   async sendEmailConfirmation(email: string) {
     const _user = await this.userService.getByEmail(email);
-    const payload: { email: string } = { email: _user.email };
+    const payload: { email: string; id: number } = {
+      email: _user.email,
+      id: _user.id,
+    };
     const token = await this.jwtService.signAsync(payload, {
       expiresIn: '1d',
     });
     const url = `${this.configService.get<string>(
-      'EMAIL_CONFIRMATION_URL',
-    )}?token=${token}`;
+      'FRONTEND_API',
+    )}/confirm-email?token=${token}`;
 
     return this.mailerService
       .sendMail({
         to: email,
         subject: `Добро пожаловать, ${_user.firstName} !`,
-        template: './test',
+        template: './confirm-email',
+        context: {
+          name: `${_user.firstName} ${_user.lastName}`,
+          url: url,
+        },
+      })
+      .then(res => {
+        // console.log('res: ', res);
+      })
+      .catch(err => {
+        console.log('err: ', err);
+      });
+  }
+
+  async sendResetPasswordLink(email: string) {
+    const _user = await this.userService.getByEmail(email);
+    const payload: { email: string; id: number } = {
+      email: _user.email,
+      id: _user.id,
+    };
+    const token = await this.jwtService.signAsync(payload, {
+      expiresIn: '1d',
+    });
+    const url = `${this.configService.get<string>(
+      'FRONTEND_API',
+    )}/reset-password?token=${token}`;
+
+    return this.mailerService
+      .sendMail({
+        to: email,
+        subject: `Восстановление пароля для ${_user.firstName}!`,
+        template: './reset-password',
         context: {
           name: `${_user.firstName} ${_user.lastName}`,
           url: url,
@@ -51,18 +86,28 @@ export class MailService {
       throw new BadRequestException('Email already confirmed');
     }
 
-    console.log('User confirmed');
     return await this.userService.makeEmailConfirmed(email);
+  }
+
+  async resetPassword(dto: { email: string; password: string }) {
+    const _user = await this.userService.getByEmail(dto.email);
+
+    return this.userService.update(_user.id, { password: dto.password });
   }
 
   async verifyEmailToken(token: string) {
     try {
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync<{
+        email: string;
+        id: number;
+      }>(token, {
         secret: this.configService.get<string>('JWT_VERIFICATION_TOKEN_SECRET'),
       });
 
       if (typeof payload === 'object' && 'email' in payload) {
-        return payload.email;
+        return {
+          ...payload,
+        };
       }
       throw new BadRequestException();
     } catch (err) {

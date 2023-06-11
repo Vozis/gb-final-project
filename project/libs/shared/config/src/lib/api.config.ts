@@ -28,11 +28,14 @@ export const UserApi = {
   getProfile: '/users/profile',
   updateProfile: '/users/profile',
   toggle: 'users/profile/toggle',
+  resetPassword: 'users/profile/reset-password',
 };
 
 export const MailApi = {
   confirmEmail: 'mail/confirm',
   resendConfirmationLink: 'mail/resend-confirmation-link',
+  sendResetPasswordLink: 'mail/send-reset',
+  checkResetPasswordLink: 'mail/check-reset-password',
 };
 
 export const TypeApi = {};

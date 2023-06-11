@@ -32,6 +32,7 @@ export const Card: FC<CardProps> = ({ event }) => {
     {
       onSuccess: async data => {
         await queryClient.invalidateQueries(['get-all-events']);
+        await queryClient.invalidateQueries(['get-profile-events']);
         toast.success('Изменение статуса участия прошло успешно', {
           containerId: 1,
           toastId: 'toggle-user',
