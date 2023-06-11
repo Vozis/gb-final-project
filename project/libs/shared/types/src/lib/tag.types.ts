@@ -1,9 +1,10 @@
+import { ITypeTag } from './type-tag.types';
+
 export interface ITag {
   id: number;
   name: string;
   shortName: string;
-  typeId: number;
-  type?: string;
+  type: ITypeTag;
 }
 
 export interface ITagResponse {

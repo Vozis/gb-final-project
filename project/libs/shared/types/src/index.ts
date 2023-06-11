@@ -9,3 +9,4 @@ export * from './lib/event.types';
 export * from './lib/search.types';
 export * from './lib/toggle.types';
 export * from './lib/mail.types';
+export * from './lib/type-tag.types';
