@@ -19,7 +19,7 @@
 
 .layout > main {
   grid-area: main;
-  margin-top: 15px;
+  margin: 15px auto 0;
   max-width: 1200px;
 }
 
@@ -31,4 +31,15 @@
 .containerContent {
   //margin: 0 auto;
   padding: 0 20px;
+}
+
+@media (min-width: 499px) {
+  .layout > main {
+    min-width: 450px;
+  }
+}
+@media (min-width: 999px) {
+  .layout > main {
+    min-width: 1000px;
+  }
 }
