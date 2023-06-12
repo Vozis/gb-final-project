@@ -29,3 +29,10 @@ export interface IUserEdit
   hobbies?: ITag[] | [];
   favorites?: IEvent[] | [];
 }
+
+export interface IResetPassword {
+  id: number;
+  data: {
+    password: string;
+  };
+}

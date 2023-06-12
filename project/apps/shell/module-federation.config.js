@@ -11,5 +11,6 @@ module.exports = {
     'create-event',
     'hello',
     'confirm-email',
+    'reset-password',
   ],
 };

@@ -18,8 +18,6 @@ import { TagSelect } from './returnTagObject';
 
 @Controller('tags')
 export class TagController {
-  async;
-
   constructor(private readonly tagService: TagService) {}
 
   @Post()
@@ -29,15 +27,13 @@ export class TagController {
   }
 
   @Get('all')
-  async getAll(): Promise<Tag[]> {
+  async getAll(): Promise<TagSelect[]> {
     return this.tagService.getAll();
   }
 
-  @Get('by-type/:typeId')
-  async getByType(
-    @Param('typeId', ParseIntPipe) typeId: number,
-  ): Promise<TagSelect[]> {
-    return this.tagService.getByType(typeId);
+  @Get('by-type/:type')
+  async getByType(@Param('type') type: string): Promise<TagSelect[]> {
+    return this.tagService.getByType(type);
   }
 
   @Get(':shortname')

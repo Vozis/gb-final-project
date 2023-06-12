@@ -1,7 +1,7 @@
 import styles from './card.module.scss';
 import { Button, FavoriteButton, Tag } from '@project/shared/ui';
 import { IEvent, IEventForCard } from '@project/shared/types';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';
@@ -32,6 +32,7 @@ export const Card: FC<CardProps> = ({ event }) => {
     {
       onSuccess: async data => {
         await queryClient.invalidateQueries(['get-all-events']);
+        await queryClient.invalidateQueries(['get-profile-events']);
         toast.success('Изменение статуса участия прошло успешно', {
           containerId: 1,
           toastId: 'toggle-user',
@@ -63,10 +64,10 @@ export const Card: FC<CardProps> = ({ event }) => {
             <Tag
               key={tag.id}
               className={clsx({
-                'bg-red-300 hover:bg-red-400': tag.type === 'count',
-                [styles.card__tag_place]: tag.type === 'place',
-                'bg-green-300 hover:bg-green-400': tag.type === 'city',
-                'bg-cyan-300 hover:bg-cyan-400': tag.type === 'sport',
+                'bg-red-300 hover:bg-red-400': tag?.type?.name === 'count',
+                [styles.card__tag_place]: tag?.type?.name === 'place',
+                'bg-green-300 hover:bg-green-400': tag?.type?.name === 'city',
+                'bg-cyan-300 hover:bg-cyan-400': tag?.type?.name === 'sport',
               })}
             >
               {tag.name}
@@ -79,7 +80,7 @@ export const Card: FC<CardProps> = ({ event }) => {
             className={styles.card__btn}
             onClick={() => handleToggle(user.id)}
           >
-            {event.users.some(item => user.id === item.id)
+            {event.users && event.users.some(item => user.id === item.id)
               ? 'Отказаться'
               : 'Присоединиться'}
           </Button>

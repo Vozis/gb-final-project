@@ -7,7 +7,7 @@
     "npm": "9.5.1"
   },
   "scripts": {
-    "front": "nx serve shell --devRemotes=auth,home,single-event,create-event,profile,confirm-email,hello",
+    "front": "nx serve shell --devRemotes=auth,home,single-event,create-event,profile,confirm-email,reset-password",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "auth": "nx serve auth",
     "shell": "nx serve shell",
@@ -81,6 +81,7 @@
     "url-loader": "^4.1.1"
   },
   "dependencies": {
+    "@angular-devkit/core": "^16.0.5",
     "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.1.1",
     "@nestjs/config": "^2.3.2",

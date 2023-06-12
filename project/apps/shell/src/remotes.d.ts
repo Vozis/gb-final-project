@@ -16,3 +16,5 @@ declare module 'create-event/Module';
 declare module 'hello/Module';
 
 declare module 'confirm-email/Module';
+
+declare module 'reset-password/Module';
