@@ -8,6 +8,7 @@ import { useAuthRedux } from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { Link, redirect } from 'react-router-dom';
+import cn from 'clsx';
 
 // import toast from 'react-hot-toast';
 
@@ -77,7 +78,7 @@ export const Card: FC<CardProps> = ({ event }) => {
         {user && (
           <Button
             type={'button'}
-            className={styles.card__btn}
+            className={cn(styles.card__btn, 'w-full')}
             onClick={() => handleToggle(user.id)}
           >
             {event.users && event.users.some(item => user.id === item.id)

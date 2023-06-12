@@ -1,11 +1,16 @@
-import styles from './single-event-main.module.scss';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
+import { Avatar, ITab, Tabs, TabsProps, Tag } from '@project/shared/ui';
+import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import SingleEventHead from './single-event-head/single-event-head';
+import styles from './single-event-main.module.scss';
+import { IUserSingleEvent } from '@project/shared/types';
 /* eslint-disable-next-line */
-export interface SingleEventMainProps {}
+export interface SingleEventMainProps {
+  tabs?: TabsProps;
+}
 
 export function SingleEventMain(props: SingleEventMainProps) {
   const { id } = useParams();
@@ -25,16 +30,56 @@ export function SingleEventMain(props: SingleEventMainProps) {
       },
     },
   );
-
   if (!event) return null;
 
   console.log('event:', event);
-  console.log('event:', event.imageUrl);
-  console.log('event:', event.creator.avatarPath);
+
+  const tabs: ITab[] = [
+    {
+      id: '1',
+      label: 'Описание',
+      content: <p>{event.description}</p>,
+    },
+    {
+      id: '2',
+      label: 'Участвуют',
+      content: (
+        <>
+          {event.users.length !== 0 ? (
+            event.users.map(user => (
+              <div key={user.id}>
+                {<Avatar user={user} isName isInfo isPhoto />}
+              </div>
+            ))
+          ) : (
+            <p>Пока здесь никого нет</p>
+          )}
+        </>
+      ),
+    },
+  ];
 
   return (
     <div className={styles['container']}>
-      <h1>Welcome to SingleEventMain! {id}</h1>
+      <SingleEventHead />
+
+      <Tabs tabs={tabs} />
+      <div className={styles.card__tags}>
+        {event.tags.map(
+          tag => '',
+          // <Tag
+          //   key={tag.id}
+          //   className={clsx({
+          //     'bg-red-300 hover:bg-red-400': tag.type.name === 'count',
+          //     [styles.card__tag_place]: tag.type.name === 'place',
+          //     'bg-green-300 hover:bg-green-400': tag.type.name === 'city',
+          //     'bg-cyan-300 hover:bg-cyan-400': tag.type.name === 'sport',
+          //   })}
+          // >
+          //   {tag.name}
+          // </Tag>
+        )}
+      </div>
     </div>
   );
 }

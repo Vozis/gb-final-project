@@ -9,11 +9,12 @@ import {
   IUserEdit,
 } from '@project/shared/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Tabs, TabsProps } from '@project/shared/ui';
+import { ITab, Tabs, TabsProps } from '@project/shared/ui';
 import { useAuthRedux } from '@project/shared/hooks';
 import { useNavigate } from 'react-router-dom';
 import { EventService } from '@project/shared/services';
 import { use } from 'passport';
+import { CardList } from '@project/home-main';
 
 /* eslint-disable-next-line */
 
@@ -69,30 +70,27 @@ export function ProfileMain(props: ProfileMainProps) {
 
   if (!profileEvents) return null;
   const data = profileEvents.data;
-  const myEvents = () => {
-    const myArr = data.filter(event => event.creator?.id === user.id);
-    if (!myArr.length) return null;
-    return myArr;
-  };
+  const myEvents: IEventForCard[] =
+    data.filter(event => event.creator?.id === user.id) || [];
 
-  console.log('myEvents ', myEvents());
+  console.log('myEvents ', myEvents);
 
-  const participationArr = data.filter(event =>
+  const participationArr: IEventForCard[] = data.filter(event =>
     event.users?.some(item => item.id === user.id),
   );
 
   console.log('part: ', participationArr);
 
-  const tabs = [
+  const tabs: ITab[] = [
     {
       id: '1',
       label: 'Мои события',
-      content: myEvents(),
+      content: <CardList list={myEvents} />,
     },
     {
       id: '2',
       label: 'Участвую',
-      content: participationArr,
+      content: <CardList list={participationArr} />,
     },
   ];
 
