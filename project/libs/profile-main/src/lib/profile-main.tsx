@@ -22,14 +22,6 @@ export interface ProfileMainProps {
 }
 
 export function ProfileMain(props: ProfileMainProps) {
-  // const [user, setUser] = useState<User>({});
-  //
-  // useEffect(() => {
-  //   const localUser = localStorage.getItem('user');
-  //   if (localUser) {
-  //     setUser(JSON.parse(localUser));
-  //   }
-  // }, []);
   const { user } = useAuthRedux();
   const navigate = useNavigate();
   const {
@@ -74,6 +66,7 @@ export function ProfileMain(props: ProfileMainProps) {
       },
     ],
   };
+
   if (!profileEvents) return null;
   const data = profileEvents.data;
   const myEvents = () => {
@@ -81,10 +74,13 @@ export function ProfileMain(props: ProfileMainProps) {
     if (!myArr.length) return null;
     return myArr;
   };
+
   console.log('myEvents ', myEvents());
+
   const participationArr = data.filter(event =>
     event.users?.some(item => item.id === user.id),
   );
+
   console.log('part: ', participationArr);
 
   const tabs = [

@@ -1,16 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import NxWelcome from './nx-welcome';
 import { SharedLayout } from '@project/shared/layout';
 import { SharedProviders } from '@project/shared/providers';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  AuthService,
-  MailService,
-  UserService,
-} from '@project/shared/services';
+import { MailService, UserService } from '@project/shared/services';
 import { IResetPassword, IResetPasswordForm } from '@project/shared/types';
 import { Button, Field } from '@project/shared/ui';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -32,6 +27,7 @@ export function App() {
   });
 
   const navigate = useNavigate();
+
   const { mutateAsync } = useMutation(
     ['reset-password'],
     (data: IResetPassword) => UserService.resetPassword(data),
@@ -68,7 +64,6 @@ export function App() {
   );
 
   if (!tokenPayload) return null;
-
 
   const onSubmit: SubmitHandler<IResetPasswordForm> = async data => {
     const entries: IResetPassword = {
