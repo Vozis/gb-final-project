@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component, ComponentType, ReactElement, useState } from 'react';
 import type { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tabs.module.scss';
@@ -10,7 +10,7 @@ import { CardList } from '@project/home-main';
 export interface ITab {
   id: string | number;
   label?: string;
-  content?: IEventForCard[] | null;
+  content?: ReactElement<any>;
 }
 
 export interface TabsProps {
@@ -78,11 +78,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
             [styles.tabs__content_selected]: activeTabIndex === index,
           })}
         >
-          {tab.content && tab.content.length !== 0 ? (
-            <CardList list={tab.content} />
-          ) : (
-            <p>List is empty</p>
-          )}
+          {tab.content}
         </div>
       ))}
     </div>

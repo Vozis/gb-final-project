@@ -5,3 +5,14 @@
  * .container {
  * }
 */
+.card {
+  height: 244px;
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+}
+.white {
+  background-color: #fff;
+}

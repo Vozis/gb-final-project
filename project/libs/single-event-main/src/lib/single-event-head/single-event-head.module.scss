@@ -1,0 +1,40 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 250px;
+  border-radius: 15px;
+  padding: 0 10px;
+  color: white;
+  &_title {
+    font-size: 26px;
+  }
+  &_subtitle {
+    color: unset;
+  }
+  &_user {
+    display: flex;
+    gap: 15px;
+    &_rating {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &_place {
+    display: flex;
+  }
+}
+.avatarImg {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0px 0px 10px #fff;
+}
