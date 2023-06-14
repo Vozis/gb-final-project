@@ -1,7 +1,6 @@
 import { EventService } from '@project/shared/services';
-import { Tabs, TabsProps, Tag } from '@project/shared/ui';
+import { Avatar, ITab, Tabs, TabsProps } from '@project/shared/ui';
 import { useQuery } from '@tanstack/react-query';
-import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SingleEventHead from './single-event-head/single-event-head';
@@ -33,14 +32,30 @@ export function SingleEventMain(props: SingleEventMainProps) {
 
   console.log('event:', event);
 
-  const tabs = [
+  const tabs: ITab[] = [
     {
       id: '1',
       label: 'Описание',
-      content: null,
+      content: <p>{event.description}</p>,
     },
-    { id: '2', label: 'Участвуют', content: null },
-  ]; // заглушка content: null пока не разберусь с данными
+    {
+      id: '2',
+      label: 'Участвуют',
+      content: (
+        <>
+          {event.users.length !== 0 ? (
+            event.users.map(user => (
+              <div key={user.id}>
+                {<Avatar user={user} isName isInfo isPhoto />}
+              </div>
+            ))
+          ) : (
+            <p>Пока здесь никого нет</p>
+          )}
+        </>
+      ),
+    },
+  ];
 
   return (
     <div className={styles['container']}>
@@ -49,19 +64,20 @@ export function SingleEventMain(props: SingleEventMainProps) {
       <Tabs tabs={tabs} />
 
       <div className={styles.card__tags}>
-        {event.tags.map(tag => (
-          <Tag
-            key={tag.id}
-            className={clsx({
-              'bg-red-300 hover:bg-red-400': tag?.type?.name === 'count',
-              [styles.card__tag_place]: tag?.type?.name === 'place',
-              'bg-green-300 hover:bg-green-400': tag?.type?.name === 'city',
-              'bg-cyan-300 hover:bg-cyan-400': tag?.type?.name === 'sport',
-            })}
-          >
-            {tag.name}
-          </Tag>
-        ))}
+        {event.tags.map(
+          tag => '',
+          // <Tag
+          //   key={tag.id}
+          //   className={clsx({
+          //     'bg-red-300 hover:bg-red-400': tag.type.name === 'count',
+          //     [styles.card__tag_place]: tag.type.name === 'place',
+          //     'bg-green-300 hover:bg-green-400': tag.type.name === 'city',
+          //     'bg-cyan-300 hover:bg-cyan-400': tag.type.name === 'sport',
+          //   })}
+          // >
+          //   {tag.name}
+          // </Tag>
+        )}
       </div>
     </div>
   );

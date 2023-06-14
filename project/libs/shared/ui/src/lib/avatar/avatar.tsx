@@ -1,13 +1,13 @@
 import styles from './avatar.module.scss';
 import clsx from 'clsx';
-import { IUser } from '@project/shared/types';
+import { IUser, IUserSingleEvent } from '@project/shared/types';
 import { MaterialIcon } from '../icons/material-icon';
 
 /* eslint-disable-next-line */
 export interface AvatarProps {
   // avatarUrl?: string;
   // alt?: string;
-  user: IUser;
+  user: IUser | IUserSingleEvent;
   className?: string;
   isPhoto?: boolean;
   isName?: boolean;
