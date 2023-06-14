@@ -29,6 +29,9 @@ export const UserApi = {
   updateProfile: '/users/profile',
   toggle: 'users/profile/toggle',
   resetPassword: 'users/profile/reset-password',
+  getById(id: string) {
+    return `/users/${id}`;
+  },
 };
 
 export const MailApi = {

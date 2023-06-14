@@ -5,12 +5,14 @@ import { Prisma } from '@prisma/client';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { UserService } from '../user/user.service';
 import {
+  EventFullSelect,
   EventSelect,
   returnEventFullObject,
   returnEventObject,
 } from './returnEventObject';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { FilterSearchDto } from './dto/search-event.dto';
+import { isEmpty } from 'lodash';
 
 @Injectable()
 export class EventService {
@@ -87,7 +89,7 @@ export class EventService {
     });
   }
 
-  async getById(id: number): Promise<EventSelect> {
+  async getById(id: number): Promise<EventFullSelect> {
     return this.prisma.event.findUnique({
       where: { id },
       select: returnEventFullObject,
@@ -150,7 +152,7 @@ export class EventService {
     // console.log('filterParams', filterParams);
     // console.log('search', search);
 
-    const eventsSearchFilter: Prisma.EventWhereInput = search
+    const eventsSearchFilter: Prisma.EventWhereInput = !isEmpty(filterSearchDto)
       ? {
           OR: [
             search,
@@ -163,8 +165,6 @@ export class EventService {
           ],
         }
       : {};
-
-    // console.log('eventsSearchFilter', eventsSearchFilter);
 
     const result = await this.prisma.event.findMany({
       where: eventsSearchFilter,

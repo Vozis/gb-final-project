@@ -8,11 +8,11 @@ import { CreateEventMain } from '@project/create-event-main';
 
 export function App() {
   return (
-    <SharedProviders>
-      <SharedLayout>
-        <CreateEventMain />
-      </SharedLayout>
-    </SharedProviders>
+    // <SharedProviders>
+    //   <SharedLayout>
+    <CreateEventMain />
+    //   </SharedLayout>
+    // </SharedProviders>
   );
 }
 

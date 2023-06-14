@@ -95,55 +95,57 @@ export function App() {
   // );
 
   return (
-    <SharedProviders>
-      <SharedLayout>
-        {isSuccess && (
-          <form
-            className={styles['register_form']}
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <p className={styles.register_title}>Войдите, чтобы продолжить</p>
+    // <SharedProviders>
+    //   <SharedLayout>
+    <>
+      {isSuccess && (
+        <form
+          className={styles['register_form']}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <p className={styles.register_title}>Войдите, чтобы продолжить</p>
 
-            <Field
-              {...register('password', { required: 'Без ввода пароля никак' })}
-              placeholder={'Ваш пароль...'}
-              error={errors.password}
-              type={'password'}
-              visibility
-            />
-            <Field
-              {...register('confirmPassword', {
-                required: 'Без ввода пароля никак',
-                validate: (value: string) => {
-                  if (watch('password') !== value)
-                    return 'Пароли должны совпадать';
-                },
-              })}
-              placeholder={'Подтвердите пароль...'}
-              error={errors.confirmPassword}
-              type={'password'}
-              visibility
-            />
-            <Button type={'submit'} className={styles.register_form_btn}>
-              Отправить
-            </Button>
-          </form>
-        )}
-        {/*{isError && (*/}
-        {/*  <div>*/}
-        {/*    <p>*/}
-        {/*      Ссылка устарела, кликните на кнопку ниже для отправки нового*/}
-        {/*      сообщения*/}
-        {/*    </p>*/}
-        {/*    <Button*/}
-        {/*      onClick={() => mutateSendLink({ email: tokenPayload.email })}*/}
-        {/*    >*/}
-        {/*      Отправить ссылку*/}
-        {/*    </Button>*/}
-        {/*  </div>*/}
-        {/*)}*/}
-      </SharedLayout>
-    </SharedProviders>
+          <Field
+            {...register('password', { required: 'Без ввода пароля никак' })}
+            placeholder={'Ваш пароль...'}
+            error={errors.password}
+            type={'password'}
+            visibility
+          />
+          <Field
+            {...register('confirmPassword', {
+              required: 'Без ввода пароля никак',
+              validate: (value: string) => {
+                if (watch('password') !== value)
+                  return 'Пароли должны совпадать';
+              },
+            })}
+            placeholder={'Подтвердите пароль...'}
+            error={errors.confirmPassword}
+            type={'password'}
+            visibility
+          />
+          <Button type={'submit'} className={styles.register_form_btn}>
+            Отправить
+          </Button>
+        </form>
+      )}
+      {/*{isError && (*/}
+      {/*  <div>*/}
+      {/*    <p>*/}
+      {/*      Ссылка устарела, кликните на кнопку ниже для отправки нового*/}
+      {/*      сообщения*/}
+      {/*    </p>*/}
+      {/*    <Button*/}
+      {/*      onClick={() => mutateSendLink({ email: tokenPayload.email })}*/}
+      {/*    >*/}
+      {/*      Отправить ссылку*/}
+      {/*    </Button>*/}
+      {/*  </div>*/}
+      {/*)}*/}
+    </>
+    //   </SharedLayout>
+    // </SharedProviders>
   );
 }
 

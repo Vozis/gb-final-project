@@ -117,5 +117,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["home", "auth", "profile", "single-event", "create-event", "confirm-email", "reset-password"]
+  "implicitDependencies": ["home", "auth", "profile", "single-event", "create-event", "confirm-email", "reset-password", "single-user"]
 }

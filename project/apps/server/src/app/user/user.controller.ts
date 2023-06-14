@@ -15,6 +15,7 @@ import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { Role, User as UserModel } from '@prisma/client';
 import { ToggleDto } from '../../utils/toggle.dto';
+import { UserSelect } from './returnUserObject';
 
 @Controller('users')
 export class UserController {
@@ -47,6 +48,11 @@ export class UserController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
+  }
+
+  @Get(':id')
+  async getById(@Param('id', ParseIntPipe) id: number): Promise<UserSelect> {
+    return this.userService.getById(id);
   }
 
   // @Get('profile/favorites')

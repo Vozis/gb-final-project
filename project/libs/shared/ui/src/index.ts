@@ -1,3 +1,15 @@
+export * from './lib/user/user-big/user-big';
+
+export * from './lib/lists/list/list';
+export * from './lib/lists/list/list';
+export * from './lib/lists/user-list/user-list';
+export * from './lib/lists/card-list/card-list';
+export * from './lib/lists/card-list/card/card';
+export * from './lib/lists/card-list/card/card-skeleton';
+
+export * from './lib/typography/sub-heading/sub-heading';
+export * from './lib/typography/heading/heading';
+
 export * from './lib/secondary-button/secondary-button';
 export * from './lib/favorite-button/favorite-button';
 export * from './lib/skeletons/skeleton-custom';
@@ -13,8 +25,7 @@ export * from './lib/toasts/toast/toast';
 export * from './lib/search/search';
 export * from './lib/test/test';
 
-export * from './lib/avatar/avatar';
-export * from './lib/heading/heading';
+export * from './lib/user/user-small/userCardSmall';
 export * from './lib/form/input/input';
 export * from './lib/button/button';
 export * from './lib/tag/tag';

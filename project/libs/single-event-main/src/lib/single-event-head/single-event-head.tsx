@@ -5,6 +5,7 @@ import { BiMap } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './single-event-head.module.scss';
+import { UserCardSmall } from '@project/shared/ui';
 /* eslint-disable-next-line */
 export interface SingleEventHeadProps {}
 
@@ -43,26 +44,13 @@ export function SingleEventHead(props: SingleEventHeadProps) {
           }}
         >
           <h1 className={styles.card_title}>{event.name}</h1>
-          <div className={styles.card_user}>
-            <img
-              className={styles.avatarImg}
-              src={event.creator.avatarPath}
-              alt={'avatar'}
-            />
-            <div className={styles.card_user_title}>
-              <p className={styles.card_subtitle}>
-                {event.creator.firstName} {event.creator.lastName}
-              </p>
-              <div className={styles.card_user_rating}>
-                <AiTwotoneStar className={'text-[15px], text-amber-400'} />
-                <p className={styles.card_rating}>4.8</p>
-              </div>
-            </div>
-          </div>
-          <div className={styles.card_place}>
-            <BiMap className={'text-[20px]'} />
-            <p className={styles.card_subtitle}>Москва</p>
-          </div>
+          <UserCardSmall
+            userProps={event.creator}
+            isName
+            isInfo
+            isPhoto
+            isWhite
+          />
         </div>
       )}
     </div>
