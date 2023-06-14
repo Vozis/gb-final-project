@@ -1,20 +1,14 @@
+import { CardList } from '@project/home-main';
+import { useAuthRedux } from '@project/shared/hooks';
+import { EventService } from '@project/shared/services';
+import { IEventForCard, ISearch, IUserEdit } from '@project/shared/types';
+import { ITab, Tabs, TabsProps } from '@project/shared/ui';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
-import axios from 'axios';
-import {
-  IEventForCard,
-  IEventUser,
-  ISearch,
-  IUserEdit,
-} from '@project/shared/types';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { ITab, Tabs, TabsProps } from '@project/shared/ui';
-import { useAuthRedux } from '@project/shared/hooks';
-import { useNavigate } from 'react-router-dom';
-import { EventService } from '@project/shared/services';
-import { use } from 'passport';
-import { CardList } from '@project/home-main';
 
 /* eslint-disable-next-line */
 
@@ -69,6 +63,7 @@ export function ProfileMain(props: ProfileMainProps) {
   };
 
   if (!profileEvents) return null;
+
   const data = profileEvents.data;
   const myEvents: IEventForCard[] =
     data.filter(event => event.creator?.id === user.id) || [];
