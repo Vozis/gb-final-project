@@ -13,6 +13,9 @@
 }
 
 .profile {
+  &__settingBtnArea {
+    position: relative;
+  }
 
   &__settingBtn {
     position: absolute;
@@ -24,4 +27,15 @@
       font-size: 30px;
     }
   }
+
+  &__modal {
+    height: auto;
+    width: 240px;
+    background: none;
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 30px;
+  }
 }
+

@@ -1,14 +1,15 @@
 import { useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
-import { Avatar, MaterialIcon } from '@project/shared/ui';
+import { Avatar, MaterialIcon, Modal } from '@project/shared/ui';
 import { useNavigate } from 'react-router-dom';
-import * as events from 'events';
+import { useModal } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {}
 
 export function ProfileHead(props: ProfileHeadProps) {
   const { user } = useAuthRedux();
+  const [isShowModal, handleToggleModal] = useModal(false);
 
   const navigate = useNavigate();
 
@@ -17,7 +18,6 @@ export function ProfileHead(props: ProfileHeadProps) {
     return null;
   }
   // console.log('user: ', user);
-
   return (
     <div className={styles.container}>
       <Avatar
@@ -27,15 +27,25 @@ export function ProfileHead(props: ProfileHeadProps) {
         isInfo
         isPhoto
       />
-      <button
-        className={styles.profile__settingBtn}
-        onClick={() => console.log('settings')}
-      >
-        <MaterialIcon
-          name={'MdSettings'}
-          className={styles.profile__settingBtn_icon}
-        />
-      </button>
+      <div>
+        <button
+          className={styles.profile__settingBtn}
+          onClick={handleToggleModal}
+        >
+          <MaterialIcon
+            name={'MdSettings'}
+            className={styles.profile__settingBtn_icon}
+          />
+        </button>
+        <Modal
+          show={isShowModal}
+          onCloseClick={handleToggleModal}
+          className={styles.profile__modal}
+        >
+          <a href="#">Редактировать профиль</a>
+        </Modal>
+      </div>
+
       {/*<p className={styles.profile_load_img}>Загрузить аватар</p>*/}
     </div>
   );
