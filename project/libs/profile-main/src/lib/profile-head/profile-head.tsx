@@ -2,7 +2,12 @@ import { useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 
 import { useModal } from '@project/shared/hooks';
-import { UserCardSmall, MaterialIcon, UserBig, Modal } from '@project/shared/ui';
+import {
+  UserCardSmall,
+  MaterialIcon,
+  UserBig,
+  Modal,
+} from '@project/shared/ui';
 import { useNavigate } from 'react-router-dom';
 import * as events from 'events';
 import { IUser } from '@project/shared/types';
@@ -29,30 +34,35 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   return (
     <div className={styles.container}>
       <UserBig userProps={userProps} className={styles.profile__img_wrapper} />
-      <button
-        className={styles.profile__settingBtn}
- onClick={handleToggleModal}
-      >
-        {isProfile ? (
+
+      {isProfile ? (
+        <button
+          className={styles.profile__settingBtn}
+          onClick={handleToggleModal}
+        >
           <MaterialIcon
             name={'MdSettings'}
             className={styles.profile__settingBtn_icon}
           />
+          <Modal
+            show={isShowModal}
+            onCloseClick={handleToggleModal}
+            className={styles.profile__modal}
+          >
+            <a href="#">Редактировать профиль</a>
+          </Modal>
         </button>
-        <Modal
-          show={isShowModal}
-          onCloseClick={handleToggleModal}
-          className={styles.profile__modal}
+      ) : (
+        <button
+          className={styles.profile__settingBtn}
+          onClick={handleToggleModal}
         >
-          <a href="#">Редактировать профиль</a>
-        </Modal>
-        ) : (
           <MaterialIcon
             name={'MdPersonAddAlt'}
             className={styles.profile__settingBtn_icon}
           />
-        )}
-      </button>
+        </button>
+      )}
 
       {/*<p className={styles.profile_load_img}>Загрузить аватар</p>*/}
     </div>
