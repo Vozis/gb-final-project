@@ -6,9 +6,11 @@ import {
   Tabs,
   TabsProps,
   Tag,
+  Button,
+  UserBig,
 } from '@project/shared/ui';
 import { useQuery } from '@tanstack/react-query';
-import cn from 'clsx';
+import cn, { clsx } from 'clsx';
 import { Link, useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useState } from 'react';
@@ -21,6 +23,7 @@ export interface SingleEventMainProps {
 }
 
 export function SingleEventMain(props: SingleEventMainProps) {
+  const [run, setRun] = useState(false);
   const { id } = useParams();
 
   if (!id) return null;
@@ -41,7 +44,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
 
   if (!event) return null;
 
-  console.log('event:', event);
+  console.log('event users', event.users);
 
   const tabs: ITab[] = [
     {
@@ -53,11 +56,16 @@ export function SingleEventMain(props: SingleEventMainProps) {
       id: '2',
       label: 'Участвуют',
       content: (
-        <>
+        <List className={'flex flex-col gap-3'}>
           {event.users.length !== 0 ? (
             event.users.map(user => (
-              <div key={user.id}>
-              </div>
+              <UserCardSmall
+                userProps={user}
+                key={user.id}
+                isName
+                isInfo
+                isPhoto
+              />
             ))
           ) : (
             <p>Пока здесь никого нет</p>
@@ -74,32 +82,31 @@ export function SingleEventMain(props: SingleEventMainProps) {
       <SingleEventHead />
       <div>
         <Button onClick={() => setRun(true)}>Confetti ON</Button>
-      <Tabs tabs={tabs} />
-
-      {run && (
-        <Confetti
-          numberOfPieces={500}
-          recycle={false}
-          onConfettiComplete={() => setRun(false)}
-        />
-      )}
-
-      {/* <div className={styles.card__tags}>
-        {event.tags.map(
-          tag => '',
-          <Tag
-            key={tag.id}
-            className={clsx({
-              'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
-              [styles.card__tag_place]: tag?.type.name === 'place',
-              'bg-green-300 hover:bg-green-400': tag?.type.name === 'city',
-              'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
-            })}
-          >
-            {tag.name}
-          </Tag>
+        <Tabs tabs={tabs} />
+        {run && (
+          <Confetti
+            numberOfPieces={500}
+            recycle={false}
+            onConfettiComplete={() => setRun(false)}
+          />
         )}
-      </div> */}
+
+        <div className={styles.card__tags}>
+          {event.tags.map(tag => (
+            <Tag
+              key={tag.id}
+              className={clsx({
+                'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
+                [styles.card__tag_place]: tag?.type.name === 'place',
+                'bg-green-300 hover:bg-green-400': tag?.type.name === 'city',
+                'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
+              })}
+            >
+              {tag.name}
+            </Tag>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

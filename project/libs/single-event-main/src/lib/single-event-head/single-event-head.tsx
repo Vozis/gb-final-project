@@ -30,7 +30,7 @@ export function SingleEventHead(props: SingleEventHeadProps) {
 
   if (!event) return null;
 
-  console.log('event:', event);
+  // console.log('event:', event);
 
   return (
     <div className={styles['container']}>
