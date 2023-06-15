@@ -27,7 +27,6 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const { id } = useParams();
 
   if (!id) return null;
-
   const { isLoading, data: event } = useQuery(
     ['get-single-event'],
     () => EventService.getSingleEvent(id),
