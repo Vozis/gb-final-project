@@ -1,24 +1,36 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
-import { ISearch, ISearchForm } from '@project/shared/types';
+import { IEventForCard, ISearch, ISearchForm } from '@project/shared/types';
 import { SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export const useFilter = (
   filterParamsArray: ISearch,
   setFilterParamsArray: (data: ISearch) => void,
 ) => {
+  const queryClient = useQueryClient();
+
   const {
     isLoading,
     isError,
     data: events,
     error,
   } = useQuery(
-    ['get-all-events', filterParamsArray],
+    ['get-all-events'],
     () => EventService.getAllEvents(filterParamsArray),
     {
-      select: ({ data }) => data,
-      enabled: !!filterParamsArray,
+      select: ({ data: events }) =>
+        events.map(
+          (event): IEventForCard => ({
+            id: event.id,
+            name: event.name,
+            imageUrl: event.imageUrl,
+            tags: event.tags,
+            eventTime: event.eventTime,
+            creator: event.creator,
+            users: event.users,
+          }),
+        ),
     },
   );
 
@@ -56,9 +68,12 @@ export const useFilter = (
     setFilterParamsArray(result);
   };
 
-  return {
-    isLoading,
-    events,
-    onSubmit,
-  };
+  return useMemo(
+    () => ({
+      isLoading,
+      events,
+      onSubmit,
+    }),
+    [events, isLoading],
+  );
 };

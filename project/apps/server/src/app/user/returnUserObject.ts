@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { returnEventObject } from '../event/returnEventObject';
 
 export const returnUserObject: Prisma.UserSelect = {
   id: true,
@@ -13,6 +14,18 @@ export const returnUserObject: Prisma.UserSelect = {
     select: {
       id: true,
       name: true,
+      imageUrl: true,
+      tags: true,
+      eventTime: true,
+      creator: {
+        select: {
+          id: true,
+          userName: true,
+          firstName: true,
+          lastName: true,
+          avatarPath: true,
+        },
+      },
     },
   },
   hobbies: {
@@ -31,12 +44,36 @@ export const returnUserObject: Prisma.UserSelect = {
     select: {
       id: true,
       name: true,
+      imageUrl: true,
+      tags: true,
+      eventTime: true,
+      creator: {
+        select: {
+          id: true,
+          userName: true,
+          firstName: true,
+          lastName: true,
+          avatarPath: true,
+        },
+      },
     },
   },
   events: {
     select: {
       id: true,
       name: true,
+      imageUrl: true,
+      tags: true,
+      eventTime: true,
+      creator: {
+        select: {
+          id: true,
+          userName: true,
+          firstName: true,
+          lastName: true,
+          avatarPath: true,
+        },
+      },
     },
   },
 };

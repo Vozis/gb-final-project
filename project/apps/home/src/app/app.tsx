@@ -6,11 +6,9 @@ import { SharedProviders } from '@project/shared/providers';
 
 export function App() {
   return (
-    <SharedProviders>
-      <SharedLayout>
-        <HomeMain />
-      </SharedLayout>
-    </SharedProviders>
+    // <SharedLayout>
+    <HomeMain />
+    // </SharedLayout>
   );
 }
 

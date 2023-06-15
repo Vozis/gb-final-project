@@ -11,13 +11,11 @@ import { useMutation } from '@tanstack/react-query';
 
 export function App() {
   return (
-    <SharedProviders>
-      <SharedLayout>
-        <ProfileMain />
-        {/* <ProfileHead /> */}
-        {/* <ProfileForm /> */}
-      </SharedLayout>
-    </SharedProviders>
+    // <SharedProviders>
+    // <SharedLayout>
+    <ProfileMain />
+    // </SharedLayout>
+    // </SharedProviders>
   );
 }
 

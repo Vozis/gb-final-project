@@ -8,3 +8,8 @@ export * from './lib/useAuthRedux';
 export * from './lib/useAuthRedirect';
 export * from './lib/useTest';
 export * from './lib/useFilterState';
+
+export * from './lib/useModal';
+export * from './lib/useUserEvents';
+export * from './lib/useCheckEventStatus';
+

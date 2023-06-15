@@ -4,6 +4,12 @@ import * as React from 'react';
 import { Link, Route, Routes, createBrowserRouter } from 'react-router-dom';
 
 import { SharedProviders } from '@project/shared/providers';
+import { SharedLayout } from '@project/shared/layout';
+import { TailSpin } from 'react-loader-spinner';
+import { useActions, useFilterState } from '@project/shared/hooks';
+import { useFilter } from '../../../../libs/shared/ui/src/lib/filter/useFilter';
+
+const SingleUser = React.lazy(() => import('single-user/Module'));
 
 const ResetPassword = React.lazy(() => import('reset-password/Module'));
 
@@ -31,32 +37,21 @@ const Home = React.lazy(() => import('home/Module'));
 export function App() {
   return (
     <SharedProviders>
-      <React.Suspense fallback={<p>Loading...</p>}>
-        {/*<ul>*/}
-        {/*  <li>*/}
-        {/*    <Link to="/">Home</Link>*/}
-        {/*  </li>*/}
-        {/*  <li>*/}
-        {/*    <Link to="/auth">Auth</Link>*/}
-        {/*  </li>*/}
-        {/*  <li>*/}
-        {/*    <Link to="/profile">Profile</Link>*/}
-        {/*  </li>*/}
-        {/*  <li>*/}
-        {/*    <Link to="/settings">Settings</Link>*/}
-        {/*  </li>*/}
-        {/*</ul>*/}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/confirm-email" element={<ConfirmEmail />} />
-          <Route path="/hello" element={<Hello />} />
-          <Route path="/create-event" element={<CreateEvent />} />
-          <Route path="/events/:id" element={<SingleEvent />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </React.Suspense>
+      <SharedLayout>
+        <React.Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/confirm-email" element={<ConfirmEmail />} />
+            <Route path="/hello" element={<Hello />} />
+            <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/events/:id" element={<SingleEvent />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/users/:id" element={<SingleUser />} />
+          </Routes>
+        </React.Suspense>
+      </SharedLayout>
     </SharedProviders>
   );
 }

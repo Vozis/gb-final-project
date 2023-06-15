@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 export const EventService = {
   async getAllEvents(data?: ISearch) {
-    return axiosClassic.post<IEventForCard[]>(EventApi.getAll, data);
+    return axiosClassic.post<IEvent[]>(EventApi.getAll, data);
   },
 
   async getSingleEvent(id: string) {

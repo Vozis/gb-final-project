@@ -1,5 +1,5 @@
 import { ITag } from './tag.types';
-import { IEventUser, IUserSingleEvent } from './user.types';
+import { IEventUser, IUser, IUserSingleEvent } from './user.types';
 
 export interface IEvent {
   id: number;
@@ -8,7 +8,7 @@ export interface IEvent {
   imageUrl: string;
   coordinateX?: string;
   coordinateY?: string;
-  eventTime?: Date;
+  eventTime: Date;
   creator: IUserSingleEvent;
   users: IUserSingleEvent[];
   tags: ITag[];
@@ -19,9 +19,9 @@ export interface IEventForCard {
   name: string;
   imageUrl: string;
   tags: ITag[];
-  eventTime?: Date;
-  creator?: IUserSingleEvent | null;
-  users: IEventUser[];
+  eventTime: Date;
+  creator?: IUserSingleEvent;
+  users: IUserSingleEvent[];
 }
 
 export interface IEventResponse {

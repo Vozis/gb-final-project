@@ -1,14 +1,14 @@
 import { Prisma, User } from '@prisma/client';
 import { ITag } from './tag.types';
-import { IEvent } from './event.types';
+import { IEvent, IEventForCard } from './event.types';
 import { Role } from '.prisma/client';
 
 export interface IUser extends User {
-  favorites?: IEvent[] | [];
-  hobbies?: ITag[] | [];
-  creations?: IEvent[] | [];
-  events?: IEvent[] | [];
-  friends?: IUser[] | [];
+  favorites?: IEvent[] | IEventForCard[];
+  hobbies?: ITag[];
+  creations?: IEvent[] | IEventForCard[];
+  events: IEvent[] | IEventForCard[];
+  friends?: IUser[] | IUserSingleEvent[];
 }
 
 export interface IEventUser {
