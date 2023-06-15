@@ -1,7 +1,7 @@
 import styles from './card.module.scss';
 import { Button, FavoriteButton, Tag } from '@project/shared/ui';
-import { IEvent, IEventForCard } from '@project/shared/types';
-import { FC, useEffect, useState } from 'react';
+import { IEventForCard } from '@project/shared/types';
+import { FC } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthRedux } from '@project/shared/hooks';

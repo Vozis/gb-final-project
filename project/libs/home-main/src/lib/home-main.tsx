@@ -3,7 +3,7 @@ import { Avatar, Filter, MaterialIcon } from '@project/shared/ui';
 import { CardList } from './card-list/card-list';
 
 import React, { useEffect } from 'react';
-import { IOption, ISearch } from '@project/shared/types';
+import { IOption } from '@project/shared/types';
 import {
   useActions,
   useAuthRedux,
@@ -13,8 +13,8 @@ import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
 import { CardSkeleton } from './card/card-skeleton';
 import { Link } from 'react-router-dom';
 import cn from 'clsx';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { EventService, MailService } from '@project/shared/services';
+import { useMutation } from '@tanstack/react-query';
+import { MailService } from '@project/shared/services';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}

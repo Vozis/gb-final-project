@@ -29,13 +29,17 @@
   }
 
   &__modal {
-    height: auto;
+    height: 0;
     width: 240px;
     background: none;
     position: absolute;
     top: 0;
     left: auto;
     right: 30px;
+
+    &.active {
+      height: auto;
+    }
   }
 }
 

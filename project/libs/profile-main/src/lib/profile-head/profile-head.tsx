@@ -27,24 +27,22 @@ export function ProfileHead(props: ProfileHeadProps) {
         isInfo
         isPhoto
       />
-      <div>
-        <button
-          className={styles.profile__settingBtn}
-          onClick={handleToggleModal}
-        >
-          <MaterialIcon
-            name={'MdSettings'}
-            className={styles.profile__settingBtn_icon}
-          />
-        </button>
-        <Modal
-          show={isShowModal}
-          onCloseClick={handleToggleModal}
-          className={styles.profile__modal}
-        >
-          <a href="#">Редактировать профиль</a>
-        </Modal>
-      </div>
+      <button
+        className={styles.profile__settingBtn}
+        onClick={handleToggleModal}
+      >
+        <MaterialIcon
+          name={'MdSettings'}
+          className={styles.profile__settingBtn_icon}
+        />
+      </button>
+      <Modal
+        show={isShowModal}
+        onCloseClick={handleToggleModal}
+        className={styles.profile__modal}
+      >
+        <a href="#">Редактировать профиль</a>
+      </Modal>
 
       {/*<p className={styles.profile_load_img}>Загрузить аватар</p>*/}
     </div>

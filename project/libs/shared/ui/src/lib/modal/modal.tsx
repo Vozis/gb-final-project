@@ -1,5 +1,5 @@
 import styles from './modal.module.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { Button } from '../button/button';
 import { MaterialIcon } from '@project/shared/ui';
@@ -13,6 +13,8 @@ export interface ModalProps {
   children: React.ReactNode;
 }
 
+// const body = document.body;
+
 export function Modal({
   show,
   onCloseClick,
@@ -20,6 +22,10 @@ export function Modal({
   className,
   isBtnClose = false,
 }: ModalProps) {
+  // useEffect(() => {
+  //   body.style.overflow = show ? 'hidden' : 'unset';
+  // }, [show]);
+
   return (
     <div
       className={clsx(styles.modal, className, {
