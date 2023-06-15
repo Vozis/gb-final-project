@@ -17,10 +17,10 @@ const queryClient = new QueryClient({
 
 export const SharedProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ReduxProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ReduxProvider>
         <AuthProvider>{children}</AuthProvider>
-      </QueryClientProvider>
-    </ReduxProvider>
+      </ReduxProvider>
+    </QueryClientProvider>
   );
 };

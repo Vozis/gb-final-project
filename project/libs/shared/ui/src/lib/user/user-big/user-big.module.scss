@@ -1,0 +1,84 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  min-height: 200px;
+  min-width: 100%;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.avatarWrapper {
+  border-radius: 50%;
+  box-shadow: 0 0 20px 1px rgba(0,0,0,0.5);
+  box-sizing: border-box;
+  height: 100px;
+  padding: 3px;
+  width: 100px;
+
+  //&::after {
+  //  background-color: #F7F7F7;
+  //  bottom: -50px;
+  //  content: '';
+  //  height: 100px;
+  //  left: -50px;
+  //  position: absolute;
+  //  width: 200px;
+  //  z-index: 1;
+  //}
+
+}
+
+.avatarImg {
+  background-color: #F7F7F7;
+  border-radius: inherit;
+height: auto;
+  object-fit: cover;
+  width: 100%;
+z-index: 2;
+}
+
+.info {
+
+}
+
+.username {
+  color: #949494;
+  font-size: 14px;
+
+}
+
+.fullname {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.infoIconsBox {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.infoIconGroup {
+  align-items: center;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+  & span {
+    color: #949494;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 499px) {
+  .fullname {
+    width: auto;
+  }
+}

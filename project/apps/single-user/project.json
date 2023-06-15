@@ -1,0 +1,109 @@
+{
+  "name": "single-user",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/single-user/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/single-user",
+        "index": "apps/single-user/src/index.html",
+        "baseHref": "/",
+        "main": "apps/single-user/src/main.ts",
+        "tsConfig": "apps/single-user/tsconfig.app.json",
+        "assets": [
+          "apps/single-user/src/favicon.ico",
+          "apps/single-user/src/assets"
+        ],
+        "styles": ["apps/single-user/src/styles.scss"],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/single-user/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/single-user/src/environments/environment.ts",
+              "with": "apps/single-user/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/single-user/webpack.config.prod.js"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "single-user:build",
+        "hmr": true,
+        "port": 4211,
+        "proxyConfig": "proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "single-user:build:development"
+        },
+        "production": {
+          "buildTarget": "single-user:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/single-user/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "single-user:build",
+        "port": 4211
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "single-user:build:development"
+        },
+        "production": {
+          "buildTarget": "single-user:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/single-user/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

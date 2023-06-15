@@ -1,13 +1,18 @@
 import { useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
-import { Avatar, MaterialIcon, Modal } from '@project/shared/ui';
-import { useNavigate } from 'react-router-dom';
+
 import { useModal } from '@project/shared/hooks';
+import { UserCardSmall, MaterialIcon, UserBig, Modal } from '@project/shared/ui';
+import { useNavigate } from 'react-router-dom';
+import * as events from 'events';
+import { IUser } from '@project/shared/types';
 
 /* eslint-disable-next-line */
-export interface ProfileHeadProps {}
+export interface ProfileHeadProps {
+  userProps: IUser;
+}
 
-export function ProfileHead(props: ProfileHeadProps) {
+export function ProfileHead({ userProps }: ProfileHeadProps) {
   const { user } = useAuthRedux();
   const [isShowModal, handleToggleModal] = useModal(false);
 
@@ -18,20 +23,17 @@ export function ProfileHead(props: ProfileHeadProps) {
     return null;
   }
   // console.log('user: ', user);
+
+  const isProfile = userProps.id === user?.id;
+
   return (
     <div className={styles.container}>
-      <Avatar
-        user={user}
-        className={styles.profile__img_wrapper}
-        isName
-        isInfo
-        isPhoto
-      />
-      <div>
-        <button
-          className={styles.profile__settingBtn}
-          onClick={handleToggleModal}
-        >
+      <UserBig userProps={userProps} className={styles.profile__img_wrapper} />
+      <button
+        className={styles.profile__settingBtn}
+ onClick={handleToggleModal}
+      >
+        {isProfile ? (
           <MaterialIcon
             name={'MdSettings'}
             className={styles.profile__settingBtn_icon}
@@ -44,7 +46,13 @@ export function ProfileHead(props: ProfileHeadProps) {
         >
           <a href="#">Редактировать профиль</a>
         </Modal>
-      </div>
+        ) : (
+          <MaterialIcon
+            name={'MdPersonAddAlt'}
+            className={styles.profile__settingBtn_icon}
+          />
+        )}
+      </button>
 
       {/*<p className={styles.profile_load_img}>Загрузить аватар</p>*/}
     </div>

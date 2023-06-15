@@ -46,7 +46,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={'flex flex-col gap-4 items-start mb-14'}
+      className={'flex flex-col gap-4 items-start mb-5'}
     >
       <div className={'flex gap-4 items-center w-full'}>
         <SearchField

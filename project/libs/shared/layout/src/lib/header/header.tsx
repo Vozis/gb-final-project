@@ -4,6 +4,7 @@ import {
   AiOutlineHome,
   AiOutlineLogin,
   AiOutlineProfile,
+  AiOutlineUser,
 } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -46,7 +47,7 @@ export function Header(props: HeaderProps) {
               isActive ? styles.active_link : styles.on_active_link
             }
           >
-            <AiOutlineProfile className={'text-[30px]'} />
+            <AiOutlineUser className={'text-[30px]'} />
             <span>Профиль</span>
           </NavLink>
         </li>

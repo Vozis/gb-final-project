@@ -56,6 +56,7 @@ export class EventController {
   ): Promise<EventSelect[]> {
     return this.eventService.getAllEvents(filterSearchDto);
   }
+
   @Auth()
   @Get('my-events')
   async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {

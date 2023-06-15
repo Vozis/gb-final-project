@@ -62,14 +62,14 @@ model Tag {
 }
 
 model Event {
-  id          Int     @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String?
-  imageUrl    String  @default("/assets/default-event.png") @map("image_url")
-  coordinateX String? @map("coordinate_x")
-  coordinateY String? @map("coordinate_y")
-
-  eventTime DateTime?
+  imageUrl    String    @default("/assets/default-event.png") @map("image_url")
+  coordinateX String?   @map("coordinate_x")
+  coordinateY String?   @map("coordinate_y")
+  eventTime   DateTime? @default(dbgenerated("NOW() + interval '2 days'")) @map("event_time")
+  peopleCount Int       @default(2) @map("people_count")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

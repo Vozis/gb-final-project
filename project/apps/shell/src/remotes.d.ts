@@ -18,3 +18,5 @@ declare module 'hello/Module';
 declare module 'confirm-email/Module';
 
 declare module 'reset-password/Module';
+
+declare module 'single-user/Module';
