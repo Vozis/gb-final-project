@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { PrismaService } from './app/prisma/prisma.service';
+import { BasePrismaService } from './app/prisma/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
 
-  const prismaService = app.get(PrismaService);
+  const prismaService = app.get(BasePrismaService);
   await prismaService.enableShutdownHooks(app);
 
   await app.listen(port);

@@ -1,18 +1,18 @@
 import { IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class SearchEventDto {
+export class SearchEventDto {
   paramsSearch?: string;
   valuesSearch?: string;
 }
 
-class FilterNestedFieldsDto {
+export class FilterNestedFieldsDto {
   paramsCategory?: string;
   paramsType?: string;
   nestedFieldValue?: number | string;
 }
 
-class FilterEventFieldsDto {
+export class FilterEventFieldsDto {
   paramsFilter?: string;
   eventFieldValue?: number | string;
 }

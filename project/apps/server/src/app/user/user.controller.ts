@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   Put,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -31,6 +32,7 @@ export class UserController {
   @Auth()
   @Put('profile')
   async updateProfile(
+    // @Param('id', ParseIntPipe) id: number,
     @User('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
@@ -43,6 +45,11 @@ export class UserController {
   }
 
   // Admins
+
+  @Get('all')
+  async getAllUsers() {
+    return this.userService.getAll();
+  }
 
   @Auth('ADMIN')
   @Delete(':id')

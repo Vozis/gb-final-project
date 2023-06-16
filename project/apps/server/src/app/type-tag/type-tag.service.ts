@@ -1,12 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateTypeTagDto } from './dto/create-type-tag.dto';
 import { UpdateTypeTagDto } from './dto/update-type-tag.dto';
 import { returnTypeTagObject, TypeTag } from './returnTypeTagObject';
-import { PrismaService } from '../prisma/prisma.service';
+import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class TypeTagService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+  ) {}
   async create(CreateTypeTagDto: CreateTypeTagDto): Promise<TypeTag> {
     return this.prisma.typeTag.create({
       data: {
@@ -29,7 +32,7 @@ export class TypeTagService {
     });
   }
 
-  update(id: number, updateTypeTagDto: UpdateTypeTagDto): Promise<TypeTag> {
+  update(id: number, updateTypeTagDto: UpdateTypeTagDto) {
     return this.prisma.typeTag.update({
       where: { id },
       data: {

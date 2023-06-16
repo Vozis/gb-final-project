@@ -1,13 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
 import { Tag } from '@prisma/client';
 import { returnTagObject, TagSelect } from './returnTagObject';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class TagService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+  ) {}
 
   async create(createTagDto: CreateTagDto): Promise<TagSelect> {
     const _tag = await this.prisma.tag.findUnique({
@@ -78,7 +81,7 @@ export class TagService {
     });
   }
 
-  async update(id: number, updateTagDto: UpdateTagDto): Promise<TagSelect> {
+  async update(id: number, updateTagDto: UpdateTagDto) {
     if (updateTagDto.shortName) {
       const _tag = await this.prisma.tag.findUnique({
         where: { shortName: updateTagDto.shortName },

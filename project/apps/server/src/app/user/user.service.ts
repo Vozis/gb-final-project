@@ -2,10 +2,11 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Inject,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
 import { Role, User } from '@prisma/client';
 import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,10 +19,13 @@ import {
   UserFullSelect,
   UserSelect,
 } from './returnUserObject';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+  ) {}
   async create(createUserDto: CreateUserDto): Promise<UserSelect> {
     return this.prisma.user.create({
       data: {
@@ -37,7 +41,7 @@ export class UserService {
               ? createUserDto.hobbies.map(id => ({ id: +id }))
               : createUserDto.hobbies
               ? { id: +createUserDto.hobbies }
-              : { shortName: 'empty' },
+              : undefined,
         },
       },
       select: returnUserObject,

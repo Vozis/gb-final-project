@@ -9,19 +9,25 @@ export interface IEvent {
   coordinateX?: string;
   coordinateY?: string;
   eventTime: Date;
+  peopleCount: number;
+  _count: number;
   creator: IUserSingleEvent;
   users: IUserSingleEvent[];
   tags: ITag[];
+  isParticipate?: boolean | null;
 }
 
 export interface IEventForCard {
   id: number;
   name: string;
   imageUrl: string;
+  peopleCount: number;
+  _count: number;
   tags: ITag[];
   eventTime: Date;
   creator?: IUserSingleEvent;
   users: IUserSingleEvent[];
+  isParticipate?: boolean | null;
 }
 
 export interface IEventResponse {
@@ -35,5 +41,5 @@ export interface ICreateEvent {
   sport: number[];
   place: number[];
   city: number[];
-  count: number[];
+  count: number;
 }

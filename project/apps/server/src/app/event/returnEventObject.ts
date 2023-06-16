@@ -5,7 +5,12 @@ import {
 } from '../user/returnUserObject';
 import { returnTagObject } from '../tag/returnTagObject';
 
-export const returnEventObject: Prisma.EventSelect = {
+interface IReturnEvent {
+  isParticipate: boolean;
+}
+export type ReturnEvent = Prisma.EventSelect & IReturnEvent;
+
+export const returnEventObject: ReturnEvent = {
   id: true,
   name: true,
   description: true,
@@ -13,6 +18,13 @@ export const returnEventObject: Prisma.EventSelect = {
   coordinateX: true,
   coordinateY: true,
   eventTime: true,
+  peopleCount: true,
+  isParticipate: true,
+  _count: {
+    select: {
+      users: true,
+    },
+  },
   creator: {
     select: {
       id: true,
@@ -40,11 +52,18 @@ export const returnEventObject: Prisma.EventSelect = {
   },
 };
 
-export const returnEventFullObject: Prisma.EventSelect = {
+export const returnEventFullObject: ReturnEvent = {
   id: true,
   name: true,
   description: true,
   imageUrl: true,
+  peopleCount: true,
+  isParticipate: true,
+  _count: {
+    select: {
+      users: true,
+    },
+  },
   creator: {
     select: returnUserSingleEventObject,
   },

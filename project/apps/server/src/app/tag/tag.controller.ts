@@ -47,13 +47,13 @@ export class TagController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTagDto: UpdateTagDto,
-  ): Promise<TagSelect> {
+  ) {
     return this.tagService.update(id, updateTagDto);
   }
 
   @Delete(':id')
   @HttpCode(200)
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<TagSelect> {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     return this.tagService.delete(id);
   }
 }

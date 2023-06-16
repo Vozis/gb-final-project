@@ -22,6 +22,22 @@ export function CreateEventForm(props: CreateEventFormProps) {
     control,
   } = useForm<ICreateEvent>();
 
+  // const { isLoading } = useQuery(
+  //   ['get-actor-by-id', genreId],
+  //   () => ActorService.getById(genreId),
+  //   {
+  //     onSuccess: ({ data }) => {
+  //       getKeys(data).forEach(key => {
+  //         setValue(key, data[key]);
+  //       });
+  //     },
+  //     onError: error => {
+  //       toastError(error, 'Get actor');
+  //     },
+  //     enabled: !!query.id,
+  //   },
+  // );
+
   const { data: sports, isLoading: isSportsLoading } = useQuery(
     ['get-sport-tags'],
     () => TagService.getByType('sport'),
@@ -134,9 +150,9 @@ export function CreateEventForm(props: CreateEventFormProps) {
       tags.push(data.place[0]);
     }
 
-    if (data.count) {
-      tags.push(data.count[0]);
-    }
+    // if (data.count) {
+    //   tags.push(data.count[0]);
+    // }
 
     if (data.city) {
       tags.push(data.city[0]);
@@ -169,34 +185,34 @@ export function CreateEventForm(props: CreateEventFormProps) {
         placeholder={'Добавь аватар'}
         {...register('image')}
       />
-      {/*<Controller*/}
-      {/*  name={'place'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={place || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Выберите место'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isPlaceLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
-      {/*<Controller*/}
-      {/*  name={'sport'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={sports || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Выберите занятие'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isSportsLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
+      <Controller
+        name={'place'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={place || []}
+            field={field}
+            placeholder={'Выберите место'}
+            isMulti={true}
+            isLoading={isPlaceLoading}
+            error={error}
+          />
+        )}
+      />
+      <Controller
+        name={'sport'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={sports || []}
+            field={field}
+            placeholder={'Выберите занятие'}
+            isMulti={true}
+            isLoading={isSportsLoading}
+            error={error}
+          />
+        )}
+      />
       {/*<Controller*/}
       {/*  name={'city'}*/}
       {/*  control={control}*/}
@@ -211,20 +227,20 @@ export function CreateEventForm(props: CreateEventFormProps) {
       {/*    />*/}
       {/*  )}*/}
       {/*/>*/}
-      {/*<Controller*/}
-      {/*  name={'count'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={count || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Укажите количество людей'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isCountLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
+      <Controller
+        name={'count'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={count || []}
+            field={field}
+            placeholder={'Укажите количество людей'}
+            isMulti={true}
+            isLoading={isCountLoading}
+            error={error}
+          />
+        )}
+      />
 
       <Button
         className={
