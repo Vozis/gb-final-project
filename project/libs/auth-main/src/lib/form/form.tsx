@@ -3,12 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
 
-import styles from './form.module.scss';
-import { toast } from 'react-toastify';
 import { ILogin } from '@project/shared/types';
 import { useState } from 'react';
-import FormReg from '../form-reg/form-reg';
 import FormReset from '../form-reset/form-reset';
+import styles from './form.module.scss';
 
 /* eslint-disable-next-line */
 export interface FormProps {}
@@ -31,7 +29,7 @@ export function Form(props: FormProps) {
   };
 
   return (
-    <>
+    <div>
       {!showFormReset ? (
         <form
           className={styles['register_form']}
@@ -68,8 +66,7 @@ export function Form(props: FormProps) {
       ) : (
         <FormReset />
       )}
-      ;
-    </>
+    </div>
   );
 }
 
