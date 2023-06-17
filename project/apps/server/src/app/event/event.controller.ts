@@ -30,7 +30,7 @@ export class EventController {
   constructor(private readonly eventService: EventService) {}
 
   // No User =================================================================
-  @Post('all-no-user')
+  @Post('no-user/all')
   @HttpCode(200)
   async getAllEventsNoUser(@Body() filterSearchDto?: FilterSearchDto) {
     // : Promise<EventSelect[]>
@@ -50,9 +50,10 @@ export class EventController {
   async getAllEvents(
     @User('id') id: number,
     @Body() filterSearchDto?: FilterSearchDto,
+    @Query('withHobby') withHobby?: string,
   ) {
     // : Promise<EventSelect[]>
-    return this.eventService.getAllEvents(id, filterSearchDto);
+    return this.eventService.getAllEvents(id, filterSearchDto, withHobby);
   }
 
   @Auth()

@@ -9,11 +9,11 @@ export interface IEvent {
   coordinateX?: string;
   coordinateY?: string;
   eventTime: Date;
-  peopleCount: number;
-  _count: number;
   creator: IUserSingleEvent;
   users: IUserSingleEvent[];
   tags: ITag[];
+  peopleCount: number;
+  _count: number;
   isParticipate?: boolean | null;
 }
 
@@ -21,12 +21,12 @@ export interface IEventForCard {
   id: number;
   name: string;
   imageUrl: string;
-  peopleCount: number;
-  _count: number;
   tags: ITag[];
   eventTime: Date;
   creator?: IUserSingleEvent;
   users: IUserSingleEvent[];
+  peopleCount: number;
+  _count: number;
   isParticipate?: boolean | null;
 }
 

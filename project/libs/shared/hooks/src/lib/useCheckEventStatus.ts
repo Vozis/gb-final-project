@@ -14,19 +14,19 @@ export const useCheckEventStatus = () => {
 
   if (!user) return {};
 
-  const finishedEvents = user.events.map(event => {
-    const eventDate = new Date(event.eventTime);
+  const finishedEvents = user.events
+    .filter(event => {
+      const eventDate = new Date(event.eventTime);
 
-    const isFinished = checkDateStatus(currentDate, eventDate);
+      const isFinished = checkDateStatus(currentDate, eventDate);
 
-    if (isFinished) {
-      return {
-        id: event.id,
-        isFinished: isFinished,
-      };
-    }
-    return null;
-  });
+      if (isFinished) {
+        return event;
+      }
+    })
+    .map(event => ({
+      id: event.id,
+    }));
 
   return { finishedEvents };
 };

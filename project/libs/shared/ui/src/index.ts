@@ -15,6 +15,7 @@ export * from './lib/favorite-button/favorite-button';
 export * from './lib/skeletons/skeleton-custom';
 export * from './lib/skeletons/skeleton-simple';
 export * from './lib/filter/filter';
+export * from './lib/filter/useFilter';
 export * from './lib/form/search-input/search-input';
 export * from './lib/form/radio/radio';
 export * from './lib/modal/modal';

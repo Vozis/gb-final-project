@@ -32,11 +32,20 @@ export class EventService {
     private readonly userService: UserService,
   ) {}
 
-  async getAllEvents(id?: number, filterSearchDto?: FilterSearchDto) {
+  async getAllEvents(
+    id?: number,
+    filterSearchDto?: FilterSearchDto,
+    withHobby: string = 'true',
+  ) {
+    // console.log('id: ', id);
+    // console.log('filterSearchDto: ', filterSearchDto);
+    // console.log('withHobby: ', withHobby);
+
     // : Promise<EventSelect[]>
     let search = {};
     let filterTag = [];
     let filterParams = [];
+    let userSportHobbies = [];
 
     if (
       filterSearchDto.searchParams &&
@@ -68,6 +77,15 @@ export class EventService {
 
     if (id) {
       const _user = await this.userService.getById(id);
+      // console.log(_user.hobbies);
+
+      userSportHobbies = _user.hobbies.filter(
+        // @ts-ignore
+        hobby => hobby.type.name === 'sport',
+      );
+
+      // console.log(userSportHobbies);
+
       if (
         filterSearchDto.filterNestedFieldsParams &&
         filterSearchDto.filterNestedFieldsParams.length !== 0
@@ -85,15 +103,17 @@ export class EventService {
           };
         });
       } else {
-        filterTag.push({
-          tags: {
-            some: {
-              id: {
-                in: _user.hobbies.map(tag => tag.id),
+        if (withHobby === 'true') {
+          filterTag.push({
+            tags: {
+              some: {
+                id: {
+                  in: userSportHobbies.map(tag => tag.id),
+                },
               },
             },
-          },
-        });
+          });
+        }
       }
     } else {
       if (
@@ -119,21 +139,20 @@ export class EventService {
     // console.log('filterTags', filterTag);
     // console.log('search', search);
 
-    const eventsSearchFilter: Prisma.EventWhereInput = !isEmpty(
-      filterTag || filterParams || search,
-    )
-      ? {
-          OR: [
-            search,
-            {
-              AND: filterTag,
-            },
-            {
-              AND: filterParams,
-            },
-          ],
-        }
-      : {};
+    const eventsSearchFilter: Prisma.EventWhereInput =
+      !isEmpty(search) || filterTag.length || filterParams.length
+        ? {
+            AND: [
+              search,
+              {
+                OR: filterTag,
+              },
+              {
+                AND: filterParams,
+              },
+            ],
+          }
+        : {};
 
     // console.log('eventsSearchFilter:', eventsSearchFilter);
 
@@ -159,6 +178,7 @@ export class EventService {
         return item;
       });
     } else {
+      // console.log('result: ', result);
       return result;
     }
   }

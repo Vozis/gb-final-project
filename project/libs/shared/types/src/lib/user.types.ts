@@ -5,7 +5,7 @@ import { Role } from '.prisma/client';
 
 export interface IUser extends User {
   favorites?: IEvent[] | IEventForCard[];
-  hobbies?: ITag[];
+  hobbies?: ITag[] | [];
   creations?: IEvent[] | IEventForCard[];
   events: IEvent[] | IEventForCard[];
   friends?: IUser[] | IUserSingleEvent[];

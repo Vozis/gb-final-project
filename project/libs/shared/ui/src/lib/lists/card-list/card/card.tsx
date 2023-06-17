@@ -4,7 +4,11 @@ import { IEvent, IEventForCard } from '@project/shared/types';
 import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useActions, useAuthRedux } from '@project/shared/hooks';
+import {
+  useActions,
+  useAuthRedux,
+  useFilterState,
+} from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { Link, redirect } from 'react-router-dom';
@@ -19,10 +23,13 @@ export const Card: FC<CardProps> = ({ event }) => {
   const queryClient = useQueryClient();
   const { user } = useAuthRedux();
   const { getProfile } = useActions();
+  const { filterParamsArray } = useFilterState();
 
   if (!user) {
     redirect('/auth');
   }
+
+  // console.log('event: ', event);
 
   const { mutateAsync } = useMutation(
     ['toggle-user-to-event'],
@@ -30,8 +37,12 @@ export const Card: FC<CardProps> = ({ event }) => {
       EventService.toggleUser(event.id, { toggleId, type: 'users' }),
     {
       onSuccess: async data => {
-        await queryClient.invalidateQueries(['get-all-events']);
-        // await queryClient.invalidateQueries(['get-single-user']);
+        await queryClient.invalidateQueries([
+          'get-all-events-auth',
+          filterParamsArray,
+        ]);
+        await queryClient.invalidateQueries(['get-all-events-auth']);
+        await queryClient.invalidateQueries(['get-all-events-auth-no-hobby']);
         await queryClient.invalidateQueries(['get-profile-events']);
         await getProfile();
         toast.success('Изменение статуса участия прошло успешно', {
@@ -81,9 +92,7 @@ export const Card: FC<CardProps> = ({ event }) => {
             className={cn(styles.card__btn, 'w-full')}
             onClick={() => handleToggle(user.id)}
           >
-            {user.events && user.events.some(item => item.id === event.id)
-              ? 'Отказаться'
-              : 'Присоединиться'}
+            {event.isParticipate ? 'Отказаться' : 'Присоединиться'}
           </Button>
         )}
       </div>
