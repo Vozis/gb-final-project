@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -17,11 +18,12 @@ import { ITokens } from '@project/shared/types';
 
 import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { UserSelect } from '../user/returnUserObject';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly prisma: PrismaService,
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}

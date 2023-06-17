@@ -10,10 +10,15 @@ import {
 } from 'react-hook-form';
 import { SelectField } from '../form/select/select';
 import { Button } from '../button/button';
-import { IOption, ISearchForm } from '@project/shared/types';
+import { IOption, ISearchForm, ITag } from '@project/shared/types';
 import { FC, useState } from 'react';
 import { useFilter } from './useFilter';
 import { MaterialIcon } from '../icons/material-icon';
+import { useAuthRedux } from '@project/shared/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { TagService } from '@project/shared/services';
+import { toast } from 'react-toastify';
+import { errorCatch } from '@project/shared/utils';
 
 /* eslint-disable-next-line */
 export interface FilterProps {
@@ -23,13 +28,10 @@ export interface FilterProps {
   onSubmit: SubmitHandler<ISearchForm>;
 }
 
-const options: IOption[] = [
-  { value: 1, label: 'Более 5 человек' },
-  { value: 2, label: 'До 5 человек' },
-];
-
 export const Filter: FC<FilterProps> = ({ onSubmit }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { user } = useAuthRedux();
+  let userSportHobbies: string[] | number[] = [];
 
   const {
     formState: { errors },
@@ -42,6 +44,32 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
   } = useForm<ISearchForm>({
     mode: 'onChange',
   });
+  //
+  // if (user && user.hobbies) {
+  //   userSportHobbies = user.hobbies
+  //     .filter((hobby: ITag) => hobby.type.name === 'sport')
+  //     .map(item => item.id);
+  //
+  //   console.log('userHobbies: ', userSportHobbies);
+  //   // setValue('tags', userSportHobbies);
+  // }
+
+  const { data: sports, isLoading: isSportsLoading } = useQuery(
+    ['get-sport-tags'],
+    () => TagService.getByType('sport'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
 
   return (
     <form
@@ -85,11 +113,11 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
             control={control}
             render={({ field, fieldState: { error } }) => (
               <SelectField
-                options={options || []}
+                options={sports || []}
                 field={field}
                 placeholder={'Тип спорта'}
                 isMulti={true}
-                // isLoading={isLoading}
+                isLoading={isSportsLoading}
                 error={error}
               />
             )}

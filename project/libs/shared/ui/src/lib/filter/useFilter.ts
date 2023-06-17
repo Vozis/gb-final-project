@@ -3,21 +3,27 @@ import { EventService } from '@project/shared/services';
 import { IEventForCard, ISearch, ISearchForm } from '@project/shared/types';
 import { SubmitHandler } from 'react-hook-form';
 import { useMemo, useState } from 'react';
+import {
+  useActions,
+  useAuthRedux,
+  useFilterState,
+} from '@project/shared/hooks';
+import Filter from './filter';
 
-export const useFilter = (
-  filterParamsArray: ISearch,
-  setFilterParamsArray: (data: ISearch) => void,
-) => {
-  const queryClient = useQueryClient();
+export const useFilter = () => {
+  const [isUseFilter, setIsUseFilter] = useState<boolean>(false);
 
-  const {
-    isLoading,
-    isError,
-    data: events,
-    error,
-  } = useQuery(
-    ['get-all-events'],
-    () => EventService.getAllEvents(filterParamsArray),
+  const { user } = useAuthRedux();
+
+  const { setFilterParamsArray } = useActions();
+  const { filterParamsArray } = useFilterState();
+
+  // console.log('user: ', user);
+  // console.log('filterParamsArray before update: ', filterParamsArray);
+
+  const { isLoading, data: events } = useQuery(
+    ['get-all-events-no-user', filterParamsArray],
+    () => EventService.getAllEventsNoUser(filterParamsArray),
     {
       select: ({ data: events }) =>
         events.map(
@@ -29,13 +35,67 @@ export const useFilter = (
             eventTime: event.eventTime,
             creator: event.creator,
             users: event.users,
+            peopleCount: event.peopleCount,
+            _count: event._count,
+            isParticipate: event.isParticipate,
           }),
         ),
+      enabled: user === null,
     },
   );
 
+  const { isLoading: isLoadingAuth, data: authEvents } = useQuery(
+    ['get-all-events-auth'],
+    () => EventService.getAllEvents({}, true),
+    {
+      select: ({ data: events }) =>
+        events.map(
+          (event): IEventForCard => ({
+            id: event.id,
+            name: event.name,
+            imageUrl: event.imageUrl,
+            tags: event.tags,
+            eventTime: event.eventTime,
+            creator: event.creator,
+            users: event.users,
+            peopleCount: event.peopleCount,
+            _count: event._count,
+            isParticipate: event.isParticipate,
+          }),
+        ),
+      enabled: !!user,
+    },
+  );
+
+  const { isLoading: isLoadingAuthWithFilter, data: authEventsWithFilter } =
+    useQuery(
+      ['get-all-events-auth', filterParamsArray],
+      () => EventService.getAllEvents(filterParamsArray, false),
+      {
+        select: ({ data: events }) =>
+          events.map(
+            (event): IEventForCard => ({
+              id: event.id,
+              name: event.name,
+              imageUrl: event.imageUrl,
+              tags: event.tags,
+              eventTime: event.eventTime,
+              creator: event.creator,
+              users: event.users,
+              peopleCount: event.peopleCount,
+              _count: event._count,
+              isParticipate: event.isParticipate,
+            }),
+          ),
+        enabled: isUseFilter && !!user,
+      },
+    );
+
   const onSubmit: SubmitHandler<ISearchForm> = async (data, event) => {
     event?.preventDefault();
+
+    // console.log('submit data: ', data);
+
     let result: ISearch = {
       searchParams: [],
       filterNestedFieldsParams: [],
@@ -64,16 +124,29 @@ export const useFilter = (
     }
 
     // console.log('result', result);
-
+    setIsUseFilter(!isUseFilter);
     setFilterParamsArray(result);
   };
 
-  return useMemo(
-    () => ({
-      isLoading,
-      events,
-      onSubmit,
-    }),
-    [events, isLoading],
-  );
+  // console.log('filterParamsArray after update: ', filterParamsArray);
+
+  return {
+    isLoading: user ? isLoadingAuth : isLoading,
+    events: user ? authEvents : events,
+    onSubmit,
+    isUseFilter,
+    isLoadingWithFilter: user ? isLoadingAuthWithFilter : isLoading,
+    filterEvents: user ? authEventsWithFilter : events,
+  };
+
+  // return useMemo(
+  //   () => ({
+  //     isLoading: user ? isLoadingAuth : isLoading,
+  //     events: user ? authEvents : events,
+  //     onSubmit,
+  //   }),
+  //   [events, isLoading, authEvents, isLoadingAuth],
+  // );
 };
+
+export default useFilter;

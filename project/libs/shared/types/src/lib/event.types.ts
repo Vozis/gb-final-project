@@ -12,6 +12,9 @@ export interface IEvent {
   creator: IUserSingleEvent;
   users: IUserSingleEvent[];
   tags: ITag[];
+  peopleCount: number;
+  _count: number;
+  isParticipate?: boolean | null;
 }
 
 export interface IEventForCard {
@@ -22,6 +25,9 @@ export interface IEventForCard {
   eventTime: Date;
   creator?: IUserSingleEvent;
   users: IUserSingleEvent[];
+  peopleCount: number;
+  _count: number;
+  isParticipate?: boolean | null;
 }
 
 export interface IEventResponse {
@@ -35,5 +41,5 @@ export interface ICreateEvent {
   sport: number[];
   place: number[];
   city: number[];
-  count: number[];
+  count: number;
 }

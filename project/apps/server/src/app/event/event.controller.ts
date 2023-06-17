@@ -12,6 +12,7 @@ import {
   UploadedFile,
   HttpCode,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -28,6 +29,42 @@ import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
+  // No User =================================================================
+  @Post('no-user/all')
+  @HttpCode(200)
+  async getAllEventsNoUser(@Body() filterSearchDto?: FilterSearchDto) {
+    // : Promise<EventSelect[]>
+    return this.eventService.getAllEvents(undefined, filterSearchDto);
+  }
+
+  @Get('no-user/:id')
+  async getByIdNoUser(@Param('id', ParseIntPipe) id: number) {
+    return this.eventService.getById(id);
+  }
+
+  // User =================================================================
+
+  @Auth()
+  @Post('all')
+  @HttpCode(200)
+  async getAllEvents(
+    @User('id') id: number,
+    @Body() filterSearchDto?: FilterSearchDto,
+    @Query('withHobby') withHobby?: string,
+  ) {
+    // : Promise<EventSelect[]>
+    return this.eventService.getAllEvents(id, filterSearchDto, withHobby);
+  }
+
+  @Auth()
+  @Get(':eventId')
+  async getById(
+    @Param('eventId', ParseIntPipe) eventId: number,
+    @User('id') id: number,
+  ) {
+    return this.eventService.getById(eventId, id);
+  }
+
   @Auth()
   @Post('')
   @UseInterceptors(FileInterceptor('image'))
@@ -41,31 +78,29 @@ export class EventController {
   }
 
   @Auth()
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('image'))
+  async updateEvent(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateEventDto,
+    @UploadedFile() image: Express.Multer.File,
+  ): Promise<EventSelect> {
+    return this.eventService.updateEvent(id, dto, image);
+  }
+
+  @Auth()
   @Post(':eventId/toggle-user')
   async toggleUsers(
     @Param('eventId', ParseIntPipe) eventId: number,
     @Body() toggleDto: ToggleDto,
-  ): Promise<EventSelect> {
+  ) {
     return this.eventService.toggle(eventId, toggleDto);
-  }
-
-  @Post('all')
-  @HttpCode(200)
-  async getAllEvents(
-    @Body() filterSearchDto?: FilterSearchDto,
-  ): Promise<EventSelect[]> {
-    return this.eventService.getAllEvents(filterSearchDto);
   }
 
   @Auth()
   @Get('my-events')
   async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
     return this.eventService.getUserEvents(id);
-  }
-
-  @Get(':id')
-  async getById(@Param('id', ParseIntPipe) id: number) {
-    return this.eventService.getById(id);
   }
 
   @Auth()
