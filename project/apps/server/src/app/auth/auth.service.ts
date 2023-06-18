@@ -111,6 +111,10 @@ export class AuthService {
     return null;
   }
 
+  async verify(token: string) {
+    return this.jwtService.verifyAsync(token);
+  }
+
   private async createTokens(dto: UserSelect): Promise<ITokens> {
     const payload: Partial<User> = {
       id: dto.id,

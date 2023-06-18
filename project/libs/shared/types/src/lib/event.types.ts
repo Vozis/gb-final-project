@@ -42,4 +42,5 @@ export interface ICreateEvent {
   place: number[];
   city: number[];
   count: number;
+  time: number[];
 }

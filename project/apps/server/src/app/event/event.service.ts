@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 
 import { Prisma } from '@prisma/client';
@@ -219,7 +224,8 @@ export class EventService {
         name: dto.name,
         description: dto.description,
         imageUrl: dto.imageUrl,
-        eventTime: dto.eventTime ? dto.eventTime : new Date().toISOString(),
+        eventTime: dto.eventTime,
+        peopleCount: dto.peopleCount,
         creator: {
           connect: {
             id: creatorId,
@@ -257,6 +263,7 @@ export class EventService {
         description: dto.description,
         imageUrl: dto.imageUrl,
         eventTime: dto.eventTime,
+        peopleCount: +dto.peopleCount,
         tags: {
           set: [],
           connect:
@@ -272,10 +279,12 @@ export class EventService {
   }
 
   async toggle(id: number, dto: ToggleDto) {
+    const _event = await this.getById(id);
+
     const isExist = await this.prisma.event
       .count({
         where: {
-          id: id,
+          id,
           users: {
             some: {
               id: dto.toggleId,
@@ -284,6 +293,19 @@ export class EventService {
         },
       })
       .then(Boolean);
+
+    // console.log('event: ', _event);
+
+    if (dto.type === 'users') {
+      // @ts-ignore
+      console.log('event: ', _event._count.users);
+      console.log('maxPeople: ', _event.peopleCount);
+
+      // @ts-ignore
+      if (_event._count.users === _event.peopleCount) {
+        throw new BadRequestException('Max people count exceeded');
+      }
+    }
 
     const result = await this.prisma.event.update({
       where: { id: id },

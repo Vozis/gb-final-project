@@ -8,6 +8,7 @@ import {
   Tag,
   Button,
   UserBig,
+  ToggleUserButton,
 } from '@project/shared/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import cn, { clsx } from 'clsx';
@@ -129,15 +130,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
     <div className={styles['container']}>
       <SingleEventHead />
       <div>
-        {user && (
-          <Button
-            type={'button'}
-            className={cn(styles.card__btn, 'w-full')}
-            onClick={() => handleToggle(user.id)}
-          >
-            {event.isParticipate ? 'Отказаться' : 'Присоединиться'}
-          </Button>
-        )}
+        {user && <ToggleUserButton event={event} />}
         <Button onClick={() => setRun(true)}>Confetti ON</Button>
         <Tabs tabs={tabs} />
         {run && (

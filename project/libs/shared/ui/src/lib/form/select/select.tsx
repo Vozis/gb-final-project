@@ -6,6 +6,7 @@ import { errorCatch } from '@project/shared/utils';
 import { FC } from 'react';
 import Select, { OnChangeValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
+import AsyncSelect from 'react-select/async';
 
 const animatedComponents = makeAnimated();
 
@@ -17,6 +18,7 @@ export const SelectField: FC<ISelect> = ({
   isMulti,
   options,
   placeholder,
+  onInputChange,
 }) => {
   const getValue = () => {
     if (field.value) {
@@ -51,6 +53,8 @@ export const SelectField: FC<ISelect> = ({
           value={getValue()}
           onChange={onChange}
           isClearable={false}
+          onFocus={onInputChange}
+          filterOption={null}
           // className={styles.selectContainer}
           placeholder={placeholder}
         />
