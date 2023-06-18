@@ -10,16 +10,25 @@ export const returnEventObject: Prisma.EventSelect = {
   name: true,
   description: true,
   imageUrl: true,
+  coordinateX: true,
+  coordinateY: true,
+  eventTime: true,
   creator: {
     select: {
-      userName: true,
       id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
     },
   },
   users: {
     select: {
-      userName: true,
       id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
     },
   },
   tags: {
@@ -41,11 +50,54 @@ export const returnEventFullObject: Prisma.EventSelect = {
   },
   coordinateX: true,
   coordinateY: true,
+  tags: {
+    select: {
+      id: true,
+      name: true,
+      shortName: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  },
   users: {
     select: returnUserSingleEventObject,
   },
+};
+
+export const returnEventCardObject: Prisma.EventSelect = {
+  id: true,
+  name: true,
+  imageUrl: true,
+  creator: {
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      userName: true,
+      avatarPath: true,
+    },
+  },
+  coordinateX: true,
+  coordinateY: true,
   tags: {
-    select: returnTagObject,
+    select: {
+      id: true,
+      name: true,
+      shortName: true,
+      type: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  },
+  users: {
+    select: returnUserObject,
   },
 };
 
@@ -55,4 +107,8 @@ export type EventSelect = Prisma.EventGetPayload<{
 
 export type EventFullSelect = Prisma.EventGetPayload<{
   select: typeof returnEventFullObject;
+}>;
+
+export type EventCardSelect = Prisma.EventGetPayload<{
+  select: typeof returnEventCardObject;
 }>;

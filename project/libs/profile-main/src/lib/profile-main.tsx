@@ -1,20 +1,13 @@
+import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
+import { EventService } from '@project/shared/services';
+import { IEventForCard, ISearch, IUserEdit } from '@project/shared/types';
+import { CardList, ITab, Tabs, TabsProps } from '@project/shared/ui';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
-import axios from 'axios';
-import {
-  IEventForCard,
-  IEventUser,
-  ISearch,
-  IUserEdit,
-} from '@project/shared/types';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { ITab, Tabs, TabsProps } from '@project/shared/ui';
-import { useAuthRedux } from '@project/shared/hooks';
-import { useNavigate } from 'react-router-dom';
-import { EventService } from '@project/shared/services';
-import { use } from 'passport';
-import { CardList } from '@project/home-main';
 
 /* eslint-disable-next-line */
 
@@ -25,17 +18,18 @@ export interface ProfileMainProps {
 export function ProfileMain(props: ProfileMainProps) {
   const { user } = useAuthRedux();
   const navigate = useNavigate();
-  const {
-    isLoading,
-    data: profileEvents,
-    isError,
-    error,
-  } = useQuery(['get-profile-events'], () =>
-    EventService.getAllEvents(filterProfileParamsArray),
-  );
-  const { mutateAsync } = useMutation(['update-user'], data =>
-    axios.put('/api/users/profile', data),
-  );
+
+  if (!user) {
+    navigate('/auth');
+    return null;
+  }
+
+  console.log('render profile');
+
+  // const { mutateAsync } = useMutation(['update-user'], data =>
+  //   axios.put('/api/users/profile', data),
+  // );
+
   const {
     register,
     handleSubmit,
@@ -47,39 +41,9 @@ export function ProfileMain(props: ProfileMainProps) {
     mode: 'onChange',
   });
 
-  if (!user) {
-    navigate('/auth');
-    return null;
-  }
-
-  const filterProfileParamsArray: ISearch = {
-    filterNestedFieldsParams: [
-      {
-        paramsCategory: 'users',
-        paramsType: 'id',
-        nestedFieldValue: user.id,
-      },
-    ],
-    filterEventFieldsParams: [
-      {
-        paramsFilter: 'creator',
-        eventFieldValue: user.id,
-      },
-    ],
-  };
-
-  if (!profileEvents) return null;
-  const data = profileEvents.data;
-  const myEvents: IEventForCard[] =
-    data.filter(event => event.creator?.id === user.id) || [];
-
-  console.log('myEvents ', myEvents);
-
-  const participationArr: IEventForCard[] = data.filter(event =>
-    event.users?.some(item => item.id === user.id),
+  const { myEvents, participationArr, isLoading, isSuccess } = useUserEvents(
+    user.id,
   );
-
-  console.log('part: ', participationArr);
 
   const tabs: ITab[] = [
     {
@@ -114,8 +78,6 @@ export function ProfileMain(props: ProfileMainProps) {
   // );
 
   const onSubmit: SubmitHandler<IUserEdit> = async data => {
-    const formData = new FormData();
-
     // try {
     //   console.log(data);
     //   const res = await axios.post('/api/auth/login', data);
@@ -129,8 +91,8 @@ export function ProfileMain(props: ProfileMainProps) {
 
   return (
     <div className={styles['container']}>
-      <ProfileHead />
-      <Tabs tabs={tabs} />
+      <ProfileHead userProps={user} />
+      {!isLoading && <Tabs tabs={tabs} />}
     </div>
   );
 }

@@ -12,7 +12,6 @@ import { SelectField } from '../form/select/select';
 import { Button } from '../button/button';
 import { IOption, ISearchForm } from '@project/shared/types';
 import { FC, useState } from 'react';
-import { useFilter } from './useFilter';
 import { MaterialIcon } from '../icons/material-icon';
 
 /* eslint-disable-next-line */
@@ -46,7 +45,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={'flex flex-col gap-4 items-start mb-14'}
+      className={'flex flex-col gap-4 items-start mb-5'}
     >
       <div className={'flex gap-4 items-center w-full'}>
         <SearchField

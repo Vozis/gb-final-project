@@ -3,8 +3,6 @@ import type { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tabs.module.scss';
 import { motion } from 'framer-motion';
-import { IEventForCard } from '@project/shared/types';
-import { CardList } from '@project/home-main';
 
 /* eslint-disable-next-line */
 export interface ITab {
@@ -72,7 +70,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
       </ul>
       {tabs.map((tab, index) => (
         <div
-          role={'tabpanel'}
+          role={'tabPanel'}
           key={tab.id}
           className={clsx(styles.tabs__content, {
             [styles.tabs__content_selected]: activeTabIndex === index,

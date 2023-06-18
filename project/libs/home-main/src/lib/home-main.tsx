@@ -1,16 +1,23 @@
 import styles from './home-main.module.scss';
-import { Avatar, Filter, MaterialIcon } from '@project/shared/ui';
-import { CardList } from './card-list/card-list';
+import {
+  UserCardSmall,
+  CardList,
+  CardSkeleton,
+  Filter,
+  MaterialIcon,
+  SkeletonLoader,
+} from '@project/shared/ui';
 
 import React, { useEffect } from 'react';
 import { IOption } from '@project/shared/types';
 import {
   useActions,
   useAuthRedux,
+  useCheckEventStatus,
   useFilterState,
 } from '@project/shared/hooks';
 import { useFilter } from '../../../shared/ui/src/lib/filter/useFilter';
-import { CardSkeleton } from './card/card-skeleton';
+
 import { Link } from 'react-router-dom';
 import cn from 'clsx';
 import { useMutation } from '@tanstack/react-query';
@@ -27,48 +34,34 @@ const options: IOption[] = [
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
+  const { finishedEvents } = useCheckEventStatus();
+
+  console.log(finishedEvents);
+
   const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   getProfile();
+  // }, []);
 
   const { mutateAsync } = useMutation(['resend-confirmation-link'], () =>
     MailService.resendConfirmationLink(),
   );
+
+  console.log('render');
 
   const { isLoading, events, onSubmit } = useFilter(
     filterParamsArray,
     setFilterParamsArray,
   );
 
-  // const filterParamsArray1: ISearch = {
-  //   filterNestedFieldsParams: [
-  //     {
-  //       paramsCategory: 'users',
-  //       paramsType: 'id',
-  //       nestedFieldValue: user.id,
-  //     },
-  //   ],
-  //   filterEventFieldsParams: [
-  //     {
-  //       paramsFilter: 'creator',
-  //       eventFieldValue: user.id,
-  //     },
-  //   ],
-  // };
-  //
-  // const { data } = useQuery([''], () =>
-  //   EventService.getAllEvents(filterParamsArray1),
-  // );
-
   return (
     <div className={styles.container}>
       <div>
         {user && (
-          <Avatar
-            user={user}
+          <UserCardSmall
+            userProps={user}
             className={styles.profile__img_wrapper}
             isName
             isPhoto
@@ -97,9 +90,17 @@ export function HomeMain(props: HomeMainProps) {
       </Link>
       <Filter onSubmit={onSubmit} />
       {isLoading ? (
-        <CardSkeleton count={3} />
+        <>
+          <SkeletonLoader
+            className={'rounded-xl'}
+            containerClassName={
+              'p-2 bg-white w-full mb-3 box-border block rounded-xl'
+            }
+          />
+          <CardSkeleton count={3} />
+        </>
       ) : events?.length ? (
-        <CardList list={events || []} />
+        <CardList list={events || []} title={'Актуальные для вас'} />
       ) : (
         <div>Созданных событий пока нет :(</div>
       )}

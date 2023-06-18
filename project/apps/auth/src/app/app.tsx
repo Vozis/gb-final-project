@@ -5,13 +5,7 @@ import { SharedLayout } from '@project/shared/layout';
 import { SharedProviders } from '@project/shared/providers';
 
 export function App() {
-  return (
-    <SharedProviders>
-      <SharedLayout>
-        <AuthMain />
-      </SharedLayout>
-    </SharedProviders>
-  );
+  return <AuthMain />;
 }
 
 export default App;

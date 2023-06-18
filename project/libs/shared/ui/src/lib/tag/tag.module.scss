@@ -7,16 +7,16 @@
 */
 .tag {
   border: none;
-  color: #FFF;
   border-radius: 16px;
-  cursor: pointer;
-  font-size: 12px;
   box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
   display: flex;
+  font-size: 12px;
   justify-content: center;
-  background-color: rgba(153, 153, 153, 1);
-  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  //background-color: rgba(153, 153, 153, 1);
   margin-bottom: 10px;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:not(:last-of-type) {
     margin-right: 10px;

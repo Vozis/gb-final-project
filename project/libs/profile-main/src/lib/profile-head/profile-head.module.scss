@@ -1,10 +1,4 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+
 .container {
   align-items: center;
   display: flex;
@@ -20,26 +14,27 @@
   &__settingBtn {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 10px;
 
     &_icon {
       color: #949494;
-      font-size: 30px;
+      font-size: 40px;
     }
   }
 
-  &__modal {
-    height: 0;
-    width: 240px;
-    background: none;
-    position: absolute;
-    top: 0;
-    left: auto;
-    right: 30px;
+  &__settingsList {
+    color: #5b5b5b;
 
-    &.active {
-      height: auto;
+    &_item {
+      display: flex;
+      align-items: center;
+
+      &_icon {
+        font-size: 28px;
+      }
     }
   }
+
+
 }
 

@@ -1,0 +1,60 @@
+.container {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.avatarWrapper {
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 70px;
+  overflow: hidden;
+  width: 70px;
+}
+
+.avatarImg {
+  background-color: white;
+  border-radius: inherit;
+  height: auto;
+  object-fit: cover;
+  padding: 3px;
+  width: 100%;
+}
+
+.info {
+  margin-left: 20px;
+}
+
+.username {
+  color: #949494;
+  font-size: 14px;
+}
+
+.fullname {
+  font-size: 20px;
+  font-weight: bold;
+  width: 190px;
+}
+
+.infoIconsBox {
+  align-items: center;
+  display: flex;
+}
+
+.infoIconGroup {
+  align-items: center;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+  & span {
+    color: #949494;
+    font-size: 14px;
+  }
+}
+@media (min-width: 499px) {
+  .fullname {
+    width: auto;
+  }
+}

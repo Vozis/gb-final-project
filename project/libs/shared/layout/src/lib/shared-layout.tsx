@@ -15,13 +15,13 @@ export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
     <>
       <div className={styles.layout}>
         <Header />
-        <TransitionProvider className={styles.containerContent}>
-          {children}
-        </TransitionProvider>
+        <main className={styles.containerContent}>{children}</main>
+        {/*<TransitionProvider className={styles.containerContent}>*/}
+        {/*  {children}*/}
+        {/*</TransitionProvider>*/}
         <Footer />
       </div>
       <ToastContainer autoClose={2000} containerId={1} />
-      {/*<Toaster />*/}
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );

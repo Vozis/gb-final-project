@@ -12,5 +12,6 @@ module.exports = {
     'hello',
     'confirm-email',
     'reset-password',
+    'single-user',
   ],
 };

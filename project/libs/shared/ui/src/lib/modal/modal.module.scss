@@ -49,3 +49,42 @@
   }
 
 }
+
+.profile {
+  &__modal {
+    background: none;
+    left: auto;
+    right: 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    transform: none;
+    transition: max-height .5s ease-out;
+
+
+    &__content {
+      transform: none;
+      position: absolute;
+      top: 65px;
+      right: 20px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
+      transition: max-height .5s ease-out;
+
+
+      &.active {
+        transform: none;
+        transition: max-height .5s ease-out;
+        overflow: hidden;
+      }
+
+    }
+
+    &.active {
+      transform: none;
+      transition: max-height .5s ease-out;
+      //overflow: hidden;
+
+
+    }
+
+  }
+}
