@@ -14,6 +14,8 @@ import { EventModule } from './event/event.module';
 import { MailModule } from './mail/mail.module';
 import { TypeTagModule } from './type-tag/type-tag.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { APP_GUARD } from '@nestjs/core';
+import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
 
 @Module({
   imports: [

@@ -65,9 +65,9 @@ export class EventController {
     return this.eventService.getById(eventId, id);
   }
 
-  @Auth()
   @Post('')
   @UseInterceptors(FileInterceptor('image'))
+  @Auth()
   @UseGuards(EmailConfirmationGuard)
   async createEvent(
     @User('id') id: number,
