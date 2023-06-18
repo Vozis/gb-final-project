@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { useLockedBody } from 'usehooks-ts';
+import { useLockedBody } from 'usehooks-ts';
 
 export const useModal = (initialValue = false): [boolean, () => void] => {
   const [isShow, setIsShow] = useState(initialValue);
@@ -9,5 +9,6 @@ export const useModal = (initialValue = false): [boolean, () => void] => {
     setIsShow(!isShow);
     // setLocked(!locked);
   };
+
   return [isShow, handleToggleShow];
 };

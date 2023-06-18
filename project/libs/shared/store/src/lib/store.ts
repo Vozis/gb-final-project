@@ -16,7 +16,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'gb-final',
   storage,
-  whitelist: ['filter', 'user'],
+  whitelist: ['user', 'filter'],
 };
 
 const rootReducer = combineReducers({

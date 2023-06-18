@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsDate,
+  IsNumber,
   IsOptional,
   IsString,
   ValidateIf,
@@ -33,7 +34,10 @@ export class CreateEventDto {
     message: 'Event date is required',
   })
   @ValidateIf(data => data !== null)
-  eventTime?: string;
+  eventTime?: Date;
+
+  @IsNumber({}, { message: 'Max people count is required' })
+  peopleCount: number;
 
   @IsArray({
     message: 'Tags should be an array of numbers',

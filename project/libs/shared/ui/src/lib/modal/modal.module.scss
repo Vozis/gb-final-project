@@ -5,6 +5,8 @@
  * .container {
  * }
 */
+
+
 .modal {
   height: 100vh;
   width: 100vw;
@@ -17,21 +19,20 @@
   align-items: center;
   transition: 0.3s ease-out;
   opacity: 0;
-  pointer-events: none;
-  z-index: 3;
+  z-index: -1;
+
 
   &__content {
     position: relative;
     padding: 20px;
     background-color: #f2f2f2;
-    border-radius: 12px;
+    border-radius: 24px;
     transform: scale(0.5);
     transition: all 0.3s ease-out;
     z-index: 100;
 
     &.active {
       transform: scale(1);
-
     }
 
   }
@@ -39,52 +40,67 @@
   &.active {
     opacity: 1;
     pointer-events: all;
+    z-index: 6;
   }
 
   &__btnClose {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     z-index: 11;
+    padding: 0;
   }
 
 }
 
 .profile {
-  &__modal {
+  &__modal_setting {
     background: none;
     left: auto;
     right: 0;
     justify-content: flex-end;
     align-items: flex-start;
     transform: none;
-    transition: max-height .5s ease-out;
+    max-height: 0;
+    opacity: initial;
 
 
     &__content {
       transform: none;
       position: absolute;
-      top: 65px;
+      top: 75px;
       right: 20px;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
-      transition: max-height .5s ease-out;
+      max-height: 0; /* изначально блок свёрнут */
+      overflow: hidden; /* полностью скрывает дочерний блок */
+      transition: max-height .4s ease-out;
+      @media screen and (min-width: 500px) {
+        top: 150px;
+      }
 
 
       &.active {
         transform: none;
-        transition: max-height .5s ease-out;
-        overflow: hidden;
       }
 
     }
 
     &.active {
       transform: none;
-      transition: max-height .5s ease-out;
-      //overflow: hidden;
+      max-height: 100%;
 
 
     }
+
+  }
+
+  &__modalInfo {
+    padding: 0 35px 0 15px;
+
+    &__content {
+      width: 100%;
+    }
+
 
   }
 }

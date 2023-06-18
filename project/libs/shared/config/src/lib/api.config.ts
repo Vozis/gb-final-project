@@ -7,13 +7,17 @@ export const AuthApi = {
 };
 
 export const EventApi = {
+  getAllNoUser: `/events/no-user/all`,
   getAll: `/events/all`,
   createEvent: `/events`,
   getByUserHobbies: `/events/by-user-hobbies`,
   toggleUser(id: number) {
     return `events/${String(id)}/toggle-user`;
   },
-  getSingleEvent(id: string) {
+  getByIdNoUser(id: string) {
+    return `events/no-user/${id}`;
+  },
+  getById(id: string) {
     return `events/${id}`;
   },
 };

@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { PrismaService } from './prisma/prisma.service';
+import { BasePrismaService, PrismaService } from './prisma/prisma.service';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
@@ -13,9 +13,13 @@ import { TagModule } from './tag/tag.module';
 import { EventModule } from './event/event.module';
 import { MailModule } from './mail/mail.module';
 import { TypeTagModule } from './type-tag/type-tag.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { APP_GUARD } from '@nestjs/core';
+import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
 
 @Module({
   imports: [
+    PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -31,6 +35,6 @@ import { TypeTagModule } from './type-tag/type-tag.module';
     TypeTagModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, BasePrismaService],
 })
 export class AppModule {}

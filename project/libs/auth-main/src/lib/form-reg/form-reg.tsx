@@ -133,7 +133,7 @@ export function FormReg(props: FormProps) {
         <div className={styles.parent}>
           <div className={styles.file_upload}>
             <IconContext.Provider value={{ color: '#2E6D9C', size: '50px' }}>
-              <div>
+              <div className={styles.file_upload_img}>
                 <AiOutlineUpload />
               </div>
             </IconContext.Provider>

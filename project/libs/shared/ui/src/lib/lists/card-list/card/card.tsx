@@ -1,10 +1,19 @@
 import styles from './card.module.scss';
-import { Button, FavoriteButton, Tag } from '@project/shared/ui';
-import { IEventForCard } from '@project/shared/types';
-import { FC } from 'react';
+import {
+  Button,
+  FavoriteButton,
+  Tag,
+  ToggleUserButton,
+} from '@project/shared/ui';
+import { IEvent, IEventForCard } from '@project/shared/types';
+import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useActions, useAuthRedux } from '@project/shared/hooks';
+import {
+  useActions,
+  useAuthRedux,
+  useFilterState,
+} from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { Link, redirect } from 'react-router-dom';
@@ -16,35 +25,41 @@ export interface CardProps {
 }
 
 export const Card: FC<CardProps> = ({ event }) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { user } = useAuthRedux();
-  const { getProfile } = useActions();
+  // const { getProfile } = useActions();
+  // const { filterParamsArray } = useFilterState();
 
   if (!user) {
     redirect('/auth');
   }
+  // console.log('event: ', event);
 
-  const { mutateAsync } = useMutation(
-    ['toggle-user-to-event'],
-    (toggleId: number) =>
-      EventService.toggleUser(event.id, { toggleId, type: 'users' }),
-    {
-      onSuccess: async data => {
-        await queryClient.invalidateQueries(['get-all-events']);
-        // await queryClient.invalidateQueries(['get-single-user']);
-        await queryClient.invalidateQueries(['get-profile-events']);
-        await getProfile();
-        toast.success('Изменение статуса участия прошло успешно', {
-          containerId: 1,
-          toastId: 'toggle-user',
-        });
-      },
-    },
-  );
-
-  const handleToggle = async (toggleId: number) => {
-    await mutateAsync(toggleId);
-  };
+  // const { mutateAsync } = useMutation(
+  //   ['toggle-user-to-event'],
+  //   (toggleId: number) =>
+  //     EventService.toggleUser(event.id, { toggleId, type: 'users' }),
+  //   {
+  //     onSuccess: async data => {
+  //       await queryClient.invalidateQueries([
+  //         'get-all-events-auth',
+  //         filterParamsArray,
+  //       ]);
+  //       await queryClient.invalidateQueries(['get-all-events-auth']);
+  //       await queryClient.invalidateQueries(['get-all-events-auth-no-hobby']);
+  //       await queryClient.invalidateQueries(['get-profile-events']);
+  //       await getProfile();
+  //       toast.success('Изменение статуса участия прошло успешно', {
+  //         containerId: 1,
+  //         toastId: 'toggle-user',
+  //       });
+  //     },
+  //   },
+  // );
+  //
+  // const handleToggle = async (toggleId: number) => {
+  //   await mutateAsync(toggleId);
+  // };
 
   return (
     <div
@@ -60,6 +75,12 @@ export const Card: FC<CardProps> = ({ event }) => {
         <Link to={`/events/${event.id}`} className={styles.card__title}>
           {event.name}
         </Link>
+        <p className={'text-white'}>
+          {event.users.length < event.peopleCount &&
+            `осталось ${event.users.length - event.peopleCount} мест`}
+          {event.users.length === event.peopleCount && `нет мест`}
+        </p>
+
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag
@@ -75,17 +96,7 @@ export const Card: FC<CardProps> = ({ event }) => {
             </Tag>
           ))}
         </div>
-        {user && (
-          <Button
-            type={'button'}
-            className={cn(styles.card__btn, 'w-full')}
-            onClick={() => handleToggle(user.id)}
-          >
-            {user.events && user.events.some(item => item.id === event.id)
-              ? 'Отказаться'
-              : 'Присоединиться'}
-          </Button>
-        )}
+        {user && <ToggleUserButton event={event} />}
       </div>
     </div>
   );

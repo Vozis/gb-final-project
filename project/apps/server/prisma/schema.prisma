@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["clientExtensions"]
 }
 
 datasource db {
@@ -66,8 +67,8 @@ model Event {
   name        String
   description String?
   imageUrl    String    @default("/assets/default-event.png") @map("image_url")
-  coordinateX String?   @map("coordinate_x")
-  coordinateY String?   @map("coordinate_y")
+  coordinateX String?   @default("0") @map("coordinate_x")
+  coordinateY String?   @default("0") @map("coordinate_y")
   eventTime   DateTime? @default(dbgenerated("NOW() + interval '2 days'")) @map("event_time")
   peopleCount Int       @default(2) @map("people_count")
 

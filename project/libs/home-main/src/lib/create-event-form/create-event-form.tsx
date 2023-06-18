@@ -6,12 +6,18 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
-import React from 'react';
+import React, { useState } from 'react';
+import { InputActionMeta } from 'react-select';
 
 /* eslint-disable-next-line */
 export interface CreateEventFormProps {}
 
 export function CreateEventForm(props: CreateEventFormProps) {
+  const [isSport, setIsSport] = useState(false);
+  const [isTime, setIsTime] = useState(false);
+  const [isCity, setIsCity] = useState(false);
+  const [isPlace, setIsPlace] = useState(false);
+
   const queryClient = useQueryClient();
   const {
     register,
@@ -36,6 +42,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
       onError: err => {
         toast.error(errorCatch(err));
       },
+      enabled: isSport,
     },
   );
 
@@ -56,26 +63,9 @@ export function CreateEventForm(props: CreateEventFormProps) {
     },
   );
 
-  // const { data: city, isLoading: isCityLoading } = useQuery(
-  //   ['get-city-tags'],
-  //   () => TagService.getByType('city'),
-  //   {
-  //     select: ({ data }) =>
-  //       data.map(
-  //         (item): IOption => ({
-  //           label: item.name,
-  //           value: item.id,
-  //         }),
-  //       ),
-  //     onError: err => {
-  //       toast.error(errorCatch(err));
-  //     },
-  //   },
-  // );
-
-  const { data: count, isLoading: isCountLoading } = useQuery(
-    ['get-count-tags'],
-    () => TagService.getByType('count'),
+  const { data: city, isLoading: isCityLoading } = useQuery(
+    ['get-city-tags'],
+    () => TagService.getByType('city'),
     {
       select: ({ data }) =>
         data.map(
@@ -90,10 +80,52 @@ export function CreateEventForm(props: CreateEventFormProps) {
     },
   );
 
-  console.log('sports: ', sports);
-  console.log('count: ', count);
+  const { data: time, isLoading: isTimeLoading } = useQuery(
+    ['get-count-tags'],
+    () => TagService.getByType('time'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+      enabled: isTime,
+    },
+  );
+
+  // console.log('sports: ', sports);
+  // console.log('time: ', time);
   // console.log('city: ', city);
-  console.log('place: ', place);
+  // console.log('place: ', place);
+
+  const handleSportInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsSport(true);
+    }
+  };
+
+  const handleTimeInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsTime(true);
+    }
+  };
+
+  const handleCityInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsCity(true);
+    }
+  };
+
+  const handlePlaceInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsPlace(true);
+    }
+  };
 
   const { mutateAsync, isSuccess } = useMutation(
     ['create-event'],
@@ -106,15 +138,17 @@ export function CreateEventForm(props: CreateEventFormProps) {
     },
   );
 
-  const onSubmit: SubmitHandler<ICreateEvent> = async data => {
+  const onSubmit: SubmitHandler<ICreateEvent> = async (data, event) => {
     const formData = new FormData();
     const tags = [];
+
+    console.log('data: ', data);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry =>
         entry[0] !== 'sport' &&
         entry[0] !== 'place' &&
-        entry[0] !== 'count' &&
+        entry[0] !== 'time' &&
         entry[0] !== 'city' &&
         entry[0] !== 'image',
     );
@@ -128,18 +162,18 @@ export function CreateEventForm(props: CreateEventFormProps) {
     }
 
     if (data.sport) {
-      tags.push(data.sport[0]);
+      tags.push(data.sport);
     }
     if (data.place) {
-      tags.push(data.place[0]);
+      tags.push(data.place);
     }
 
-    if (data.count) {
-      tags.push(data.count[0]);
+    if (data.time) {
+      tags.push(data.time);
     }
 
     if (data.city) {
-      tags.push(data.city[0]);
+      tags.push(data.city);
     }
 
     tags.forEach(item => {
@@ -147,15 +181,15 @@ export function CreateEventForm(props: CreateEventFormProps) {
     });
 
     /* @ts-ignore */
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
-    // await mutateAsync(formData);
+    await mutateAsync(formData);
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Field
         placeholder={'Название'}
         {...register('name', { required: true })}
@@ -164,67 +198,76 @@ export function CreateEventForm(props: CreateEventFormProps) {
         placeholder={'Описание'}
         {...register('description', { required: true })}
       />
+      <Field
+        placeholder={'Количество людей'}
+        type={'number'}
+        {...register('count', { required: true })}
+      />
       <input
         type={'file'}
-        placeholder={'Добавь аватар'}
+        placeholder={'Добавь изображение'}
         {...register('image')}
       />
-      {/*<Controller*/}
-      {/*  name={'place'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={place || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Выберите место'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isPlaceLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
-      {/*<Controller*/}
-      {/*  name={'sport'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={sports || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Выберите занятие'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isSportsLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
-      {/*<Controller*/}
-      {/*  name={'city'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={city || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Укажите город'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isCityLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
-      {/*<Controller*/}
-      {/*  name={'count'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={count || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Укажите количество людей'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isCountLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
+      <Controller
+        name={'place'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={place || []}
+            field={field}
+            placeholder={'Выберите место'}
+            isMulti={false}
+            isLoading={isPlaceLoading}
+            error={error}
+            onInputChange={handlePlaceInputChange}
+          />
+        )}
+      />
+      <Controller
+        name={'sport'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={sports || []}
+            field={field}
+            placeholder={'Выберите занятие'}
+            isMulti={false}
+            isLoading={isSportsLoading}
+            error={error}
+            onInputChange={handleSportInputChange}
+          />
+        )}
+      />
+      <Controller
+        name={'city'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={city || []}
+            field={field}
+            placeholder={'Укажите город'}
+            isMulti={false}
+            isLoading={isCityLoading}
+            error={error}
+            onInputChange={handleCityInputChange}
+          />
+        )}
+      />
+      <Controller
+        name={'time'}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <SelectField
+            options={time || []}
+            field={field}
+            placeholder={'Укажите время суток'}
+            isMulti={false}
+            isLoading={isTimeLoading}
+            error={error}
+            onInputChange={handleTimeInputChange}
+          />
+        )}
+      />
 
       <Button
         className={
