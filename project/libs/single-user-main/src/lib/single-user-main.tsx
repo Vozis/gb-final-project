@@ -39,7 +39,8 @@ export function SingleUserMain(props: SingleUserMainProps) {
 
   if (!user) return null;
 
-  console.log('user: ', user);
+  console.log('user creations: ', user.creations);
+  console.log('user events: ', user.creations);
 
   const tabs: ITab[] = [
     {
