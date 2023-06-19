@@ -82,8 +82,9 @@ export function HomeMain(props: HomeMainProps) {
       enabled: !!user,
     },
   );
+
   // console.log('allEvents', allEvents);
-  
+
   return (
     <div className={styles.container}>
       <div>

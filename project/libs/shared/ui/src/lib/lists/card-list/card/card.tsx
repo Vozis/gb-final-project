@@ -76,9 +76,9 @@ export const Card: FC<CardProps> = ({ event }) => {
           {event.name}
         </Link>
         <p className={'text-white'}>
-          {event.users.length < event.peopleCount &&
-            `осталось ${event.users.length - event.peopleCount} мест`}
-          {event.users.length === event.peopleCount && `нет мест`}
+          {event._count.users < event.peopleCount &&
+            `осталось ${event.peopleCount - event._count.users} мест`}
+          {event._count.users === event.peopleCount && `нет мест`}
         </p>
 
         <div className={styles.card__tags}>

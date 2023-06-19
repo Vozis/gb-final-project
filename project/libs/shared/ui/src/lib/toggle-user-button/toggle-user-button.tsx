@@ -79,8 +79,15 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
       type={'button'}
       className={cn(styles.toggleBtn, 'w-full')}
       onClick={() => handleToggle(user.id)}
+      disabled={
+        event._count.users === event.peopleCount && !event.isParticipate
+      }
     >
-      {event.isParticipate ? 'Отказаться' : 'Присоединиться'}
+      {event.isParticipate
+        ? 'Отказаться'
+        : event._count.users === event.peopleCount
+        ? 'Мест уже нет'
+        : 'Присоединиться'}
     </Button>
   );
 }

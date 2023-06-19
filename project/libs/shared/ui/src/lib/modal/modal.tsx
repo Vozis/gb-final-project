@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 import { Button } from '../button/button';
-import { Field, MaterialIcon } from '@project/shared/ui';
+import { UploadField, MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface ModalProps {

@@ -1,4 +1,4 @@
-import { Button, Field, SelectField } from '@project/shared/ui';
+import { Button, Field, SelectField, UploadField } from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ICreateEvent, IOption } from '@project/shared/types';
@@ -203,10 +203,10 @@ export function CreateEventForm(props: CreateEventFormProps) {
         type={'number'}
         {...register('count', { required: true })}
       />
-      <input
-        type={'file'}
-        placeholder={'Добавь изображение'}
+      <UploadField
         {...register('image')}
+        placeholder={''}
+        error={errors.image}
       />
       <Controller
         name={'place'}

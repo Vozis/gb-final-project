@@ -1,3 +1,4 @@
+export * from './lib/form/upload-field/upload-field';
 export * from './lib/toggle-user-button/toggle-user-button';
 export * from './lib/user/user-big/user-big';
 

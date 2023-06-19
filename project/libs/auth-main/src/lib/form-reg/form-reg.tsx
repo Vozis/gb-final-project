@@ -1,16 +1,17 @@
 import { useActions, useAuthRedirect } from '@project/shared/hooks';
 import { TagService } from '@project/shared/services';
 import { IOption, IRegister } from '@project/shared/types';
-import { Button, Field, SelectField } from '@project/shared/ui';
+import { Button, Field, SelectField, UploadField } from '@project/shared/ui';
 import { errorCatch } from '@project/shared/utils';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
 import { FormProps } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './form-reg.module.scss';
+import { InputActionMeta } from 'react-select';
 
 /* eslint-disable-next-line */
 export interface FormRegProps {}
@@ -42,29 +43,117 @@ export function FormReg(props: FormProps) {
 
   const { register } = useActions();
 
-  // const { data: sportKinds, isLoading } = useQuery(
-  //   ['get-hobbies'],
-  //   () => TagService.getByType('sport'),
-  //   {
-  //     select: ({ data }) =>
-  //       data.map(
-  //         (item): IOption => ({
-  //           label: item.name,
-  //           value: item.id,
-  //         }),
-  //       ),
-  //     onError: err => {
-  //       toast.error(errorCatch(err));
-  //     },
-  //   },
-  // );
+  const [isSport, setIsSport] = useState(false);
+  const [isTime, setIsTime] = useState(false);
+  const [isCity, setIsCity] = useState(false);
+  const [isPlace, setIsPlace] = useState(false);
+
+  const handleSportInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsSport(true);
+    }
+  };
+
+  const handleTimeInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsTime(true);
+    }
+  };
+
+  const handleCityInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsCity(true);
+    }
+  };
+
+  const handlePlaceInputChange = (meta: InputActionMeta) => {
+    if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
+      setIsPlace(true);
+    }
+  };
+
+  const { data: sports, isLoading: isSportsLoading } = useQuery(
+    ['get-sport-tags'],
+    () => TagService.getByType('sport'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+      enabled: isSport,
+    },
+  );
+
+  const { data: place, isLoading: isPlaceLoading } = useQuery(
+    ['get-place-tags'],
+    () => TagService.getByType('place'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
+
+  const { data: city, isLoading: isCityLoading } = useQuery(
+    ['get-city-tags'],
+    () => TagService.getByType('city'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+    },
+  );
+
+  const { data: time, isLoading: isTimeLoading } = useQuery(
+    ['get-count-tags'],
+    () => TagService.getByType('time'),
+    {
+      select: ({ data }) =>
+        data.map(
+          (item): IOption => ({
+            label: item.name,
+            value: item.id,
+          }),
+        ),
+      onError: err => {
+        toast.error(errorCatch(err));
+      },
+      enabled: isTime,
+    },
+  );
 
   const onSubmit: SubmitHandler<IRegister> = async data => {
     const formData = new FormData();
+    const tags: number[] = [];
+
+    // console.log('data:', data);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry =>
-        entry[0] !== 'hobbies' &&
+        entry[0] !== 'sport' &&
+        entry[0] !== 'place' &&
+        entry[0] !== 'time' &&
+        entry[0] !== 'city' &&
         entry[0] !== 'avatar' &&
         entry[0] !== 'confirmPassword',
     );
@@ -77,10 +166,37 @@ export function FormReg(props: FormProps) {
       formData.append('avatar', data.avatar[0]);
     }
 
+    if (data.sport) {
+      data.sport.forEach(item => {
+        tags.push(item);
+      });
+    }
+    if (data.place) {
+      data.place.forEach(item => {
+        tags.push(item);
+      });
+    }
+
+    if (data.time) {
+      data.time.forEach(item => {
+        tags.push(item);
+      });
+    }
+
+    if (data.city) {
+      data.city.forEach(item => {
+        tags.push(item);
+      });
+    }
+
+    tags.forEach(item => {
+      formData.append('hobbies[]', String(item));
+    });
+
     /* @ts-ignore */
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     register(formData);
   };
@@ -129,43 +245,88 @@ export function FormReg(props: FormProps) {
         visibility
       />
       {/* --------------------------------------- */}
-      <div className={styles.app}>
-        <div className={styles.parent}>
-          <div className={styles.file_upload}>
-            <IconContext.Provider value={{ color: '#2E6D9C', size: '50px' }}>
-              <div className={styles.file_upload_img}>
-                <AiOutlineUpload />
-              </div>
-            </IconContext.Provider>
-            <h4 className={styles.file_upload_h3}>
-              {' '}
-              {selectedName || 'Кликните что бы загрузить'}
-            </h4>
-            <p>Максимальный размер 10mb</p>
-            <input
-              type={'file'}
-              {...registerInput('avatar')}
-              // onChange={handleFileChange}
-            />
-          </div>
-        </div>
-      </div>
+      <UploadField
+        {...registerInput('avatar')}
+        placeholder={''}
+        error={errors.avatar}
+      />
       {/*--------------------------------------------- */}
-      {/*<Controller*/}
-      {/*  name={'hobbies'}*/}
-      {/*  control={control}*/}
-      {/*  render={({ field, fieldState: { error } }) => (*/}
-      {/*    <SelectField*/}
-      {/*      options={sportKinds || []}*/}
-      {/*      field={field}*/}
-      {/*      placeholder={'Выбери свои хобби...'}*/}
-      {/*      isMulti={true}*/}
-      {/*      isLoading={isLoading}*/}
-      {/*      error={error}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*/>*/}
-
+      <h2>
+        Укажите свои предпочтения, это позволит получать самое интересное из
+        всего списка возможных событий
+      </h2>
+      <div>
+        <h3>Ваш город: </h3>
+        <Controller
+          name={'city'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={city || []}
+              field={field}
+              placeholder={'Укажите город'}
+              isMulti={true}
+              isLoading={isCityLoading}
+              error={error}
+              onInputChange={handleCityInputChange}
+            />
+          )}
+        />
+      </div>
+      <div>
+        <h3>Ваши любимые виды спорта: </h3>
+        <Controller
+          name={'sport'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={sports || []}
+              field={field}
+              placeholder={'Выберите занятие'}
+              isMulti={true}
+              isLoading={isSportsLoading}
+              error={error}
+              onInputChange={handleSportInputChange}
+            />
+          )}
+        />
+      </div>
+      <div>
+        <h3>Место проведения: </h3>
+        <Controller
+          name={'place'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={place || []}
+              field={field}
+              placeholder={'Выберите место проведения...'}
+              isMulti={true}
+              isLoading={isPlaceLoading}
+              error={error}
+              onInputChange={handlePlaceInputChange}
+            />
+          )}
+        />
+      </div>
+      <div>
+        <h3>Время проведения: </h3>
+        <Controller
+          name={'time'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={time || []}
+              field={field}
+              placeholder={'Укажите время суток'}
+              isMulti={true}
+              isLoading={isTimeLoading}
+              error={error}
+              onInputChange={handleTimeInputChange}
+            />
+          )}
+        />
+      </div>
       <Button type={'submit'} className={styles.register_form_btn}>
         Продолжить
       </Button>
