@@ -34,11 +34,11 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     return null;
   }
 
-  console.log('user: ', user);
-  console.log('isShowUserInfoModal: ', isShowUserInfoModal);
+  // console.log('user: ', user);
+  // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
   const isProfile = userProps.id === user?.id;
-  console.log('isShowSettingModal', isShowSettingModal);
+  // console.log('isShowSettingModal', isShowSettingModal);
   return (
     <div className={styles.container}>
       <UserBig

@@ -1,7 +1,7 @@
 import styles from './accordion.module.scss';
 import React, { useEffect, useRef, useState } from 'react';
-import MaterialIcon from '../icons/material-icon';
 import clsx from 'clsx';
+import { MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface AccordionProps {

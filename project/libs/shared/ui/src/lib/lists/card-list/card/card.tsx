@@ -8,7 +8,6 @@ import {
 import { IEvent, IEventForCard } from '@project/shared/types';
 import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   useActions,
   useAuthRedux,
@@ -60,6 +59,18 @@ export const Card: FC<CardProps> = ({ event }) => {
   // const handleToggle = async (toggleId: number) => {
   //   await mutateAsync(toggleId);
   // };
+  const numToStr = (num: number, arr: Array<any>) => {
+    if (num % 10 === 1 && num % 100 !== 11) {
+      return arr[0];
+    } else if (
+      num % 10 >= 2 &&
+      num % 10 <= 4 &&
+      (num % 100 < 10 || num % 100 >= 20)
+    ) {
+      return arr[1];
+    }
+    return arr[2];
+  };
 
   return (
     <div
@@ -77,7 +88,16 @@ export const Card: FC<CardProps> = ({ event }) => {
         </Link>
         <p className={'text-white'}>
           {event._count.users < event.peopleCount &&
-            `осталось ${event.peopleCount - event._count.users} мест`}
+            `осталось ${
+              event.peopleCount -
+              event._count.users +
+              ' ' +
+              numToStr(event.peopleCount - event._count.users, [
+                'место',
+                'места',
+                'мест',
+              ])
+            }`}
           {event._count.users === event.peopleCount && `нет мест`}
         </p>
 
