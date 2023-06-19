@@ -298,11 +298,14 @@ export class EventService {
 
     if (dto.type === 'users') {
       // @ts-ignore
-      console.log('event: ', _event._count.users);
-      console.log('maxPeople: ', _event.peopleCount);
+      // console.log('event: ', _event._count.users);
+      // console.log('maxPeople: ', _event.peopleCount);
 
-      // @ts-ignore
-      if (_event._count.users === _event.peopleCount) {
+      if (
+        // @ts-ignore
+        _event._count.users === _event.peopleCount &&
+        !_event.users.some(user => user.id === dto.toggleId)
+      ) {
         throw new BadRequestException('Max people count exceeded');
       }
     }

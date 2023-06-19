@@ -1,6 +1,10 @@
 import { ITag } from './tag.types';
 import { IEventUser, IUser, IUserSingleEvent } from './user.types';
 
+export interface ICount {
+  users: number;
+}
+
 export interface IEvent {
   id: number;
   name: string;
@@ -13,7 +17,7 @@ export interface IEvent {
   users: IUserSingleEvent[];
   tags: ITag[];
   peopleCount: number;
-  _count: number;
+  _count: ICount;
   isParticipate?: boolean | null;
 }
 
@@ -26,7 +30,7 @@ export interface IEventForCard {
   creator?: IUserSingleEvent;
   users: IUserSingleEvent[];
   peopleCount: number;
-  _count: number;
+  _count: ICount;
   isParticipate?: boolean | null;
 }
 

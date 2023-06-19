@@ -14,7 +14,7 @@
 
 .avatarWrapper {
   border-radius: 50%;
-  box-shadow: 0 0 20px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   height: 100px;
   padding: 3px;
@@ -36,14 +36,14 @@
 .avatarImg {
   background-color: #F7F7F7;
   border-radius: inherit;
-height: auto;
+  height: auto;
   object-fit: cover;
   width: 100%;
-z-index: 2;
+  z-index: 2;
 }
 
 .info {
-
+  
 }
 
 .username {
@@ -71,6 +71,7 @@ z-index: 2;
   &:not(:last-child) {
     margin-right: 8px;
   }
+
   & span {
     color: #949494;
     font-size: 14px;

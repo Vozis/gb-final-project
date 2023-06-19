@@ -1,7 +1,4 @@
-import moment from 'moment';
 import { useAuthRedux } from '@project/shared/hooks';
-import { IEventUser, IUser } from '@project/shared/types';
-import { d } from '@pmmmwh/react-refresh-webpack-plugin/types/options';
 
 const checkDateStatus = (currentDate: Date, eventDate: Date) => {
   return currentDate > eventDate;

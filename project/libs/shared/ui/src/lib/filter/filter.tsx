@@ -12,7 +12,6 @@ import { SelectField } from '../form/select/select';
 import { Button } from '../button/button';
 import { IOption, ISearchForm, ITag } from '@project/shared/types';
 import { FC, useState } from 'react';
-import { useFilter } from './useFilter';
 import { MaterialIcon } from '../icons/material-icon';
 import { useAuthRedux } from '@project/shared/hooks';
 import { useQuery } from '@tanstack/react-query';

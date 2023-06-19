@@ -33,7 +33,6 @@ export const Card: FC<CardProps> = ({ event }) => {
   if (!user) {
     redirect('/auth');
   }
-
   // console.log('event: ', event);
 
   // const { mutateAsync } = useMutation(
@@ -76,6 +75,12 @@ export const Card: FC<CardProps> = ({ event }) => {
         <Link to={`/events/${event.id}`} className={styles.card__title}>
           {event.name}
         </Link>
+        <p className={'text-white'}>
+          {event._count.users < event.peopleCount &&
+            `осталось ${event.peopleCount - event._count.users} мест`}
+          {event._count.users === event.peopleCount && `нет мест`}
+        </p>
+
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag
