@@ -31,7 +31,7 @@ export function HomeMain(props: HomeMainProps) {
 
   const { finishedEvents } = useCheckEventStatus();
 
-  console.log('finishedEvents: ', finishedEvents);
+  // console.log('finishedEvents: ', finishedEvents);
 
   // const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
@@ -44,7 +44,7 @@ export function HomeMain(props: HomeMainProps) {
     MailService.resendConfirmationLink(),
   );
 
-  console.log('render');
+  // console.log('render');
 
   const {
     isLoading,
@@ -96,7 +96,7 @@ export function HomeMain(props: HomeMainProps) {
             isPhoto
           />
         )}
-        {!user?.isConfirmed && (
+        {user && !user?.isConfirmed && (
           <p>
             Для создания события необходимо подтвердить email. Проверьте свою
             почту или{' '}
