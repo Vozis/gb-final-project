@@ -58,6 +58,7 @@ export function HomeMain(props: HomeMainProps) {
   // setFilterParamsArray,
 
   // console.log('events:', events);
+  // console.log('user:', user);
 
   const { data: allEvents } = useQuery(
     ['get-all-events-auth-no-hobby'],
@@ -81,7 +82,8 @@ export function HomeMain(props: HomeMainProps) {
       enabled: !!user,
     },
   );
-
+  // console.log('allEvents', allEvents);
+  
   return (
     <div className={styles.container}>
       <div>
