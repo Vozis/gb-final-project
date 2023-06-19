@@ -13,5 +13,7 @@ module.exports = {
     'confirm-email',
     'reset-password',
     'single-user',
+    ,
+    'notifications',
   ],
 };

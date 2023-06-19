@@ -6,7 +6,7 @@ import { UserService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import { IEventForCard } from '@project/shared/types';
-import { useUserEvents } from '@project/shared/hooks';
+import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
 import { CardList, ITab, Tabs } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
@@ -14,10 +14,12 @@ export interface SingleUserMainProps {}
 
 export function SingleUserMain(props: SingleUserMainProps) {
   const { id } = useParams();
+  const { user } = useAuthRedux();
 
   if (!id) return null;
+  if (!user) return null;
 
-  const { isLoading, data: user } = useQuery(
+  const { isLoading, data: userData } = useQuery(
     ['get-single-user'],
     () => UserService.getById(id),
     {
@@ -37,20 +39,21 @@ export function SingleUserMain(props: SingleUserMainProps) {
     },
   );
 
-  if (!user) return null;
+  if (!userData) return null;
 
-  console.log('user: ', user);
+  // console.log('user creations: ', user.creations);
+  // console.log('user events: ', user.creations);
 
   const tabs: ITab[] = [
     {
       id: '1',
       label: 'Мои события',
-      content: <CardList list={user.creations || []} />,
+      content: <CardList list={userData.creations || []} />,
     },
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={user.events || []} />,
+      content: <CardList list={userData.events || []} />,
     },
   ];
 
@@ -60,7 +63,7 @@ export function SingleUserMain(props: SingleUserMainProps) {
         <p>Loading..</p>
       ) : (
         <>
-          <ProfileHead userProps={user} />
+          <ProfileHead userProps={userData} />
           <Tabs tabs={tabs} />
         </>
       )}

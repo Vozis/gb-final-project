@@ -9,6 +9,8 @@ import { TailSpin } from 'react-loader-spinner';
 import { useActions, useFilterState } from '@project/shared/hooks';
 import { useFilter } from '../../../../libs/shared/ui/src/lib/filter/useFilter';
 
+const Notifications = React.lazy(() => import('notifications/Module'));
+
 const SingleUser = React.lazy(() => import('single-user/Module'));
 
 const ResetPassword = React.lazy(() => import('reset-password/Module'));
@@ -41,6 +43,7 @@ export function App() {
         <React.Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/confirm-email" element={<ConfirmEmail />} />
             <Route path="/hello" element={<Hello />} />

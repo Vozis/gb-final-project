@@ -1,13 +1,21 @@
 import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
 import { EventService } from '@project/shared/services';
 import { IEventForCard, ISearch, IUserEdit } from '@project/shared/types';
-import { CardList, ITab, Tabs, TabsProps } from '@project/shared/ui';
+import {
+  CardList,
+  ITab,
+  Tabs,
+  TabsProps,
+  UserCardSmall,
+} from '@project/shared/ui';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
+import Accordion from '../../../shared/ui/src/lib/accordion/accordion';
+import { useEffect, useRef } from 'react';
 
 /* eslint-disable-next-line */
 
@@ -19,12 +27,17 @@ export function ProfileMain(props: ProfileMainProps) {
   const { user } = useAuthRedux();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+    }
+  }, []);
+
   if (!user) {
-    navigate('/auth');
     return null;
   }
 
-  console.log('render profile');
+  // console.log('render profile');
 
   // const { mutateAsync } = useMutation(['update-user'], data =>
   //   axios.put('/api/users/profile', data),
@@ -92,6 +105,14 @@ export function ProfileMain(props: ProfileMainProps) {
   return (
     <div className={styles['container']}>
       <ProfileHead userProps={user} />
+      {user && user.friends && (
+        <Accordion title={'Друзья'}>
+          {user.friends.map(user => (
+            <UserCardSmall userProps={user} />
+          ))}
+        </Accordion>
+      )}
+
       {!isLoading && <Tabs tabs={tabs} />}
     </div>
   );

@@ -42,7 +42,7 @@ export const useUserEvents = (id: number) => {
     },
   );
 
-  console.log(profileEvents);
+  // console.log(profileEvents);
 
   const myEvents: IEventForCard[] =
     profileEvents?.filter(event => event.creator?.id === id) || [];

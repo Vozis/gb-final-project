@@ -11,22 +11,7 @@ export const returnUserObject: Prisma.UserSelect = {
   role: true,
   avatarPath: true,
   creations: {
-    select: {
-      id: true,
-      name: true,
-      imageUrl: true,
-      tags: true,
-      eventTime: true,
-      creator: {
-        select: {
-          id: true,
-          userName: true,
-          firstName: true,
-          lastName: true,
-          avatarPath: true,
-        },
-      },
-    },
+    select: returnEventObject,
   },
   hobbies: {
     select: {
@@ -41,40 +26,10 @@ export const returnUserObject: Prisma.UserSelect = {
     },
   },
   favorites: {
-    select: {
-      id: true,
-      name: true,
-      imageUrl: true,
-      tags: true,
-      eventTime: true,
-      creator: {
-        select: {
-          id: true,
-          userName: true,
-          firstName: true,
-          lastName: true,
-          avatarPath: true,
-        },
-      },
-    },
+    select: returnEventObject,
   },
   events: {
-    select: {
-      id: true,
-      name: true,
-      imageUrl: true,
-      tags: true,
-      eventTime: true,
-      creator: {
-        select: {
-          id: true,
-          userName: true,
-          firstName: true,
-          lastName: true,
-          avatarPath: true,
-        },
-      },
-    },
+    select: returnEventObject,
   },
 };
 

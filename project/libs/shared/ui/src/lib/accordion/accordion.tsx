@@ -1,29 +1,38 @@
 import styles from './accordion.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
-import MaterialIcon from '../icons/material-icon';
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import clsx from 'clsx';
+import { MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
-export interface AccordionProps {
+export interface AccordionProps
+  extends PropsWithChildren<React.HTMLAttributes<HTMLDivElement>> {
   className?: string;
   title?: string;
   isActive?: boolean;
-  children?: React.ReactNode;
 }
 
-export function Accordion({
+export const Accordion: FC<AccordionProps> = ({
+  children,
   className,
   title = '',
   isActive = false,
-  children,
-}: AccordionProps) {
+}) => {
   const [isOpen, setIsOpen] = useState(isActive);
   const nodeRef = useRef<HTMLDivElement>(null);
   const contentHeight = nodeRef.current?.scrollHeight;
   const handleToggleAccordion = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
+    // console.log(isOpen);
   };
+
+  console.log(children);
+
   const setAtToStringAndPx = (value: number): string => {
     return value.toString() + 'px';
   };
@@ -51,6 +60,6 @@ export function Accordion({
       <div ref={nodeRef}>{isOpen && children}</div>
     </div>
   );
-}
+};
 
 export default Accordion;

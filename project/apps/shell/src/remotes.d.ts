@@ -20,3 +20,5 @@ declare module 'confirm-email/Module';
 declare module 'reset-password/Module';
 
 declare module 'single-user/Module';
+
+declare module 'notifications/Module';
