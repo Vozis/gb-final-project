@@ -27,41 +27,12 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({ event }) => {
   // const queryClient = useQueryClient();
   const { user } = useAuthRedux();
-  // const { getProfile } = useActions();
-  // const { filterParamsArray } = useFilterState();
 
   if (!user) {
     redirect('/auth');
   }
+
   // console.log('event: ', event);
-
-  // const { mutateAsync } = useMutation(
-  //   ['toggle-user-to-event'],
-  //   (toggleId: number) =>
-  //     EventService.toggleUser(event.id, { toggleId, type: 'users' }),
-  //   {
-  //     onSuccess: async data => {
-  //       await queryClient.invalidateQueries([
-  //         'get-all-events-auth',
-  //         filterParamsArray,
-  //       ]);
-  //       await queryClient.invalidateQueries(['get-all-events-auth']);
-  //       await queryClient.invalidateQueries(['get-all-events-auth-no-hobby']);
-  //       await queryClient.invalidateQueries(['get-profile-events']);
-  //       await getProfile();
-  //       toast.success('Изменение статуса участия прошло успешно', {
-  //         containerId: 1,
-  //         toastId: 'toggle-user',
-  //       });
-  //     },
-  //   },
-  // );
-  //
-  // const handleToggle = async (toggleId: number) => {
-  //   await mutateAsync(toggleId);
-  // };
-
-  // console.log(event);
 
   return (
     <div
@@ -84,7 +55,7 @@ export const Card: FC<CardProps> = ({ event }) => {
             {event._count.users === event.peopleCount && `нет мест`}
           </p>
         )}
-
+        <p className={'text-white'}>{event.eventTime}</p>
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag

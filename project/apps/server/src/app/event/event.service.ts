@@ -156,8 +156,15 @@ export class EventService {
                 AND: filterParams,
               },
             ],
+            eventTime: {
+              gt: new Date(),
+            },
           }
-        : {};
+        : {
+            eventTime: {
+              gt: new Date(),
+            },
+          };
 
     // console.log('eventsSearchFilter:', eventsSearchFilter);
 
@@ -208,6 +215,25 @@ export class EventService {
     } else {
       return result;
     }
+  }
+
+  async getFinishedEvents(id: number) {
+    const currentDate = new Date();
+
+    const result = await this.prisma.event.findMany({
+      where: {
+        users: {
+          some: {
+            id: id,
+          },
+        },
+        eventTime: {
+          lte: currentDate,
+        },
+      },
+    });
+
+    return result;
   }
 
   async createEvent(

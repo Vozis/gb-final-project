@@ -34,41 +34,21 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const [run, setRun] = useState(false);
   const { id } = useParams();
   const { user } = useAuthRedux();
-  const queryClient = useQueryClient();
-  const { getProfile } = useActions();
-  const { filterParamsArray } = useFilterState();
 
   if (!id) return null;
 
-  const { mutateAsync } = useMutation(
-    ['toggle-user-to-event'],
-    ({ eventId, toggleId }: { eventId: number; toggleId: number }) =>
-      EventService.toggleUser(eventId, { toggleId, type: 'users' }),
+  const { isLoading: isLoadingPublic, data: publicEvent } = useQuery(
+    ['get-single-event-public'],
+    () => EventService.getSingleEventNoUser(id),
     {
-      onSuccess: async data => {
-        await queryClient.invalidateQueries(['get-single-event']);
-        // await queryClient.invalidateQueries(['get-all-events-auth']);
-        // await queryClient.invalidateQueries(['get-all-events-auth-no-hobby']);
-        // await queryClient.invalidateQueries(['get-profile-events']);
-        await getProfile();
-        toast.success('Изменение статуса участия прошло успешно', {
+      select: ({ data }) => data,
+      onSuccess: () => {
+        toast.success('Событие успешно получено', {
           containerId: 1,
-          toastId: 'toggle-user',
+          toastId: 'get-single-event',
         });
       },
-      onError: async (err: AxiosError<{ message: string }>) => {
-        const error = errorCatch(err);
-        if (error === 'нельзя добавиться') {
-          toast.error(
-            'Свободные места закончились :( Попробуй поискать что-нибудь еще',
-            {
-              toastId: 'link-join-error',
-              containerId: 1,
-            },
-          );
-          await queryClient.invalidateQueries(['get-single-event']);
-        }
-      },
+      enabled: !!id,
     },
   );
 
@@ -83,15 +63,13 @@ export function SingleEventMain(props: SingleEventMainProps) {
           toastId: 'get-single-event',
         });
       },
+      enabled: !!user && !!id,
     },
   );
 
-  if (!event) return null;
+  // if (!publicEvent) return null;
 
-  const handleToggle = async (toggleId: number) => {
-    // console.log(toggleId);
-    await mutateAsync({ eventId: event.id, toggleId });
-  };
+  // if (!event) return null;
 
   // console.log('event users', event.users);
 
@@ -99,15 +77,30 @@ export function SingleEventMain(props: SingleEventMainProps) {
     {
       id: '1',
       label: 'Описание',
-      content: <p>{event.description}</p>,
+      // content: <p>{event.description}</p>,
+      content: <p>{event ? event.description : publicEvent?.description}</p>,
     },
     {
       id: '2',
       label: 'Участвуют',
       content: (
         <List className={'flex flex-col gap-3'}>
-          {event.users.length !== 0 ? (
-            event.users.map(user => (
+          {event ? (
+            event.users.length !== 0 ? (
+              event.users.map(user => (
+                <UserCardSmall
+                  userProps={user}
+                  key={user.id}
+                  isName
+                  isInfo
+                  isPhoto
+                />
+              ))
+            ) : (
+              <p>Пока здесь никого нет</p>
+            )
+          ) : publicEvent && publicEvent.users.length !== 0 ? (
+            publicEvent.users.map(user => (
               <UserCardSmall
                 userProps={user}
                 key={user.id}
@@ -130,7 +123,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
     <div className={styles['container']}>
       <SingleEventHead />
       <div>
-        {user && <ToggleUserButton event={event} />}
+        {user && event && <ToggleUserButton event={event} />}
         <Button onClick={() => setRun(true)}>Confetti ON</Button>
         <Tabs tabs={tabs} />
         {run && (
@@ -142,19 +135,36 @@ export function SingleEventMain(props: SingleEventMainProps) {
         )}
 
         <div className={styles.card__tags}>
-          {event.tags.map(tag => (
-            <Tag
-              key={tag.id}
-              className={clsx({
-                'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
-                [styles.card__tag_place]: tag?.type.name === 'place',
-                'bg-green-300 hover:bg-green-400': tag?.type.name === 'city',
-                'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
-              })}
-            >
-              {tag.name}
-            </Tag>
-          ))}
+          {event
+            ? event.tags.map(tag => (
+                <Tag
+                  key={tag.id}
+                  className={clsx({
+                    'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
+                    [styles.card__tag_place]: tag?.type.name === 'place',
+                    'bg-green-300 hover:bg-green-400':
+                      tag?.type.name === 'city',
+                    'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
+                  })}
+                >
+                  {tag.name}
+                </Tag>
+              ))
+            : publicEvent &&
+              publicEvent.tags.map(tag => (
+                <Tag
+                  key={tag.id}
+                  className={clsx({
+                    'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
+                    [styles.card__tag_place]: tag?.type.name === 'place',
+                    'bg-green-300 hover:bg-green-400':
+                      tag?.type.name === 'city',
+                    'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
+                  })}
+                >
+                  {tag.name}
+                </Tag>
+              ))}
         </div>
       </div>
     </div>

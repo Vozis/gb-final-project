@@ -17,7 +17,27 @@ export function SingleUserMain(props: SingleUserMainProps) {
   const { user } = useAuthRedux();
 
   if (!id) return null;
-  if (!user) return null;
+
+  const { isLoading: isLoadingNoUser, data: noUserData } = useQuery(
+    ['get-single-user-public'],
+    () => UserService.getByIdNoUser(id),
+    {
+      select: ({ data }) => data,
+      onSuccess: () => {
+        toast.success('Данные пользователя получены', {
+          toastId: 'get-single-user',
+          containerId: 1,
+        });
+      },
+      onError: err => {
+        toast.success(errorCatch(err), {
+          toastId: 'get-single-user',
+          containerId: 1,
+        });
+      },
+      enabled: !!id,
+    },
+  );
 
   const { isLoading, data: userData } = useQuery(
     ['get-single-user'],
@@ -36,24 +56,37 @@ export function SingleUserMain(props: SingleUserMainProps) {
           containerId: 1,
         });
       },
+      enabled: !!user && !!id,
     },
   );
 
-  if (!userData) return null;
+  // if (!userData) return null;
+  // if (!noUserData) return null;
 
   // console.log('user creations: ', user.creations);
   // console.log('user events: ', user.creations);
+
+  console.log(userData);
+  console.log(noUserData);
 
   const tabs: ITab[] = [
     {
       id: '1',
       label: 'Мои события',
-      content: <CardList list={userData.creations || []} />,
+      content: (
+        <CardList
+          list={user ? userData?.creations || [] : noUserData?.creations || []}
+        />
+      ),
     },
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={userData.events || []} />,
+      content: (
+        <CardList
+          list={user ? userData?.events || [] : noUserData?.events || []}
+        />
+      ),
     },
   ];
 
@@ -63,7 +96,15 @@ export function SingleUserMain(props: SingleUserMainProps) {
         <p>Loading..</p>
       ) : (
         <>
-          <ProfileHead userProps={userData} />
+          {userData && <ProfileHead userProps={userData} />}
+          <Tabs tabs={tabs} />
+        </>
+      )}
+      {isLoadingNoUser ? (
+        <p>Loading..</p>
+      ) : (
+        <>
+          {noUserData && <ProfileHead userProps={noUserData} />}
           <Tabs tabs={tabs} />
         </>
       )}

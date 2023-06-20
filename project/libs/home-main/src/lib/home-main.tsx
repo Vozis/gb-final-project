@@ -38,13 +38,11 @@ export function HomeMain(props: HomeMainProps) {
 
   // useEffect(() => {
   //   getProfile();
-  // }, []);
+  // }, []);ч
 
   const { mutateAsync } = useMutation(['resend-confirmation-link'], () =>
     MailService.resendConfirmationLink(),
   );
-
-  // console.log('render');
 
   const {
     isLoading,
@@ -53,9 +51,8 @@ export function HomeMain(props: HomeMainProps) {
     isUseFilter,
     isLoadingWithFilter,
     filterEvents,
+    setIsUseFilter,
   } = useFilter();
-  // filterParamsArray,
-  // setFilterParamsArray,
 
   // console.log('events:', events);
   // console.log('user:', user);
@@ -117,7 +114,7 @@ export function HomeMain(props: HomeMainProps) {
       >
         <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
       </Link>
-      <Filter onSubmit={onSubmit} />
+      <Filter onSubmit={onSubmit} setIsUseFilter={setIsUseFilter} />
       {!isUseFilter ? (
         <>
           {isLoading ? (

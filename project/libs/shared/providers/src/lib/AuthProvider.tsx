@@ -2,14 +2,21 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
 
-import { useActions, useAuthRedux } from '@project/shared/hooks';
+import {
+  useActions,
+  useAuthRedux,
+  useNotificationState,
+} from '@project/shared/hooks';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { user } = useAuthRedux();
+  const { finishedEvents } = useNotificationState();
 
-  const { logout, checkAuth } = useActions();
+  console.log('finishedEvents:', finishedEvents);
+
+  const { logout, checkAuth, getFinishedEvents } = useActions();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,6 +46,10 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       navigate('/auth');
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    getFinishedEvents();
+  }, [!!user]);
 
   return <>{children}</>;
 };

@@ -18,11 +18,11 @@ export const useFilter = () => {
   const { setFilterParamsArray } = useActions();
   const { filterParamsArray } = useFilterState();
 
-  console.log('user: ', user);
+  // console.log('user: ', user);
   // console.log('filterParamsArray before update: ', filterParamsArray);
 
   const { isLoading, data: events } = useQuery(
-    ['get-all-events-no-user', filterParamsArray],
+    ['get-all-events-public', filterParamsArray],
     () => EventService.getAllEventsNoUser(filterParamsArray),
     {
       select: ({ data: events }) =>
@@ -40,7 +40,7 @@ export const useFilter = () => {
             isParticipate: event.isParticipate,
           }),
         ),
-      enabled: user === null && !!filterParamsArray,
+      enabled: user === null,
     },
   );
 
@@ -124,12 +124,16 @@ export const useFilter = () => {
     }
 
     // console.log('result', result);
-    setIsUseFilter(!isUseFilter);
+    // setIsUseFilter(!isUseFilter);
     setFilterParamsArray(result);
   };
 
   // console.log('filterParamsArray after update: ', filterParamsArray);
 
+  // return {
+  //   events,
+  //   isLoading,
+  // };
   return useMemo(
     () => ({
       isLoading: user ? isLoadingAuth : isLoading,
@@ -138,6 +142,7 @@ export const useFilter = () => {
       isUseFilter,
       isLoadingWithFilter: user ? isLoadingAuthWithFilter : isLoading,
       filterEvents: user ? authEventsWithFilter : events,
+      setIsUseFilter,
     }),
     [
       events,

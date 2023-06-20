@@ -29,7 +29,9 @@ export const returnUserObject: Prisma.UserSelect = {
     select: returnEventObject,
   },
   events: {
-    select: returnEventObject,
+    select: {
+      ...returnEventObject,
+    },
   },
 };
 

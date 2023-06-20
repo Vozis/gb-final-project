@@ -11,13 +11,20 @@ import { toast } from 'react-toastify';
 
 export const EventService = {
   async getAllEventsNoUser(data?: ISearch) {
-    return axiosClassic.post<IEvent[]>(EventApi.getAllNoUser, data);
+    return axiosClassic.get<IEvent[]>(EventApi.getAllNoUser, {
+      params: data ? data : {},
+    });
   },
 
   async getAllEvents(data?: ISearch, withHobby?: boolean) {
     return axiosAuth.post<IEvent[]>(EventApi.getAll, data, {
       params: withHobby ? { withHobby: true } : { withHobby: false },
     });
+
+    // return axiosAuth.get<IEvent[]>(EventApi.getAll, {
+    //   params: data ? { data, withHobby: withHobby ? 'true' : 'false' } : {},
+    //   // withHobby ? { withHobby: true } : { withHobby: false },
+    // });
   },
 
   async getSingleEventNoUser(id: string) {

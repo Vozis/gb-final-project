@@ -29,10 +29,10 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     }
   }, [isShowSettingModal]);
 
-  if (!user) {
-    navigate('/auth');
-    return null;
-  }
+  // if (!user) {
+  //   navigate('/auth');
+  //   return null;
+  // }
 
   console.log('user: ', user);
   console.log('isShowUserInfoModal: ', isShowUserInfoModal);
