@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
 import Accordion from '../../../shared/ui/src/lib/accordion/accordion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 /* eslint-disable-next-line */
 
@@ -27,8 +27,13 @@ export function ProfileMain(props: ProfileMainProps) {
   const { user } = useAuthRedux();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+    }
+  }, []);
+
   if (!user) {
-    navigate('/auth');
     return null;
   }
 
