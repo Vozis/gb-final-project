@@ -72,6 +72,8 @@ export const Card: FC<CardProps> = ({ event }) => {
     return arr[2];
   };
 
+  // console.log(event);
+
   return (
     <div
       className={styles.card}
@@ -86,20 +88,23 @@ export const Card: FC<CardProps> = ({ event }) => {
         <Link to={`/events/${event.id}`} className={styles.card__title}>
           {event.name}
         </Link>
-        <p className={'text-white'}>
-          {event._count.users < event.peopleCount &&
-            `осталось ${
-              event.peopleCount -
-              event._count.users +
-              ' ' +
-              numToStr(event.peopleCount - event._count.users, [
-                'место',
-                'места',
-                'мест',
-              ])
-            }`}
-          {event._count.users === event.peopleCount && `нет мест`}
-        </p>
+
+        {event._count.users && (
+          <p className={'text-white'}>
+            {event._count.users < event.peopleCount &&
+              `осталось ${
+                event.peopleCount -
+                event._count.users +
+                ' ' +
+                numToStr(event.peopleCount - event._count.users, [
+                  'место',
+                  'места',
+                  'мест',
+                ])
+              }`}
+            {event._count.users === event.peopleCount && `нет мест`}
+          </p>
+        )}
 
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
