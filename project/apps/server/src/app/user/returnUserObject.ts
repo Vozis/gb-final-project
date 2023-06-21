@@ -10,6 +10,15 @@ export const returnUserObject: Prisma.UserSelect = {
   userName: true,
   role: true,
   avatarPath: true,
+  friends: {
+    select: {
+      id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
+    },
+  },
   creations: {
     select: returnEventObject,
   },

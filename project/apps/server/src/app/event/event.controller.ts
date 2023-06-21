@@ -63,6 +63,18 @@ export class EventController {
     return this.eventService.getFinishedEvents(id);
   }
 
+  // @Auth()
+  // @Get('my-events')
+  // async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
+  //   return this.eventService.getUserEvents(id);
+  // }
+
+  // @Auth()
+  // @Get('by-user-hobbies')
+  // async getByUserTags(@User('id') id: number): Promise<EventSelect[]> {
+  //   return this.eventService.getByUserTags(id);
+  // }
+
   @Auth()
   @Get(':eventId')
   async getById(
@@ -102,18 +114,6 @@ export class EventController {
     @Body() toggleDto: ToggleDto,
   ) {
     return this.eventService.toggle(eventId, toggleDto);
-  }
-
-  @Auth()
-  @Get('my-events')
-  async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
-    return this.eventService.getUserEvents(id);
-  }
-
-  @Auth()
-  @Get('by-user-hobbies')
-  async getByUserTags(@User('id') id: number): Promise<EventSelect[]> {
-    return this.eventService.getByUserTags(id);
   }
 
   @Auth()

@@ -25,3 +25,5 @@ export const filterSlice = createSlice({
     },
   },
 });
+
+export const { reducer, actions } = filterSlice;

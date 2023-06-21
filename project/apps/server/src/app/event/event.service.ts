@@ -358,33 +358,33 @@ export class EventService {
     return result;
   }
 
-  async getUserEvents(userId: number): Promise<EventSelect[]> {
-    return this.prisma.event.findMany({
-      where: {
-        creator: {
-          id: userId,
-        },
-      },
-      select: returnEventObject,
-    });
-  }
+  // async getUserEvents(userId: number): Promise<EventSelect[]> {
+  //   return this.prisma.event.findMany({
+  //     where: {
+  //       creator: {
+  //         id: userId,
+  //       },
+  //     },
+  //     select: returnEventObject,
+  //   });
+  // }
 
-  async getByUserTags(userId: number): Promise<EventSelect[]> {
-    const user = await this.userService.getById(userId);
-
-    return this.prisma.event.findMany({
-      where: {
-        tags: {
-          some: {
-            id: {
-              in: user.hobbies.map(tag => tag.id),
-            },
-          },
-        },
-      },
-      select: returnEventObject,
-    });
-  }
+  // async getByUserTags(id: number): Promise<EventSelect[]> {
+  //   const _user = await this.userService.getById(id);
+  //
+  //   return this.prisma.event.findMany({
+  //     where: {
+  //       tags: {
+  //         some: {
+  //           id: {
+  //             in: _user.hobbies.map(tag => tag.id),
+  //           },
+  //         },
+  //       },
+  //     },
+  //     select: returnEventObject,
+  //   });
+  // }
 
   async delete(id: number) {
     return this.prisma.event.delete({ where: { id } });

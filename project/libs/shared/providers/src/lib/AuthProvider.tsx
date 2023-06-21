@@ -49,7 +49,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 
   useEffect(() => {
     getFinishedEvents();
-  }, [!!user]);
+  }, []);
 
   return <>{children}</>;
 };

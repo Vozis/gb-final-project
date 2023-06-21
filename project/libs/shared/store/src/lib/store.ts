@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as userReducer } from './slices/userSlice';
 import { reducer as notificationReducer } from './slices/notificationSlice';
-import { filterSlice } from './slices/filterSlice';
+import { reducer as commentReducer } from './slices/commentSlice';
+import { reducer as filterReducer } from './slices/filterSlice';
 import {
   FLUSH,
   PAUSE,
@@ -13,6 +14,7 @@ import {
   persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { commentMiddleware } from './middleware/socket.middleware';
 
 const persistConfig = {
   key: 'gb-final',
@@ -22,8 +24,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
-  filter: filterSlice.reducer,
+  filter: filterReducer,
   notification: notificationReducer,
+  comments: commentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -35,7 +38,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat([commentMiddleware]),
   devTools: true,
 });
 
