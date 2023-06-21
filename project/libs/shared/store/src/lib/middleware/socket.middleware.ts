@@ -10,22 +10,14 @@ export const commentMiddleware: Middleware = store => {
   let socket: Socket;
 
   return next => action => {
-    // const {
-    //   connectionEstablished,
-    //   submitComment,
-    //   startConnecting,
-    //   receiveComment,
-    //   receiveAllComments,
-    // } = useActions();
-    // const { isConnected } = useCommentState();
     const isConnectionEstablished =
       socket && store.getState().comments.isConnected;
 
-    if (!commentActions.startConnecting.match(action)) {
+    if (commentActions.startConnecting.match(action)) {
       socket = io('http://localhost:3000/comments', {
         withCredentials: true,
-        autoConnect: false,
-        transports: ['websocket', 'polling'],
+        // autoConnect: false,
+        // transports: ['websocket', 'polling'],
       });
 
       socket.on('connect', () => {

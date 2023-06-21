@@ -2,14 +2,14 @@ import { ETypeConnect, IComment } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IInitialCommentState {
-  connect: ETypeConnect;
+  // connect: ETypeConnect;
   isEstablishingConnection: boolean;
   isConnected: boolean;
   comments: IComment[];
 }
 
 const initialState: IInitialCommentState = {
-  connect: ETypeConnect.DISCONNECT,
+  // connect: ETypeConnect.DISCONNECT,
   isEstablishingConnection: false,
   isConnected: false,
   comments: [],
@@ -25,7 +25,7 @@ const commentSlice = createSlice({
     connectionEstablished: state => {
       state.isEstablishingConnection = true;
       state.isConnected = true;
-      state.connect = ETypeConnect.CONNECT;
+      // state.connect = ETypeConnect.CONNECT;
     },
     receiveAllComments: (
       state,
@@ -52,7 +52,9 @@ const commentSlice = createSlice({
       return;
     },
     disconnect: state => {
-      state.connect = ETypeConnect.DISCONNECT;
+      // state.connect = ETypeConnect.DISCONNECT;
+      state.isEstablishingConnection = false;
+      state.isConnected = false;
     },
   },
 });
