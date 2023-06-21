@@ -1,10 +1,15 @@
-import { useActions, useAuthRedux } from '@project/shared/hooks';
-import { BiIcon, Button, MaterialIcon } from '@project/shared/ui';
+import {
+  useActions,
+  useAuthRedux,
+  useCheckEventStatus,
+  useNotificationState,
+} from '@project/shared/hooks';
+import { Button } from '@project/shared/ui';
 import {
   AiOutlineHome,
   AiOutlineLogin,
-  AiOutlineProfile,
   AiOutlineUser,
+  AiOutlineBell,
 } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -18,11 +23,14 @@ const setActive = ({ isActive }: { isActive: any }) =>
 
 export function Header(props: HeaderProps) {
   const { user } = useAuthRedux();
+  const { finishedEvents } = useNotificationState();
+
+  console.log('menu', finishedEvents);
+  // console.log(user?.events);
 
   const navigate = useNavigate();
 
   const { logout } = useActions();
-
   return (
     <header className={styles.header}>
       <ul className={'flex flex-wrap gap-5'}>
@@ -49,6 +57,26 @@ export function Header(props: HeaderProps) {
           >
             <AiOutlineUser className={'text-[30px]'} />
             <span>Профиль</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) =>
+              isActive ? styles.active_link : styles.on_active_link
+            }
+          >
+            <div className={'relative'}>
+              <AiOutlineBell className={'text-[30px]'} />
+              <div
+                className={`w-4 h-4 rounded-full bg-red-400  items-center justify-center absolute -top-0.5 -right-0.5 ${
+                  !finishedEvents?.length ? 'hidden' : 'flex'
+                }`}
+              >
+                <p className={'text-xs text-white'}>{finishedEvents?.length}</p>
+              </div>
+            </div>
+            <span>Уведомления</span>
           </NavLink>
         </li>
       </ul>

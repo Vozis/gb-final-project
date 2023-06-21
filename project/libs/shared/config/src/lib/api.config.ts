@@ -7,7 +7,7 @@ export const AuthApi = {
 };
 
 export const EventApi = {
-  getAllNoUser: `/events/no-user/all`,
+  getAllNoUser: `/events/public/all`,
   getAll: `/events/all`,
   createEvent: `/events`,
   getByUserHobbies: `/events/by-user-hobbies`,
@@ -15,11 +15,12 @@ export const EventApi = {
     return `events/${String(id)}/toggle-user`;
   },
   getByIdNoUser(id: string) {
-    return `events/no-user/${id}`;
+    return `events/public/${id}`;
   },
   getById(id: string) {
     return `events/${id}`;
   },
+  getFinishedEvents: 'events/finished',
 };
 
 export const TagApi = {
@@ -33,8 +34,11 @@ export const UserApi = {
   updateProfile: '/users/profile',
   toggle: 'users/profile/toggle',
   resetPassword: 'users/profile/reset-password',
-  getById(id: string) {
-    return `/users/${id}`;
+  getByIdNoUser(userId: string) {
+    return `/users/public/${userId}`;
+  },
+  getById(userId: string) {
+    return `/users/${userId}`;
   },
 };
 

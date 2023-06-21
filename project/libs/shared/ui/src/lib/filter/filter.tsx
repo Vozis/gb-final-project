@@ -13,7 +13,7 @@ import { Button } from '../button/button';
 import { IOption, ISearchForm, ITag } from '@project/shared/types';
 import { FC, useState } from 'react';
 import { MaterialIcon } from '../icons/material-icon';
-import { useAuthRedux } from '@project/shared/hooks';
+import { useActions, useAuthRedux } from '@project/shared/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { TagService } from '@project/shared/services';
 import { toast } from 'react-toastify';
@@ -25,12 +25,15 @@ export interface FilterProps {
   // formState: FormState<any>;
   // handleSubmit: SubmitHandler<ISearch>;
   onSubmit: SubmitHandler<ISearchForm>;
+  setIsUseFilter: (value: boolean) => void;
 }
 
-export const Filter: FC<FilterProps> = ({ onSubmit }) => {
+export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { user } = useAuthRedux();
   let userSportHobbies: string[] | number[] = [];
+
+  const { resetFilterParamsArray } = useActions();
 
   const {
     formState: { errors },
@@ -69,6 +72,12 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
       },
     },
   );
+
+  const handleResetButton = () => {
+    resetFilterParamsArray();
+
+    setIsUseFilter(false);
+  };
 
   return (
     <form
@@ -123,12 +132,21 @@ export const Filter: FC<FilterProps> = ({ onSubmit }) => {
           />
         </>
       )}
-      <Button
-        type={'submit'}
-        className={'px-6 bg-[#04145C] rounded-xl text-white'}
-      >
-        Искать
-      </Button>
+      <div className={'flex flex-wrap gap-3'}>
+        <Button
+          type={'submit'}
+          onClick={() => setIsUseFilter(true)}
+          className={'px-6 bg-[#04145C] rounded-xl text-white'}
+        >
+          Искать
+        </Button>
+        <Button
+          onClick={handleResetButton}
+          className={'px-6 bg-[#04145C] rounded-xl text-white'}
+        >
+          Сбросить
+        </Button>
+      </div>
     </form>
   );
 };

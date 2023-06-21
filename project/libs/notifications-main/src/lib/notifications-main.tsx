@@ -1,28 +1,49 @@
 import styles from './notifications-main.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { EventService } from '@project/shared/services';
+import { EventService, NotificationService } from '@project/shared/services';
 import { toast } from 'react-toastify';
+import { useAuthRedux } from '@project/shared/hooks';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { data } from 'autoprefixer';
 
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
-  // const { isLoading, data: event } = useQuery(
-  //   ['get-single-event'],
-  //   () => EventService.getFinishedEvents(id),
+  const { user } = useAuthRedux();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+    }
+  }, []);
+
+  if (!user) {
+    return null;
+  }
+  // const { isLoading: isLoadingFinishedEvents, data: finishedEvents } = useQuery(
+  //   ['get-finished-events'],
+  //   () => NotificationService.getFinishedEvents(),
   //   {
   //     select: ({ data }) => data,
   //     onSuccess: () => {
   //       toast.success('Событие успешно получено', {
   //         containerId: 1,
-  //         toastId: 'get-single-event',
+  //         toastId: 'get-finished-event',
   //       });
   //     },
   //   },
   // );
+  // if (!finishedEvents) {
+  //   return null;
+  // }
   return (
     <div className={styles['container']}>
-      <h1>Welcome to NotificationsMain!</h1>
+      {/*{finishedEvents.map(item => (*/}
+      {/*  <div>{item.name}</div>*/}
+      {/*))}*/}
     </div>
   );
 }

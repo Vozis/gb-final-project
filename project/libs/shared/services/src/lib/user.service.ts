@@ -22,8 +22,12 @@ export const UserService = {
     return res;
   },
 
+  async getByIdNoUser(id: string) {
+    return axiosClassic.get<IUser>(UserApi.getByIdNoUser(id));
+  },
+
   async getById(id: string) {
-    return axiosClassic.get<IUser>(UserApi.getById(id));
+    return axiosAuth.get<IUser>(UserApi.getById(id));
   },
 
   async updateProfile(data: IUserEdit) {

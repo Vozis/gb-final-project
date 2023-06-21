@@ -135,4 +135,4 @@ ModalWindow.displayName = 'Field';
 //   );
 // }
 
-// export default Modal;
+export default ModalWindow;

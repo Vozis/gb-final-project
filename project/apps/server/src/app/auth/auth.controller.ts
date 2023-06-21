@@ -26,6 +26,8 @@ export class AuthController {
     private readonly mailService: MailService,
   ) {}
 
+  // Public routes =============================================================
+
   @Post('register')
   @UseInterceptors(FileInterceptor('avatar'))
   async register(

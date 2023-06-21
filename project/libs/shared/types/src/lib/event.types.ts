@@ -12,7 +12,7 @@ export interface IEvent {
   imageUrl: string;
   coordinateX?: string;
   coordinateY?: string;
-  eventTime: Date;
+  eventTime: string;
   creator: IUserSingleEvent;
   users: IUserSingleEvent[];
   tags: ITag[];
@@ -26,7 +26,7 @@ export interface IEventForCard {
   name: string;
   imageUrl: string;
   tags: ITag[];
-  eventTime: Date;
+  eventTime: string;
   creator?: IUserSingleEvent;
   users: IUserSingleEvent[];
   peopleCount: number;

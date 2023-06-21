@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as userReducer } from './slices/userSlice';
+import { reducer as notificationReducer } from './slices/notificationSlice';
 import { filterSlice } from './slices/filterSlice';
 import {
   FLUSH,
@@ -16,12 +17,13 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'gb-final',
   storage,
-  whitelist: ['user', 'filter'],
+  whitelist: ['user', 'filter', 'notification'],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   filter: filterSlice.reducer,
+  notification: notificationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

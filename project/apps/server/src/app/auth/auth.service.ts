@@ -139,7 +139,7 @@ export class AuthService {
     };
   }
 
-  private returnUserObject(user: UserSelect): UserSelect {
+  private returnUserObject(user): UserSelect {
     const { password, ...result } = user;
 
     return result;

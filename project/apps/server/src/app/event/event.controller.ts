@@ -29,31 +29,38 @@ import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
-  // No User =================================================================
-  @Post('no-user/all')
+  // Public routes =============================================================
+  @Get('public/all')
   @HttpCode(200)
-  async getAllEventsNoUser(@Body() filterSearchDto?: FilterSearchDto) {
+  async getAllEventsNoUser(@Query() filterSearchDto?: FilterSearchDto) {
     // : Promise<EventSelect[]>
     return this.eventService.getAllEvents(undefined, filterSearchDto);
   }
 
-  @Get('no-user/:id')
+  @Get('public/:id')
   async getByIdNoUser(@Param('id', ParseIntPipe) id: number) {
     return this.eventService.getById(id);
   }
 
-  // User =================================================================
+  // User routes ===============================================================
 
   @Auth()
   @Post('all')
+  // @Get('all')
   @HttpCode(200)
   async getAllEvents(
     @User('id') id: number,
+    // @Query() filterSearchDto?: FilterSearchDto,
     @Body() filterSearchDto?: FilterSearchDto,
     @Query('withHobby') withHobby?: string,
   ) {
     // : Promise<EventSelect[]>
     return this.eventService.getAllEvents(id, filterSearchDto, withHobby);
+  }
+  @Auth()
+  @Get('finished')
+  async getFinishedEvents(@User('id') id: number) {
+    return this.eventService.getFinishedEvents(id);
   }
 
   @Auth()
@@ -65,9 +72,9 @@ export class EventController {
     return this.eventService.getById(eventId, id);
   }
 
+  @Auth()
   @Post('')
   @UseInterceptors(FileInterceptor('image'))
-  @Auth()
   @UseGuards(EmailConfirmationGuard)
   async createEvent(
     @User('id') id: number,

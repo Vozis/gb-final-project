@@ -54,15 +54,162 @@ export class UserService {
     });
   }
 
-  async getById(id: number): Promise<UserSelect> {
+  async getById(userId: number, id?: number) {
     const _user = await this.prisma.user.findUnique({
-      where: { id },
-      select: returnUserObject,
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        isConfirmed: true,
+        firstName: true,
+        lastName: true,
+        userName: true,
+        avatarPath: true,
+        role: true,
+        hobbies: {
+          select: {
+            id: true,
+            name: true,
+            type: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        events: {
+          select: {
+            id: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+        favorites: {
+          select: {
+            id: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+        creations: {
+          select: {
+            id: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!_user) throw new NotFoundException('User not found');
 
-    return _user;
+    if (id) {
+      const events = _user.events.map(item => {
+        item.isParticipate = true;
+        return item;
+      });
+      const favorites = _user.favorites.map(item => {
+        if (item.users.some(user => user.id === id)) {
+          item.isParticipate = true;
+        } else {
+          item.isParticipate = false;
+        }
+        return item;
+      });
+      const creations = _user.creations.map(item => {
+        if (item.users.some(user => user.id === id)) {
+          item.isParticipate = true;
+        } else {
+          item.isParticipate = false;
+        }
+        return item;
+      });
+
+      return {
+        ..._user,
+        creations,
+        favorites,
+        events,
+      };
+    } else {
+      return _user;
+    }
   }
 
   async getByEmail(email: string): Promise<UserSelect> {

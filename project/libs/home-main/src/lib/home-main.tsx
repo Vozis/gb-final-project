@@ -7,7 +7,6 @@ import {
   MaterialIcon,
   SkeletonLoader,
 } from '@project/shared/ui';
-
 import React, { useEffect, useState } from 'react';
 import { IEventForCard, IOption, ISearch } from '@project/shared/types';
 import {
@@ -15,9 +14,10 @@ import {
   useAuthRedux,
   useCheckEventStatus,
   useFilterState,
+  useNotificationState,
 } from '@project/shared/hooks';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cn from 'clsx';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, MailService } from '@project/shared/services';
@@ -30,8 +30,8 @@ export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
   const { finishedEvents } = useCheckEventStatus();
-
-  // console.log('finishedEvents: ', finishedEvents);
+  //
+  console.log('home: ', finishedEvents);
 
   // const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
@@ -44,8 +44,6 @@ export function HomeMain(props: HomeMainProps) {
     MailService.resendConfirmationLink(),
   );
 
-  // console.log('render');
-
   const {
     isLoading,
     events,
@@ -53,13 +51,11 @@ export function HomeMain(props: HomeMainProps) {
     isUseFilter,
     isLoadingWithFilter,
     filterEvents,
+    setIsUseFilter,
   } = useFilter();
-  // filterParamsArray,
-  // setFilterParamsArray,
 
   // console.log('events:', events);
   // console.log('user:', user);
-
   const { data: allEvents } = useQuery(
     ['get-all-events-auth-no-hobby'],
     () => EventService.getAllEvents({}, false),
@@ -82,8 +78,6 @@ export function HomeMain(props: HomeMainProps) {
       enabled: !!user,
     },
   );
-
-  // console.log('allEvents', allEvents);
 
   return (
     <div className={styles.container}>
@@ -117,7 +111,7 @@ export function HomeMain(props: HomeMainProps) {
       >
         <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
       </Link>
-      <Filter onSubmit={onSubmit} />
+      <Filter onSubmit={onSubmit} setIsUseFilter={setIsUseFilter} />
       {!isUseFilter ? (
         <>
           {isLoading ? (
