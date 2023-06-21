@@ -6,6 +6,11 @@ import { FC, PropsWithChildren } from 'react';
 import { AuthProvider } from './AuthProvider';
 import { ReduxProvider } from './ReduxProvider';
 import { Toaster } from 'react-hot-toast';
+import {
+  useActions,
+  useFilterState,
+  useNotificationState,
+} from '@project/shared/hooks';
 
 const queryClient = new QueryClient({
   defaultOptions: {

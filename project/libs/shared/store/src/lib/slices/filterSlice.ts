@@ -20,5 +20,10 @@ export const filterSlice = createSlice({
     setFilterParamsArray: (state, action: PayloadAction<ISearch>) => {
       state.filterParamsArray = action.payload;
     },
+    resetFilterParamsArray: state => {
+      return initialState;
+    },
   },
 });
+
+export const { reducer, actions } = filterSlice;

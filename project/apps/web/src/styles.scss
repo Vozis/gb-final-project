@@ -1,0 +1,17 @@
+@use 'libs/shared/styles/variables' as v;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* You can add global styles to this file, and also import other style files */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+body {
+  background-color: v.$background-color;
+  font-family: 'Ubuntu', sans-serif;
+  height: 100vh;
+  min-height: 100vh;
+}
+

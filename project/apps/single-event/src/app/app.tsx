@@ -8,7 +8,6 @@ import { SharedLayout } from '@project/shared/layout';
 import { SingleEventMain } from '@project/single-event-main';
 
 export function App() {
-  console.log('single event render');
   return (
     // <SharedProviders>
     //   <SharedLayout>

@@ -18,6 +18,8 @@
       "@project/auth-main": ["libs/auth-main/src/index.ts"],
       "@project/create-event-main": ["libs/create-event-main/src/index.ts"],
       "@project/home-main": ["libs/home-main/src/index.ts"],
+      "@project/pages": ["libs/pages/src/index.ts"],
+      "@project/notifications-main": ["libs/notifications-main/src/index.ts"],
       "@project/profile-main": ["libs/profile-main/src/index.ts"],
       "@project/server/src/app/tag": ["libs/server/src/app/tag/src/index.ts"],
       "@project/server/tag": ["libs/server/tag/src/index.ts"],

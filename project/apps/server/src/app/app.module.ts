@@ -16,6 +16,8 @@ import { TypeTagModule } from './type-tag/type-tag.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { APP_GUARD } from '@nestjs/core';
 import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
+import { CommentModule } from './comment/comment.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
     EventModule,
     MailModule,
     TypeTagModule,
+    CommentModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService, BasePrismaService],

@@ -112,8 +112,22 @@ export class AuthService {
   }
 
   async verify(token: string) {
-    return this.jwtService.verifyAsync(token);
+    const result = await this.jwtService.verifyAsync(token);
+
+    if (!result) throw new BadRequestException('Invalid token');
+
+    return result;
   }
+
+  // async getUserFromToken(token: string) {
+  //   const payload: Partial<User> = await this.verify(token);
+  //
+  //   if (!payload) {
+  //     throw new UnauthorizedException('Invalid refresh token or expired token');
+  //   }
+  //
+  //   return this.userService.getById(payload.id);
+  // }
 
   private async createTokens(dto: UserSelect): Promise<ITokens> {
     const payload: Partial<User> = {
@@ -139,7 +153,7 @@ export class AuthService {
     };
   }
 
-  private returnUserObject(user: UserSelect): UserSelect {
+  private returnUserObject(user): UserSelect {
     const { password, ...result } = user;
 
     return result;
