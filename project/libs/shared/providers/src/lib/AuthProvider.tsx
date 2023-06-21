@@ -13,7 +13,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { user } = useAuthRedux();
   const { finishedEvents } = useNotificationState();
-
   console.log('finishedEvents:', finishedEvents);
 
   const { logout, checkAuth, getFinishedEvents } = useActions();
