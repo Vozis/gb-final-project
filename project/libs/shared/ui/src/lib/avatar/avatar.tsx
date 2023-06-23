@@ -23,7 +23,7 @@ export function Avatar({
       <div className={cn(className, styles.avatarWrapper)} style={style}>
         <img
           className={cn(styles.avatarImg, {
-            ['after:content-[""] after:absolute after:h-5 after:w-5 after:b-0 after:r-0 block bg-red-500 ']:
+            ['after:content-[""] after:absolute after:h-5 after:w-5 after:b-0 after:r-0 block after:bg-red-500 relative ']:
               isOnline,
           })}
           src={imagePath}
