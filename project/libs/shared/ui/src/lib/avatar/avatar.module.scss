@@ -1,0 +1,16 @@
+.avatarWrapper {
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 70px;
+  width: 70px;
+}
+
+.avatarImg {
+  background-color: white;
+  border-radius: inherit;
+  height: 100%;
+  object-fit: cover;
+  padding: 3px;
+  position: relative;
+  width: 100%;
+}

@@ -1,14 +1,20 @@
 import styles from './user-card-small.module.scss';
 import clsx from 'clsx';
-import { IUser, IUserSingleEvent } from '@project/shared/types';
+import { IUser, IUserSmall } from '@project/shared/types';
 import { MaterialIcon } from '../../icons/material-icon';
 import cn from 'clsx';
 import { Link } from 'react-router-dom';
-import { useAuthRedux } from '@project/shared/hooks';
+import {
+  useAuthRedux,
+  useCheckUserStatus,
+  useSocketState,
+} from '@project/shared/hooks';
+import Avatar from '../../avatar/avatar';
+import { useEffect, useState } from 'react';
 
 /* eslint-disable-next-line */
-export interface AvatarProps {
-  userProps: IUser | IUserSingleEvent;
+export interface UserCardSmallProps {
+  userProps: IUser | IUserSmall;
   className?: string;
   isPhoto?: boolean;
   isName?: boolean;
@@ -23,8 +29,10 @@ export function UserCardSmall({
   isName = false,
   isInfo = false,
   isWhite = false,
-}: AvatarProps) {
+}: UserCardSmallProps) {
   const { user } = useAuthRedux();
+
+  const { isOnline } = useCheckUserStatus(userProps.id);
 
   const isProfile = user?.id === userProps.id;
 
@@ -34,13 +42,7 @@ export function UserCardSmall({
       className={styles.container}
     >
       {isPhoto && (
-        <div className={clsx(styles.avatarWrapper, className)}>
-          <img
-            className={styles.avatarImg}
-            src={userProps?.avatarPath}
-            alt={'avatar'}
-          />
-        </div>
+        <Avatar imagePath={userProps.avatarPath} isOnline={isOnline} />
       )}
       <div
         className={styles.info}

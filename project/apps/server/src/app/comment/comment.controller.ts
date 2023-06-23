@@ -22,15 +22,18 @@ export class CommentController {
 
   @Get(':eventId')
   async getAllToEventPublic(@Param('eventId', ParseIntPipe) eventId: number) {
-    return this.commentService.getAllToEvent(eventId);
+    return this.commentService.getAllToEvent(undefined, eventId);
   }
 
   // User routes ===============================================================
 
   @Auth()
   @Get(':eventId')
-  async getAllToEvent(@Param('eventId', ParseIntPipe) eventId: number) {
-    return this.commentService.getAllToEvent(eventId);
+  async getAllToEvent(
+    @User('id') id: number,
+    @Param('eventId', ParseIntPipe) eventId: number,
+  ) {
+    return this.commentService.getAllToEvent(id, eventId);
   }
 
   @Auth()
@@ -38,9 +41,8 @@ export class CommentController {
   async createComment(
     @User('id') id: number,
     @Body() createCommentDto: CreateCommentDto,
-    @Param('eventId', ParseIntPipe) eventId: number,
   ) {
-    return this.commentService.createComment(id, eventId, createCommentDto);
+    return this.commentService.createComment(id, createCommentDto);
   }
 
   @Auth()

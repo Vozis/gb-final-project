@@ -1,8 +1,15 @@
 import { ITag } from './tag.types';
-import { IEventUser, IUser, IUserSingleEvent } from './user.types';
+import { IEventUser, IUser, IUserSmall } from './user.types';
 
 export interface ICount {
   users: number;
+}
+
+export enum IEventStatus {
+  OPEN,
+  CLOSED,
+  CANCELED,
+  ACTIVE,
 }
 
 export interface IEvent {
@@ -13,11 +20,12 @@ export interface IEvent {
   coordinateX?: string;
   coordinateY?: string;
   eventTime: string;
-  creator: IUserSingleEvent;
-  users: IUserSingleEvent[];
+  creator: IUserSmall;
+  users: IUserSmall[];
   tags: ITag[];
   peopleCount: number;
   _count: ICount;
+  status: IEventStatus;
   isParticipate?: boolean | null;
 }
 
@@ -27,8 +35,8 @@ export interface IEventForCard {
   imageUrl: string;
   tags: ITag[];
   eventTime: string;
-  creator?: IUserSingleEvent;
-  users: IUserSingleEvent[];
+  creator?: IUserSmall;
+  users: IUserSmall[];
   peopleCount: number;
   _count: ICount;
   isParticipate?: boolean | null;
@@ -42,6 +50,7 @@ export interface ICreateEvent {
   name: string;
   description: string;
   image: string;
+  eventDate?: Date;
   sport: number[];
   place: number[];
   city: number[];

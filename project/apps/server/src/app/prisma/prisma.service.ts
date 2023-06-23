@@ -27,6 +27,27 @@ export class BasePrismaService extends PrismaClient implements OnModuleInit {
             },
           },
         },
+        comment: {
+          isLiked: {
+            needs: {
+              id: true,
+            },
+            compute() {
+              return null;
+            },
+          },
+        },
+        like: {
+          userId_commentId: {
+            needs: {
+              userId: true,
+              commentId: true,
+            },
+            compute(like) {
+              return `${like.userId}_${like.commentId}`;
+            },
+          },
+        },
       },
     });
   }

@@ -318,4 +318,28 @@ export class UserService {
       select: returnUserObject,
     });
   }
+
+  async getUserEventsIds(id: number) {
+    const userEvents = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        events: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    return userEvents.events;
+  }
+
+  updateExitDate(id: number) {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        exitDate: new Date(),
+      },
+    });
+  }
 }

@@ -8,7 +8,7 @@
     "secure": false
   },
   "/comments": {
-    "target": "http://localhost:3000/api/comments",
+    "target": "http://localhost:3000/comments",
     "secure": false
   }
 }

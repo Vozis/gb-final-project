@@ -20,6 +20,7 @@ export const returnEventObject: ReturnEvent = {
   eventTime: true,
   peopleCount: true,
   isParticipate: true,
+  status: true,
   _count: {
     select: {
       users: true,

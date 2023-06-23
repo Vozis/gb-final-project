@@ -13,9 +13,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { user } = useAuthRedux();
   const { finishedEvents } = useNotificationState();
-  console.log('finishedEvents:', finishedEvents);
+  // console.log('finishedEvents:', finishedEvents);
 
-  const { logout, checkAuth, getFinishedEvents } = useActions();
+  const { logout, checkAuth, getFinishedEvents, startConnecting } =
+    useActions();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,8 +48,14 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   }, [location.pathname]);
 
   useEffect(() => {
+    if (!user) return;
     getFinishedEvents();
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    startConnecting();
+  }, [user]);
 
   return <>{children}</>;
 };

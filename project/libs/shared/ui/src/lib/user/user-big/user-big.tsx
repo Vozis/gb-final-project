@@ -4,8 +4,13 @@ import { IUser } from '@project/shared/types';
 import clsx from 'clsx';
 import cn from 'clsx';
 import { MaterialIcon } from '../../icons/material-icon';
-import { useAuthRedux, useModal } from '@project/shared/hooks';
+import {
+  useAuthRedux,
+  useCheckUserStatus,
+  useModal,
+} from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
+import Avatar from '../../avatar/avatar';
 // import { Modal } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
@@ -20,6 +25,7 @@ export function UserBig({
   onClick,
 }: UserBigProps) {
   const { user } = useAuthRedux();
+  const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
 
   return (
@@ -28,13 +34,7 @@ export function UserBig({
         to={isProfile ? '/profile' : `/users/${userProps.id}`}
         className={styles.container}
       >
-        <div className={clsx(styles.avatarWrapper, className)}>
-          <img
-            className={styles.avatarImg}
-            src={userProps?.avatarPath}
-            alt={'avatar'}
-          />
-        </div>
+        <Avatar imagePath={userProps.avatarPath} isOnline={isOnline} />
         <div className={styles.info} onClick={onClick}>
           <h2
             className={cn(styles.fullname)}
