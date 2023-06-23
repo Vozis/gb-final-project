@@ -38,6 +38,8 @@ model User {
   comments Comment[]
   likes    Like[]
 
+  exitDate DateTime @default(now()) @map("exit_date")
+
   // eventsList UsersOnEvents[]
   @@map("users")
 }
@@ -69,14 +71,15 @@ model Tag {
 }
 
 model Event {
-  id          Int       @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String?
-  imageUrl    String    @default("/assets/default-event.png") @map("image_url")
-  coordinateX String?   @default("0") @map("coordinate_x")
-  coordinateY String?   @default("0") @map("coordinate_y")
-  eventTime   DateTime? @default(dbgenerated("NOW() + interval '2 days'")) @map("event_time")
-  peopleCount Int       @default(2) @map("people_count")
+  imageUrl    String      @default("/assets/default-event.png") @map("image_url")
+  coordinateX String?     @default("0") @map("coordinate_x")
+  coordinateY String?     @default("0") @map("coordinate_y")
+  eventTime   DateTime?   @default(dbgenerated("NOW() + interval '2 days'")) @map("event_time")
+  peopleCount Int         @default(2) @map("people_count")
+  status      EventStatus @default(OPEN)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -101,7 +104,7 @@ model Comment {
   authorId Int
 
   children Comment[] @relation("CommentReplies")
-  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   parentId Int?      @map("parent_id")
 
   event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
@@ -109,12 +112,14 @@ model Comment {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  likes     Like[]
+
+  likes Like[]
 
   @@map("comments")
 }
 
 model Like {
+  // id        Int     @id @default(autoincrement())
   comment   Comment @relation(fields: [commentId], references: [id])
   commentId Int     @map("comment_id")
 
@@ -142,4 +147,11 @@ model Like {
 enum Role {
   USER
   ADMIN
+}
+
+enum EventStatus {
+  OPEN
+  CLOSED
+  CANCELED
+  ACTIVE
 }

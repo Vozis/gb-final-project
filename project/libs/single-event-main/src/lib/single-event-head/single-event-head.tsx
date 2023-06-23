@@ -49,7 +49,7 @@ export function SingleEventHead(props: SingleEventHeadProps) {
   // if (!event) return null;
   // if (!publicEvent) return null;
 
-  console.log('publicEvent:', publicEvent);
+  // console.log('publicEvent:', publicEvent);
 
   return (
     <div className={styles['container']}>

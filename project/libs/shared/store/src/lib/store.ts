@@ -3,6 +3,7 @@ import { reducer as userReducer } from './slices/userSlice';
 import { reducer as notificationReducer } from './slices/notificationSlice';
 import { reducer as commentReducer } from './slices/commentSlice';
 import { reducer as filterReducer } from './slices/filterSlice';
+import { reducer as socketReducer } from './slices/socketSlice';
 import {
   FLUSH,
   PAUSE,
@@ -14,19 +15,21 @@ import {
   persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { commentMiddleware } from './middleware/socket.middleware';
+import socketMiddleware from './middleware/socket.middleware';
+import { useDispatch } from 'react-redux';
 
 const persistConfig = {
   key: 'gb-final',
   storage,
-  whitelist: ['user', 'filter', 'notification'],
+  whitelist: ['user', 'filter', 'notification', 'socket'],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
+  socket: socketReducer,
+  comments: commentReducer,
   filter: filterReducer,
   notification: notificationReducer,
-  comments: commentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -38,7 +41,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([commentMiddleware]),
+    }).concat([socketMiddleware]),
   devTools: true,
 });
 

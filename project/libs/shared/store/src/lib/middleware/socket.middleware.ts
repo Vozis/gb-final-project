@@ -1,43 +1,103 @@
 import { io, Socket } from 'socket.io-client';
 import { Middleware } from '@reduxjs/toolkit';
 import { actions as commentActions } from '../slices/commentSlice';
-import { useActions, useCommentState } from '@project/shared/hooks';
-import { CommentEvent, IComment } from '@project/shared/types';
+import { actions as socketActions } from '../slices/socketSlice';
+
+import {
+  CommentEvent,
+  IComment,
+  ICommentPayload,
+  IOnlineSocketUser,
+  SocketEvent,
+} from '@project/shared/types';
+import Cookies from 'js-cookie';
 
 // let socket: Socket;
 
-export const commentMiddleware: Middleware = store => {
+const socketMiddleware: Middleware = store => {
   let socket: Socket;
+  let userId;
+
+  // console.log('start comment middleware');
 
   return next => action => {
     const isConnectionEstablished =
-      socket && store.getState().comments.isConnected;
+      socket && store.getState().socket.isConnected;
 
-    if (commentActions.startConnecting.match(action)) {
+    // console.log('isConnectionEstablished: ', isConnectionEstablished);
+
+    // console.log(commentActions.startConnecting.match(action));
+    // console.log('action: ', action);
+
+    if (socketActions.startConnecting.match(action)) {
+      userId = store.getState().user.user.id;
       socket = io('http://localhost:3000/comments', {
         withCredentials: true,
-        // autoConnect: false,
-        // transports: ['websocket', 'polling'],
+        query: { userId: userId },
+        transports: ['websocket', 'polling'],
       });
 
       socket.on('connect', () => {
-        store.dispatch(commentActions.connectionEstablished());
+        store.dispatch(socketActions.connectionEstablished());
+        socket.emit(SocketEvent.GetOnlineUserList);
         socket.emit(CommentEvent.GetAllComments);
+        // socket.emit(CommentEvent.GetUnreadComments);
       });
 
-      socket.on(CommentEvent.SendAllComments, (comments: IComment[]) => {
-        store.dispatch(commentActions.receiveAllComments({ comments }));
+      // Online users events ===================================================
+
+      socket.on(
+        SocketEvent.SendOnlineUserList,
+        (onlineUsersList: IOnlineSocketUser[]) => {
+          store.dispatch(socketActions.getOnlineUsersList({ onlineUsersList }));
+        },
+      );
+
+      socket.on(SocketEvent.GetOnlineUser, (onlineUser: IOnlineSocketUser) => {
+        store.dispatch(socketActions.getUserOnline({ onlineUser }));
       });
 
-      socket.on(CommentEvent.SendComment, (comment: IComment) => {
+      socket.on(SocketEvent.RemoveOnlineUser, (userId: string) => {
+        store.dispatch(socketActions.removeUserOnline(userId));
+      });
+
+      // Comment events ========================================================
+
+      socket.on(
+        CommentEvent.SendUnreadComments,
+        (unreadComments: IComment[]) => {
+          store.dispatch(
+            commentActions.receiveUnreadComments({ unreadComments }),
+          );
+        },
+      );
+
+      socket.on(CommentEvent.SendAllComments, (allComments: IComment[]) => {
+        store.dispatch(commentActions.receiveAllComments({ allComments }));
+      });
+
+      socket.on(CommentEvent.ReceiveComment, (comment: IComment) => {
         store.dispatch(commentActions.receiveComment({ comment }));
+      });
+
+      socket.on(CommentEvent.DeleteComment, (id: number) => {
+        store.dispatch(commentActions.deleteComment({ id }));
       });
     }
 
     if (commentActions.submitComment.match(action) && isConnectionEstablished) {
-      socket.emit(CommentEvent.SendComment, action.payload.message);
+      socket.emit(CommentEvent.CreateComment, action.payload);
+    }
+
+    if (
+      commentActions.submitCommentDelete.match(action) &&
+      isConnectionEstablished
+    ) {
+      socket.emit(CommentEvent.RemoveComment, action.payload);
     }
 
     next(action);
   };
 };
+
+export default socketMiddleware;

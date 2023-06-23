@@ -199,6 +199,11 @@ export function CreateEventForm(props: CreateEventFormProps) {
         {...register('description', { required: true })}
       />
       <Field
+        placeholder={'Планируемая дата'}
+        type={'date'}
+        {...register('eventDate', { required: false })}
+      />
+      <Field
         placeholder={'Количество людей'}
         type={'number'}
         {...register('count', { required: true })}

@@ -9,6 +9,7 @@ import {
   Button,
   UserBig,
   ToggleUserButton,
+  Comments,
 } from '@project/shared/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import cn, { clsx } from 'clsx';
@@ -34,6 +35,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const [run, setRun] = useState(false);
   const { id } = useParams();
   const { user } = useAuthRedux();
+  const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
 
   if (!id) return null;
 
@@ -166,6 +168,17 @@ export function SingleEventMain(props: SingleEventMainProps) {
                 </Tag>
               ))}
         </div>
+        {user && event ? (
+          <div>
+            <Button onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
+              {isCommentsOpen ? 'Скрыть ' : 'Показать '}
+              комментарии
+            </Button>
+            {isCommentsOpen && <Comments eventId={String(event.id)} />}
+          </div>
+        ) : (
+          <p>Комментарии доступны только для авторизованных пользователей</p>
+        )}
       </div>
     </div>
   );

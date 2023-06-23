@@ -8,7 +8,7 @@ export interface IUser extends User {
   hobbies?: ITag[] | [];
   creations?: IEvent[] | IEventForCard[];
   events: IEvent[] | IEventForCard[];
-  friends?: IUser[] | IUserSingleEvent[];
+  friends?: IUser[] | IUserSmall[];
 }
 
 export interface IEventUser {
@@ -16,7 +16,7 @@ export interface IEventUser {
   userName: string;
 }
 
-export interface IUserSingleEvent {
+export interface IUserSmall {
   id: number;
   firstName: string;
   lastName: string;

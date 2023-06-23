@@ -18,9 +18,11 @@ import { APP_GUARD } from '@nestjs/core';
 import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true,

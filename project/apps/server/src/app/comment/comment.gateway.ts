@@ -15,10 +15,15 @@ import { Server, Socket } from 'socket.io';
 import { Logger, UseGuards } from '@nestjs/common';
 import { WsJwtGuard } from '../auth/guards/ws-jwt.guard';
 import { UserWs } from '../auth/decorators/user-ws.decorator';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
+import _ from 'lodash';
+
+let onlineUsers = {};
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:4200',
+    origin: '*',
     allowedHeaders: '*',
     credentials: true,
   },
@@ -31,67 +36,122 @@ export class CommentGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
 
-  constructor(private readonly commentService: CommentService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+    private readonly commentService: CommentService,
+  ) {}
 
   @UseGuards(WsJwtGuard)
   @SubscribeMessage('createComment')
   async create(
-    @ConnectedSocket() client: Socket,
     @UserWs('id') id: number,
     @MessageBody() createCommentDto: CreateCommentDto,
   ) {
-    const { eventId } = client.handshake.query;
     const comment = await this.commentService.createComment(
       id,
-      +eventId,
       createCommentDto,
     );
 
-    console.log('comment: ', comment);
-
-    this.server.sockets.emit('receiveComment', comment);
+    this.server.emit('receiveComment', comment);
     // return this.commentService.create(createCommentDto);
   }
-
   @UseGuards(WsJwtGuard)
   @SubscribeMessage('getAllComments')
   async getAllComments(
     @UserWs('id') id: number,
     @ConnectedSocket() client: Socket,
   ) {
-    // const { eventId } = client.handshake.query;
-    const comments = await this.commentService.getAllToEvent(26);
-
+    const comments = await this.commentService.getAllUserComments(id);
+    // console.log(comments);
     client.emit('sendAllComments', comments);
     return comments;
   }
 
-  @SubscribeMessage('findOneComment')
-  findOne(@MessageBody() id: number) {
-    // return this.commentService.findOne(id);
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('getOnlineUserList')
+  async getOnlineUserList(
+    @UserWs('id') id: number,
+    @ConnectedSocket() client: Socket,
+  ) {
+    client.emit('sendOnlineUserList', Object.keys(onlineUsers));
+    return onlineUsers;
   }
 
-  @SubscribeMessage('updateComment')
-  update(@MessageBody() updateCommentDto: UpdateCommentDto) {
-    // return this.commentService.update(updateCommentDto.id, updateCommentDto);
-  }
+  // @UseGuards(WsJwtGuard)
+  // @SubscribeMessage('getCommentsToEvent')
+  // async getCommentsToEvent(
+  //   @UserWs('id') id: number,
+  //   @ConnectedSocket() client: Socket,
+  //   @MessageBody() eventId: number,
+  // ) {
+  //   const comments = await this.commentService.getAllToEvent(id, eventId);
+  //   // console.log(comments);
+  //   client.emit('sendCommentsToEvent', comments);
+  //   return comments;
+  // }
 
+  // @UseGuards(WsJwtGuard)
+  // @SubscribeMessage('getUnreadComments')
+  // async getUnreadComments(
+  //   @UserWs('id') id: number,
+  //   @ConnectedSocket() client: Socket,
+  // ) {
+  //   const comments = await this.commentService.getUnreadComments(id);
+  //   // console.log(comments);
+  //   client.emit('sendUnreadComments', comments);
+  //   return comments;
+  // }
+
+  // @SubscribeMessage('findOneComment')
+  // findOne(@MessageBody() id: number) {
+  //   // return this.commentService.findOne(id);
+  // }
+  //
+  // @SubscribeMessage('updateComment')
+  // update(@MessageBody() updateCommentDto: UpdateCommentDto) {
+  //   // return this.commentService.update(updateCommentDto.id, updateCommentDto);
+  // }
+  //
+  @UseGuards(WsJwtGuard)
   @SubscribeMessage('removeComment')
-  remove(@MessageBody() id: number) {
-    // return this.commentService.remove(id);
+  remove(
+    @MessageBody() removeDto: { id: number },
+    @ConnectedSocket() client: Socket,
+  ) {
+    client.emit('deleteComment', removeDto.id);
+    return this.commentService.deleteComment(removeDto.id);
   }
 
   afterInit(server: Server) {
     this.logger.log('Init');
   }
 
-  handleConnection(client: Socket, ...args) {
-    // const { newsId } = client.handshake.query;
-    // client.join(newsId);
+  async handleConnection(client: Socket, ...args) {
+    const { userId } = client.handshake.query;
+
+    if (!onlineUsers[+userId]) onlineUsers[+userId] = [];
+    onlineUsers[+userId].push(client.id);
+
+    if (onlineUsers[+userId].length === 1) {
+      this.server.emit('getOnlineUser', userId);
+    }
+
     this.logger.log(`Client connected: ${client.id}`);
   }
 
-  handleDisconnect(client: Socket) {
+  async handleDisconnect(client: Socket) {
+    const { userId } = client.handshake.query;
+
+    // onlineUsers[+userId].filter(item => item !== client.id);
+    _.remove(onlineUsers[+userId], item => item === client.id);
+    if (onlineUsers[+userId].length === 0) {
+      console.log(`user ${userId} offline`);
+      this.server.emit('removeOnlineUser', userId);
+      delete onlineUsers[+userId];
+      await this.userService.updateExitDate(+userId);
+    }
+
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 }

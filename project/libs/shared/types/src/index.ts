@@ -11,3 +11,5 @@ export * from './lib/toggle.types';
 export * from './lib/mail.types';
 export * from './lib/type-tag.types';
 export * from './lib/comment.types';
+export * from './lib/socket.types';
+export * from './lib/like.types';

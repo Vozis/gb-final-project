@@ -25,7 +25,7 @@ export function Header(props: HeaderProps) {
   const { user } = useAuthRedux();
   const { finishedEvents } = useNotificationState();
 
-  console.log('menu', finishedEvents);
+  // console.log('menu', finishedEvents);
   // console.log(user?.events);
 
   const navigate = useNavigate();

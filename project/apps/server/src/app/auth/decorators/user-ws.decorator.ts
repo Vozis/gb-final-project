@@ -4,7 +4,7 @@ export const UserWs = createParamDecorator(
   (data: string, context: ExecutionContext) => {
     const client = context.switchToWs().getClient();
 
-    const user = client.user;
+    const user = client.data.user;
 
     return data ? user?.[data] : user;
   },
