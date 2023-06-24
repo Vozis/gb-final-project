@@ -1,5 +1,4 @@
 import styles from './user-card-small.module.scss';
-import clsx from 'clsx';
 import { IUser, IUserSmall } from '@project/shared/types';
 import { MaterialIcon } from '../../icons/material-icon';
 import cn from 'clsx';
