@@ -3,17 +3,17 @@ import { ITag } from './tag.types';
 import { IEvent, IEventForCard } from './event.types';
 
 export interface IUser extends User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  avatarPath: string;
+  // id: number;
+  // firstName: string;
+  // lastName: string;
+  // userName: string;
+  // avatarPath: string;
   favorites?: IEvent[] | IEventForCard[];
   hobbies?: ITag[] | [];
   creations?: IEvent[] | IEventForCard[];
   events: IEvent[] | IEventForCard[];
   friends?: IUser[] | IUserSmall[];
-  isConfirmed: boolean | false;
+  // isConfirmed: boolean | false;
 }
 
 export interface IEventUser {
