@@ -10,8 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
-import { Server, Socket } from 'socket.io';
+import { Server, Socket } from 'websocket-driver';
 import { Logger, UseGuards } from '@nestjs/common';
 import { WsJwtGuard } from '../auth/guards/ws-jwt.guard';
 import { UserWs } from '../auth/decorators/user-ws.decorator';
@@ -19,7 +18,7 @@ import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import _ from 'lodash';
 
-let onlineUsers = {};
+const onlineUsers = {};
 
 @WebSocketGateway({
   cors: {
