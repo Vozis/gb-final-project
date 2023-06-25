@@ -1,33 +1,31 @@
 import '../styles.scss';
 import * as React from 'react';
 
-import { Link, Route, Routes, createBrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { SharedProviders } from '@project/shared/providers';
 import { SharedLayout } from '@project/shared/layout';
-import { TailSpin } from 'react-loader-spinner';
-import { useActions, useFilterState } from '@project/shared/hooks';
-import { useFilter } from '../../../../libs/shared/ui/src/lib/filter/useFilter';
 
-const Notifications = React.lazy(() => import('notifications/Module'));
-
-const SingleUser = React.lazy(() => import('single-user/Module'));
-
-const ResetPassword = React.lazy(() => import('reset-password/Module'));
-
-const ConfirmEmail = React.lazy(() => import('confirm-email/Module'));
-
-const Hello = React.lazy(() => import('hello/Module'));
-
-const CreateEvent = React.lazy(() => import('create-event/Module'));
-
-const SingleEvent = React.lazy(() => import('single-event/Module'));
-
-const Auth = React.lazy(() => import('auth/Module'));
-
-const Profile = React.lazy(() => import('profile/Module'));
-
-const Home = React.lazy(() => import('home/Module'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const Notifications = React.lazy(() => import('../../../notifications/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const SingleUser = React.lazy(() => import('../../../single-user/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const ResetPassword = React.lazy(() => import('../../../reset-password/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const ConfirmEmail = React.lazy(() => import('../../../confirm-email/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const Hello = React.lazy(() => import('../../../hello/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const CreateEvent = React.lazy(() => import('../../../create-event/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const SingleEvent = React.lazy(() => import('../../../single-event/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const Auth = React.lazy(() => import('../../../auth/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const Profile = React.lazy(() => import('../../../profile/src/app/app'));
+// eslint-disable-next-line @nx/enforce-module-boundaries
+const Home = React.lazy(() => import('../../../home/src/app/app'));
 
 // const router = createBrowserRouter([
 //   {
