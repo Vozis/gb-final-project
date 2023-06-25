@@ -1,3 +1,4 @@
+export * from './lib/badge/badge';
 export * from './lib/comments/comments-list/comments-list';
 export * from './lib/avatar/avatar';
 export * from './lib/comments/create-comment-form/create-comment-form';

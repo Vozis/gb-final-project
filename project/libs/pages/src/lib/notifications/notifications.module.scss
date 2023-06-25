@@ -5,3 +5,15 @@
  * .container {
  * }
 */
+.notifications__list {
+  margin-top: 20px;
+}
+
+.notifications__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 3px;
+}
