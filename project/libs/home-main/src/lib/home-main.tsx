@@ -31,7 +31,7 @@ export function HomeMain(props: HomeMainProps) {
 
   const { finishedEvents } = useCheckEventStatus();
   //
-  console.log('home: ', finishedEvents);
+  // console.log('home: ', finishedEvents);
 
   // const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();

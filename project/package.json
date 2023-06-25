@@ -7,10 +7,9 @@
     "npm": "9.5.1"
   },
   "scripts": {
-    "front": "nx serve shell --devRemotes=auth,home,single-event,create-event,profile,confirm-email,reset-password,single-user,notifications",
+    "start": "nx run-many --target=serve --all --configuration=production",
+    "front": "nx serve web",
     "server": "cd apps/server && npx prisma generate && nx serve server",
-    "auth": "nx serve auth",
-    "shell": "nx serve shell",
     "build": "nx run-many -t  build ",
     "test": "nx run-many --target=test --all",
     "prisma-migrate": "cd apps/server && npx prisma migrate dev",

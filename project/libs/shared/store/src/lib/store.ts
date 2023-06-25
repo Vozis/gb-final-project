@@ -21,7 +21,8 @@ import { useDispatch } from 'react-redux';
 const persistConfig = {
   key: 'gb-final',
   storage,
-  whitelist: ['user', 'filter', 'notification', 'socket'],
+  whitelist: ['user', 'filter', 'notification', 'comments'],
+  blacklist: ['socket'],
 };
 
 const rootReducer = combineReducers({
