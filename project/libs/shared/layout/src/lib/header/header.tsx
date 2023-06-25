@@ -4,7 +4,7 @@ import {
   useCheckEventStatus,
   useNotificationState,
 } from '@project/shared/hooks';
-import { Button } from '@project/shared/ui';
+import { Badge, Button } from '@project/shared/ui';
 import {
   AiOutlineHome,
   AiOutlineLogin,
@@ -14,6 +14,8 @@ import {
 import { IconContext } from 'react-icons/lib';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
+import { toast } from 'react-toastify';
+import isActive = toast.isActive;
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}
@@ -66,15 +68,18 @@ export function Header(props: HeaderProps) {
               isActive ? styles.active_link : styles.on_active_link
             }
           >
-            <div className={'relative'}>
-              <AiOutlineBell className={'text-[30px]'} />
-              <div
-                className={`w-4 h-4 rounded-full bg-red-400  items-center justify-center absolute -top-0.5 -right-0.5 ${
-                  !finishedEvents?.length ? 'hidden' : 'flex'
-                }`}
-              >
-                <p className={'text-xs text-white'}>{finishedEvents?.length}</p>
-              </div>
+            <div>
+              <Badge badgeContent={finishedEvents?.length}>
+                <AiOutlineBell className={'text-[30px]'} />
+              </Badge>
+
+              {/*<div*/}
+              {/*  className={`w-4 h-4 rounded-full bg-red-400  items-center justify-center absolute -top-0.5 -right-0.5 ${*/}
+              {/*    !finishedEvents?.length ? 'hidden' : 'flex'*/}
+              {/*  }`}*/}
+              {/*>*/}
+              {/*  <p className={'text-xs text-white'}>{finishedEvents?.length}</p>*/}
+              {/*</div>*/}
             </div>
             <span>Уведомления</span>
           </NavLink>
