@@ -8,6 +8,7 @@ import {
   IComment,
   ICommentPayload,
   IOnlineSocketUser,
+  IUserActiveRooms,
   SocketEvent,
 } from '@project/shared/types';
 import Cookies from 'js-cookie';
@@ -31,7 +32,7 @@ const socketMiddleware: Middleware = store => {
 
     if (socketActions.startConnecting.match(action)) {
       userId = store.getState().user.user.id;
-      socket = io('http://localhost:3000/comments', {
+      socket = io('http://localhost:3000', {
         withCredentials: true,
         query: { userId: userId },
         transports: ['websocket', 'polling'],
@@ -40,6 +41,8 @@ const socketMiddleware: Middleware = store => {
       socket.on('connect', () => {
         store.dispatch(socketActions.connectionEstablished());
         socket.emit(SocketEvent.GetOnlineUserList);
+        socket.emit(SocketEvent.GetActiveRooms);
+
         socket.emit(CommentEvent.GetAllComments);
         // socket.emit(CommentEvent.GetUnreadComments);
       });
@@ -59,6 +62,20 @@ const socketMiddleware: Middleware = store => {
 
       socket.on(SocketEvent.RemoveOnlineUser, (userId: string) => {
         store.dispatch(socketActions.removeUserOnline(userId));
+      });
+
+      // Active rooms events ===================================================
+
+      socket.on(SocketEvent.SendActiveRooms, (rooms: IUserActiveRooms[]) => {
+        store.dispatch(socketActions.getUserActiveRooms({ rooms }));
+      });
+
+      socket.on(SocketEvent.AddActiveRoom, (room: IUserActiveRooms) => {
+        store.dispatch(socketActions.addActiveRoom({ room }));
+      });
+
+      socket.on(SocketEvent.RemoveActiveRoom, (room: IUserActiveRooms) => {
+        store.dispatch(socketActions.removeActiveRoom({ room }));
       });
 
       // Comment events ========================================================
@@ -83,6 +100,13 @@ const socketMiddleware: Middleware = store => {
       socket.on(CommentEvent.DeleteComment, (id: number) => {
         store.dispatch(commentActions.deleteComment({ id }));
       });
+    }
+
+    if (
+      socketActions.submitToggleRoom.match(action) &&
+      isConnectionEstablished
+    ) {
+      socket.emit(SocketEvent.ToggleUserEventParticipate, action.payload);
     }
 
     if (commentActions.submitComment.match(action) && isConnectionEstablished) {

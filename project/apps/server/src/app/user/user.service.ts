@@ -96,6 +96,7 @@ export class UserService {
             eventTime: true,
             peopleCount: true,
             isParticipate: true,
+            status: true,
             _count: {
               select: {
                 users: true,
@@ -113,6 +114,7 @@ export class UserService {
         favorites: {
           select: {
             id: true,
+            status: true,
             users: {
               select: {
                 id: true,
@@ -144,6 +146,7 @@ export class UserService {
         },
         creations: {
           select: {
+            status: true,
             id: true,
             users: {
               select: {

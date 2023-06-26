@@ -17,8 +17,11 @@ import { UserWs } from '../auth/decorators/user-ws.decorator';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import _ from 'lodash';
+import { EventService } from '../event/event.service';
+import { ToggleDto } from '../../utils/toggle.dto';
 
 const onlineUsers = {};
+const activeRooms = {};
 
 @WebSocketGateway({
   cors: {
@@ -26,7 +29,7 @@ const onlineUsers = {};
     allowedHeaders: '*',
     credentials: true,
   },
-  namespace: 'comments',
+  // namespace: 'comments',
   transports: ['polling', 'websocket'],
 })
 export class CommentGateway
@@ -39,6 +42,7 @@ export class CommentGateway
     private readonly authService: AuthService,
     private readonly userService: UserService,
     private readonly commentService: CommentService,
+    private readonly eventService: EventService,
   ) {}
 
   @UseGuards(WsJwtGuard)
@@ -52,8 +56,12 @@ export class CommentGateway
       createCommentDto,
     );
 
-    this.server.emit('receiveComment', comment);
-    // return this.commentService.create(createCommentDto);
+    const _event = await this.eventService.getById(createCommentDto.eventId);
+    if (_event.status !== 'CLOSED' || _event.status !== 'CANCELED') {
+      this.server.to(`room:${_event.id}`).emit('receiveComment', comment);
+    } else {
+      // Создать уведомление
+    }
   }
   @UseGuards(WsJwtGuard)
   @SubscribeMessage('getAllComments')
@@ -65,6 +73,55 @@ export class CommentGateway
     // console.log(comments);
     client.emit('sendAllComments', comments);
     return comments;
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('getActiveRooms')
+  async getMyActiveRooms(
+    @UserWs('id') id: number,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const _user = await this.userService.getById(id);
+
+    const userRooms = _user.events.filter(event => event.status !== 'CLOSED');
+
+    userRooms.forEach(room => {
+      client.join(`room:${room.id}`);
+    });
+
+    client.emit(
+      'sendActiveRooms',
+      userRooms.map(room => ({
+        name: `room:${room.id}`,
+      })),
+    );
+    return userRooms;
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('toggleUserEventParticipate')
+  async toggleUserEventParticipate(
+    @UserWs('id') id: number,
+    @MessageBody() dto: { eventId: number },
+    @ConnectedSocket() client: Socket,
+  ) {
+    const _event = await this.eventService.getById(dto.eventId);
+
+    if (_event.users.some(user => user.id === id)) {
+      _.remove(activeRooms[dto.eventId], item => item === id);
+      if (activeRooms[dto.eventId] && activeRooms[dto.eventId].length === 0) {
+        delete activeRooms[dto.eventId];
+        // this.server.of('/').adapter.on('delete-room', room => {
+        //   console.log(`room ${room} was deleted`);
+        // });
+      }
+
+      client.emit('removeActiveRoom', { room: `room:${dto.eventId}` });
+    } else {
+      if (!activeRooms[dto.eventId]) activeRooms[dto.eventId] = [];
+      activeRooms[dto.eventId].push(id);
+      client.emit('sendActiveRooms', { room: `room:${dto.eventId}` });
+    }
   }
 
   @UseGuards(WsJwtGuard)

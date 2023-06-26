@@ -3,17 +3,18 @@ import { useActions, useCommentState } from '@project/shared/hooks';
 import CreateCommentForm from './create-comment-form/create-comment-form';
 import CommentsItem from './comments-item/comments-item';
 import CommentsList from './comments-list/comments-list';
+import { IEvent } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface CommentsProps {
-  eventId: string;
+  event: IEvent;
 }
 
-export function Comments({ eventId }: CommentsProps) {
+export function Comments({ event }: CommentsProps) {
   const { allComments } = useCommentState();
 
   const eventComments = allComments.filter(
-    comment => comment.eventId === +eventId,
+    comment => comment.eventId === event.id,
   );
 
   // console.log('eventComments: ', eventComments);
@@ -22,11 +23,9 @@ export function Comments({ eventId }: CommentsProps) {
     <div className={styles['container']}>
       <h3>Комментарии:</h3>
       <div>
-        {eventComments && (
-          <CommentsList items={eventComments} eventId={eventId} />
-        )}
+        {eventComments && <CommentsList items={eventComments} event={event} />}
       </div>
-      <CreateCommentForm eventId={eventId} />
+      <CreateCommentForm event={event} />
     </div>
   );
 }

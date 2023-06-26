@@ -15,7 +15,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import cn, { clsx } from 'clsx';
 import { Link, useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import SingleEventHead from './single-event-head/single-event-head';
 import styles from './single-event-main.module.scss';
@@ -23,6 +23,7 @@ import {
   useActions,
   useAuthRedux,
   useFilterState,
+  useSocketState,
 } from '@project/shared/hooks';
 import { AxiosError } from 'axios';
 import { errorCatch } from '@project/shared/utils';
@@ -36,8 +37,18 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const { id } = useParams();
   const { user } = useAuthRedux();
   const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
+  const [isActiveRoom, setIsActiveRoom] = useState<boolean>(false);
+  const { activeRooms } = useSocketState();
 
   if (!id) return null;
+
+  useEffect(() => {
+    if (activeRooms.some(room => room.name === `room:${id}`)) {
+      setIsActiveRoom(true);
+    } else {
+      setIsActiveRoom(false);
+    }
+  }, [id, activeRooms]);
 
   const { isLoading: isLoadingPublic, data: publicEvent } = useQuery(
     ['get-single-event-public'],
@@ -170,11 +181,15 @@ export function SingleEventMain(props: SingleEventMainProps) {
         </div>
         {user && event ? (
           <div>
-            <Button onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
-              {isCommentsOpen ? 'Скрыть ' : 'Показать '}
-              комментарии
-            </Button>
-            {isCommentsOpen && <Comments eventId={String(event.id)} />}
+            {isActiveRoom ? (
+              <Button onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
+                {isCommentsOpen ? 'Скрыть ' : 'Показать '}
+                комментарии
+              </Button>
+            ) : (
+              <p>Комментарии доступны только для участников события</p>
+            )}
+            {isActiveRoom && isCommentsOpen && <Comments event={event} />}
           </div>
         ) : (
           <p>Комментарии доступны только для авторизованных пользователей</p>
