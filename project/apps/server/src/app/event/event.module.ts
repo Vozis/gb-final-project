@@ -12,5 +12,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [UserModule, PrismaModule, AuthModule],
   controllers: [EventController],
   providers: [EventService],
+  exports: [EventService],
 })
 export class EventModule {}

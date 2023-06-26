@@ -5,9 +5,10 @@ import { CommentController } from './comment.controller';
 import { UserModule } from '../user/user.module';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
+import { EventModule } from '../event/event.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule],
+  imports: [UserModule, PrismaModule, AuthModule, EventModule],
   providers: [CommentGateway, CommentService],
   controllers: [CommentController],
 })

@@ -25,6 +25,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
   const { getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
   const navigate = useNavigate();
+  const { submitToggleRoom } = useActions();
 
   if (!user) return null;
 
@@ -68,6 +69,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
 
   const handleToggle = async (toggleId: number) => {
     try {
+      submitToggleRoom({ eventId: event.id });
       await mutateAsync({ eventId: event.id, toggleId });
     } catch (e) {
       console.log('Error:', e);

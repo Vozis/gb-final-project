@@ -29,9 +29,8 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
-  const { finishedEvents } = useCheckEventStatus();
-  //
-  // console.log('home: ', finishedEvents);
+  const { finishedEvents } = useNotificationState();
+  // const { finishedEvents } = useCheckEventStatus();
 
   // const { setFilterParamsArray, getProfile } = useActions();
   const { filterParamsArray } = useFilterState();
@@ -54,8 +53,6 @@ export function HomeMain(props: HomeMainProps) {
     setIsUseFilter,
   } = useFilter();
 
-  // console.log('events:', events);
-  // console.log('user:', user);
   const { data: allEvents } = useQuery(
     ['get-all-events-auth-no-hobby'],
     () => EventService.getAllEvents({}, false),
@@ -78,7 +75,6 @@ export function HomeMain(props: HomeMainProps) {
       enabled: !!user,
     },
   );
-
   return (
     <div className={styles.container}>
       <div>
