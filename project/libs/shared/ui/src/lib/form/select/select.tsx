@@ -54,7 +54,8 @@ export const SelectField: FC<ISelect> = ({
           onChange={onChange}
           isClearable={false}
           onFocus={onInputChange}
-          filterOption={null}
+          // filterOption={null}
+          // isSearchable={true}
           // className={styles.selectContainer}
           placeholder={placeholder}
         />

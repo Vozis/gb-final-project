@@ -4,7 +4,7 @@ import {
   useCheckEventStatus,
   useNotificationState,
 } from '@project/shared/hooks';
-import { Badge, Button } from '@project/shared/ui';
+import { Badge, Button, MaterialIcon } from '@project/shared/ui';
 import {
   AiOutlineHome,
   AiOutlineLogin,
@@ -12,7 +12,7 @@ import {
   AiOutlineBell,
 } from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { toast } from 'react-toastify';
 import isActive = toast.isActive;
@@ -27,6 +27,7 @@ const setActive = ({ isActive }: { isActive: any }) =>
 
 export function Header(props: HeaderProps) {
   const { user } = useAuthRedux();
+  const location = useLocation();
 
   const navigate = useNavigate();
 
@@ -36,7 +37,17 @@ export function Header(props: HeaderProps) {
   // console.log('notifications: ', finishedEvents?.length);
   return (
     <header className={styles.header}>
-      <ul className={'flex flex-wrap gap-5'}>
+      <ul className={'flex flex-wrap gap-5 items-center'}>
+        <li>
+          {location.pathname !== '/' && (
+            <Button onClick={() => navigate(-1)}>
+              <MaterialIcon
+                name={'MdOutlineArrowBack'}
+                className={'text-3xl'}
+              />
+            </Button>
+          )}
+        </li>
         <li>
           <NavLink
             to="/"
