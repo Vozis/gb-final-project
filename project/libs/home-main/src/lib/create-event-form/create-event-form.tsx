@@ -200,7 +200,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
       />
       <Field
         placeholder={'Планируемая дата'}
-        type={'date'}
+        type={'datetime-local'}
         {...register('eventDate', { required: false })}
       />
       <Field

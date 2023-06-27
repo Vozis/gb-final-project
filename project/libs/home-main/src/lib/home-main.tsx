@@ -6,6 +6,7 @@ import {
   Filter,
   MaterialIcon,
   SkeletonLoader,
+  UserSmallSkeleton,
 } from '@project/shared/ui';
 import React, { useEffect, useState } from 'react';
 import { IEventForCard, IOption, ISearch } from '@project/shared/types';
@@ -79,34 +80,41 @@ export function HomeMain(props: HomeMainProps) {
     <div className={styles.container}>
       <div>
         {user && (
-          <UserCardSmall
-            userProps={user}
-            className={styles.profile__img_wrapper}
-            isName
-            isPhoto
-          />
-        )}
-        {user && !user?.isConfirmed && (
-          <p>
-            Для создания события необходимо подтвердить email. Проверьте свою
-            почту или{' '}
-            <span
-              onClick={() => mutateAsync()}
-              className={'text-blue-500 underline '}
+          <div className={'flex justify-between items-center'}>
+            <UserCardSmall
+              userProps={user}
+              className={styles.profile__img_wrapper}
+              isName
+              isPhoto
+            />
+            <Link
+              to={'/create-event'}
+              className={cn('p-3 text-3xl', {
+                'pointer-events-none text-red-500': !user?.isConfirmed,
+              })}
             >
-              отправьте новый запрос
-            </span>
-          </p>
+              <MaterialIcon
+                name={'MdAdd'}
+                className={styles.btnAddEvent__icon}
+              />
+            </Link>
+          </div>
         )}
+        <div>
+          {user && !user?.isConfirmed && (
+            <p>
+              Для создания события необходимо подтвердить email. Проверьте свою
+              почту или{' '}
+              <span
+                onClick={() => mutateAsync()}
+                className={'text-blue-500 underline '}
+              >
+                отправьте новый запрос
+              </span>
+            </p>
+          )}
+        </div>
       </div>
-      <Link
-        to={'/create-event'}
-        className={cn({
-          'pointer-events-none text-red-500': !user?.isConfirmed,
-        })}
-      >
-        <MaterialIcon name={'MdAdd'} className={styles.btnAddEvent__icon} />
-      </Link>
       <Filter onSubmit={onSubmit} setIsUseFilter={setIsUseFilter} />
       {!isUseFilter ? (
         <>

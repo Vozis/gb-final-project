@@ -24,6 +24,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FilterSearchDto } from './dto/search-event.dto';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
+import { Cron } from '@nestjs/schedule';
 
 @Controller('events')
 export class EventController {
@@ -117,8 +118,21 @@ export class EventController {
   }
 
   @Auth()
+  @Patch(':eventId')
+  async cancelEvent(@Param('eventId', ParseIntPipe) eventId: number) {
+    return this.eventService.cancelEvent(eventId);
+  }
+
+  // Admin routes ==============================================================
+
+  @Auth()
   @Delete(':eventId')
   async deleteEvent(@Param('eventId', ParseIntPipe) eventId: number) {
     return this.eventService.delete(eventId);
+  }
+
+  @Cron('0 * * * * *')
+  async scheduleEventStatus() {
+    return this.eventService.changeScheduleEventStatus();
   }
 }

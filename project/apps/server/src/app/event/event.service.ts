@@ -386,7 +386,58 @@ export class EventService {
   //   });
   // }
 
+  async cancelEvent(id: number) {
+    return this.prisma.event.update({
+      where: { id },
+      data: {
+        status: 'CANCELED',
+      },
+    });
+  }
+
   async delete(id: number) {
-    return this.prisma.event.delete({ where: { id } });
+    return this.prisma.event.delete({
+      where: { id },
+    });
+  }
+
+  async changeScheduleEventStatus() {
+    const currentDate = new Date();
+
+    const result = await this.prisma.event.updateMany({
+      where: {
+        eventTime: {
+          lte: currentDate,
+        },
+      },
+      data: {
+        status: 'CLOSED',
+      },
+    });
+  }
+
+  async getTomorrowEvents() {
+    const currentDate = new Date();
+    const tomorrowDate = new Date(currentDate);
+    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+    const result = await this.prisma.event.findMany({
+      where: {
+        eventTime: {
+          gt: currentDate,
+          lte: tomorrowDate,
+        },
+      },
+      include: {
+        users: {
+          select: {
+            email: true,
+            firstName: true,
+          },
+        },
+      },
+    });
+
+    return result;
   }
 }

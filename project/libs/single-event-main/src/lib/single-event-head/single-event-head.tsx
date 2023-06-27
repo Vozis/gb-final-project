@@ -52,7 +52,7 @@ export function SingleEventHead(props: SingleEventHeadProps) {
   // console.log('publicEvent:', publicEvent);
 
   return (
-    <div className={styles['container']}>
+    <>
       {event ? (
         <div
           className={styles.card}
@@ -92,7 +92,7 @@ export function SingleEventHead(props: SingleEventHeadProps) {
           </div>
         )
       )}
-    </div>
+    </>
   );
 }
 
