@@ -60,6 +60,7 @@ export const returnEventFullObject: ReturnEvent = {
   imageUrl: true,
   peopleCount: true,
   isParticipate: true,
+  eventTime: true,
   _count: {
     select: {
       users: true,

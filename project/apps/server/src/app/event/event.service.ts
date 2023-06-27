@@ -28,6 +28,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 
 import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { UserSelect } from '../user/returnUserObject';
 
 @Injectable()
 export class EventService {
@@ -245,12 +246,14 @@ export class EventService {
       dto.imageUrl = await fileUploadHelper(image, 'events');
     }
 
-    return this.prisma.event.create({
+    const thisTimeEvent = await this.checkTimeEvent(dto.eventTime, creatorId);
+
+    const newEvent = await this.prisma.event.create({
       data: {
         name: dto.name,
         description: dto.description,
         imageUrl: dto.imageUrl,
-        eventTime: dto.eventTime,
+        eventTime: new Date(dto.eventTime),
         peopleCount: dto.peopleCount,
         creator: {
           connect: {
@@ -264,13 +267,16 @@ export class EventService {
               : { id: +dto.tags },
         },
         users: {
-          connect: {
-            id: creatorId,
-          },
+          connect: thisTimeEvent ? undefined : { id: creatorId },
         },
       },
       select: returnEventObject,
     });
+
+    // @ts-ignore
+    newEvent.isParticipate = !thisTimeEvent;
+
+    return newEvent;
   }
 
   async updateEvent(
@@ -323,9 +329,17 @@ export class EventService {
     // console.log('event: ', _event);
 
     if (dto.type === 'users') {
-      // @ts-ignore
-      // console.log('event: ', _event._count.users);
-      // console.log('maxPeople: ', _event.peopleCount);
+      if (!isExist) {
+        const thisTimeEvent = await this.checkTimeEvent(
+          _event.eventTime,
+          dto.toggleId,
+        );
+
+        if (thisTimeEvent)
+          throw new BadRequestException(
+            'На это время уже запланировано событие',
+          );
+      }
 
       if (
         // @ts-ignore
@@ -358,6 +372,15 @@ export class EventService {
     return result;
   }
 
+  async cancelEvent(id: number) {
+    return this.prisma.event.update({
+      where: { id },
+      data: {
+        status: 'CANCELED',
+      },
+    });
+  }
+
   // async getUserEvents(userId: number): Promise<EventSelect[]> {
   //   return this.prisma.event.findMany({
   //     where: {
@@ -385,15 +408,6 @@ export class EventService {
   //     select: returnEventObject,
   //   });
   // }
-
-  async cancelEvent(id: number) {
-    return this.prisma.event.update({
-      where: { id },
-      data: {
-        status: 'CANCELED',
-      },
-    });
-  }
 
   async delete(id: number) {
     return this.prisma.event.delete({
@@ -437,6 +451,36 @@ export class EventService {
         },
       },
     });
+
+    return result;
+  }
+
+  private async checkTimeEvent(eventTime: Date, userId: number) {
+    console.log(eventTime);
+
+    const minTime = new Date(eventTime);
+    const maxTime = new Date(eventTime);
+    minTime.setHours(minTime.getHours() - 2);
+    maxTime.setHours(maxTime.getHours() + 2);
+
+    console.log(minTime);
+    console.log(maxTime);
+
+    const result = await this.prisma.event.findFirst({
+      where: {
+        users: {
+          some: {
+            id: userId,
+          },
+        },
+        eventTime: {
+          gt: minTime,
+          lte: maxTime,
+        },
+      },
+    });
+
+    // console.log('result', result);
 
     return result;
   }

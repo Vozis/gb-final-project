@@ -9,13 +9,13 @@ export const UserBigSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
   return (
     <div
       className={
-        'm-auto w-[300px] bg-white p-3 rounded-xl flex flex-col justify-between items-center gap-2 relative'
+        'm-auto w-full bg-white p-3 rounded-xl flex flex-col justify-between items-center gap-2 relative'
       }
     >
       <div>
         <SkeletonLoader
           count={1}
-          className={'h-16 w-16 rounded-[100%]'}
+          className={'h-16 w-16 rounded-[100px]'}
           containerClassName={'flex gap-2 flex-wrap'}
         />
         <SkeletonLoader

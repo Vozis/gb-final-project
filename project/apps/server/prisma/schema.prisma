@@ -133,6 +133,18 @@ model Like {
   @@map("likes")
 }
 
+model Notifications {
+  id       Int              @id @default(autoincrement())
+  type     NotificationType
+  sourceId Int              @map("source_id")
+  isRead   Boolean          @default(false) @map("is_read")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("notifications")
+}
+
 // model UsersOnEvents {
 //   user       Users    @relation(fields: [userId], references: [id])
 //   userId     Int // relation scalar field (used in the `@relation` attribute above)
@@ -147,6 +159,15 @@ model Like {
 enum Role {
   USER
   ADMIN
+}
+
+enum NotificationType {
+  COMMENT_REPLY
+  COMMENT_CREATE
+  EVENT_CREATE
+  EVENT_UPDATE
+  EVENT_COMPLETE
+  FRIEND_ADD
 }
 
 enum EventStatus {
