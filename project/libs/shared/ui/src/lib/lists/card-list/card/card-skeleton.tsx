@@ -30,10 +30,10 @@ export const CardSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
           <div>
             <SkeletonLoader
               count={4}
-              className={'h-5 w-24 rounded-full'}
+              className={'h-6 w-24 rounded-[50px]'}
               containerClassName={'flex gap-2 flex-wrap'}
             />
-            <SkeletonLoader count={1} className={'h-8 mt-3'} />
+            <SkeletonLoader count={1} className={'h-8 mt-3 rounded-[50px]'} />
           </div>
         </div>
       ))}

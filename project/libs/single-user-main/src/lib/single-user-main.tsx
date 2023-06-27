@@ -7,7 +7,15 @@ import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import { IEventForCard } from '@project/shared/types';
 import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
-import { CardList, ITab, Tabs } from '@project/shared/ui';
+import {
+  CardList,
+  CardSkeleton,
+  ITab,
+  SkeletonLoader,
+  Tabs,
+  UserBigSkeleton,
+} from '@project/shared/ui';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface SingleUserMainProps {}
@@ -66,8 +74,8 @@ export function SingleUserMain(props: SingleUserMainProps) {
   // console.log('user creations: ', user.creations);
   // console.log('user events: ', user.creations);
 
-  console.log(userData);
-  console.log(noUserData);
+  // console.log(userData);
+  // console.log(noUserData);
 
   const tabs: ITab[] = [
     {
@@ -91,21 +99,48 @@ export function SingleUserMain(props: SingleUserMainProps) {
   ];
 
   return (
-    <div className={'flex flex-col items-stretch'}>
-      {isLoading ? (
-        <p>Loading..</p>
-      ) : (
+    <div className={'flex flex-col gap-3 '}>
+      {user ? (
         <>
-          {userData && <ProfileHead userProps={userData} />}
-          <Tabs tabs={tabs} />
+          {isLoading ? (
+            <>
+              <UserBigSkeleton />
+              <SkeletonLoader
+                count={2}
+                className={'h-10 w-full rounded-[50px]'}
+                containerClassName={
+                  'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+                }
+              />
+              <CardSkeleton count={3} />
+            </>
+          ) : (
+            <>
+              {userData && <ProfileHead userProps={userData} />}
+              <Tabs tabs={tabs} />
+            </>
+          )}
         </>
-      )}
-      {isLoadingNoUser ? (
-        <p>Loading..</p>
       ) : (
         <>
-          {noUserData && <ProfileHead userProps={noUserData} />}
-          <Tabs tabs={tabs} />
+          {isLoadingNoUser ? (
+            <>
+              <UserBigSkeleton />
+              <SkeletonLoader
+                count={2}
+                className={'h-10 w-full rounded-[50px]'}
+                containerClassName={
+                  'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+                }
+              />
+              <CardSkeleton count={3} />
+            </>
+          ) : (
+            <>
+              {noUserData && <ProfileHead userProps={noUserData} />}
+              <Tabs tabs={tabs} />
+            </>
+          )}
         </>
       )}
     </div>

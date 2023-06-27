@@ -29,7 +29,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
 
   if (!user) return null;
 
-  const { mutateAsync, reset } = useMutation(
+  const { mutateAsync, isLoading, reset } = useMutation(
     ['toggle-user-to-event'],
     ({ eventId, toggleId }: { eventId: number; toggleId: number }) =>
       EventService.toggleUser(eventId, { toggleId, type: 'users' }),
@@ -85,11 +85,17 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
         event._count.users === event.peopleCount && !event.isParticipate
       }
     >
-      {event.isParticipate
-        ? 'Отказаться'
-        : event._count.users === event.peopleCount
-        ? 'Мест уже нет'
-        : 'Присоединиться'}
+      {isLoading ? (
+        'процесс идет...'
+      ) : (
+        <>
+          {event.isParticipate
+            ? 'Отказаться'
+            : event._count.users === event.peopleCount
+            ? 'Мест уже нет'
+            : 'Присоединиться'}
+        </>
+      )}
     </Button>
   );
 }

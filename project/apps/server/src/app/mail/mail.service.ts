@@ -3,6 +3,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
+import { Cron } from '@nestjs/schedule';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class MailService {
@@ -11,6 +13,7 @@ export class MailService {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly eventService: EventService,
   ) {}
 
   // Send Email Massages
@@ -124,4 +127,38 @@ export class MailService {
 
     return this.sendEmailConfirmation(_user.email);
   }
+
+  // @Cron('* * * * * *')
+  // log() {
+  //   console.log('Hello world');
+  // }
+
+  // @Cron('* */1 * * * *')
+  // async sendEventReminder() {
+  //   let mailList = [];
+  //   const tomorrowEvents = await this.eventService.getTomorrowEvents();
+  //
+  //   tomorrowEvents.forEach(event => {
+  //     // mailList.push(...event.users);
+  //     event.users.forEach(user => {
+  //       return this.mailerService
+  //         .sendMail({
+  //           to: user.email,
+  //           subject: `Напоминаем, уже завтра состоится ${event.name}`,
+  //           template: './schedule-event-email',
+  //           context: {
+  //             name: `${user.firstName}`,
+  //             eventName: event.name,
+  //             time: event.eventTime,
+  //           },
+  //         })
+  //         .then(res => {
+  //           // console.log('res: ', res);
+  //         })
+  //         .catch(err => {
+  //           console.log('err: ', err);
+  //         });
+  //     });
+  //   });
+  // }
 }
