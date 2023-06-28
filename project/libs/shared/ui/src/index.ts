@@ -7,6 +7,7 @@ export * from './lib/comments/comments';
 export * from './lib/form/upload-field/upload-field';
 export * from './lib/toggle-user-button/toggle-user-button';
 export * from './lib/user/user-big/user-big';
+export * from './lib/user/user-big/user-big-skeleton';
 
 export * from './lib/lists/list/list';
 export * from './lib/lists/list/list';
@@ -34,7 +35,8 @@ export * from './lib/toasts/toast/toast';
 export * from './lib/search/search';
 export * from './lib/test/test';
 
-export * from './lib/user/user-small/userCardSmall';
+export * from './lib/user/user-small/user-card-small';
+export * from './lib/user/user-small/user-small-skeleton';
 export * from './lib/form/input/input';
 export * from './lib/button/button';
 export * from './lib/tag/tag';

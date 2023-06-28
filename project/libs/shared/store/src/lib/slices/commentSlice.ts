@@ -2,6 +2,7 @@ import {
   ETypeConnect,
   IComment,
   ICommentPayload,
+  IEventStatus,
   ILike,
 } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -110,8 +111,10 @@ const commentSlice = createSlice({
       state,
       action: PayloadAction<{
         message: string;
-        eventId: string;
-        parentId?: string | null;
+        eventId: number;
+        parentId?: string;
+        eventStatus?: IEventStatus;
+        eventTime?: string;
       }>,
     ) => {
       return;

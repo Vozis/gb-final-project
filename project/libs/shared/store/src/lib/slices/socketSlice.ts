@@ -1,16 +1,18 @@
-import { IOnlineSocketUser } from '@project/shared/types';
+import { IOnlineSocketUser, IUserActiveRooms } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IInitialSocketState {
   isEstablishingConnection: boolean;
   isConnected: boolean;
   onlineUsers: IOnlineSocketUser[];
+  activeRooms: IUserActiveRooms[];
 }
 
 const initialState: IInitialSocketState = {
   isEstablishingConnection: false,
   isConnected: false,
   onlineUsers: [],
+  activeRooms: [],
 };
 
 const socketSlice = createSlice({
@@ -46,8 +48,37 @@ const socketSlice = createSlice({
       const newArray = state.onlineUsers.filter(
         userId => userId !== action.payload,
       );
-
       state.onlineUsers = newArray;
+    },
+    getUserActiveRooms: (
+      state,
+      action: PayloadAction<{ rooms: IUserActiveRooms[] }>,
+    ) => {
+      state.activeRooms = action.payload.rooms;
+    },
+    addActiveRoom: (
+      state,
+      action: PayloadAction<{ room: IUserActiveRooms }>,
+    ) => {
+      state.activeRooms.push(action.payload.room);
+    },
+    removeActiveRoom: (
+      state,
+      action: PayloadAction<{ room: IUserActiveRooms }>,
+    ) => {
+      const newArr = state.activeRooms.filter(
+        activeRoom => activeRoom.name !== action.payload.room.name,
+      );
+
+      state.activeRooms = newArr;
+    },
+    submitToggleRoom: (
+      state,
+      action: PayloadAction<{
+        eventId: number;
+      }>,
+    ) => {
+      return;
     },
   },
 });

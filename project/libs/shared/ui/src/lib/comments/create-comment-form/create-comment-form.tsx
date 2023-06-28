@@ -1,19 +1,16 @@
 import styles from './create-comment-form.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ICommentCreateForm } from '@project/shared/types';
+import { ICommentCreateForm, IEvent } from '@project/shared/types';
 import { useActions } from '@project/shared/hooks';
 import { Button, Field, MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface CreateCommentFormProps {
   parentId?: string;
-  eventId: string;
+  event: IEvent;
 }
 
-export function CreateCommentForm({
-  parentId,
-  eventId,
-}: CreateCommentFormProps) {
+export function CreateCommentForm({ parentId, event }: CreateCommentFormProps) {
   const { submitComment } = useActions();
 
   const {
@@ -27,7 +24,13 @@ export function CreateCommentForm({
   });
 
   const onSubmit: SubmitHandler<ICommentCreateForm> = async data => {
-    submitComment({ message: data.message, eventId, parentId });
+    submitComment({
+      message: data.message,
+      eventId: event.id,
+      eventTime: event.eventTime,
+      eventStatus: event.status,
+      parentId,
+    });
     reset();
   };
 

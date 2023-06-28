@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { MailController } from './mail.controller';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -8,6 +8,10 @@ import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { path } from 'app-root-path';
+import { EventModule } from '../event/event.module';
+import { AuthModule } from '../auth/auth.module';
+import { PrismaModule } from '../prisma/prisma.module';
+
 @Module({
   imports: [
     MailerModule.forRoot({
@@ -33,6 +37,7 @@ import { path } from 'app-root-path';
         secret: configService.get<string>('JWT_VERIFICATION_TOKEN_SECRET'),
       }),
     }),
+    forwardRef(() => EventModule),
   ],
   controllers: [MailController],
   providers: [MailService],

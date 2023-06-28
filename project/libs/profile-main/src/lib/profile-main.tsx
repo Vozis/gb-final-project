@@ -3,9 +3,12 @@ import { EventService } from '@project/shared/services';
 import { IEventForCard, ISearch, IUserEdit } from '@project/shared/types';
 import {
   CardList,
+  CardSkeleton,
   ITab,
+  SkeletonLoader,
   Tabs,
   TabsProps,
+  UserBigSkeleton,
   UserCardSmall,
 } from '@project/shared/ui';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -15,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
 import Accordion from '../../../shared/ui/src/lib/accordion/accordion';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 /* eslint-disable-next-line */
 
@@ -103,8 +106,22 @@ export function ProfileMain(props: ProfileMainProps) {
   };
 
   return (
-    <div className={styles['container']}>
-      <ProfileHead userProps={user} />
+    <div className={'flex flex-col gap-3'}>
+      {isLoading ? (
+        <>
+          <UserBigSkeleton />
+          <SkeletonLoader
+            count={2}
+            className={'h-10 w-full rounded-[50px]'}
+            containerClassName={
+              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+            }
+          />
+          <CardSkeleton count={3} />
+        </>
+      ) : (
+        <ProfileHead userProps={user} />
+      )}
       {user && user.friends && (
         <Accordion title={'Друзья'}>
           {user.friends.map(user => (

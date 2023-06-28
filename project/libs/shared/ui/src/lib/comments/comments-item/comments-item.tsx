@@ -1,5 +1,5 @@
 import styles from './comments-item.module.scss';
-import { IComment } from '@project/shared/types';
+import { IComment, IEvent } from '@project/shared/types';
 
 import {
   UserCardSmall,
@@ -24,12 +24,12 @@ import cn from 'clsx';
 /* eslint-disable-next-line */
 export interface CommentsItemProps {
   item: IComment;
-  eventId: string;
+  event: IEvent;
 }
 
 const formatter = buildFormatter(russianStrings);
 
-export function CommentsItem({ item, eventId }: CommentsItemProps) {
+export function CommentsItem({ item, event }: CommentsItemProps) {
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const parentIdItem = useRef<HTMLDivElement | null>(null);
   const [isTimeAgo, setIsTimeAgo] = useState(false);
@@ -87,12 +87,16 @@ export function CommentsItem({ item, eventId }: CommentsItemProps) {
             onClick={() => toggleCommentLike({ commentId: item.id })}
             className={'gap-1'}
           >
-            <BiIcon name={'BiHeart'} />
+            {item.isLiked ? (
+              <BiIcon name={'BiSolidHeart'} />
+            ) : (
+              <BiIcon name={'BiHeart'} />
+            )}
             <p>{item._count.likes}</p>
           </Button>
         </div>
         {isFormOpen && (
-          <CreateCommentForm parentId={String(item.id)} eventId={eventId} />
+          <CreateCommentForm parentId={String(item.id)} event={event} />
         )}
       </div>
       <Button

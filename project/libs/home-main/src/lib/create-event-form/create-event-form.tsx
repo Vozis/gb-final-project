@@ -1,4 +1,10 @@
-import { Button, Field, SelectField, UploadField } from '@project/shared/ui';
+import {
+  Button,
+  Field,
+  Heading,
+  SelectField,
+  UploadField,
+} from '@project/shared/ui';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ICreateEvent, IOption } from '@project/shared/types';
@@ -189,100 +195,103 @@ export function CreateEventForm(props: CreateEventFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Field
-        placeholder={'Название'}
-        {...register('name', { required: true })}
-      />
-      <Field
-        placeholder={'Описание'}
-        {...register('description', { required: true })}
-      />
-      <Field
-        placeholder={'Планируемая дата'}
-        type={'date'}
-        {...register('eventDate', { required: false })}
-      />
-      <Field
-        placeholder={'Количество людей'}
-        type={'number'}
-        {...register('count', { required: true })}
-      />
-      <UploadField
-        {...register('image')}
-        placeholder={''}
-        error={errors.image}
-      />
-      <Controller
-        name={'place'}
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <SelectField
-            options={place || []}
-            field={field}
-            placeholder={'Выберите место'}
-            isMulti={false}
-            isLoading={isPlaceLoading}
-            error={error}
-            onInputChange={handlePlaceInputChange}
-          />
-        )}
-      />
-      <Controller
-        name={'sport'}
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <SelectField
-            options={sports || []}
-            field={field}
-            placeholder={'Выберите занятие'}
-            isMulti={false}
-            isLoading={isSportsLoading}
-            error={error}
-            onInputChange={handleSportInputChange}
-          />
-        )}
-      />
-      <Controller
-        name={'city'}
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <SelectField
-            options={city || []}
-            field={field}
-            placeholder={'Укажите город'}
-            isMulti={false}
-            isLoading={isCityLoading}
-            error={error}
-            onInputChange={handleCityInputChange}
-          />
-        )}
-      />
-      <Controller
-        name={'time'}
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <SelectField
-            options={time || []}
-            field={field}
-            placeholder={'Укажите время суток'}
-            isMulti={false}
-            isLoading={isTimeLoading}
-            error={error}
-            onInputChange={handleTimeInputChange}
-          />
-        )}
-      />
+    <div>
+      <Heading className={'text-center'}>Создай свое событие:</Heading>
+      <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+        <Field
+          placeholder={'Название'}
+          {...register('name', { required: true })}
+        />
+        <Field
+          placeholder={'Описание'}
+          {...register('description', { required: true })}
+        />
+        <Field
+          placeholder={'Планируемая дата'}
+          type={'datetime-local'}
+          {...register('eventTime', { required: false })}
+        />
+        <Field
+          placeholder={'Количество людей'}
+          type={'number'}
+          {...register('count', { required: true })}
+        />
+        <UploadField
+          {...register('image')}
+          placeholder={''}
+          error={errors.image}
+        />
+        <Controller
+          name={'place'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={place || []}
+              field={field}
+              placeholder={'Выберите место'}
+              isMulti={false}
+              isLoading={isPlaceLoading}
+              error={error}
+              onInputChange={handlePlaceInputChange}
+            />
+          )}
+        />
+        <Controller
+          name={'sport'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={sports || []}
+              field={field}
+              placeholder={'Выберите занятие'}
+              isMulti={false}
+              isLoading={isSportsLoading}
+              error={error}
+              onInputChange={handleSportInputChange}
+            />
+          )}
+        />
+        <Controller
+          name={'city'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={city || []}
+              field={field}
+              placeholder={'Укажите город'}
+              isMulti={false}
+              isLoading={isCityLoading}
+              error={error}
+              onInputChange={handleCityInputChange}
+            />
+          )}
+        />
+        <Controller
+          name={'time'}
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <SelectField
+              options={time || []}
+              field={field}
+              placeholder={'Укажите время суток'}
+              isMulti={false}
+              isLoading={isTimeLoading}
+              error={error}
+              onInputChange={handleTimeInputChange}
+            />
+          )}
+        />
 
-      <Button
-        className={
-          'bg-sky-500 text-gray-100 rounded-md px-8 mt-5 border-none hover:bg-sky-700 hover:text-white'
-        }
-        type={'submit'}
-      >
-        Создать
-      </Button>
-    </form>
+        <Button
+          className={
+            'bg-sky-500 text-gray-100 rounded-md px-8 mt-5 border-none hover:bg-sky-700 hover:text-white'
+          }
+          type={'submit'}
+        >
+          Создать
+        </Button>
+      </form>
+    </div>
   );
 }
 
