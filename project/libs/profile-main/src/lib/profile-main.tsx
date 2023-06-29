@@ -1,6 +1,6 @@
 import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
-import { EventService } from '@project/shared/services';
-import { IEventForCard, ISearch, IUserEdit } from '@project/shared/types';
+import React, { useEffect } from 'react';
+import { IUserEdit } from '@project/shared/types';
 import {
   CardList,
   CardSkeleton,
@@ -10,15 +10,13 @@ import {
   TabsProps,
   UserBigSkeleton,
   UserCardSmall,
+  Accordion,
+  FriendsList,
 } from '@project/shared/ui';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
-import Accordion from '../../../shared/ui/src/lib/accordion/accordion';
-import React, { useEffect, useRef } from 'react';
 
 /* eslint-disable-next-line */
 
@@ -39,8 +37,6 @@ export function ProfileMain(props: ProfileMainProps) {
   if (!user) {
     return null;
   }
-
-  // console.log('render profile');
 
   // const { mutateAsync } = useMutation(['update-user'], data =>
   //   axios.put('/api/users/profile', data),
@@ -106,7 +102,7 @@ export function ProfileMain(props: ProfileMainProps) {
   };
 
   return (
-    <div className={'flex flex-col gap-3'}>
+    <>
       {isLoading ? (
         <>
           <UserBigSkeleton />
@@ -120,8 +116,13 @@ export function ProfileMain(props: ProfileMainProps) {
           <CardSkeleton count={3} />
         </>
       ) : (
-        <ProfileHead userProps={user} />
+        <>
+          <ProfileHead userProps={user} />
+          <FriendsList user={user} />
+        </>
       )}
+      <div className={styles.container}></div>
+
       {user && user.friends && (
         <Accordion title={'Друзья'}>
           {user.friends.map(user => (
@@ -131,7 +132,7 @@ export function ProfileMain(props: ProfileMainProps) {
       )}
 
       {!isLoading && <Tabs tabs={tabs} />}
-    </div>
+    </>
   );
 }
 

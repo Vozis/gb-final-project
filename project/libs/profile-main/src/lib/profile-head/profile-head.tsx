@@ -34,7 +34,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   //   return null;
   // }
 
-  // console.log('user: ', user);
+  console.log('user: ', user);
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
   const isProfile = userProps.id === user?.id;
