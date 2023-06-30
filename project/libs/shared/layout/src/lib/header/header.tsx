@@ -32,7 +32,7 @@ export function Header(props: HeaderProps) {
   const navigate = useNavigate();
 
   const { logout } = useActions();
-  const { finishedEvents } = useNotificationState();
+  const { count } = useNotificationState();
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
   return (
@@ -81,7 +81,7 @@ export function Header(props: HeaderProps) {
             }
           >
             <div>
-              <Badge badgeContent={finishedEvents?.length}>
+              <Badge badgeContent={count}>
                 <AiOutlineBell className={'text-[30px]'} />
               </Badge>
             </div>

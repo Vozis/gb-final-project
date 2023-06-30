@@ -125,7 +125,7 @@ export function ProfileMain(props: ProfileMainProps) {
       {user && user.friends && (
         <Accordion title={'Друзья'}>
           {user.friends.map(user => (
-            <UserCardSmall userProps={user} />
+            <UserCardSmall userProps={user} key={user.id} />
           ))}
         </Accordion>
       )}

@@ -25,7 +25,7 @@ export function Notifications(props: NotificationsProps) {
     }
   }, []);
 
-  const { finishedEvents } = useNotificationState();
+  // const { finishedEvents } = useNotificationState();
   // const comments = useCommentState();
   //
   // console.log(comments);
@@ -33,25 +33,25 @@ export function Notifications(props: NotificationsProps) {
     <div>
       <Heading>Уведомления</Heading>
       <List className={styles.notifications__list}>
-        {finishedEvents?.map(item => (
-          <div
-            key={item.id}
-            className={styles.notifications__item + ' rounded-xl'}
-          >
-            <span className={'text-sm'}>{item.name}</span>
-            <div className={'grow'}>
-              <Rating transition allowFraction SVGclassName={'inline h-8'} />
-            </div>
-            <Button
-              className={
-                'transition ease-in border-2 rounded-xl hover:bg-slate-50'
-              }
-              type={'button'}
-            >
-              Пропустить
-            </Button>
-          </div>
-        ))}
+        {/*{finishedEvents?.map(item => (*/}
+        {/*  <div*/}
+        {/*    key={item.id}*/}
+        {/*    className={styles.notifications__item + ' rounded-xl'}*/}
+        {/*  >*/}
+        {/*    <span className={'text-sm'}>{item.name}</span>*/}
+        {/*    <div className={'grow'}>*/}
+        {/*      <Rating transition allowFraction SVGclassName={'inline h-8'} />*/}
+        {/*    </div>*/}
+        {/*    <Button*/}
+        {/*      className={*/}
+        {/*        'transition ease-in border-2 rounded-xl hover:bg-slate-50'*/}
+        {/*      }*/}
+        {/*      type={'button'}*/}
+        {/*    >*/}
+        {/*      Пропустить*/}
+        {/*    </Button>*/}
+        {/*  </div>*/}
+        {/*))}*/}
       </List>
     </div>
   );

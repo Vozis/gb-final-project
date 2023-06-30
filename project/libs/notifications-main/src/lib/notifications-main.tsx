@@ -13,7 +13,9 @@ export interface NotificationsMainProps {}
 export function NotificationsMain(props: NotificationsMainProps) {
   const { user } = useAuthRedux();
   const navigate = useNavigate();
-  const { finishedEvents } = useNotificationState();
+  const { notifications, count } = useNotificationState();
+
+  // console.log(notifications);
 
   useEffect(() => {
     if (!user) {
@@ -27,9 +29,9 @@ export function NotificationsMain(props: NotificationsMainProps) {
 
   return (
     <div className={styles['container']}>
-      {finishedEvents.map(item => (
-        <div>{item.name}</div>
-      ))}
+      {/*{finishedEvents.map(item => (*/}
+      {/*  <div>{item.name}</div>*/}
+      {/*))}*/}
     </div>
   );
 }

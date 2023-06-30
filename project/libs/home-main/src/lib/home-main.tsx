@@ -30,7 +30,7 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
-  const { finishedEvents } = useNotificationState();
+  // const { finishedEvents } = useNotificationState();
   // const { finishedEvents } = useCheckEventStatus();
 
   // const { setFilterParamsArray, getProfile } = useActions();

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentGateway } from './comment.gateway';
 import { CommentController } from './comment.controller';
@@ -8,8 +8,14 @@ import { AuthModule } from '../auth/auth.module';
 import { EventModule } from '../event/event.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule, EventModule],
+  imports: [
+    UserModule,
+    PrismaModule,
+    forwardRef(() => AuthModule),
+    forwardRef(() => EventModule),
+  ],
   providers: [CommentGateway, CommentService],
   controllers: [CommentController],
+  exports: [CommentService],
 })
 export class CommentModule {}

@@ -20,11 +20,15 @@ import {
   UserSelect,
 } from './returnUserObject';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ENotificationType } from '../notification/notification.types';
+import { FriendsNotification } from '../notification/dto/create-notification.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
   async create(createUserDto: CreateUserDto): Promise<UserSelect> {
     return this.prisma.user.create({
@@ -66,6 +70,15 @@ export class UserService {
         userName: true,
         avatarPath: true,
         role: true,
+        friends: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            userName: true,
+            avatarPath: true,
+          },
+        },
         hobbies: {
           select: {
             id: true,
@@ -286,6 +299,8 @@ export class UserService {
   }
 
   async toggle(id: number, dto: ToggleDto): Promise<UserSelect> {
+    // console.log(dto);
+
     const isExist = await this.prisma.user
       .count({
         where: {
@@ -299,7 +314,7 @@ export class UserService {
       })
       .then(Boolean);
 
-    return this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { id: id },
       data: {
         [dto.type]: {
@@ -310,6 +325,27 @@ export class UserService {
       },
       select: returnUserObject,
     });
+
+    if (dto.type === 'friends') {
+      const notificationDto: FriendsNotification = {
+        user,
+        id: dto.toggleId,
+      };
+
+      isExist
+        ? this.eventEmitter.emit(
+            ENotificationType.RemoveFriendNote,
+            notificationDto,
+          )
+        : this.eventEmitter.emit(
+            ENotificationType.AddFriendNote,
+            notificationDto,
+          );
+    }
+
+    // console.log(user.friends);
+
+    return user;
   }
 
   async makeEmailConfirmed(email: string) {
@@ -342,6 +378,148 @@ export class UserService {
       where: { id },
       data: {
         exitDate: new Date(),
+      },
+    });
+  }
+
+  async findUsersWhereFriends(id: number) {
+    return this.prisma.user.findMany({
+      where: {
+        friends: {
+          some: {
+            id,
+          },
+        },
+      },
+      select: {
+        id: true,
+        email: true,
+        isConfirmed: true,
+        firstName: true,
+        lastName: true,
+        userName: true,
+        avatarPath: true,
+        role: true,
+        friends: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            userName: true,
+            avatarPath: true,
+          },
+        },
+        hobbies: {
+          select: {
+            id: true,
+            name: true,
+            type: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        events: {
+          select: {
+            id: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            status: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+        favorites: {
+          select: {
+            id: true,
+            status: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+        creations: {
+          select: {
+            status: true,
+            id: true,
+            users: {
+              select: {
+                id: true,
+                userName: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+            name: true,
+            description: true,
+            imageUrl: true,
+            eventTime: true,
+            peopleCount: true,
+            isParticipate: true,
+            _count: {
+              select: {
+                users: true,
+              },
+            },
+            tags: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
       },
     });
   }

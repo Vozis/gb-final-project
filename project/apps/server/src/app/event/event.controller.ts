@@ -131,7 +131,7 @@ export class EventController {
     return this.eventService.delete(eventId);
   }
 
-  @Cron('0 * * * * *')
+  @Cron('0 * * * *')
   async scheduleEventStatus() {
     return this.eventService.changeScheduleEventStatus();
   }

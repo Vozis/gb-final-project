@@ -1,11 +1,15 @@
-import { useAuthRedux } from '@project/shared/hooks';
+import { useActions, useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Link } from 'react-router-dom';
 import { useModal } from '@project/shared/hooks';
 import { MaterialIcon, UserBig, ModalWindow } from '@project/shared/ui';
 import { useNavigate } from 'react-router-dom';
-import { IUser } from '@project/shared/types';
+import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UserService } from '@project/shared/services';
+import { toast } from 'react-toastify';
+import { errorCatch } from '@project/shared/utils';
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -14,10 +18,20 @@ export interface ProfileHeadProps {
 
 export function ProfileHead({ userProps }: ProfileHeadProps) {
   const { user } = useAuthRedux();
+  const { getProfile } = useActions();
   const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
   const [isShowUserInfoModal, handleToggleUserInfoModal] = useModal(false);
   const modalHeight = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState('0px');
+  const [isFriend, setIsFriend] = useState<boolean>(false);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (user && user.friends?.some(user => user.id === userProps.id)) {
+      setIsFriend(true);
+    }
+  }, [user]);
 
   const navigate = useNavigate();
 
@@ -29,6 +43,36 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     }
   }, [isShowSettingModal]);
 
+  const { mutateAsync } = useMutation(
+    ['toggle-friend-event'],
+    (data: IToggle) => UserService.toggleFriend(data),
+    {
+      onError: error => {
+        toast.error(errorCatch(error), {
+          toastId: 'toggle-friend-error',
+          containerId: 1,
+        });
+      },
+      onSuccess: async () => {
+        getProfile();
+        await queryClient.invalidateQueries(['get-single-user']);
+        toast.success('Статус друга успешно изменен', {
+          toastId: 'toggle-friend-success',
+          containerId: 1,
+        });
+      },
+    },
+  );
+
+  const handleClickAddUser = async () => {
+    const data: IToggle = {
+      toggleId: userProps.id,
+      type: 'friends',
+    };
+
+    await mutateAsync(data);
+  };
+
   // if (!user) {
   //   navigate('/auth');
   //   return null;
@@ -36,6 +80,8 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
 
   // console.log('user: ', user);
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
+
+  console.log('isFriend', isFriend);
 
   const isProfile = userProps.id === user?.id;
   // console.log('isShowSettingModal', isShowSettingModal);
@@ -126,12 +172,19 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       ) : (
         <button
           className={styles.profile__settingBtn}
-          onClick={handleToggleSettingModal}
+          onClick={handleClickAddUser}
         >
-          <MaterialIcon
-            name={'MdPersonAddAlt'}
-            className={styles.profile__settingBtn_icon}
-          />
+          {isFriend ? (
+            <MaterialIcon
+              name={'MdOutlinePersonAddDisabled'}
+              className={styles.profile__settingBtn_icon}
+            />
+          ) : (
+            <MaterialIcon
+              name={'MdPersonAddAlt'}
+              className={styles.profile__settingBtn_icon}
+            />
+          )}
         </button>
       )}
     </div>

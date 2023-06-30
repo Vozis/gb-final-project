@@ -2,18 +2,23 @@ import { io, Socket } from 'socket.io-client';
 import { Middleware } from '@reduxjs/toolkit';
 import { actions as commentActions } from '../slices/commentSlice';
 import { actions as socketActions } from '../slices/socketSlice';
+import { actions as notificationActions } from '../slices/notificationSlice';
 
 import {
   CommentEvent,
+  IAllNotificationResponse,
   IComment,
   ICommentPayload,
+  INotification,
   IOnlineSocketUser,
   IUserActiveRooms,
+  NotificationEvent,
   SocketEvent,
 } from '@project/shared/types';
 import Cookies from 'js-cookie';
-
-// let socket: Socket;
+import { NotificationStatus, NotificationType } from '@prisma/client';
+import { login } from '../actions/userActions';
+import { toast } from 'react-toastify';
 
 const socketMiddleware: Middleware = store => {
   let socket: Socket;
@@ -38,13 +43,14 @@ const socketMiddleware: Middleware = store => {
         transports: ['websocket', 'polling'],
       });
 
+      // Connecting events =====================================================
+
       socket.on('connect', () => {
         store.dispatch(socketActions.connectionEstablished());
         socket.emit(SocketEvent.GetOnlineUserList);
         socket.emit(SocketEvent.GetActiveRooms);
-
         socket.emit(CommentEvent.GetAllComments);
-        // socket.emit(CommentEvent.GetUnreadComments);
+        socket.emit(NotificationEvent.GetAllNotifications);
       });
 
       // Online users events ===================================================
@@ -80,15 +86,6 @@ const socketMiddleware: Middleware = store => {
 
       // Comment events ========================================================
 
-      socket.on(
-        CommentEvent.SendUnreadComments,
-        (unreadComments: IComment[]) => {
-          store.dispatch(
-            commentActions.receiveUnreadComments({ unreadComments }),
-          );
-        },
-      );
-
       socket.on(CommentEvent.SendAllComments, (allComments: IComment[]) => {
         store.dispatch(commentActions.receiveAllComments({ allComments }));
       });
@@ -100,6 +97,43 @@ const socketMiddleware: Middleware = store => {
       socket.on(CommentEvent.DeleteComment, (id: number) => {
         store.dispatch(commentActions.deleteComment({ id }));
       });
+
+      // Notification events =====================================================
+
+      socket.on(
+        NotificationEvent.GetAllNotifications,
+        (data: IAllNotificationResponse) => {
+          console.log('allNotifications: ', data);
+
+          store.dispatch(notificationActions.receiveAllNotifications(data));
+        },
+      );
+
+      socket.on(
+        NotificationEvent.GetNotification,
+        (notification: INotification) => {
+          console.log('new notification: ', notification);
+
+          store.dispatch(
+            notificationActions.receiveNotification({ notification }),
+          );
+        },
+      );
+
+      socket.on(NotificationEvent.RemoveNotification, (id: number) => {
+        console.log(id);
+        store.dispatch(notificationActions.removeNotification({ id }));
+      });
+    }
+
+    if (
+      notificationActions.changeEventStatus.match(action) &&
+      isConnectionEstablished
+    ) {
+      socket.emit(
+        NotificationEvent.ChangeNotificationStatus,
+        action.payload.dto,
+      );
     }
 
     if (

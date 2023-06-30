@@ -63,6 +63,14 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
           await queryClient.cancelQueries(['toggle-user-to-event']);
           // await queryClient.invalidateQueries(['get-single-event']);
         }
+        if (error === 'no free time') {
+          toast.error('На это время уже запланировано событие', {
+            toastId: 'link-join-error',
+            containerId: 1,
+          });
+          await queryClient.cancelQueries(['toggle-user-to-event']);
+          // await queryClient.invalidateQueries(['get-single-event']);
+        }
       },
     },
   );
