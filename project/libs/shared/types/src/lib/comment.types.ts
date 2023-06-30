@@ -2,17 +2,10 @@ import { Comment } from '@prisma/client';
 import { IUserSmall } from './user.types';
 import { ILike } from './like.types';
 
-export enum ETypeConnect {
-  DISCONNECT,
-  CONNECT,
-}
-
 export enum CommentEvent {
   CreateComment = 'createComment',
   GetAllComments = 'getAllComments',
   SendAllComments = 'sendAllComments',
-  GetUnreadComments = 'getUnreadComments',
-  SendUnreadComments = 'sendUnreadComments',
   ReceiveComment = 'receiveComment',
   RemoveComment = 'removeComment',
   DeleteComment = 'deleteComment',
@@ -28,6 +21,9 @@ export interface IComment {
   message: string;
   eventId: number;
   parentId?: number;
+  parent: {
+    authorId: number;
+  };
   author: IUserSmall;
   children: IComment[];
   createdAt: string;

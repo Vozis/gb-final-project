@@ -8,7 +8,7 @@ import { returnTagObject } from '../tag/returnTagObject';
 interface IReturnEvent {
   isParticipate: boolean;
 }
-export type ReturnEvent = Prisma.EventSelect & IReturnEvent;
+export type ReturnEvent = Prisma.EventSelect & { isParticipate: boolean };
 
 export const returnEventObject: ReturnEvent = {
   id: true,
@@ -20,6 +20,7 @@ export const returnEventObject: ReturnEvent = {
   eventTime: true,
   peopleCount: true,
   isParticipate: true,
+  comments: false,
   status: true,
   _count: {
     select: {
@@ -33,6 +34,15 @@ export const returnEventObject: ReturnEvent = {
       firstName: true,
       lastName: true,
       avatarPath: true,
+      friends: {
+        select: {
+          id: true,
+          userName: true,
+          firstName: true,
+          lastName: true,
+          avatarPath: true,
+        },
+      },
     },
   },
   users: {
@@ -67,7 +77,22 @@ export const returnEventFullObject: ReturnEvent = {
     },
   },
   creator: {
-    select: returnUserSingleEventObject,
+    select: {
+      id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
+      friends: {
+        select: {
+          id: true,
+          userName: true,
+          firstName: true,
+          lastName: true,
+          avatarPath: true,
+        },
+      },
+    },
   },
   coordinateX: true,
   coordinateY: true,
@@ -85,7 +110,13 @@ export const returnEventFullObject: ReturnEvent = {
     },
   },
   users: {
-    select: returnUserSingleEventObject,
+    select: {
+      id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
+    },
   },
 };
 

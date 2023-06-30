@@ -1,6 +1,6 @@
 import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
-import { IUser } from '@project/shared/types';
+import { IToggle, IUser } from '@project/shared/types';
 import clsx from 'clsx';
 import cn from 'clsx';
 import { MaterialIcon } from '../../icons/material-icon';
@@ -11,6 +11,10 @@ import {
 } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
 import Avatar from '../../avatar/avatar';
+import { useMutation } from '@tanstack/react-query';
+import { UserService } from '@project/shared/services';
+import { toast } from 'react-toastify';
+import { errorCatch } from '@project/shared/utils';
 // import { Modal } from '@project/shared/ui';
 
 /* eslint-disable-next-line */

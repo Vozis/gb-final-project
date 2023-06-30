@@ -1,7 +1,6 @@
 import {
   useActions,
   useAuthRedux,
-  useCheckEventStatus,
   useNotificationState,
 } from '@project/shared/hooks';
 import { Badge, Button, MaterialIcon } from '@project/shared/ui';
@@ -11,7 +10,6 @@ import {
   AiOutlineUser,
   AiOutlineBell,
 } from 'react-icons/ai';
-import { IconContext } from 'react-icons/lib';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { toast } from 'react-toastify';
@@ -32,12 +30,12 @@ export function Header(props: HeaderProps) {
   const navigate = useNavigate();
 
   const { logout } = useActions();
-  const { finishedEvents } = useNotificationState();
+  const { count } = useNotificationState();
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
   return (
     <header className={styles.header}>
-      <ul className={'flex flex-wrap gap-5 items-center'}>
+      <ul className={'flex flex-wrap gap-3 items-center'}>
         <li>
           {location.pathname !== '/' && (
             <Button onClick={() => navigate(-1)}>
@@ -81,7 +79,7 @@ export function Header(props: HeaderProps) {
             }
           >
             <div>
-              <Badge badgeContent={finishedEvents?.length}>
+              <Badge badgeContent={count}>
                 <AiOutlineBell className={'text-[30px]'} />
               </Badge>
             </div>

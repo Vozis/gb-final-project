@@ -47,10 +47,10 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (!user) return;
-    getFinishedEvents();
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) return;
+  //   getFinishedEvents();
+  // }, [user]);
 
   useEffect(() => {
     if (!user) return;

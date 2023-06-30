@@ -19,9 +19,15 @@ import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SocketGateway } from './socket.gateway';
+import { NotificationModule } from './notification/notification.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot({
+      global: true,
+    }),
     ScheduleModule.forRoot(),
     PrismaModule,
     ConfigModule.forRoot({
@@ -39,8 +45,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     TypeTagModule,
     CommentModule,
     LikeModule,
+    NotificationModule,
   ],
   controllers: [AppController],
-  providers: [AppService, BasePrismaService],
+  providers: [AppService, BasePrismaService, SocketGateway],
 })
 export class AppModule {}
