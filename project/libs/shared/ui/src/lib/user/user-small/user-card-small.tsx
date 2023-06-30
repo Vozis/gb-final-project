@@ -35,6 +35,8 @@ export function UserCardSmall({
 
   const isProfile = user?.id === userProps.id;
 
+  // console.log(`user ${userProps.firstName} ${isOnline}`);
+
   return (
     <Link
       to={isProfile ? '/profile' : `/users/${userProps.id}`}

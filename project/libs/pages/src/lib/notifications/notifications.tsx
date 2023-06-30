@@ -1,5 +1,6 @@
 import styles from './notifications.module.scss';
 import {
+  useActions,
   useAuthRedux,
   useCheckEventStatus,
   useCommentState,
@@ -12,6 +13,8 @@ import { useQuery } from '@tanstack/react-query';
 import { NotificationService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { Rating } from 'react-simple-star-rating';
+import { INotificationUpdateStatus } from '@project/shared/types';
+import { NotificationStatus } from '@prisma/client';
 
 /* eslint-disable-next-line */
 export interface NotificationsProps {}
@@ -25,10 +28,20 @@ export function Notifications(props: NotificationsProps) {
     }
   }, []);
 
-  // const { finishedEvents } = useNotificationState();
-  // const comments = useCommentState();
-  //
-  // console.log(comments);
+  const { notifications, count } = useNotificationState();
+  const { changeNotificationStatus } = useActions();
+
+  useEffect(() => {
+    const dto: INotificationUpdateStatus = {
+      ids: notifications.map(item => item.id),
+      status: NotificationStatus.DELIVERED,
+    };
+
+    changeNotificationStatus({
+      dto,
+    });
+  }, []);
+
   return (
     <div>
       <Heading>Уведомления</Heading>

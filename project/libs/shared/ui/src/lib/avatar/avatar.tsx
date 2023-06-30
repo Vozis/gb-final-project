@@ -22,7 +22,7 @@ export function Avatar({
     <div className={'text-center'}>
       <div className={cn(className, styles.avatarWrapper)} style={style}>
         <img className={cn(styles.avatarImg)} src={imagePath} alt={'avatar'} />
-        {isOnline && (
+        {isStatusVisible && isOnline && (
           <span
             style={{
               display: 'block',
@@ -38,7 +38,7 @@ export function Avatar({
           ></span>
         )}
       </div>
-      {isStatusVisible && <span>{isOnline ? 'Онлайн' : 'Не в сети'}</span>}
+      {/*{isStatusVisible && <span>{isOnline ? 'Онлайн' : 'Не в сети'}</span>}*/}
     </div>
   );
 }

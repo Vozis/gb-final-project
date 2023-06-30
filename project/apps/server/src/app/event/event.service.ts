@@ -446,22 +446,30 @@ export class EventService {
   async changeScheduleEventStatus() {
     const currentDate = new Date();
 
-    const finishedEvents = await this.prisma.event.updateMany({
+    const finishedEvents = await this.prisma.event.findMany({
       where: {
         eventTime: {
           lte: currentDate,
         },
       },
-      data: {
-        status: 'CLOSED',
-      },
     });
 
-    console.log(finishedEvents);
+    for (const event of finishedEvents) {
+      const finishedEvent = await this.prisma.event.update({
+        where: {
+          id: event.id,
+        },
+        data: {
+          status: 'CLOSED',
+        },
+      });
+      this.eventEmitter.emit(
+        ENotificationType.CompleteEventNote,
+        finishedEvent,
+      );
+    }
 
-    // this.eventEmitter.emit(ENotificationType.CompleteEventNote, finishedEvents);
-
-    return finishedEvents;
+    // return finishedEvents;
   }
 
   async getTomorrowEvents() {

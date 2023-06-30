@@ -123,13 +123,13 @@ export function ProfileMain(props: ProfileMainProps) {
       )}
       <div className={styles.container}></div>
 
-      {user && user.friends && (
-        <Accordion title={'Друзья'}>
-          {user.friends.map(user => (
-            <UserCardSmall userProps={user} key={user.id} />
-          ))}
-        </Accordion>
-      )}
+      {/*{user && user.friends && (*/}
+      {/*  <Accordion title={'Друзья'}>*/}
+      {/*    {user.friends.map(user => (*/}
+      {/*      <UserCardSmall userProps={user} key={user.id} />*/}
+      {/*    ))}*/}
+      {/*  </Accordion>*/}
+      {/*)}*/}
 
       {!isLoading && <Tabs tabs={tabs} />}
     </>

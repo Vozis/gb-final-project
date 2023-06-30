@@ -49,7 +49,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const { activeRooms } = useSocketState();
 
   const { notifications } = useNotificationState();
-  const { changeEventStatus } = useActions();
+  const { changeNotificationStatus } = useActions();
 
   if (!id) return null;
 
@@ -133,7 +133,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
       status: NotificationStatus.DELIVERED,
     };
 
-    changeEventStatus({ dto });
+    changeNotificationStatus({ dto });
   }, []);
 
   // if (!publicEvent) return null;

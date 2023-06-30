@@ -9,12 +9,13 @@ import { IUser, IUserSmall } from '@project/shared/types';
 import { faker } from '@faker-js/faker';
 
 import { register } from 'swiper/element/bundle';
+import { Heading } from '@project/shared/ui';
 
 register();
 
 /* eslint-disable-next-line */
 export interface FriendsListProps {
-  user: IUser | IUserSmall;
+  user: IUser;
 }
 
 const getFriendsList = (count: number) => {
@@ -31,9 +32,10 @@ const getFriendsList = (count: number) => {
 };
 const friends = getFriendsList(10);
 
-console.log('friends: ', friends);
+// console.log('friends: ', friends);
 
 export function FriendsList({ user }: FriendsListProps) {
+  console.log('friends: ', user.friends);
   const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
@@ -45,19 +47,20 @@ export function FriendsList({ user }: FriendsListProps) {
 
   return (
     <>
-      <h2>Список друзей</h2>
-
+      <Heading>Список друзей</Heading>
       <Swiper
         ref={swiperRef}
         slidesPerView={3}
         navigation={true}
         modules={[Navigation]}
       >
-        {friends.map(friend => (
-          <SwiperSlide key={friend.id}>
-            <UserCardSmall userProps={user} isPhoto={true} />
-          </SwiperSlide>
-        ))}
+        {user &&
+          user.friends?.length &&
+          user.friends.map(friend => (
+            <SwiperSlide key={friend.id}>
+              <UserCardSmall userProps={friend} isPhoto={true} />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );

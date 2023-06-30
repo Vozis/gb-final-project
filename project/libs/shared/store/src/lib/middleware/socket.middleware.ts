@@ -127,7 +127,7 @@ const socketMiddleware: Middleware = store => {
     }
 
     if (
-      notificationActions.changeEventStatus.match(action) &&
+      notificationActions.changeNotificationStatus.match(action) &&
       isConnectionEstablished
     ) {
       socket.emit(

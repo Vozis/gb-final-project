@@ -47,7 +47,7 @@ const notificationSlice = createSlice({
         containerId: 1,
       });
     },
-    changeEventStatus: (
+    changeNotificationStatus: (
       state,
       action: PayloadAction<{
         dto: INotificationUpdateStatus;
