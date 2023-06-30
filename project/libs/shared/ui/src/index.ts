@@ -1,3 +1,4 @@
+export * from './lib/lists/friends-list/friends-list';
 export * from './lib/badge/badge';
 export * from './lib/comments/comments-list/comments-list';
 export * from './lib/avatar/avatar';
@@ -41,3 +42,4 @@ export * from './lib/form/input/input';
 export * from './lib/button/button';
 export * from './lib/tag/tag';
 export * from './lib/tabs/tabs';
+export * from './lib/accordion/accordion';

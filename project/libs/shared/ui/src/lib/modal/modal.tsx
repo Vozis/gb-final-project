@@ -33,7 +33,7 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
     },
     ref,
   ) => {
-    return (
+    return ReactDOM.createPortal(
       <div
         className={clsx(styles.modal, className, {
           [styles.profile__modal_setting]: isSettingModal,
@@ -70,7 +70,8 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
           )}
           {children}
         </div>
-      </div>
+      </div>,
+      document.body,
     );
   },
 );

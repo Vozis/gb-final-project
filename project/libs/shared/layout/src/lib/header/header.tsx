@@ -1,7 +1,6 @@
 import {
   useActions,
   useAuthRedux,
-  useCheckEventStatus,
   useNotificationState,
 } from '@project/shared/hooks';
 import { Badge, Button, MaterialIcon } from '@project/shared/ui';
@@ -11,7 +10,6 @@ import {
   AiOutlineUser,
   AiOutlineBell,
 } from 'react-icons/ai';
-import { IconContext } from 'react-icons/lib';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { toast } from 'react-toastify';
@@ -37,7 +35,7 @@ export function Header(props: HeaderProps) {
   // console.log('notifications: ', finishedEvents?.length);
   return (
     <header className={styles.header}>
-      <ul className={'flex flex-wrap gap-5 items-center'}>
+      <ul className={'flex flex-wrap gap-3 items-center'}>
         <li>
           {location.pathname !== '/' && (
             <Button onClick={() => navigate(-1)}>

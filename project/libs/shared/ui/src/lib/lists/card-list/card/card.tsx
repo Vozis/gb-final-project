@@ -5,7 +5,7 @@ import {
   Tag,
   ToggleUserButton,
 } from '@project/shared/ui';
-import { IEvent, IEventForCard } from '@project/shared/types';
+import { IEventForCard } from '@project/shared/types';
 import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -18,6 +18,7 @@ import { EventService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { Link, redirect } from 'react-router-dom';
 import cn from 'clsx';
+import moment from 'moment';
 
 /* eslint-disable-next-line */
 export interface CardProps {
@@ -55,7 +56,9 @@ export const Card: FC<CardProps> = ({ event }) => {
             {event._count.users === event.peopleCount && `нет мест`}
           </p>
         )}
-        <p className={'text-white'}>{event.eventTime}</p>
+        <p className={'text-white'}>
+          {moment(event.eventTime).format('MMMM Do YYYY, h:mm a')}
+        </p>
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag

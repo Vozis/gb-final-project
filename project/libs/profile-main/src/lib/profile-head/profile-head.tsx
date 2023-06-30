@@ -78,7 +78,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   //   return null;
   // }
 
-  // console.log('user: ', user);
+  console.log('user: ', user);
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
   console.log('isFriend', isFriend);
