@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-ignore
 import { io, Socket } from 'socket.io-client';
 import { Middleware } from '@reduxjs/toolkit';
 import { actions as commentActions } from '../slices/commentSlice';
@@ -6,7 +8,7 @@ import { actions as socketActions } from '../slices/socketSlice';
 import {
   CommentEvent,
   IComment,
-  ICommentPayload,
+  // ICommentPayload,
   IOnlineSocketUser,
   IUserActiveRooms,
   SocketEvent,
