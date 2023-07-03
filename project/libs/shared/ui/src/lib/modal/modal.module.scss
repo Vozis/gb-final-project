@@ -5,7 +5,8 @@
  * .container {
  * }
 */
-
+@import "libs/shared/styles/themes/dark";
+@import "libs/shared/styles/themes/normal";
 
 .modal {
   height: 100vh;
@@ -25,7 +26,7 @@
   &__content {
     position: relative;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: var(--bg-modal);
     border-radius: 24px;
     transform: scale(0.5);
     transition: all 0.3s ease-out;
@@ -62,12 +63,13 @@
     align-items: flex-start;
     transform: none;
     max-height: 0;
-    opacity: initial;
+    opacity: 0;
 
 
     &__content {
       transform: none;
       position: absolute;
+
       top: 75px;
       right: 20px;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);

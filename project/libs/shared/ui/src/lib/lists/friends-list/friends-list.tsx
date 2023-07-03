@@ -1,68 +1,96 @@
+import React, { useEffect, useRef } from 'react';
 import styles from './friends-list.module.scss';
-import { Swiper, SwiperSlide, SwiperRef } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, SwiperOptions } from 'swiper';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
-import React, { useEffect, useRef } from 'react';
-import UserCardSmall from '../../user/user-small/user-card-small';
-import { IUser, IUserSmall } from '@project/shared/types';
-import { faker } from '@faker-js/faker';
+import { Heading, MaterialIcon, UserCardSmall } from '@project/shared/ui';
 
-import { register } from 'swiper/element/bundle';
-import { Heading } from '@project/shared/ui';
-
-register();
+import { IUserSmall } from '@project/shared/types';
+import clsx from 'clsx';
 
 /* eslint-disable-next-line */
 export interface FriendsListProps {
-  user: IUser;
+  list?: IUserSmall[];
+  arrows?: boolean;
+  loop?: boolean;
+  className?: string;
+  slidesPerView?: number | 'auto';
+  breakPoints?: { [p: number]: SwiperOptions };
 }
 
-const getFriendsList = (count: number) => {
-  return Array(count)
-    .fill(true)
-    .map(_ => {
-      return {
-        id: faker.string.nanoid(),
-        firstName: faker.person.firstName(),
-        lastname: faker.person.lastName(),
-        avatarUrl: faker.image.avatar(),
-      };
-    });
-};
-const friends = getFriendsList(10);
-
-// console.log('friends: ', friends);
-
-export function FriendsList({ user }: FriendsListProps) {
-  console.log('friends: ', user.friends);
-  const swiperRef = useRef<SwiperRef>(null);
+export function FriendsList({
+  list,
+  arrows,
+  loop,
+  className,
+  slidesPerView,
+  breakPoints,
+}: FriendsListProps) {
+  const prevArrowRef = useRef<HTMLButtonElement>(null);
+  const nextArrowRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const swiperContainer = swiperRef.current;
-    const nextBtn = swiperContainer?.swiper.navigation.nextEl;
+    if (prevArrowRef.current && nextArrowRef.current) {
+      const disabled: boolean =
+        prevArrowRef.current.hasAttribute('disabled') ||
+        nextArrowRef.current.hasAttribute('disabled');
 
-    console.log(swiperContainer?.swiper);
+      console.log(disabled);
+    }
   }, []);
+  //
 
+  const onBeforeInit = (Swiper: SwiperCore): void => {
+    if (typeof Swiper.params.navigation !== 'boolean') {
+      const navigation = Swiper.params.navigation;
+      if (navigation !== undefined) {
+        navigation.prevEl = prevArrowRef?.current;
+        navigation.nextEl = nextArrowRef?.current;
+      }
+    }
+  };
+  console.log(prevArrowRef.current);
   return (
-    <>
+    <div className={styles.friends__list}>
       <Heading>Список друзей</Heading>
       <Swiper
-        ref={swiperRef}
-        slidesPerView={3}
-        navigation={true}
+        onBeforeInit={onBeforeInit}
         modules={[Navigation]}
+        loop={loop}
+        slidesPerView={slidesPerView}
+        breakpoints={breakPoints}
       >
-        {user &&
-          user.friends?.length &&
-          user.friends.map(friend => (
-            <SwiperSlide key={friend.id}>
-              <UserCardSmall userProps={friend} isPhoto={true} />
-            </SwiperSlide>
-          ))}
+        {list?.length
+          ? list.map(friend => (
+              <SwiperSlide key={friend.id}>
+                <UserCardSmall userProps={friend} isPhoto />
+              </SwiperSlide>
+            ))
+          : 'нет друзей'}
+        {arrows && (
+          <>
+            <button
+              className={clsx(styles.Slider__btn, styles.Slider__btn_left, {
+                // [styles.Slider__btn_disabled]: disabled,
+              })}
+              ref={prevArrowRef}
+            >
+              <MaterialIcon
+                name={'MdKeyboardArrowLeft'}
+                className={'slider__btn_icon'}
+              />
+            </button>
+            <button
+              className={clsx(styles.Slider__btn, styles.Slider__btn_right)}
+              ref={nextArrowRef}
+            >
+              <MaterialIcon name={'MdKeyboardArrowRight'} />
+            </button>
+          </>
+        )}
       </Swiper>
-    </>
+    </div>
   );
 }
 

@@ -70,7 +70,7 @@ export function ProfileMain(props: ProfileMainProps) {
     },
   ];
 
-  // console.log(profileEvents.data);
+  console.log('friends', user.friends);
 
   // const { isLoading: isLoadingTags, data: times } = useQuery(
   //   ['get-tags-count'],
@@ -118,7 +118,14 @@ export function ProfileMain(props: ProfileMainProps) {
       ) : (
         <>
           <ProfileHead userProps={user} />
-          <FriendsList user={user} />
+          <FriendsList
+            list={user.friends}
+            arrows
+            breakPoints={{
+              340: { slidesPerView: 2 },
+              400: { slidesPerView: 3 },
+            }}
+          />
         </>
       )}
       <div className={styles.container}></div>
