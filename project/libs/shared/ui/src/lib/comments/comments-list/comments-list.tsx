@@ -1,7 +1,6 @@
-import styles from './comments-list.module.scss';
 import { IComment, IEvent } from '@project/shared/types';
 import CommentsItem from '../comments-item/comments-item';
-import React from 'react';
+import styles from './comments-list.module.scss';
 
 /* eslint-disable-next-line */
 export interface CommentsListProps {
@@ -10,6 +9,7 @@ export interface CommentsListProps {
 }
 
 export function CommentsList({ items, event }: CommentsListProps) {
+  // console.log('itemsComment: ', items);
   return (
     <div className={styles['container']}>
       {items.map(item => (

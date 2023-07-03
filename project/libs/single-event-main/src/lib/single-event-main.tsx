@@ -24,11 +24,17 @@ import {
   useActions,
   useAuthRedux,
   useFilterState,
+  useNotificationState,
   useSocketState,
 } from '@project/shared/hooks';
 import { AxiosError } from 'axios';
 import { errorCatch } from '@project/shared/utils';
 import { SingleEventHeadSkeleton } from './single-event-head/single-event-head-skeleton';
+import { NotificationStatus, NotificationType } from '@prisma/client';
+import {
+  INotification,
+  INotificationUpdateStatus,
+} from '@project/shared/types';
 /* eslint-disable-next-line */
 export interface SingleEventMainProps {
   tabs?: TabsProps;
@@ -42,10 +48,16 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const [isActiveRoom, setIsActiveRoom] = useState<boolean>(false);
   const { activeRooms } = useSocketState();
 
+  const { notifications } = useNotificationState();
+  const { changeNotificationStatus } = useActions();
+
   if (!id) return null;
 
   useEffect(() => {
-    if (activeRooms.some(room => room.name === `room:${id}`)) {
+    if (
+      activeRooms.length &&
+      activeRooms.some(room => room.name === `room:${id}`)
+    ) {
       setIsActiveRoom(true);
     } else {
       setIsActiveRoom(false);
@@ -81,6 +93,48 @@ export function SingleEventMain(props: SingleEventMainProps) {
       enabled: !!user && !!id,
     },
   );
+
+  console.log('notifications from event-main: ', notifications);
+
+  // useEffect(() => {
+  //   console.log('start');
+  //   console.log(notifications.length);
+
+  //   const readNotifications: number[] = notifications
+  //     .filter(item => {
+  //       if (
+  //         item.moreData === +id &&
+  //         item.type === NotificationType.COMMENT_CREATE
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.COMMENT_REPLY &&
+  //         item.moreData === +id
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.EVENT_CREATE &&
+  //         item.sourceId === +id
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.EVENT_UPDATE &&
+  //         item.sourceId === +id
+  //       ) {
+  //         return item;
+  //       }
+  //     })
+  //     .map(item => item.id);
+
+  //   console.log('readNotifications: ', readNotifications);
+
+  //   const dto: INotificationUpdateStatus = {
+  //     ids: readNotifications,
+  //     status: NotificationStatus.DELIVERED,
+  //   };
+
+  //   changeNotificationStatus({ dto });
+  // }, []); чтобы не удалялись уведомления
 
   // if (!publicEvent) return null;
 

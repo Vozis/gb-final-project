@@ -5,6 +5,11 @@
  * .container {
  * }
 */
+.notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .notifications__list {
   margin-top: 20px;
 }
@@ -20,4 +25,17 @@
 
 svg.star-svg {
   display: inline;
+}
+
+.event {
+  &_container {
+    display: flex;
+    margin: 20px;
+  }
+  &_span {
+    cursor: pointer;
+  }
+  &_span:hover {
+    color: blue;
+  }
 }

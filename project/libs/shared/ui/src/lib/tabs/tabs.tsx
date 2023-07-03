@@ -45,7 +45,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
   };
 
   return (
-    <div>
+    <>
       <ul className={clsx(styles.tabs, className)}>
         {tabs &&
           tabs.map((tab, index) => (
@@ -79,7 +79,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
           {tab.content}
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

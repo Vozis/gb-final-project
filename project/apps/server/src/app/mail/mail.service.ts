@@ -133,7 +133,7 @@ export class MailService {
   //   console.log('Hello world');
   // }
 
-  // @Cron('* */1 * * * *')
+  // @Cron('* */1 * * * *') переделать раз в сутки / (раз в час)
   // async sendEventReminder() {
   //   let mailList = [];
   //   const tomorrowEvents = await this.eventService.getTomorrowEvents();

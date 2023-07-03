@@ -6,29 +6,24 @@ import {
 } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Prisma } from '@prisma/client';
+import { isEmpty } from 'lodash';
+import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { ToggleDto } from '../../utils/toggle.dto';
+import { EventParticipateNotification } from '../notification/dto/create-notification.dto';
+import { ENotificationType } from '../notification/notification.types';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
+import { FilterSearchDto } from './dto/search-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 import {
   EventFullSelect,
   EventSelect,
-  ReturnEvent,
   returnEventFullObject,
   returnEventObject,
 } from './returnEventObject';
-import { fileUploadHelper } from '../../utils/file-upload.helper';
-import {
-  FilterEventFieldsDto,
-  FilterNestedFieldsDto,
-  FilterSearchDto,
-  SearchEventDto,
-} from './dto/search-event.dto';
-import { isEmpty } from 'lodash';
-import { UpdateEventDto } from './dto/update-event.dto';
-
-import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
-import { UserSelect } from '../user/returnUserObject';
 
 @Injectable()
 export class EventService {
@@ -36,6 +31,7 @@ export class EventService {
     // private readonly prisma: PrismaExtensionService,
     @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async getAllEvents(
@@ -276,6 +272,8 @@ export class EventService {
     // @ts-ignore
     newEvent.isParticipate = !thisTimeEvent;
 
+    this.eventEmitter.emit(ENotificationType.CreateEventNote, newEvent);
+
     return newEvent;
   }
 
@@ -288,14 +286,14 @@ export class EventService {
       dto.imageUrl = await fileUploadHelper(image, 'events');
     }
 
-    return this.prisma.event.update({
+    const updatedEvent = await this.prisma.event.update({
       where: { id },
       data: {
         name: dto.name,
         description: dto.description,
         imageUrl: dto.imageUrl,
         eventTime: dto.eventTime,
-        peopleCount: +dto.peopleCount,
+        peopleCount: dto.peopleCount,
         tags: {
           set: [],
           connect:
@@ -308,6 +306,10 @@ export class EventService {
       },
       select: returnEventObject,
     });
+
+    this.eventEmitter.emit(ENotificationType.UpdateEventNote, updatedEvent);
+
+    return updatedEvent;
   }
 
   async toggle(id: number, dto: ToggleDto) {
@@ -335,10 +337,7 @@ export class EventService {
           dto.toggleId,
         );
 
-        if (thisTimeEvent)
-          throw new BadRequestException(
-            'На это время уже запланировано событие',
-          );
+        if (thisTimeEvent) throw new BadRequestException('no free time');
       }
 
       if (
@@ -359,14 +358,32 @@ export class EventService {
           },
         },
       },
-      select: returnEventObject,
+      select: {
+        ...returnEventObject,
+        isParticipate: true,
+      },
     });
 
+    if (dto.type === 'users') {
+      const userEventStatusDto: EventParticipateNotification = {
+        event: result,
+        id: dto.toggleId,
+      };
+
+      !isExist
+        ? this.eventEmitter.emit(
+            ENotificationType.ParticipateEventNote,
+            userEventStatusDto,
+          )
+        : this.eventEmitter.emit(
+            ENotificationType.LeaveEventNote,
+            userEventStatusDto,
+          );
+    }
+
     if (result.users.some(user => user.id === dto.toggleId)) {
-      // @ts-ignore
       result.isParticipate = true;
     } else {
-      // @ts-ignore
       result.isParticipate = false;
     }
     return result;
@@ -418,16 +435,30 @@ export class EventService {
   async changeScheduleEventStatus() {
     const currentDate = new Date();
 
-    const result = await this.prisma.event.updateMany({
+    const finishedEvents = await this.prisma.event.findMany({
       where: {
         eventTime: {
           lte: currentDate,
         },
       },
-      data: {
-        status: 'CLOSED',
-      },
     });
+
+    for (const event of finishedEvents) {
+      const finishedEvent = await this.prisma.event.update({
+        where: {
+          id: event.id,
+        },
+        data: {
+          status: 'CLOSED',
+        },
+      });
+      // this.eventEmitter.emit(
+      //   ENotificationType.CompleteEventNote,
+      //   finishedEvent,
+      // );
+    }
+
+    // return finishedEvents;
   }
 
   async getTomorrowEvents() {
@@ -456,15 +487,15 @@ export class EventService {
   }
 
   private async checkTimeEvent(eventTime: Date, userId: number) {
-    console.log(eventTime);
+    // console.log(eventTime);
 
     const minTime = new Date(eventTime);
     const maxTime = new Date(eventTime);
     minTime.setHours(minTime.getHours() - 2);
     maxTime.setHours(maxTime.getHours() + 2);
 
-    console.log(minTime);
-    console.log(maxTime);
+    // console.log(minTime);
+    // console.log(maxTime);
 
     const result = await this.prisma.event.findFirst({
       where: {

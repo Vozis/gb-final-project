@@ -31,7 +31,7 @@ export function Header(props: HeaderProps) {
   const navigate = useNavigate();
 
   const { logout } = useActions();
-  const { finishedEvents } = useNotificationState();
+  const { count } = useNotificationState();
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
   const modalHeight = useRef<HTMLDivElement>(null); // new modal
@@ -46,7 +46,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <header className={styles.header}>
-      <ul className={'flex flex-wrap gap-5 items-center'}>
+      <ul className={'flex flex-wrap gap-3 items-center'}>
         <li>
           {location.pathname !== '/' && (
             <Button onClick={() => navigate(-1)}>
@@ -128,7 +128,7 @@ export function Header(props: HeaderProps) {
             }
           >
             <div>
-              <Badge badgeContent={finishedEvents?.length}>
+              <Badge badgeContent={count}>
                 <AiOutlineBell className={'text-[30px]'} />
               </Badge>
             </div>

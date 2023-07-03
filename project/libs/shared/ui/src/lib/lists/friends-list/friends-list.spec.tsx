@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Heading from './heading';
+import FriendsList from './friends-list';
 
-describe('Heading', () => {
+describe('FriendsList', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Heading />);
+    const { baseElement } = render(<FriendsList />);
     expect(baseElement).toBeTruthy();
   });
 });

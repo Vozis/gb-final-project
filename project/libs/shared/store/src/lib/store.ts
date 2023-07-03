@@ -21,7 +21,7 @@ import { useDispatch } from 'react-redux';
 const persistConfig = {
   key: 'gb-final',
   storage,
-  whitelist: ['user', 'filter', 'notification', 'comments'],
+  whitelist: ['user', 'filter', 'comments'],
   blacklist: ['socket'],
 };
 

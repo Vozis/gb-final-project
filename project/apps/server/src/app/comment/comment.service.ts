@@ -4,12 +4,16 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ENotificationType } from '../notification/notification.types';
+import { CommentSelect } from './returnCommentObject';
 
 @Injectable()
 export class CommentService {
   constructor(
     @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async getAllUserComments(id?: number) {
@@ -61,6 +65,11 @@ export class CommentService {
               select: {
                 likes: true,
                 children: true,
+              },
+            },
+            parent: {
+              select: {
+                authorId: true,
               },
             },
             children: {
@@ -153,51 +162,6 @@ export class CommentService {
     }
 
     return comments;
-  }
-
-  async getUnreadComments(id: number) {
-    const comments = await this.prisma.comment.findMany({
-      where: {
-        createdAt: {
-          gt: new Date(),
-        },
-        parentId: null,
-      },
-      select: {
-        id: true,
-        eventId: true,
-        message: true,
-        parentId: true,
-        _count: true,
-        children: true,
-        createdAt: true,
-        updatedAt: true,
-        isLiked: true,
-        likes: {
-          select: {
-            commentId: true,
-            userId: true,
-            userId_commentId: true,
-          },
-        },
-        author: {
-          select: {
-            id: true,
-            userName: true,
-            firstName: true,
-            lastName: true,
-            avatarPath: true,
-          },
-        },
-      },
-    });
-
-    return comments.map(comment => {
-      comment.isLiked = !!comment.likes.some(
-        like => like.userId_commentId === `${id}_${comment.id}`,
-      );
-      return comment;
-    });
   }
 
   async getAllToEvent(id: number, eventId: number) {
@@ -299,7 +263,7 @@ export class CommentService {
   }
 
   async createComment(authorId: number, createCommentDto: CreateCommentDto) {
-    return this.prisma.comment.create({
+    const newComment = await this.prisma.comment.create({
       data: {
         authorId: authorId,
         parentId: createCommentDto.parentId && +createCommentDto.parentId,
@@ -309,8 +273,34 @@ export class CommentService {
       select: {
         id: true,
         eventId: true,
+        event: {
+          select: {
+            creatorId: true,
+            id: true,
+            name: true,
+            creator: {
+              select: {
+                id: true,
+                lastName: true,
+              },
+            },
+          },
+        },
         message: true,
         parentId: true,
+        parent: {
+          select: {
+            id: true,
+            message: true,
+            authorId: true,
+            author: {
+              select: {
+                id: true,
+                lastName: true,
+              },
+            },
+          },
+        },
         _count: true,
         children: true,
         createdAt: true,
@@ -332,8 +322,13 @@ export class CommentService {
             avatarPath: true,
           },
         },
+        authorId: true,
       },
     });
+
+    this.eventEmitter.emit(ENotificationType.CreateCommentNote, newComment);
+
+    return newComment;
   }
 
   async updateComment(
@@ -358,10 +353,52 @@ export class CommentService {
   }
 
   async deleteComment(id: number) {
-    return this.prisma.comment.delete({
+    const deleteComment = await this.prisma.comment.delete({
       where: {
         id,
       },
     });
+
+    this.eventEmitter.emit(ENotificationType.DeleteCommentNote, deleteComment);
+
+    return deleteComment;
+  }
+
+  async getCommentById(id: number) {
+    const result = await this.prisma.comment.findUnique({
+      where: { id },
+      include: {
+        author: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatarPath: true,
+          },
+        },
+        parent: {
+          select: {
+            id: true,
+            message: true,
+          },
+        },
+        event: {
+          select: {
+            id: true,
+            name: true,
+            creator: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                avatarPath: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return result;
   }
 }

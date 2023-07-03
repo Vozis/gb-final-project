@@ -38,7 +38,8 @@ model User {
   comments Comment[]
   likes    Like[]
 
-  exitDate DateTime @default(now()) @map("exit_date")
+  exitDate      DateTime        @default(now()) @map("exit_date")
+  notifications Notifications[]
 
   // eventsList UsersOnEvents[]
   @@map("users")
@@ -100,7 +101,7 @@ model Event {
 model Comment {
   id       Int    @id @default(autoincrement())
   message  String @db.VarChar(1000)
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int
 
   children Comment[] @relation("CommentReplies")
@@ -120,10 +121,10 @@ model Comment {
 
 model Like {
   // id        Int     @id @default(autoincrement())
-  comment   Comment @relation(fields: [commentId], references: [id])
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId Int     @map("comment_id")
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @map("user")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -134,10 +135,14 @@ model Like {
 }
 
 model Notifications {
-  id       Int              @id @default(autoincrement())
+  id       Int                @id @default(autoincrement())
   type     NotificationType
-  sourceId Int              @map("source_id")
-  isRead   Boolean          @default(false) @map("is_read")
+  text     String?            @db.VarChar(1000)
+  sourceId Int                @map("source_id")
+  status   NotificationStatus @default(SENT)
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -167,7 +172,16 @@ enum NotificationType {
   EVENT_CREATE
   EVENT_UPDATE
   EVENT_COMPLETE
+  EVENT_PARTICIPATE
+  EVENT_LEAVE
   FRIEND_ADD
+  FRIEND_REMOVE
+}
+
+enum NotificationStatus {
+  SENT
+  DELIVERED
+  ERROR
 }
 
 enum EventStatus {

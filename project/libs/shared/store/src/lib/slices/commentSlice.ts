@@ -1,5 +1,4 @@
 import {
-  ETypeConnect,
   IComment,
   ICommentPayload,
   IEventStatus,
@@ -12,13 +11,11 @@ import { toggleCommentLike } from '../actions/likeActions';
 export interface IInitialCommentState {
   isLoadingLike: boolean;
   allComments: IComment[];
-  unreadComments: IComment[];
 }
 
 const initialState: IInitialCommentState = {
   isLoadingLike: false,
   allComments: [],
-  unreadComments: [],
 };
 
 const findValue = (arr: IComment[], val: number): IComment | undefined => {
@@ -49,21 +46,6 @@ function removeFromArrayOfObj(array: IComment[], idToRemove: number) {
   return array;
 }
 
-// function recursiveSearch(arr: IComment[], target: any): any {
-//   for (let i = 0; i < arr.length; i++) {
-//     if (arr[i].id === target.id) {
-//       return arr[i];
-//     }
-//     if (arr[i].children) {
-//       const result = recursiveSearch(arr[i].children, target);
-//       if (result) {
-//         return result;
-//       }
-//     }
-//   }
-//   return null;
-// }
-
 const commentSlice = createSlice({
   name: 'comment',
   initialState,
@@ -76,14 +58,6 @@ const commentSlice = createSlice({
     ) => {
       // console.log(action.payload.allComments);
       state.allComments = action.payload.allComments;
-    },
-    receiveUnreadComments: (
-      state,
-      action: PayloadAction<{
-        unreadComments: IComment[];
-      }>,
-    ) => {
-      state.unreadComments = action.payload.unreadComments;
     },
     receiveComment: (
       state,

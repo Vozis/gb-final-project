@@ -1,11 +1,11 @@
 import styles from './single-user-main.module.scss';
 import ProfileHead from '../../../profile-main/src/lib/profile-head/profile-head';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
-import { IEventForCard } from '@project/shared/types';
+import { IEventForCard, IToggle } from '@project/shared/types';
 import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
 import {
   CardList,
