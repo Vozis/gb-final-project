@@ -1,3 +1,5 @@
+@import "libs/shared/styles/themes/dark";
+
 .visuallyHidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -35,7 +37,8 @@
   }
 
   &__settingsList {
-    color: #5b5b5b;
+    //color: #5b5b5b;
+    color: var(--modal-textColor);
 
     & li:not(:last-child) {
       margin-bottom: 12px;

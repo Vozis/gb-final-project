@@ -76,6 +76,15 @@ export const returnAuthUserObject: Prisma.UserSelect = {
   firstName: true,
   lastName: true,
   avatarPath: true,
+  friends: {
+    select: {
+      id: true,
+      userName: true,
+      firstName: true,
+      lastName: true,
+      avatarPath: true,
+    },
+  },
   creations: {
     select: {
       id: true,

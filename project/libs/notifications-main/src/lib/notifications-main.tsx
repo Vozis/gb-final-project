@@ -1,56 +1,39 @@
+import { Heading, List } from '@project/shared/ui';
+import NotificationsComments from './notifications-comments/notifications-comments';
+import NotificationsEvents from './notifications-events/notifications-events';
+import NotificationsFriends from './notifications-friends/notifications-friends';
 import styles from './notifications-main.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import { EventService, NotificationService } from '@project/shared/services';
-import { toast } from 'react-toastify';
-import {
-  useActions,
-  useAuthRedux,
-  useNotificationState,
-} from '@project/shared/hooks';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { data } from 'autoprefixer';
-import { NotificationStatus } from '@prisma/client';
-import { INotificationUpdateStatus } from '@project/shared/types';
-
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
-  const { user } = useAuthRedux();
-  const navigate = useNavigate();
-  const { notifications, count } = useNotificationState();
-  const { changeNotificationStatus } = useActions();
-
-  // console.log(notifications);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, []);
-
-  if (!user) {
-    return null;
-  }
-
-  useEffect(() => {
-    const dto: INotificationUpdateStatus = {
-      ids: notifications.map(item => item.id),
-      status: NotificationStatus.DELIVERED,
-    };
-
-    console.log('dto:', dto);
-    changeNotificationStatus({
-      dto,
-    });
-  }, []);
-
   return (
-    <div className={styles['container']}>
-      {/*{finishedEvents.map(item => (*/}
-      {/*  <div>{item.name}</div>*/}
-      {/*))}*/}
+    <div className={styles.notifications}>
+      <Heading>Уведомления</Heading>
+      <NotificationsEvents />
+      <NotificationsFriends />
+      <NotificationsComments />
+      <List className={styles.notifications__list}>
+        {/*{finishedEvents?.map(item => (*/}
+        {/*  <div*/}
+        {/*    key={item.id}*/}
+        {/*    className={styles.notifications__item + ' rounded-xl'}*/}
+        {/*  >*/}
+        {/*    <span className={'text-sm'}>{item.name}</span>*/}
+        {/*    <div className={'grow'}>*/}
+        {/*      <Rating transition allowFraction SVGclassName={'inline h-8'} />*/}
+        {/*    </div>*/}
+        {/*    <Button*/}
+        {/*      className={*/}
+        {/*        'transition ease-in border-2 rounded-xl hover:bg-slate-50'*/}
+        {/*      }*/}
+        {/*      type={'button'}*/}
+        {/*    >*/}
+        {/*      Пропустить*/}
+        {/*    </Button>*/}
+        {/*  </div>*/}
+        {/*))}*/}
+      </List>
     </div>
   );
 }

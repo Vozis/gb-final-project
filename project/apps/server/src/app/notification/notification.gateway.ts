@@ -395,7 +395,7 @@ export class NotificationGateway {
       sourceId: data.user.id,
       type: NotificationType.FRIEND_ADD,
       status: NotificationStatus.SENT,
-      text: `User ${data.id} add you to friends`,
+      text: `User ${data.user.lastName} add you to friends`,
     };
 
     const friendAddNotification =
@@ -427,9 +427,9 @@ export class NotificationGateway {
     const removeFriendDto: CreateNotificationDto = {
       userId: data.id,
       sourceId: data.user.id,
-      type: NotificationType.FRIEND_ADD,
+      type: NotificationType.FRIEND_REMOVE,
       status: NotificationStatus.SENT,
-      text: `User ${data.id} remove you from friends`,
+      text: `User ${data.user.lastName} remove you from friends`,
     };
 
     const friendRemoveNotification =

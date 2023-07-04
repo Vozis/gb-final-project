@@ -1,4 +1,4 @@
-import { useActions, useAuthRedux } from '@project/shared/hooks';
+import { useActions, useAuthRedux, useTheme } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Link } from 'react-router-dom';
 import { useModal } from '@project/shared/hooks';
@@ -34,6 +34,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   }, [user]);
 
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (modalHeight.current) {
@@ -78,7 +79,6 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   //   return null;
   // }
 
-  console.log('user: ', user);
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
   console.log('isFriend', isFriend);

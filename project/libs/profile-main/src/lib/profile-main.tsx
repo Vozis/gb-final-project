@@ -70,7 +70,7 @@ export function ProfileMain(props: ProfileMainProps) {
     },
   ];
 
-  // console.log(profileEvents.data);
+  console.log('friends', user.friends);
 
   // const { isLoading: isLoadingTags, data: times } = useQuery(
   //   ['get-tags-count'],
@@ -104,7 +104,7 @@ export function ProfileMain(props: ProfileMainProps) {
   return (
     <>
       {isLoading ? (
-        <>
+        <div className={'flex flex-col gap-4'}>
           <UserBigSkeleton />
           <SkeletonLoader
             count={2}
@@ -113,12 +113,34 @@ export function ProfileMain(props: ProfileMainProps) {
               'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }
           />
+          {/*Скелетон для списка друзей*/}
+          <SkeletonLoader
+            count={1}
+            className={''}
+            containerClassName={
+              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+            }
+          />
+          <SkeletonLoader
+            count={2}
+            className={'h-10 w-full rounded-[50px]'}
+            containerClassName={
+              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+            }
+          />
           <CardSkeleton count={3} />
-        </>
+        </div>
       ) : (
         <>
           <ProfileHead userProps={user} />
-          <FriendsList user={user} />
+          <FriendsList
+            list={user.friends}
+            arrows
+            breakPoints={{
+              340: { slidesPerView: 2 },
+              400: { slidesPerView: 3 },
+            }}
+          />
         </>
       )}
       <div className={styles.container}></div>

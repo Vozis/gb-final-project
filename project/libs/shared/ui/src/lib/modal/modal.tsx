@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 import { Button } from '../button/button';
 import { MaterialIcon } from '@project/shared/ui';
+import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface ModalProps {
@@ -33,6 +34,7 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
     },
     ref,
   ) => {
+    const { theme } = useTheme();
     return ReactDOM.createPortal(
       <div
         className={clsx(styles.modal, className, {
@@ -49,6 +51,8 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
             [styles.active]: show,
             [styles.profile__modal_setting__content]: isSettingModal,
             [styles.profile__modalInfo__content]: isUserInfoModal,
+            [styles.dark]: theme === 'dark',
+            [styles.light]: theme === 'light',
           })}
           onClick={e => {
             e.stopPropagation();

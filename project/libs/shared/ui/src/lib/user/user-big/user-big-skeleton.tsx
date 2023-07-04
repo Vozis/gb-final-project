@@ -15,7 +15,7 @@ export const UserBigSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
       <div>
         <SkeletonLoader
           count={1}
-          className={'h-16 w-16 rounded-[100px]'}
+          className={'h-16 w-16 rounded-[200px]'}
           containerClassName={'flex gap-2 flex-wrap'}
         />
         <SkeletonLoader
