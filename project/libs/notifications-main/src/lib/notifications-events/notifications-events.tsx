@@ -52,14 +52,17 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
           <div key={item.id}>
             {item.type === 'EVENT_PARTICIPATE' ? (
               <div className={styles.event_container}>
-                {/* <img src={item.user.avatarPath} alt={'avatar'} /> */}
+                {/* @ts-ignore */}
+                <img src={item.user.avatarPath} alt={'avatar'} />
                 <p>
                   Вашь друг{' '}
                   <Link
                     to={`/users/${item.user.id}`}
                     className={styles.event_span}
                   >
-                    {item.user.userName}
+                    {' '}
+                    {/* @ts-ignore */}
+                    {item.user.firstName}
                   </Link>
                   {/* <span className={styles.event_span}>
                     {item.user.userName}
@@ -85,7 +88,7 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
                   >
                     {item.user.userName}
                   </Link>{' '}
-                  создал новое событие{'  '}
+                  создал новое событие {'  '}
                   <Link
                     to={`/events/${item.sourceId}`}
                     className={styles.event_span}
