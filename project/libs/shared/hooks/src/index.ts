@@ -16,3 +16,4 @@ export * from './lib/store/useCommentState';
 export * from './lib/store/useSocketState';
 export * from './lib/useAuthRedirect';
 export * from './lib/useCheckUserStatus';
+export * from './lib/useTheme';

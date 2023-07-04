@@ -45,37 +45,29 @@ export function UserCardSmall({
       {isPhoto && (
         <Avatar imagePath={userProps.avatarPath} isOnline={isOnline} />
       )}
-      <div
-        className={styles.info}
-        onClick={() => console.log('модальное окно с информацией')}
-      >
-        {isName && (
-          <h2
-            className={cn(styles.fullname, {
-              ['text=[#353535]']: !isWhite,
-              ['text=[#ffffff]']: isWhite,
-            })}
-          >{`${userProps?.firstName} ${userProps?.lastName}`}</h2>
-        )}
-        {isInfo && (
-          <div className={styles.infoIconsBox}>
-            <div className={styles.infoIconGroup}>
-              <MaterialIcon
-                name={'MdOutlineLocationOn'}
-                className={styles.infoIcon}
-              />
-              <span>Москва</span>
-            </div>
-            <div className={styles.infoIconGroup}>
-              <MaterialIcon
-                name={'MdOutlineInfo'}
-                className={styles.infoIcon}
-              />
-              <span>О себе</span>
-            </div>
+      {isName && (
+        <h2
+          className={cn(styles.fullname, {
+            ['text=[#353535]']: !isWhite,
+            ['text=[#ffffff]']: isWhite,
+          })}
+        >{`${userProps?.firstName} ${userProps?.lastName}`}</h2>
+      )}
+      {isInfo && (
+        <div className={styles.infoIconsBox}>
+          <div className={styles.infoIconGroup}>
+            <MaterialIcon
+              name={'MdOutlineLocationOn'}
+              className={styles.infoIcon}
+            />
+            <span>Москва</span>
           </div>
-        )}
-      </div>
+          <div className={styles.infoIconGroup}>
+            <MaterialIcon name={'MdOutlineInfo'} className={styles.infoIcon} />
+            <span>О себе</span>
+          </div>
+        </div>
+      )}
     </Link>
   );
 }

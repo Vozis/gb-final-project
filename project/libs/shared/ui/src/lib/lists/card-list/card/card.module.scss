@@ -79,6 +79,9 @@
     font-size: v.$text-2xl;
     margin-right: 50px;
     text-decoration: none;
+    @media (max-width: 500px) {
+      font-size: 20px;
+    }
   }
 
   &__info {

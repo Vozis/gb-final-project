@@ -1,7 +1,11 @@
-@use 'libs/shared/styles/variables' as v;
+//@use 'libs/shared/styles/variables' as v;
+@import 'libs/shared/styles/themes/dark';
+@import 'libs/shared/styles/themes/normal';
 
 .layout {
-  background-color: v.$background-color;
+  //background-color: v.$background-color;
+  background: var(--bg-color);
+  color: var(--primary-color);
   display: grid;
   grid-template-areas:
     'header'
@@ -9,10 +13,12 @@
     'footer';
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  height: 100vh;
-  min-height: 100vh;
+  //height: 100vh;
+  //min-height: 100vh;
   width: 100%;
+  transition: background-color .2s ease-out;
 }
+
 
 .layout > header {
   grid-area: header;
@@ -34,6 +40,7 @@
   //margin: 0 auto;
   padding: 0 20px;
 }
+
 
 @media (min-width: 499px) {
   .layout > main {

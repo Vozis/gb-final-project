@@ -3,6 +3,7 @@ import {
   useAuthRedux,
   useModal,
   useNotificationState,
+  useTheme,
 } from '@project/shared/hooks';
 import { Badge, Button, MaterialIcon } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
@@ -16,6 +17,10 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './header.module.scss';
 import isActive = toast.isActive;
+import { getFinishedEvents } from '../../../../store/src/lib/actions/notificationActions';
+import { NotificationService } from '@project/shared/services';
+import clsx from 'clsx';
+
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}
@@ -32,6 +37,8 @@ export function Header(props: HeaderProps) {
 
   const { logout } = useActions();
   const { count } = useNotificationState();
+  const { theme, toggleTheme } = useTheme();
+
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
   const modalHeight = useRef<HTMLDivElement>(null); // new modal
@@ -44,8 +51,14 @@ export function Header(props: HeaderProps) {
     }
   }, [isShowSettingModal]); //new modal
 
+
   return (
-    <header className={styles.header}>
+    <header
+      className={clsx(styles.header, {
+        [`${styles.header} ${styles.dark}`]: theme === 'dark',
+        [`${styles.header} ${styles.light}`]: theme === 'light',
+      })}
+    >
       <ul className={'flex flex-wrap gap-3 items-center'}>
         <li>
           {location.pathname !== '/' && (
@@ -159,6 +172,9 @@ export function Header(props: HeaderProps) {
           </NavLink>
         )}
       </div>
+      <button onClick={toggleTheme}>
+        {theme === 'dark' ? 'Темная тема' : 'Светлая тема'}
+      </button>
     </header>
   );
 }

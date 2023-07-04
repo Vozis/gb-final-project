@@ -1,12 +1,15 @@
 @use 'libs/shared/styles/variables' as v;
+@import "libs/shared/styles/themes/dark";
+@import "libs/shared/styles/themes/normal";
 
 .header {
   align-items: center;
-  background: #ffffff;
+  //background: #fff;
+  background: var(--bg-color);
   border-radius: 15px 15px 0 0;
   bottom: 0;
   box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
-  color: blue;
+  color: var(--primary-color);
   display: flex;
   justify-content: space-between;
   left: 0;
