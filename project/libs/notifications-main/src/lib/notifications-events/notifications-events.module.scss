@@ -32,6 +32,9 @@ svg.star-svg {
   &_container {
     display: flex;
     margin: 20px;
+    & img {
+      width: 30px;
+    }
   }
   &_span {
     cursor: pointer;
