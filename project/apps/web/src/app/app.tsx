@@ -1,24 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
 
-import NxWelcome from './nx-welcome';
-
-import { Route, Routes, Link } from 'react-router-dom';
-import { SharedLayout } from '@project/shared/layout';
-import * as React from 'react';
-import { SharedProviders } from '@project/shared/providers';
 import {
-  Home,
-  Notifications,
-  ResetPassword,
   Auth,
   ConfirmEmail,
-  Hello,
   CreateEvent,
+  Hello,
+  Home,
+  Notifications,
+  Profile,
+  ResetPassword,
   SingleEvent,
   SingleUser,
-  Profile,
 } from '@project/pages';
+import { SharedLayout } from '@project/shared/layout';
+import { SharedProviders } from '@project/shared/providers';
+import * as React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 export function App() {
   return (
