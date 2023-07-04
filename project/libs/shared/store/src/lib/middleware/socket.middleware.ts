@@ -1,24 +1,21 @@
-import { io, Socket } from 'socket.io-client';
 import { Middleware } from '@reduxjs/toolkit';
+/* eslint-disable */
+// @ts-ignore
+import { io, Socket } from 'socket.io-client';
 import { actions as commentActions } from '../slices/commentSlice';
-import { actions as socketActions } from '../slices/socketSlice';
 import { actions as notificationActions } from '../slices/notificationSlice';
+import { actions as socketActions } from '../slices/socketSlice';
 
 import {
   CommentEvent,
   IAllNotificationResponse,
   IComment,
-  ICommentPayload,
   INotification,
   IOnlineSocketUser,
   IUserActiveRooms,
   NotificationEvent,
   SocketEvent,
 } from '@project/shared/types';
-import Cookies from 'js-cookie';
-import { NotificationStatus, NotificationType } from '@prisma/client';
-import { login } from '../actions/userActions';
-import { toast } from 'react-toastify';
 
 const socketMiddleware: Middleware = store => {
   let socket: Socket;

@@ -1,24 +1,11 @@
-import styles from './card.module.scss';
-import {
-  Button,
-  FavoriteButton,
-  Tag,
-  ToggleUserButton,
-} from '@project/shared/ui';
+import { useAuthRedux } from '@project/shared/hooks';
 import { IEventForCard } from '@project/shared/types';
-import { FC, useEffect, useState } from 'react';
+import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
 import clsx from 'clsx';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  useActions,
-  useAuthRedux,
-  useFilterState,
-} from '@project/shared/hooks';
-import { EventService } from '@project/shared/services';
-import { toast } from 'react-toastify';
-import { Link, redirect } from 'react-router-dom';
-import cn from 'clsx';
 import moment from 'moment';
+import { FC } from 'react';
+import { Link, redirect } from 'react-router-dom';
+import styles from './card.module.scss';
 
 /* eslint-disable-next-line */
 export interface CardProps {

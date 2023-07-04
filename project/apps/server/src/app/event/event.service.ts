@@ -6,35 +6,24 @@ import {
 } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 
-import { NotificationStatus, NotificationType, Prisma } from '@prisma/client';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Prisma } from '@prisma/client';
+import { isEmpty } from 'lodash';
+import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { ToggleDto } from '../../utils/toggle.dto';
+import { EventParticipateNotification } from '../notification/dto/create-notification.dto';
+import { ENotificationType } from '../notification/notification.types';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
+import { FilterSearchDto } from './dto/search-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 import {
   EventFullSelect,
   EventSelect,
-  ReturnEvent,
   returnEventFullObject,
   returnEventObject,
 } from './returnEventObject';
-import { fileUploadHelper } from '../../utils/file-upload.helper';
-import {
-  FilterEventFieldsDto,
-  FilterNestedFieldsDto,
-  FilterSearchDto,
-  SearchEventDto,
-} from './dto/search-event.dto';
-import { isEmpty } from 'lodash';
-import { UpdateEventDto } from './dto/update-event.dto';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
-import { UserSelect } from '../user/returnUserObject';
-import {
-  CreateNotificationDto,
-  EventParticipateNotification,
-} from '../notification/dto/create-notification.dto';
-import { log } from 'handlebars';
-import { ENotificationType } from '../notification/notification.types';
 
 @Injectable()
 export class EventService {
@@ -463,10 +452,10 @@ export class EventService {
           status: 'CLOSED',
         },
       });
-      this.eventEmitter.emit(
-        ENotificationType.CompleteEventNote,
-        finishedEvent,
-      );
+      // this.eventEmitter.emit(
+      //   ENotificationType.CompleteEventNote,
+      //   finishedEvent,
+      // );
     }
 
     // return finishedEvents;

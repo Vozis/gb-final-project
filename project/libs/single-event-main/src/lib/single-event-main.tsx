@@ -96,45 +96,45 @@ export function SingleEventMain(props: SingleEventMainProps) {
 
   console.log('notifications from event-main: ', notifications);
 
-  useEffect(() => {
-    console.log('start');
-    console.log(notifications.length);
+  // useEffect(() => {
+  //   console.log('start');
+  //   console.log(notifications.length);
 
-    const readNotifications: number[] = notifications
-      .filter(item => {
-        if (
-          item.moreData === +id &&
-          item.type === NotificationType.COMMENT_CREATE
-        ) {
-          return item;
-        } else if (
-          item.type === NotificationType.COMMENT_REPLY &&
-          item.moreData === +id
-        ) {
-          return item;
-        } else if (
-          item.type === NotificationType.EVENT_CREATE &&
-          item.sourceId === +id
-        ) {
-          return item;
-        } else if (
-          item.type === NotificationType.EVENT_UPDATE &&
-          item.sourceId === +id
-        ) {
-          return item;
-        }
-      })
-      .map(item => item.id);
+  //   const readNotifications: number[] = notifications
+  //     .filter(item => {
+  //       if (
+  //         item.moreData === +id &&
+  //         item.type === NotificationType.COMMENT_CREATE
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.COMMENT_REPLY &&
+  //         item.moreData === +id
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.EVENT_CREATE &&
+  //         item.sourceId === +id
+  //       ) {
+  //         return item;
+  //       } else if (
+  //         item.type === NotificationType.EVENT_UPDATE &&
+  //         item.sourceId === +id
+  //       ) {
+  //         return item;
+  //       }
+  //     })
+  //     .map(item => item.id);
 
-    console.log('readNotifications: ', readNotifications);
+  //   console.log('readNotifications: ', readNotifications);
 
-    const dto: INotificationUpdateStatus = {
-      ids: readNotifications,
-      status: NotificationStatus.DELIVERED,
-    };
+  //   const dto: INotificationUpdateStatus = {
+  //     ids: readNotifications,
+  //     status: NotificationStatus.DELIVERED,
+  //   };
 
-    changeNotificationStatus({ dto });
-  }, []);
+  //   changeNotificationStatus({ dto });
+  // }, []); чтобы не удалялись уведомления
 
   // if (!publicEvent) return null;
 
