@@ -10,6 +10,7 @@ import { NotificationStatus, NotificationType } from '@prisma/client';
 import { INotificationResponse } from './notification.types';
 import { OnEvent } from '@nestjs/event-emitter';
 import { EventSelect } from '../event/returnEventObject';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class NotificationService {
@@ -36,6 +37,9 @@ export class NotificationService {
               avatarPath: true,
             },
           },
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       }),
       this.prisma.notifications.count({

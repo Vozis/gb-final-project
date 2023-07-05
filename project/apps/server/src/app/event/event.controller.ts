@@ -30,6 +30,11 @@ import { Cron } from '@nestjs/schedule';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
+  @Get('checkEvent')
+  async scheduleEventStatusManual() {
+    return this.eventService.changeScheduleEventStatus();
+  }
+
   // Public routes =============================================================
   @Get('public/all')
   @HttpCode(200)
@@ -137,4 +142,9 @@ export class EventController {
   async scheduleEventStatus() {
     return this.eventService.changeScheduleEventStatus();
   }
+
+  // @Cron('57 23 * * *')
+  // async scheduleEventStatus() {
+  //   return this.eventService.changeScheduleEventStatus();
+  // }
 }

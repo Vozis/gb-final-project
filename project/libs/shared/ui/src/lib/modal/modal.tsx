@@ -1,7 +1,7 @@
 import styles from './modal.module.scss';
 import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
-import clsx from 'clsx';
+import cn from 'clsx';
 import { Button } from '../button/button';
 import { MaterialIcon } from '@project/shared/ui';
 import { useTheme } from '@project/shared/hooks';
@@ -12,8 +12,8 @@ export interface ModalProps {
   onCloseClick: React.Dispatch<any>;
   isBtnClose?: boolean;
   className?: string;
-  isSettingModal?: boolean;
-  isUserInfoModal?: boolean;
+  isFirstType?: boolean;
+  isSecondType?: boolean;
   children: React.ReactNode;
   height?: string;
   ref?: React.Ref<HTMLDivElement> | null;
@@ -25,8 +25,8 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
     {
       height,
       className,
-      isSettingModal = false,
-      isUserInfoModal = false,
+      isFirstType = false,
+      isSecondType = false,
       show,
       children,
       onCloseClick,
@@ -37,9 +37,9 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
     const { theme } = useTheme();
     return ReactDOM.createPortal(
       <div
-        className={clsx(styles.modal, className, {
-          [styles.profile__modal_setting]: isSettingModal,
-          [styles.profile__modalInfo]: isUserInfoModal,
+        className={cn(styles.modal, className, {
+          [styles.firstType]: isFirstType,
+          [styles.secondType]: isSecondType,
           [styles.active]: show,
         })}
         onClick={onCloseClick}
@@ -47,10 +47,10 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
         <div
           ref={ref}
           style={{ maxHeight: `${height}` }}
-          className={clsx(styles.modal__content, className, {
+          className={cn(styles.modal__content, className, {
             [styles.active]: show,
-            [styles.profile__modal_setting__content]: isSettingModal,
-            [styles.profile__modalInfo__content]: isUserInfoModal,
+            [styles.firstType__content]: isFirstType,
+            [styles.secondType__content]: isSecondType,
             [styles.dark]: theme === 'dark',
             [styles.light]: theme === 'light',
           })}

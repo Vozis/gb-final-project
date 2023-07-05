@@ -133,32 +133,31 @@ export class MailService {
   //   console.log('Hello world');
   // }
 
-  // @Cron('* */1 * * * *') переделать раз в сутки / (раз в час)
-  // async sendEventReminder() {
-  //   let mailList = [];
-  //   const tomorrowEvents = await this.eventService.getTomorrowEvents();
-  //
-  //   tomorrowEvents.forEach(event => {
-  //     // mailList.push(...event.users);
-  //     event.users.forEach(user => {
-  //       return this.mailerService
-  //         .sendMail({
-  //           to: user.email,
-  //           subject: `Напоминаем, уже завтра состоится ${event.name}`,
-  //           template: './schedule-event-email',
-  //           context: {
-  //             name: `${user.firstName}`,
-  //             eventName: event.name,
-  //             time: event.eventTime,
-  //           },
-  //         })
-  //         .then(res => {
-  //           // console.log('res: ', res);
-  //         })
-  //         .catch(err => {
-  //           console.log('err: ', err);
-  //         });
-  //     });
-  //   });
-  // }
+  async sendEventReminder() {
+    let mailList = [];
+    const tomorrowEvents = await this.eventService.getTomorrowEvents();
+    // console.log('tomorrowEvents: ', tomorrowEvents);
+    tomorrowEvents.forEach(event => {
+      // mailList.push(...event.users);
+      event.users.forEach(user => {
+        return this.mailerService
+          .sendMail({
+            to: user.email,
+            subject: `Напоминаем, уже завтра состоится ${event.name}`,
+            template: './schedule-event-email',
+            context: {
+              name: `${user.firstName}`,
+              eventName: event.name,
+              time: event.eventTime,
+            },
+          })
+          .then(res => {
+            // console.log('res: ', res);
+          })
+          .catch(err => {
+            console.log('err: ', err);
+          });
+      });
+    });
+  }
 }

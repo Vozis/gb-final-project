@@ -40,7 +40,7 @@ const notificationSlice = createSlice({
         notification: INotification;
       }>,
     ) => {
-      state.notifications.push(action.payload.notification);
+      state.notifications.unshift(action.payload.notification);
       state.count++;
       toast.success(action.payload.notification.text, {
         toastId: 'get-notification',
