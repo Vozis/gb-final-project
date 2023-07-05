@@ -7,7 +7,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
-import { Role, User } from '@prisma/client';
+import { Role, User, Prisma } from '@prisma/client';
 import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
 import { ToggleDto } from '../../utils/toggle.dto';
@@ -61,9 +61,41 @@ export class UserService {
     });
   }
 
-  async getAll(): Promise<UserSelect[]> {
+  async getAll(searchTerm?: string) {
+    const prismaSearchFilter: Prisma.UserWhereInput = searchTerm
+      ? {
+          OR: [
+            {
+              userName: {
+                contains: searchTerm,
+                mode: 'insensitive',
+              },
+            },
+            {
+              firstName: {
+                contains: searchTerm,
+                mode: 'insensitive',
+              },
+            },
+            {
+              lastName: {
+                contains: searchTerm,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }
+      : {};
+
     return this.prisma.user.findMany({
-      select: returnUserObject,
+      where: prismaSearchFilter,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        userName: true,
+        avatarPath: true,
+      },
     });
   }
 

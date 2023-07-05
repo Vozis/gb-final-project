@@ -1,17 +1,20 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { EventService } from '@project/shared/services';
+import { EventService, UserService } from '@project/shared/services';
 import { IEventForCard, ISearch, ISearchForm } from '@project/shared/types';
-import { SubmitHandler } from 'react-hook-form';
-import { useMemo, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useMemo, useState } from 'react';
 import {
   useActions,
   useAuthRedux,
   useFilterState,
 } from '@project/shared/hooks';
 import Filter from './filter';
+import { UserApi } from '@project/shared/config';
 
 export const useFilter = () => {
   const [isUseFilter, setIsUseFilter] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isEvent, setIsEvent] = useState<boolean>(true);
 
   const { user } = useAuthRedux();
 
@@ -87,11 +90,25 @@ export const useFilter = () => {
               isParticipate: event.isParticipate,
             }),
           ),
-        enabled: isUseFilter && !!user && !!filterParamsArray,
+        enabled: isUseFilter && isEvent && !!user && !!filterParamsArray,
       },
     );
 
-  const onSubmit: SubmitHandler<ISearchForm> = async (data, event) => {
+  const { isLoading: isUserSearchLoading, data: foundUsers } = useQuery(
+    ['search-people', searchTerm],
+    () => UserService.getAllUsers(searchTerm),
+    {
+      select: ({ data }) => data,
+      enabled: isUseFilter && !isEvent && !!searchTerm,
+    },
+  );
+
+  const onSubmitUsers: SubmitHandler<ISearchForm> = (data, event) => {
+    event?.preventDefault();
+    setSearchTerm(data.searchTerm || '');
+  };
+
+  const onSubmitEvents: SubmitHandler<ISearchForm> = async (data, event) => {
     event?.preventDefault();
 
     // console.log('submit data: ', data);
@@ -138,11 +155,18 @@ export const useFilter = () => {
     () => ({
       isLoading: user ? isLoadingAuth : isLoading,
       events: user ? authEvents : events,
-      onSubmit,
+      onSubmit: isEvent ? onSubmitEvents : onSubmitUsers,
       isUseFilter,
-      isLoadingWithFilter: user ? isLoadingAuthWithFilter : isLoading,
+      isLoadingWithFilter: !isEvent
+        ? isUserSearchLoading
+        : user
+        ? isLoadingAuthWithFilter
+        : isLoading,
       filterEvents: user ? authEventsWithFilter : events,
       setIsUseFilter,
+      setIsEvent,
+      isEvent,
+      foundUsers,
     }),
     [
       events,
@@ -151,6 +175,10 @@ export const useFilter = () => {
       isLoadingAuth,
       authEventsWithFilter,
       isLoadingAuthWithFilter,
+      isUserSearchLoading,
+      foundUsers,
+      setIsEvent,
+      isEvent,
     ],
   );
 };

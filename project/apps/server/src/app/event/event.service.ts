@@ -51,6 +51,7 @@ export class EventService {
     let userSportHobbies = [];
 
     if (
+      filterSearchDto &&
       filterSearchDto.searchParams &&
       filterSearchDto.searchParams?.length !== 0
     ) {
@@ -63,6 +64,7 @@ export class EventService {
     }
 
     if (
+      filterSearchDto &&
       filterSearchDto.filterEventFieldsParams &&
       filterSearchDto.filterEventFieldsParams.length !== 0
     ) {
@@ -71,8 +73,8 @@ export class EventService {
           [item.paramsFilter]: {
             id:
               typeof item.eventFieldValue === 'number'
-                ? +item.eventFieldValue
-                : item.eventFieldValue,
+                ? item.eventFieldValue
+                : +item.eventFieldValue,
           },
         };
       });
@@ -90,6 +92,7 @@ export class EventService {
       // console.log(userSportHobbies);
 
       if (
+        filterSearchDto &&
         filterSearchDto.filterNestedFieldsParams &&
         filterSearchDto.filterNestedFieldsParams.length !== 0
       ) {
@@ -99,8 +102,8 @@ export class EventService {
               some: {
                 [item.paramsType]:
                   typeof item.nestedFieldValue === 'number'
-                    ? +item.nestedFieldValue
-                    : item.nestedFieldValue,
+                    ? item.nestedFieldValue
+                    : +item.nestedFieldValue,
               },
             },
           };
@@ -120,6 +123,7 @@ export class EventService {
       }
     } else {
       if (
+        filterSearchDto &&
         filterSearchDto.filterNestedFieldsParams &&
         filterSearchDto.filterNestedFieldsParams.length !== 0
       ) {
@@ -129,8 +133,8 @@ export class EventService {
               some: {
                 [item.paramsType]:
                   typeof item.nestedFieldValue === 'number'
-                    ? +item.nestedFieldValue
-                    : item.nestedFieldValue,
+                    ? item.nestedFieldValue
+                    : +item.nestedFieldValue,
               },
             },
           };

@@ -9,6 +9,7 @@ import {
   IToggle,
   IUser,
   IUserEdit,
+  IUserSmall,
 } from '@project/shared/types';
 import { saveToStorage } from '@project/shared/utils';
 
@@ -48,5 +49,11 @@ export const UserService = {
 
   async resetPassword(data: IResetPassword) {
     return axiosClassic.put(UserApi.resetPassword, data);
+  },
+
+  async getAllUsers(searchTerm?: string) {
+    return axiosAuth.get<IUserSmall[]>(UserApi.getAll, {
+      params: searchTerm ? { searchTerm } : {},
+    });
   },
 };

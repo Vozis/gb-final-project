@@ -43,3 +43,8 @@ export class FilterSearchDto {
   // @Transform(({ value }) => value === 'true')
   // isByUserHobby?: boolean;
 }
+
+export interface IFilterDto {
+  filterSearchDto?: FilterSearchDto;
+  withHobby?: boolean;
+}

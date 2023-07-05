@@ -11,7 +11,7 @@ import {
 import { SelectField } from '../form/select/select';
 import { Button } from '../button/button';
 import { IOption, ISearchForm, ITag } from '@project/shared/types';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { MaterialIcon } from '../icons/material-icon';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 import { useQuery } from '@tanstack/react-query';
@@ -24,12 +24,20 @@ export interface FilterProps {
   // register: UseFormRegister<any>;
   // formState: FormState<any>;
   // handleSubmit: SubmitHandler<ISearch>;
-  onSubmit: SubmitHandler<ISearchForm>;
+  onSubmit: SubmitHandler<ISearchForm> | any;
   setIsUseFilter: (value: boolean) => void;
+  setIsEvent: (value: boolean) => void;
+  isEvent: boolean;
 }
 
-export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
+export const Filter: FC<FilterProps> = ({
+  onSubmit,
+  setIsUseFilter,
+  setIsEvent,
+  isEvent,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const { user } = useAuthRedux();
   let userSportHobbies: string[] | number[] = [];
 
@@ -46,7 +54,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
   } = useForm<ISearchForm>({
     mode: 'onChange',
   });
-  //
+
   // if (user && user.hobbies) {
   //   userSportHobbies = user.hobbies
   //     .filter((hobby: ITag) => hobby.type.name === 'sport')
@@ -75,7 +83,6 @@ export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
 
   const handleResetButton = () => {
     resetFilterParamsArray();
-
     setIsUseFilter(false);
   };
 
@@ -86,7 +93,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
     >
       <div className={'flex gap-4 items-center w-full'}>
         <SearchField
-          {...register('valuesSearch')}
+          {...register(isEvent ? 'valuesSearch' : 'searchTerm')}
           placeholder={'Просто начните писать...'}
           // onChange={debounce(async () => {
           //   await trigger('valuesSearch');
@@ -138,7 +145,7 @@ export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
           onClick={() => setIsUseFilter(true)}
           className={'px-6 bg-[#04145C] rounded-xl text-white'}
         >
-          Искать
+          <span>Искать {isEvent ? 'события' : 'пользователей'}</span>
         </Button>
         <Button
           onClick={handleResetButton}
@@ -146,6 +153,10 @@ export const Filter: FC<FilterProps> = ({ onSubmit, setIsUseFilter }) => {
         >
           Сбросить
         </Button>
+        <label className={'flex gap-2 items-center'}>
+          <p>Нужен поиск по людям ?</p>
+          <input type="checkbox" onChange={() => setIsEvent(!isEvent)} />
+        </label>
       </div>
     </form>
   );
