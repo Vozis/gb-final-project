@@ -1,9 +1,16 @@
-import { useAuthRedux } from '@project/shared/hooks';
+import { useAuthRedux, useModal } from '@project/shared/hooks';
 import { IEventForCard } from '@project/shared/types';
-import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
+import {
+  Button,
+  FavoriteButton,
+  MaterialIcon,
+  ModalWindow,
+  Tag,
+  ToggleUserButton,
+} from '@project/shared/ui';
 import clsx from 'clsx';
 import moment from 'moment';
-import { FC } from 'react';
+import { FC, useRef, useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import styles from './card.module.scss';
 
@@ -15,6 +22,9 @@ export interface CardProps {
 export const Card: FC<CardProps> = ({ event }) => {
   // const queryClient = useQueryClient();
   const { user } = useAuthRedux();
+  const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
+  const modalHeight = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState('0px');
 
   if (!user) {
     redirect('/auth');
@@ -31,7 +41,61 @@ export const Card: FC<CardProps> = ({ event }) => {
         backgroundPosition: 'center',
       }}
     >
-      {user && <FavoriteButton eventId={event.id} />}
+      {user && (
+        <div className={'absolute right-2 top-2 text-right'}>
+          <FavoriteButton eventId={event.id} />
+          {user.id === event.creator?.id && (
+            <>
+              <Link
+                to={`/events/update/${event.id}`}
+                className={'text-white block'}
+              >
+                Редактировать
+              </Link>
+              <Button className={'text-white'}>Удалить</Button>
+            </>
+          )}
+          {/*<div>*/}
+          {/*  <button type="button" onClick={handleToggleSettingModal}>*/}
+          {/*    <MaterialIcon*/}
+          {/*      name={'MdSettings'}*/}
+          {/*      className={'text-gray-400 text-3xl'}*/}
+          {/*    />*/}
+          {/*  </button>*/}
+          {/*  <ModalWindow*/}
+          {/*    isSettingModal*/}
+          {/*    show={isShowSettingModal}*/}
+          {/*    onCloseClick={handleToggleSettingModal}*/}
+          {/*    ref={modalHeight}*/}
+          {/*    height={height}*/}
+          {/*  >*/}
+          {/*    <ul className={styles.profile__settingsList}>*/}
+          {/*      <li>*/}
+          {/*        <Link*/}
+          {/*          to={'/profile/update'}*/}
+          {/*          className={styles.profile__settingsList_item}*/}
+          {/*        >*/}
+          {/*          <MaterialIcon*/}
+          {/*            name={'MdOutlineEdit'}*/}
+          {/*            className={styles.profile__settingsList_item_icon}*/}
+          {/*          />*/}
+          {/*          <span>Редактировать профиль</span>*/}
+          {/*        </Link>*/}
+          {/*      </li>*/}
+          {/*      <li>*/}
+          {/*        <Link to={'/'} className={styles.profile__settingsList_item}>*/}
+          {/*          <MaterialIcon*/}
+          {/*            name={'MdArrowOutward'}*/}
+          {/*            className={styles.profile__settingsList_item_icon}*/}
+          {/*          />*/}
+          {/*          <span>Поделиться профилем</span>*/}
+          {/*        </Link>*/}
+          {/*      </li>*/}
+          {/*    </ul>*/}
+          {/*  </ModalWindow>*/}
+          {/*</div>*/}
+        </div>
+      )}
       <div className={styles.card__info}>
         <Link to={`/events/${event.id}`} className={styles.card__title}>
           {event.name}

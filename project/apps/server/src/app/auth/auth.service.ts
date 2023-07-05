@@ -43,7 +43,10 @@ export class AuthService {
       },
     });
 
-    if (isEmailUser) throw new BadRequestException('Email already exists');
+    if (isEmailUser)
+      throw new BadRequestException(
+        'Данный email уже используется для другого аккаунта',
+      );
 
     if (isUserNameUser)
       throw new BadRequestException('UserName already exists');

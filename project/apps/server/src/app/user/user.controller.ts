@@ -9,6 +9,8 @@ import {
   ParseIntPipe,
   Put,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +19,7 @@ import { User } from '../auth/decorators/user.decorator';
 import { Role, User as UserModel } from '@prisma/client';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { UserSelect } from './returnUserObject';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UserController {
@@ -53,12 +56,14 @@ export class UserController {
 
   @Auth()
   @Put('profile')
+  @UseInterceptors(FileInterceptor('avatar'))
   async updateProfile(
     // @Param('id', ParseIntPipe) id: number,
     @User('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
+    @UploadedFile() avatar: Express.Multer.File,
   ) {
-    return this.userService.update(id, updateUserDto);
+    return this.userService.update(id, updateUserDto, avatar);
   }
 
   @Auth()
@@ -73,6 +78,17 @@ export class UserController {
   @Get('all')
   async getAllUsers() {
     return this.userService.getAll();
+  }
+
+  @Auth('ADMIN')
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('avatar'))
+  async updateProfileAdmin(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+    @UploadedFile() avatar: Express.Multer.File,
+  ) {
+    return this.userService.update(id, updateUserDto, avatar);
   }
 
   @Auth('ADMIN')

@@ -41,3 +41,16 @@ export interface IResetPassword {
     password: string;
   };
 }
+
+export interface IUserUpdateForm {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  firstName?: string;
+  lastName?: string;
+  userName?: string;
+  avatar?: string;
+  sport?: number[];
+  place?: number[];
+  city?: number[];
+}

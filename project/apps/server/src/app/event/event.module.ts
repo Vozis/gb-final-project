@@ -13,7 +13,7 @@ import { EventGateway } from './event.gateway';
 
 @Module({
   imports: [
-    UserModule,
+    forwardRef(() => UserModule),
     PrismaModule,
     forwardRef(() => AuthModule),
     NotificationModule,

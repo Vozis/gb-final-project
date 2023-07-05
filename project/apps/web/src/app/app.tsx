@@ -11,13 +11,14 @@ import {
   ResetPassword,
   SingleEvent,
   SingleUser,
+  UpdateEvent,
+  UpdateUser,
 } from '@project/pages';
 import ThemeProvider from '../../../../libs/shared/theme/ThemeProvider';
 import { SharedLayout } from '@project/shared/layout';
 import { SharedProviders } from '@project/shared/providers';
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 
 export function App() {
   return (
@@ -36,6 +37,8 @@ export function App() {
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/users/:id" element={<SingleUser />} />
+              <Route path="/profile/update" element={<UpdateUser />} />
+              <Route path="/events/update/:id" element={<UpdateEvent />} />
             </Routes>
           </React.Suspense>
         </SharedLayout>

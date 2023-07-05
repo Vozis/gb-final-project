@@ -13,4 +13,5 @@ export interface ISelect extends IFieldProps {
   field: ControllerRenderProps<any, any>;
   isLoading?: boolean;
   onInputChange?: (value: any) => void;
+  defaultValue?: number | number[];
 }

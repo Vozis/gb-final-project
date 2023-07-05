@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "exclude": ["src/assets"],
+  "exclude": ["/project/apps/server/src/assets"],
   "references": [
     {
       "path": "./tsconfig.app.json"

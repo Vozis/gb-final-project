@@ -21,6 +21,9 @@ export const EventApi = {
     return `events/${id}`;
   },
   getFinishedEvents: 'events/finished',
+  updateEvent(id: string) {
+    return `events/${id}`;
+  },
 };
 
 export const TagApi = {

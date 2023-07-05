@@ -115,7 +115,10 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
           >
             <ul className={styles.profile__settingsList}>
               <li>
-                <Link to={'/'} className={styles.profile__settingsList_item}>
+                <Link
+                  to={'/profile/update'}
+                  className={styles.profile__settingsList_item}
+                >
                   <MaterialIcon
                     name={'MdOutlineEdit'}
                     className={styles.profile__settingsList_item_icon}

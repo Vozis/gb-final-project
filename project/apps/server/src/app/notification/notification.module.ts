@@ -12,7 +12,6 @@ import { AuthModule } from '../auth/auth.module';
     forwardRef(() => EventModule),
     UserModule,
     CommentModule,
-    UserModule,
     PrismaModule,
     forwardRef(() => AuthModule),
   ],

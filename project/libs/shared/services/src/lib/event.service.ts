@@ -47,6 +47,14 @@ export const EventService = {
     });
   },
 
+  async updateEvent(id: string, data: FormData) {
+    return axiosAuth.put<IEvent>(EventApi.updateEvent(id), data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
   async toggleUser(id: number, data: IToggle) {
     const res = axiosAuth.post<IEvent>(EventApi.toggleUser(id), data);
 

@@ -30,8 +30,12 @@ export const UserService = {
     return axiosAuth.get<IUser>(UserApi.getById(id));
   },
 
-  async updateProfile(data: IUserEdit) {
-    return axiosAuth.put<IUser>(UserApi.updateProfile, data);
+  async updateProfile(data: FormData) {
+    return axiosAuth.put<IUser>(UserApi.updateProfile, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 
   async toggleFavorite(data: IToggle) {
