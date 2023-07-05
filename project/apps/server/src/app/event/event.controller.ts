@@ -21,7 +21,7 @@ import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { EventSelect } from './returnEventObject';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FilterSearchDto } from './dto/search-event.dto';
+import { FilterSearchDto, IFilterDto } from './dto/search-event.dto';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
 import { Cron } from '@nestjs/schedule';
@@ -46,17 +46,19 @@ export class EventController {
   // User routes ===============================================================
 
   @Auth()
-  @Post('all')
-  // @Get('all')
+  // @Post('all')
+  @Get('all')
   @HttpCode(200)
   async getAllEvents(
     @User('id') id: number,
-    // @Query() filterSearchDto?: FilterSearchDto,
-    @Body() filterSearchDto?: FilterSearchDto,
+    @Query()
+    data?: IFilterDto,
+    // @Body() filterSearchDto?: FilterSearchDto,
     @Query('withHobby') withHobby?: string,
   ) {
+    // console.log(withHobby);
     // : Promise<EventSelect[]>
-    return this.eventService.getAllEvents(id, filterSearchDto, withHobby);
+    return this.eventService.getAllEvents(id, data.filterSearchDto, withHobby);
   }
   @Auth()
   @Get('finished')

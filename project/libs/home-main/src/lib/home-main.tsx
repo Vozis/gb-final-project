@@ -7,6 +7,7 @@ import {
   MaterialIcon,
   SkeletonLoader,
   UserSmallSkeleton,
+  List,
 } from '@project/shared/ui';
 import React, { useEffect, useState } from 'react';
 import { IEventForCard, IOption, ISearch } from '@project/shared/types';
@@ -30,12 +31,6 @@ export interface HomeMainProps {}
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
 
-  // const { finishedEvents } = useNotificationState();
-  // const { finishedEvents } = useCheckEventStatus();
-
-  // const { setFilterParamsArray, getProfile } = useActions();
-  const { filterParamsArray } = useFilterState();
-
   // useEffect(() => {
   //   getProfile();
   // }, []);
@@ -47,11 +42,14 @@ export function HomeMain(props: HomeMainProps) {
   const {
     isLoading,
     events,
+    foundUsers,
     onSubmit,
     isUseFilter,
     isLoadingWithFilter,
     filterEvents,
     setIsUseFilter,
+    isEvent,
+    setIsEvent,
   } = useFilter();
 
   const { data: allEvents } = useQuery(
@@ -76,6 +74,9 @@ export function HomeMain(props: HomeMainProps) {
       enabled: !!user,
     },
   );
+
+  // console.log('isEvent: ', isEvent);
+
   return (
     <div className={styles.container}>
       <div>
@@ -115,7 +116,12 @@ export function HomeMain(props: HomeMainProps) {
           )}
         </div>
       </div>
-      <Filter onSubmit={onSubmit} setIsUseFilter={setIsUseFilter} />
+      <Filter
+        onSubmit={onSubmit}
+        setIsUseFilter={setIsUseFilter}
+        setIsEvent={setIsEvent}
+        isEvent={isEvent}
+      />
       {!isUseFilter ? (
         <>
           {isLoading ? (
@@ -129,7 +135,9 @@ export function HomeMain(props: HomeMainProps) {
               <CardSkeleton count={3} />
             </>
           ) : (
-            <CardList list={events || []} title={'Актуальные для вас'} />
+            isEvent && (
+              <CardList list={events || []} title={'Актуальные для вас'} />
+            )
           )}
           {isLoading ? (
             <>
@@ -157,8 +165,23 @@ export function HomeMain(props: HomeMainProps) {
               />
               <CardSkeleton count={3} />
             </>
-          ) : (
+          ) : isEvent ? (
             <CardList list={filterEvents || []} title={'Результаты поиска'} />
+          ) : (
+            <List className={'flex flex-col gap-3'} title={'Результаты поиска'}>
+              {foundUsers && foundUsers.length !== 0 ? (
+                foundUsers.map(user => (
+                  <UserCardSmall
+                    userProps={user}
+                    key={user.id}
+                    isName
+                    isPhoto
+                  />
+                ))
+              ) : (
+                <p>Пока здесь никого нет</p>
+              )}
+            </List>
           )}
         </>
       )}

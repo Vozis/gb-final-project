@@ -24,4 +24,5 @@ export interface ISearchForm {
   valuesSearch?: string;
   paramsSearch?: string;
   tags?: string[] | number[];
+  searchTerm?: string;
 }

@@ -43,6 +43,7 @@ export const UserApi = {
   getById(userId: string) {
     return `/users/${userId}`;
   },
+  getAll: 'users/all',
 };
 
 export const MailApi = {

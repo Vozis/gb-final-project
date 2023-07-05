@@ -16,15 +16,20 @@ export const EventService = {
     });
   },
 
-  async getAllEvents(data?: ISearch, withHobby?: boolean) {
-    return axiosAuth.post<IEvent[]>(EventApi.getAll, data, {
-      params: withHobby ? { withHobby: true } : { withHobby: false },
-    });
-
-    // return axiosAuth.get<IEvent[]>(EventApi.getAll, {
-    //   params: data ? { data, withHobby: withHobby ? 'true' : 'false' } : {},
-    //   // withHobby ? { withHobby: true } : { withHobby: false },
+  async getAllEvents(filterSearchDto?: ISearch, withHobby?: boolean) {
+    // return axiosAuth.post<IEvent[]>(EventApi.getAll, data, {
+    //   params: withHobby ? { withHobby: true } : { withHobby: false },
     // });
+
+    return axiosAuth.get<IEvent[]>(EventApi.getAll, {
+      params: filterSearchDto
+        ? {
+            filterSearchDto,
+            withHobby: withHobby ? 'true' : 'false',
+          }
+        : {},
+      // withHobby ? { withHobby: true } : { withHobby: false },
+    });
   },
 
   async getSingleEventNoUser(id: string) {
