@@ -11,6 +11,7 @@ import { Role, User } from '@prisma/client';
 import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
 import { ToggleDto } from '../../utils/toggle.dto';
+
 import {
   returnAuthUserObject,
   returnUserFullObject,
@@ -23,12 +24,20 @@ import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
 import { FriendsNotification } from '../notification/dto/create-notification.dto';
+import { fileUploadHelper } from '../../utils/file-upload.helper';
+import { MailService } from '../mail/mail.service';
+import { MailerService } from '@nestjs-modules/mailer';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly mailerService: MailerService,
+    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
   ) {}
   async create(createUserDto: CreateUserDto): Promise<UserSelect> {
     return this.prisma.user.create({
@@ -234,7 +243,7 @@ export class UserService {
       select: returnUserObject,
     });
 
-    if (!_user) throw new NotFoundException('User not found');
+    // if (!_user) throw new NotFoundException('User not found');
 
     return _user;
   }
@@ -263,33 +272,80 @@ export class UserService {
 
   // async getFavorites(): Promise<I> {}
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserSelect> {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    avatar?: Express.Multer.File,
+  ): Promise<UserSelect> {
+    console.log('updateUserDto', updateUserDto);
+
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+    let email;
+    let isConfirmed = true;
     if (updateUserDto.email) {
       const isSameUser = await this.getByEmail(updateUserDto.email);
       if (isSameUser && isSameUser.id !== id)
-        throw new BadRequestException('Email already in use');
-    } else {
-      const user = await this.prisma.user.findUnique({
-        where: { id },
-      });
+        throw new BadRequestException(
+          'Данный email уже используется для другого аккаунта',
+        );
+      email = updateUserDto.email;
+      isConfirmed = false;
 
-      return this.prisma.user.update({
-        where: { id },
-        data: {
-          ...updateUserDto,
-          password: updateUserDto.password
+      // Confirm new email
+      const payload: { email: string; id: number } = {
+        email: user.email,
+        id: user.id,
+      };
+      const token = await this.jwtService.signAsync(payload, {
+        expiresIn: '1d',
+      });
+      const url = `${this.configService.get<string>(
+        'FRONTEND_API',
+      )}/confirm-email?token=${token}`;
+
+      await this.mailerService
+        .sendMail({
+          to: email,
+          subject: `Добро пожаловать, ${user.firstName}!`,
+          template: './confirm-email',
+          context: {
+            name: `${user.firstName} ${user.lastName}`,
+            url: url,
+          },
+        })
+        .then(res => {
+          // console.log('res: ', res);
+        })
+        .catch(err => {
+          console.log('err: ', err);
+        });
+    }
+
+    if (avatar) {
+      updateUserDto.avatarPath = await fileUploadHelper(avatar, 'users');
+    }
+
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        ...updateUserDto,
+        email: email ? email : user.email,
+        isConfirmed: !isConfirmed ? false : user.isConfirmed,
+        password:
+          updateUserDto.password && updateUserDto.password !== 'undefined'
             ? await hash(updateUserDto.password)
             : user.password,
-          hobbies: {
-            set: [],
-            connect: updateUserDto.hobbies
-              ? updateUserDto.hobbies.map(id => ({ id }))
-              : [],
-          },
+        hobbies: {
+          set: [],
+          connect: updateUserDto.hobbies
+            ? updateUserDto.hobbies.map(id => ({ id: +id }))
+            : [],
         },
-        select: returnUserObject,
-      });
-    }
+      },
+      select: returnUserObject,
+    });
   }
 
   async remove(id: number): Promise<User> {

@@ -50,10 +50,12 @@ export interface ICreateEvent {
   name: string;
   description: string;
   image: string;
-  eventTime?: Date;
+  eventTime?: Date | string;
   sport: number[];
   place: number[];
   city: number[];
   count: number;
   time: number[];
 }
+
+export interface IUpdateEvent extends Partial<ICreateEvent> {}

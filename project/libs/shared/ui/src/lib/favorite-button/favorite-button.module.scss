@@ -1,10 +1,10 @@
 .button {
-  @apply absolute right-0 top-0 bg-no-repeat w-24 h-16 bg-left mx-auto bg-transparent;
+  @apply bg-no-repeat w-24 h-16 bg-left mx-auto bg-transparent;
   background-size: 2900%;
 }
 
 .buttonReverse {
-  @apply absolute right-0 top-0 bg-no-repeat w-24 h-16 bg-right mx-auto bg-transparent;
+  @apply bg-no-repeat w-24 h-16 bg-right mx-auto bg-transparent;
   background-size: 2900%;
 }
 

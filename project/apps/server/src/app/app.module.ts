@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -37,11 +37,11 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       rootPath: `${path}/dist/apps/server/assets`,
       serveRoot: '/assets',
     }),
+    MailModule,
     UserModule,
     AuthModule,
     TagModule,
     EventModule,
-    MailModule,
     TypeTagModule,
     CommentModule,
     LikeModule,

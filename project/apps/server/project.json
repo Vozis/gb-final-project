@@ -15,17 +15,22 @@
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
         "assets": ["apps/server/src/assets"],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/server/webpack.config.js"
+        "isolatedConfig": true
       },
       "configurations": {
-        "development": {},
-        "production": {}
+        "development": {
+          "webpackConfig": "apps/server/webpack.config.js"
+        },
+        "production": {
+          "webpackConfig": "apps/server/webpack.config.js",
+          "generatePackageJson": true
+        }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
+      "watch": false,
       "options": {
         "buildTarget": "server:build"
       },

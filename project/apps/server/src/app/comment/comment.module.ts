@@ -9,9 +9,10 @@ import { EventModule } from '../event/event.module';
 
 @Module({
   imports: [
-    UserModule,
     PrismaModule,
     forwardRef(() => AuthModule),
+    UserModule,
+
     forwardRef(() => EventModule),
   ],
   providers: [CommentGateway, CommentService],

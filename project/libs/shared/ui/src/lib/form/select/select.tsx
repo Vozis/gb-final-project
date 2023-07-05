@@ -18,6 +18,7 @@ export const SelectField: FC<ISelect> = ({
   isMulti,
   options,
   placeholder,
+  defaultValue,
   onInputChange,
 }) => {
   const getValue = () => {
@@ -54,6 +55,7 @@ export const SelectField: FC<ISelect> = ({
           onChange={onChange}
           isClearable={false}
           onFocus={onInputChange}
+          defaultValue={defaultValue}
           // filterOption={null}
           // isSearchable={true}
           // className={styles.selectContainer}

@@ -1,7 +1,4 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+declare const module: any;
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -11,16 +8,7 @@ import { BasePrismaService } from './app/prisma/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app
-    .enableCors
-    //   {
-    //   allowedHeaders: '*',
-    //   origin: '*',
-    //   credentials: true,
-    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //   preflightContinue: false,
-    // }
-    ();
+  app.enableCors();
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
@@ -33,6 +21,11 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   );
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 
 bootstrap();

@@ -1,3 +1,5 @@
+export * from './lib/update-event/update-event';
+export * from './lib/update-user/update-user';
 export * from './lib/single-user/single-user';
 export * from './lib/profile/profile';
 export * from './lib/auth/auth';

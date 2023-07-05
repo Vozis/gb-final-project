@@ -34,6 +34,7 @@ export class EventService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
+  // Get Methods ===============================================================
   async getAllEvents(
     id?: number,
     filterSearchDto?: FilterSearchDto,
@@ -233,6 +234,8 @@ export class EventService {
     return result;
   }
 
+  // Create ====================================================================
+
   async createEvent(
     creatorId: number,
     dto: CreateEventDto,
@@ -277,6 +280,7 @@ export class EventService {
     return newEvent;
   }
 
+  // Update ====================================================================
   async updateEvent(
     id: number,
     dto: UpdateEventDto,
@@ -292,7 +296,7 @@ export class EventService {
         name: dto.name,
         description: dto.description,
         imageUrl: dto.imageUrl,
-        eventTime: dto.eventTime,
+        eventTime: new Date(dto.eventTime),
         peopleCount: dto.peopleCount,
         tags: {
           set: [],

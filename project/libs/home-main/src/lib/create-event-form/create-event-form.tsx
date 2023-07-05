@@ -139,7 +139,10 @@ export function CreateEventForm(props: CreateEventFormProps) {
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries(['get-all-events']);
-        toast.success('Event created successfully');
+        toast.success('Событие успешно создано', {
+          toastId: 'create-new-events',
+          containerId: 1,
+        });
       },
     },
   );
@@ -148,7 +151,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
     const formData = new FormData();
     const tags = [];
 
-    console.log('data: ', data);
+    // console.log('data: ', data);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry =>
