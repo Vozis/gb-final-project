@@ -448,6 +448,7 @@ export class EventService {
         eventTime: {
           lte: currentDate,
         },
+        status: 'OPEN',
       },
     });
 
@@ -459,11 +460,32 @@ export class EventService {
         data: {
           status: 'CLOSED',
         },
+        include: {
+          users: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              userName: true,
+              avatarPath: true,
+            },
+          },
+          creator: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              userName: true,
+              avatarPath: true,
+            },
+          },
+        },
       });
-      // this.eventEmitter.emit(
-      //   ENotificationType.CompleteEventNote,
-      //   finishedEvent,
-      // );
+
+      this.eventEmitter.emit(
+        ENotificationType.CompleteEventNote,
+        finishedEvent,
+      );
     }
 
     // return finishedEvents;

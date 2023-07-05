@@ -16,6 +16,8 @@ import { ConfirmEmailTokenDto, ConfirmResetPassword } from './dto/email.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { UserService } from '../user/user.service';
+import { EventService } from '../event/event.service';
+import { Cron } from '@nestjs/schedule';
 
 @Controller('mail')
 export class MailController {
@@ -46,5 +48,16 @@ export class MailController {
   @Auth()
   async resendConfirmationLink(@User('id') id: number) {
     return await this.mailService.resendConfirmationLink(id);
+  }
+
+  @Cron('57 23 * * *')
+  // переделать раз в сутки
+  async sendEventReminder() {
+    return this.mailService.sendEventReminder();
+  }
+
+  @Get('test-reminder')
+  async testReminder() {
+    return this.mailService.sendEventReminder();
   }
 }

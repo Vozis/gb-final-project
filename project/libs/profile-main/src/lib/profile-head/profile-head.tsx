@@ -81,8 +81,6 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
 
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
-  console.log('isFriend', isFriend);
-
   const isProfile = userProps.id === user?.id;
   // console.log('isShowSettingModal', isShowSettingModal);
   return (
@@ -94,51 +92,54 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       />
 
       {isProfile ? (
-        <>
-          <button
-            type="button"
-            className={styles.profile__settingBtn}
-            onClick={handleToggleSettingModal}
-          >
-            <span className={styles.visuallyHidden}>настройки профиля</span>
-            <MaterialIcon
-              name={'MdSettings'}
-              className={styles.profile__settingBtn_icon}
-            />
-          </button>
+        <div className={'absolute top-0 right-0'}>
+          <div className={'relative'}>
+            <button
+              type="button"
+              className={styles.profile__settingBtn}
+              onClick={handleToggleSettingModal}
+            >
+              <span className={styles.visuallyHidden}>настройки профиля</span>
+              <MaterialIcon
+                name={'MdSettings'}
+                className={styles.profile__settingBtn_icon}
+              />
+            </button>
+            <ModalWindow
+              className={'top-16 right-0'}
+              isFirstType
+              show={isShowSettingModal}
+              onCloseClick={handleToggleSettingModal}
+              ref={modalHeight}
+              height={height}
+            >
+              <ul className={styles.profile__settingsList}>
+                <li>
+                  <Link
+                    to={'/profile/update'}
+                    className={styles.profile__settingsList_item}
+                  >
+                    <MaterialIcon
+                      name={'MdOutlineEdit'}
+                      className={styles.profile__settingsList_item_icon}
+                    />
+                    <span>Редактировать профиль</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'} className={styles.profile__settingsList_item}>
+                    <MaterialIcon
+                      name={'MdArrowOutward'}
+                      className={styles.profile__settingsList_item_icon}
+                    />
+                    <span>Поделиться профилем</span>
+                  </Link>
+                </li>
+              </ul>
+            </ModalWindow>
+          </div>
           <ModalWindow
-            isSettingModal
-            show={isShowSettingModal}
-            onCloseClick={handleToggleSettingModal}
-            ref={modalHeight}
-            height={height}
-          >
-            <ul className={styles.profile__settingsList}>
-              <li>
-                <Link
-                  to={'/profile/update'}
-                  className={styles.profile__settingsList_item}
-                >
-                  <MaterialIcon
-                    name={'MdOutlineEdit'}
-                    className={styles.profile__settingsList_item_icon}
-                  />
-                  <span>Редактировать профиль</span>
-                </Link>
-              </li>
-              <li>
-                <Link to={'/'} className={styles.profile__settingsList_item}>
-                  <MaterialIcon
-                    name={'MdArrowOutward'}
-                    className={styles.profile__settingsList_item_icon}
-                  />
-                  <span>Поделиться профилем</span>
-                </Link>
-              </li>
-            </ul>
-          </ModalWindow>
-          <ModalWindow
-            isUserInfoModal
+            isSecondType
             show={isShowUserInfoModal}
             onCloseClick={handleToggleUserInfoModal}
             isBtnClose
@@ -171,7 +172,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
               </section>
             </div>
           </ModalWindow>
-        </>
+        </div>
       ) : (
         <button
           className={styles.profile__settingBtn}

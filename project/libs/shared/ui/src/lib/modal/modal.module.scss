@@ -1,33 +1,23 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
 @import "libs/shared/styles/themes/dark";
 @import "libs/shared/styles/themes/normal";
 
 .modal {
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  transition: 0.3s ease-out;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
   opacity: 0;
+  position: absolute;
+  transition: 0.3s ease-out;
+  width: 100vw;
   z-index: -1;
 
-
   &__content {
-    position: relative;
-    padding: 20px;
     background-color: var(--bg-modal);
     border-radius: 24px;
+    padding: 20px;
+    position: relative;
     transform: scale(0.5);
     transition: all 0.3s ease-out;
     z-index: 100;
@@ -45,64 +35,57 @@
   }
 
   &__btnClose {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 11;
     padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 11;
   }
 
 }
 
-.profile {
-  &__modal_setting {
-    background: none;
-    left: auto;
-    right: 0;
-    justify-content: flex-end;
-    align-items: flex-start;
+
+.firstType {
+  align-items: flex-start;
+  background: none;
+  justify-content: flex-end;
+  left: auto;
+  max-height: 0;
+  opacity: 0;
+  right: 0;
+  transform: none;
+
+  &-content {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
+    max-height: 0; /* изначально блок свёрнут */
+    overflow: hidden; /* полностью скрывает дочерний блок */
+    position: absolute;
+    right: 20px;
+    top: 75px;
     transform: none;
-    max-height: 0;
-    opacity: 0;
-
-
-    &__content {
-      transform: none;
-      position: absolute;
-
-      top: 75px;
-      right: 20px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
-      max-height: 0; /* изначально блок свёрнут */
-      overflow: hidden; /* полностью скрывает дочерний блок */
-      transition: max-height .4s ease-out;
-      @media screen and (min-width: 500px) {
-        top: 150px;
-      }
-
-
-      &.active {
-        transform: none;
-      }
-
+    transition: max-height .4s ease-out;
+    @media screen and (min-width: 500px) {
+      top: 150px;
     }
 
     &.active {
       transform: none;
-      max-height: 100%;
-
-
     }
-
   }
 
-  &__modalInfo {
-    padding: 0 35px 0 15px;
-
-    &__content {
-      width: 100%;
-    }
-
-
+  &.active {
+    max-height: 100%;
+    transform: none;
   }
 }
+
+
+.secondType {
+  padding: 0 35px 0 15px;
+
+  &__content {
+    width: 100%;
+  }
+}
+
+
