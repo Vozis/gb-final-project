@@ -52,22 +52,16 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
           <div key={item.id}>
             {item.type === 'EVENT_PARTICIPATE' ? (
               <div className={styles.event_container}>
-                {/* @ts-ignore */}
                 <img src={item.user.avatarPath} alt={'avatar'} />
                 <p>
-                  Вашь друг{' '}
+                  Ваш друг
                   <Link
                     to={`/users/${item.user.id}`}
                     className={styles.event_span}
                   >
-                    {' '}
-                    {/* @ts-ignore */}
-                    {item.user.firstName}
+                    {item.user.firstName} {item.user.lastName}
                   </Link>
-                  {/* <span className={styles.event_span}>
-                    {item.user.userName}
-                  </span>{' '} */}
-                  присоединился к событию{' '}
+                  <span> присоединился к событию </span>
                   <Link
                     to={`/events/${item.sourceId}`}
                     className={styles.event_span}
@@ -81,14 +75,14 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
             item.type === 'EVENT_CREATE' ? (
               <div className={styles.event_container}>
                 <p>
-                  Вашь друг{' '}
+                  Ваш друг{' '}
                   <Link
                     to={`/users/${item.user.id}`}
                     className={styles.event_span}
                   >
-                    {item.user.userName}
-                  </Link>{' '}
-                  создал новое событие {'  '}
+                    {item.user.firstName} {item.user.lastName}
+                  </Link>
+                  <span> создал новое событие: </span>
                   <Link
                     to={`/events/${item.sourceId}`}
                     className={styles.event_span}
@@ -100,14 +94,14 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
             ) : // ------------------------------------------------------------------------------
             item.type === 'EVENT_LEAVE' ? (
               <div className={styles.event_container}>
-                Вашь друг{' '}
+                Ваш друг{' '}
                 <Link
                   to={`/users/${item.user.id}`}
                   className={styles.event_span}
                 >
-                  {item.user.userName}
-                </Link>{' '}
-                покинул событие{' '}
+                  {item.user.firstName} {item.user.lastName}
+                </Link>
+                <span> покинул событие </span>
                 <Link
                   to={`/events/${item.sourceId}`}
                   className={styles.event_span}
@@ -118,14 +112,14 @@ export function NotificationsEvents(props: NotificationsEventsProps) {
             ) : // ------------------------------------------------------------------------------
             item.type === 'EVENT_UPDATE' ? (
               <div className={styles.event_container}>
-                Вашь друг{' '}
+                Ваш друг{' '}
                 <Link
                   to={`/users/${item.user.id}`}
                   className={styles.event_span}
                 >
-                  {item.user.userName}
-                </Link>{' '}
-                изменил событие{' '}
+                  {item.user.firstName} {item.user.lastName}
+                </Link>
+                <span> изменил событие </span>
                 <Link
                   to={`/events/${item.sourceId}`}
                   className={styles.event_span}

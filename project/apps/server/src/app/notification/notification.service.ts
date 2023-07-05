@@ -65,6 +65,7 @@ export class NotificationService {
               sourceId: notification.sourceId,
               sourceData: eventCreate.name,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
             return eventCreateNotification;
           case 'EVENT_UPDATE':
@@ -73,35 +74,39 @@ export class NotificationService {
               notification.sourceId,
             );
             // console.log('eventUpdate', eventUpdate);
-            return {
+            const eventUpdateNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: eventUpdate.creator,
               sourceId: notification.sourceId,
               sourceData: eventUpdate.name,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+            return eventUpdateNotification;
           case 'EVENT_COMPLETE':
             console.log('event_complete');
             const eventComplete = await this.eventService.getById(
               notification.sourceId,
             );
             // console.log('eventComplete', eventComplete);
-            return {
+            const eventCompleteNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: eventComplete.creator,
               sourceId: notification.sourceId,
               sourceData: eventComplete.name,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+            return eventCompleteNotification;
           case 'COMMENT_CREATE':
             console.log('comment_create');
             const commentCreate = await this.commentService.getCommentById(
               notification.sourceId,
             );
             // console.log('commentCreate', commentCreate);
-            return {
+            const commentCreateNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: commentCreate.author,
@@ -110,7 +115,10 @@ export class NotificationService {
               additionalData: commentCreate.event.name,
               moreData: commentCreate.event.id,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+
+            return commentCreateNotification;
           case 'EVENT_PARTICIPATE':
             console.log('event_participate');
             const eventParticipate = await this.eventService.getById(
@@ -126,6 +134,7 @@ export class NotificationService {
               sourceId: notification.sourceId,
               sourceData: eventParticipate.name,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
             return eventParticipateNotification;
           case 'EVENT_LEAVE':
@@ -143,6 +152,7 @@ export class NotificationService {
               sourceId: notification.sourceId,
               sourceData: eventLeave.name,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
             return eventLeaveNotification;
           case 'COMMENT_REPLY':
@@ -151,7 +161,7 @@ export class NotificationService {
               notification.sourceId,
             );
             // console.log('commentReply', commentReply);
-            return {
+            const commentReplyNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: commentReply.author,
@@ -160,31 +170,39 @@ export class NotificationService {
               additionalData: commentReply.parent.message,
               moreData: commentReply.event.id,
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+
+            return commentReplyNotification;
           case 'FRIEND_ADD':
             const userFriend = await this.userService.getById(
               notification.sourceId,
             );
-            return {
+            const friendAddNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: userFriend,
               sourceId: notification.sourceId,
               sourceData: '',
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+            return friendAddNotification;
           case 'FRIEND_REMOVE':
             const _userFriend = await this.userService.getById(
               notification.sourceId,
             );
-            return {
+            const friendRemoveNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
               user: _userFriend,
               sourceId: notification.sourceId,
               sourceData: '',
               text: notification.text,
+              createdAt: notification.createdAt,
             };
+
+            return friendRemoveNotification;
         }
       }),
     );

@@ -19,6 +19,9 @@ export interface IUser extends User {
 export interface IEventUser {
   id: number;
   userName: string;
+  firstName: string;
+  lastName: string;
+  avatarPath: string;
 }
 
 export interface IUserSmall {

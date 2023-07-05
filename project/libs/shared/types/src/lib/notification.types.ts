@@ -10,6 +10,7 @@ export interface INotification {
   additionalData?: string | number;
   moreData?: string | number;
   text: string;
+  createdAt: Date;
 }
 
 export interface INotificationUpdateStatus {

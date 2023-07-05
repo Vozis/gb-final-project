@@ -4,12 +4,16 @@ import { UserSelect } from '../user/returnUserObject';
 export interface INotificationResponse {
   id: number;
   type: NotificationType;
-  user: INotificationUser | UserSelect;
+  user:
+    | INotificationUser
+    | UserSelect
+    | { id: number; firstName: string; lastName: string; avatarPath: string };
   sourceId: number;
   sourceData?: string | number;
   additionalData?: string | number;
   moreData?: string | number;
   text: string;
+  createdAt: Date;
 }
 
 export interface INotificationUser {
