@@ -77,7 +77,7 @@ export function Notifications(props: NotificationsProps) {
             {item.type === 'EVENT_PARTICIPATE' ? (
               <div className={styles.event_container}>
                 <p>
-                  Вашь друг{' '}
+                  Ваш друг{' '}
                   <Link
                     to={`/users/${item.user.id}`}
                     className={styles.event_span}
@@ -101,7 +101,7 @@ export function Notifications(props: NotificationsProps) {
             item.type === 'EVENT_CREATE' ? (
               <div className={styles.event_container}>
                 <p>
-                  Вашь друг{' '}
+                  Ваш друг{' '}
                   <Link
                     to={`/users/${item.user.id}`}
                     className={styles.event_span}
@@ -120,7 +120,7 @@ export function Notifications(props: NotificationsProps) {
             ) : // ------------------------------------------------------------------------------
             item.type === 'EVENT_LEAVE' ? (
               <div className={styles.event_container}>
-                Вашь друг{' '}
+                Ваш друг{' '}
                 <Link
                   to={`/users/${item.user.id}`}
                   className={styles.event_span}
@@ -138,7 +138,7 @@ export function Notifications(props: NotificationsProps) {
             ) : // ------------------------------------------------------------------------------
             item.type === 'EVENT_UPDATE' ? (
               <div className={styles.event_container}>
-                Вашь друг{' '}
+                Ваш друг{' '}
                 <Link
                   to={`/users/${item.user.id}`}
                   className={styles.event_span}

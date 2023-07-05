@@ -111,6 +111,7 @@ export class NotificationGateway {
         sourceId: notification.sourceId,
         sourceData: eventCreate.name,
         text: notification.text,
+        createdAt: notification.createdAt,
       };
 
       console.log(
@@ -149,6 +150,7 @@ export class NotificationGateway {
         sourceId: notification.sourceId,
         sourceData: eventUpdate.name,
         text: notification.text,
+        createdAt: notification.createdAt,
       };
 
       console.log(
@@ -185,6 +187,7 @@ export class NotificationGateway {
         sourceId: notification.sourceId,
         sourceData: eventComplete.name,
         text: notification.text,
+        createdAt: notification.createdAt,
       };
 
       console.log(
@@ -225,6 +228,7 @@ export class NotificationGateway {
         sourceId: notification.sourceId,
         sourceData: data.event.id.name,
         text: notification.text,
+        createdAt: notification.createdAt,
       };
 
       console.log(
@@ -268,6 +272,7 @@ export class NotificationGateway {
         sourceId: notification.sourceId,
         sourceData: data.event.name,
         text: notification.text,
+        createdAt: notification.createdAt,
       };
 
       console.log(
@@ -309,6 +314,7 @@ export class NotificationGateway {
         additionalData: commentCreate.event.name,
         moreData: commentCreate.event.id,
         text: commentCreateNotification.text,
+        createdAt: commentCreateNotification.createdAt,
       };
 
       console.log(
@@ -345,6 +351,7 @@ export class NotificationGateway {
         additionalData: commentCreate.parent.message,
         moreData: commentCreate.event.id,
         text: replyCommentNotification.text,
+        createdAt: replyCommentNotification.createdAt,
       };
 
       // console.log(CommentReplyNotification);
@@ -408,6 +415,7 @@ export class NotificationGateway {
       sourceId: friendAddNotification.sourceId,
       sourceData: '',
       text: friendAddNotification.text,
+      createdAt: friendAddNotification.createdAt,
     };
 
     console.log(
@@ -442,6 +450,7 @@ export class NotificationGateway {
       sourceId: friendRemoveNotification.sourceId,
       sourceData: '',
       text: friendRemoveNotification.text,
+      createdAt: friendRemoveNotification.createdAt,
     };
 
     console.log(
