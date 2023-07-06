@@ -15,6 +15,7 @@
 
 .container {
   align-items: center;
+
   display: flex;
   position: relative;
 }
@@ -27,7 +28,7 @@
   &__settingBtn {
     position: absolute;
     right: 0;
-    top: 10px;
+    top: 0;
     z-index: 4;
 
     &_icon {

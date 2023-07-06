@@ -1,0 +1,32 @@
+@import "libs/shared/styles/themes/dark";
+@import "libs/shared/styles/themes/normal";
+
+.modal {
+  background-color: var(--bg-modal);
+  border-radius: 24px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14);
+  display: none;
+  max-height: 0; /* изначально блок свёрнут */
+  opacity: 0;
+  overflow: hidden; /* полностью скрывает дочерний блок */
+  pointer-events: none;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 1;
+    padding: 20px;
+    pointer-events: all;
+    transform: none;
+    width: 250px;
+    z-index: 6;
+  }
+}
+
+
+
+

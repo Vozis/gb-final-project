@@ -2,7 +2,7 @@ import { useActions, useAuthRedux, useTheme } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Link } from 'react-router-dom';
 import { useModal } from '@project/shared/hooks';
-import { MaterialIcon, UserBig, ModalWindow } from '@project/shared/ui';
+import { MaterialIcon, UserBig, ModalScreen } from '@project/shared/ui';
 import { useNavigate } from 'react-router-dom';
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
+import ModalAnchor from '../../../../shared/ui/src/lib/modals/modal-anchor/modal-anchor';
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -22,7 +23,10 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
   const [isShowUserInfoModal, handleToggleUserInfoModal] = useModal(false);
   const modalHeight = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLButtonElement>(null);
   const [height, setHeight] = useState('0px');
+  const [top, setTop] = useState('0px');
+  const [right, setRight] = useState('0px');
   const [isFriend, setIsFriend] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
@@ -33,13 +37,26 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     }
   }, [user]);
 
-  const navigate = useNavigate();
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (modalHeight.current) {
+    if (anchorRef.current) {
+      // console.log(window.innerHeight, window.innerWidth);
+      // console.log('anchor params: ', anchorRef.current.getBoundingClientRect());
+    }
+    if (modalHeight.current && anchorRef.current) {
+      const screenWidth = window.innerWidth;
+      const anchorParams = anchorRef.current.getBoundingClientRect();
       setHeight(
         isShowSettingModal ? `${modalHeight.current.scrollHeight}px` : '0px',
+      );
+      setTop(
+        isShowSettingModal
+          ? `${anchorParams.y + anchorParams.width + 20}px`
+          : '0px',
+      );
+      setRight(
+        isShowSettingModal ? `${screenWidth - anchorParams.right}px` : '0px',
       );
     }
   }, [isShowSettingModal]);
@@ -82,7 +99,6 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
   const isProfile = userProps.id === user?.id;
-  // console.log('isShowSettingModal', isShowSettingModal);
   return (
     <div className={styles.container}>
       <UserBig
@@ -92,61 +108,53 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       />
 
       {isProfile ? (
-        <div className={'absolute top-0 right-0'}>
-          <div className={'relative'}>
-            <button
-              type="button"
-              className={styles.profile__settingBtn}
-              onClick={handleToggleSettingModal}
+        <>
+          <button
+            ref={anchorRef}
+            type="button"
+            className={styles.profile__settingBtn}
+            onClick={handleToggleSettingModal}
+          >
+            <span className={styles.visuallyHidden}>настройки профиля</span>
+            <MaterialIcon
+              name={'MdSettings'}
+              className={styles.profile__settingBtn_icon}
+            />
+          </button>
+          <ModalAnchor
+            show={isShowSettingModal}
+            onCloseClick={handleToggleSettingModal}
+            ref={modalHeight}
+            height={height}
+            top={top}
+            right={right}
+          >
+            <Link
+              to={'/profile/update'}
+              className={styles.profile__settingsList_item}
             >
-              <span className={styles.visuallyHidden}>настройки профиля</span>
               <MaterialIcon
-                name={'MdSettings'}
-                className={styles.profile__settingBtn_icon}
+                name={'MdOutlineEdit'}
+                className={styles.profile__settingsList_item_icon}
               />
-            </button>
-            <ModalWindow
-              className={'top-16 right-0'}
-              isFirstType
-              show={isShowSettingModal}
-              onCloseClick={handleToggleSettingModal}
-              ref={modalHeight}
-              height={height}
-            >
-              <ul className={styles.profile__settingsList}>
-                <li>
-                  <Link
-                    to={'/profile/update'}
-                    className={styles.profile__settingsList_item}
-                  >
-                    <MaterialIcon
-                      name={'MdOutlineEdit'}
-                      className={styles.profile__settingsList_item_icon}
-                    />
-                    <span>Редактировать профиль</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={'/'} className={styles.profile__settingsList_item}>
-                    <MaterialIcon
-                      name={'MdArrowOutward'}
-                      className={styles.profile__settingsList_item_icon}
-                    />
-                    <span>Поделиться профилем</span>
-                  </Link>
-                </li>
-              </ul>
-            </ModalWindow>
-          </div>
-          <ModalWindow
-            isSecondType
+              <span>Редактировать профиль</span>
+            </Link>
+
+            <Link to={'/'} className={styles.profile__settingsList_item}>
+              <MaterialIcon
+                name={'MdArrowOutward'}
+                className={styles.profile__settingsList_item_icon}
+              />
+              <span>Поделиться профилем</span>
+            </Link>
+          </ModalAnchor>
+
+          <ModalScreen
             show={isShowUserInfoModal}
             onCloseClick={handleToggleUserInfoModal}
             isBtnClose
+            title={'Подробная информация'}
           >
-            <div className={styles.profile__modalInfo_header + ' font-medium'}>
-              Подробная информация
-            </div>
             <div className={styles.profile__modalInfo_inner}>
               <section>
                 <div className={styles.profile__modalInfo_innerBox}>
@@ -171,8 +179,8 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
                 </div>
               </section>
             </div>
-          </ModalWindow>
-        </div>
+          </ModalScreen>
+        </>
       ) : (
         <button
           className={styles.profile__settingBtn}

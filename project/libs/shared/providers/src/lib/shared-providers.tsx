@@ -11,6 +11,7 @@ import {
   useFilterState,
   useNotificationState,
 } from '@project/shared/hooks';
+import ThemeProvider from './ThemeProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +25,9 @@ export const SharedProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReduxProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </AuthProvider>
       </ReduxProvider>
     </QueryClientProvider>
   );

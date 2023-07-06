@@ -1,32 +1,30 @@
-import styles from './modal.module.scss';
+import styles from './modal-screen.module.scss';
 import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'clsx';
-import { Button } from '../button/button';
+import { Button } from '../../button/button';
 import { MaterialIcon } from '@project/shared/ui';
 import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
-export interface ModalProps {
+export interface ModalScreenProps {
   show?: boolean;
   onCloseClick: React.Dispatch<any>;
   isBtnClose?: boolean;
   className?: string;
-  isFirstType?: boolean;
-  isSecondType?: boolean;
   children: React.ReactNode;
   height?: string;
   ref?: React.Ref<HTMLDivElement> | null;
+  title?: string;
 }
 
 // const body = document.body;
-export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
+export const ModalScreen = forwardRef<HTMLDivElement, ModalScreenProps>(
   (
     {
+      title,
       height,
       className,
-      isFirstType = false,
-      isSecondType = false,
       show,
       children,
       onCloseClick,
@@ -38,8 +36,6 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
     return ReactDOM.createPortal(
       <div
         className={cn(styles.modal, className, {
-          [styles.firstType]: isFirstType,
-          [styles.secondType]: isSecondType,
           [styles.active]: show,
         })}
         onClick={onCloseClick}
@@ -49,8 +45,6 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
           style={{ maxHeight: `${height}` }}
           className={cn(styles.modal__content, className, {
             [styles.active]: show,
-            [styles.firstType__content]: isFirstType,
-            [styles.secondType__content]: isSecondType,
             [styles.dark]: theme === 'dark',
             [styles.light]: theme === 'light',
           })}
@@ -72,14 +66,16 @@ export const ModalWindow = forwardRef<HTMLDivElement, ModalProps>(
               />
             </Button>
           )}
-          {children}
+          <p className={styles.infoTitle}>{title}</p>
+          <div>{children}</div>
         </div>
       </div>,
       document.body,
     );
   },
 );
-ModalWindow.displayName = 'Field';
+ModalScreen.displayName = 'ModalScreen';
+
 // export function Modal({
 //   show,
 //   onCloseClick,
@@ -140,4 +136,4 @@ ModalWindow.displayName = 'Field';
 //   );
 // }
 
-export default ModalWindow;
+export default ModalScreen;
