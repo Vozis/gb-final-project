@@ -1,0 +1,20 @@
+.avatarWrapper {
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 70px;
+  width: 70px;
+  position: relative;
+}
+
+.avatarImg {
+  background-color: white;
+  border-radius: inherit;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  padding: 3px;
+  position: relative;
+  width: 100%;
+}
+/*# sourceMappingURL=avatar.module.css.map */

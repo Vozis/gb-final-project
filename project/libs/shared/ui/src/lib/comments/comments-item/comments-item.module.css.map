@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "comments-item.module.scss"
+    ],
+    "names": [],
+    "file": "comments-item.module.css"
+}

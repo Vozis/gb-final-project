@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "confirm-email.module.scss"
+    ],
+    "names": [],
+    "file": "confirm-email.module.css"
+}

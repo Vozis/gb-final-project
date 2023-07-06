@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "profile.module.scss"
+    ],
+    "names": [],
+    "file": "profile.module.css"
+}

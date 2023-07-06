@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "skeleton.module.scss"
+    ],
+    "names": [],
+    "file": "skeleton.module.css"
+}

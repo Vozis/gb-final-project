@@ -1,0 +1,22 @@
+.layout.dark {
+  --bg-color: #1f1f1f;
+  --primary-color: #9f9f9f
+;
+}
+
+.header.dark {
+  --bg-color: #333;
+  --primary-color: #d9d9d9;
+}
+
+.header.dark.active_link {
+  --link-bgColor: #5151f1
+  ;
+}
+
+.modal__content.dark {
+  --bg-modal: #262626;
+  --modal-textColor: #f2f2f2
+;
+}
+/*# sourceMappingURL=dark.css.map */
