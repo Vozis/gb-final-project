@@ -10,10 +10,13 @@ export interface NotificationsEventsProps {
 export function NotificationsEvents(data: NotificationsEventsProps) {
   // console.log('data: ', data.data);
   return (
-    <div className={styles.notifications} key={data.data.id}>
+    <div key={data.data.id}>
       {data.data.type === 'EVENT_PARTICIPATE' ? (
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link
@@ -34,7 +37,10 @@ export function NotificationsEvents(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_CREATE' ? (
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link
@@ -54,7 +60,10 @@ export function NotificationsEvents(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_LEAVE' ? (
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link
@@ -75,7 +84,10 @@ export function NotificationsEvents(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_UPDATE' ? (
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link
@@ -97,7 +109,10 @@ export function NotificationsEvents(data: NotificationsEventsProps) {
       ) : (
         // EVENT_COMPLETE
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link

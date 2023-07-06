@@ -20,7 +20,10 @@ export function NotificationsComments(data: NotificationsCommentsProps) {
             <div className={styles.event_container}>
               {/* <img src={data.data.user.avatarPath} alt={'avatar'} /> */}
 
-              <Avatar imagePath={data.data.user.avatarPath} />
+              <Avatar
+                imagePath={data.data.user.avatarPath}
+                className={styles.event_container_avatar}
+              />
               <p>
                 Ваш друг &nbsp;
                 <Link
@@ -44,7 +47,10 @@ export function NotificationsComments(data: NotificationsCommentsProps) {
           ) : (
             // EVENT_COMPLETE
             <div className={styles.event_container}>
-              <Avatar imagePath={data.data.user.avatarPath} />
+              <Avatar
+                imagePath={data.data.user.avatarPath}
+                className={styles.event_container_avatar}
+              />
               <p>
                 Ваш друг &nbsp;
                 <Link

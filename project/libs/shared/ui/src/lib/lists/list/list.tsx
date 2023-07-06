@@ -10,7 +10,7 @@ export function List({ children, className, title }: ListProps) {
   return (
     <div className={cn('', className)}>
       <Heading>{title}</Heading>
-
+      {/* {children} */}
       <div className="flex flex-col gap-3">{children}</div>
     </div>
   );

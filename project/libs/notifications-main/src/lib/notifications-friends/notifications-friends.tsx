@@ -16,7 +16,10 @@ export function NotificationsFriends(data: NotificationsFriendsProps) {
         <div className={styles.event_container}>
           {/* <img src={data.data.user.avatarPath} alt={'avatar'} /> */}
 
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             <Link
               to={`/users/${data.data.user.id}`}
@@ -28,9 +31,11 @@ export function NotificationsFriends(data: NotificationsFriendsProps) {
           </p>
         </div>
       ) : (
-        // EVENT_COMPLETE
         <div className={styles.event_container}>
-          <Avatar imagePath={data.data.user.avatarPath} />
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
           <p>
             Ваш друг &nbsp;
             <Link

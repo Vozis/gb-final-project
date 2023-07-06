@@ -24,7 +24,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
   return (
     <div className={styles.notifications}>
       {/* <Heading>Уведомления</Heading> */}
-      <List title={'Уведомлния'}>
+      <List title={'Уведомления'} className={styles.notifications_title}>
         {notifications.map(notification => (
           <React.Fragment key={notification.id}>
             {notification.type.match(/EVENT/) !== null ? (
