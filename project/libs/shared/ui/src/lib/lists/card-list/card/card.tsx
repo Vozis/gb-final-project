@@ -4,15 +4,17 @@ import {
   Button,
   FavoriteButton,
   MaterialIcon,
-  ModalWindow,
+  ModalScreen,
   Tag,
   ToggleUserButton,
 } from '@project/shared/ui';
 import clsx from 'clsx';
 import moment from 'moment';
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import styles from './card.module.scss';
+import ModalAnchor from '../../../modals/modal-anchor/modal-anchor';
+import { FaEllipsis } from 'react-icons/fa6';
 
 /* eslint-disable-next-line */
 export interface CardProps {
@@ -20,17 +22,50 @@ export interface CardProps {
 }
 
 export const Card: FC<CardProps> = ({ event }) => {
-  // const queryClient = useQueryClient();
   const { user } = useAuthRedux();
-  const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
-  const modalHeight = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState('0px');
+  // const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
+  // const modalHeight = useRef<HTMLDivElement>(null);
+  // const anchorRef = useRef<Array<HTMLButtonElement | null>>([]);
+  // const [height, setHeight] = useState('0px');
+  // const [top, setTop] = useState('0px');
+  // const [right, setRight] = useState('0px');
 
   if (!user) {
     redirect('/auth');
   }
 
-  // console.log('event: ', event);
+  // useEffect(() => {
+  //   if (anchorRef.current[event.id]) {
+  //     console.log(window.innerHeight, window.innerWidth);
+  //     console.log(
+  //       'anchor params: ',
+  //       // @ts-ignore
+  //       anchorRef?.current[event.id].getBoundingClientRect(),
+  //     );
+  //   }
+  //   if (modalHeight.current && anchorRef.current) {
+  //     const screenWidth = window.innerWidth;
+  //     // @ts-ignore
+  //     const anchorParams = anchorRef?.current[event.id].getBoundingClientRect();
+  //     setHeight(
+  //       isShowSettingModal ? `${modalHeight.current.scrollHeight}px` : '0px',
+  //     );
+  //     setTop(
+  //       isShowSettingModal
+  //         ? `${
+  //             //
+  //             anchorRef?.current[event.id].getBoundingClientRect().y +
+  //             // @ts-ignore
+  //             anchorRef?.current[event.id].getBoundingClientRect().width +
+  //             20
+  //           }px`
+  //         : '0px',
+  //     );
+  //     setRight(
+  //       isShowSettingModal ? `${screenWidth - anchorParams.right}px` : '0px',
+  //     );
+  //   }
+  // }, [isShowSettingModal]);
 
   return (
     <div
@@ -42,59 +77,59 @@ export const Card: FC<CardProps> = ({ event }) => {
       }}
     >
       {user && (
-        <div className={'absolute right-2 top-2 text-right'}>
-          <FavoriteButton eventId={event.id} />
+        <>
+          <FavoriteButton
+            className={'absolute right-0 top-0'}
+            eventId={event.id}
+          />
           {user.id === event.creator?.id && (
             <>
+              {/*<button*/}
+              {/*  ref={el => (anchorRef.current[event.id] = el)}*/}
+              {/*  type="button"*/}
+              {/*  onClick={handleToggleSettingModal}*/}
+              {/*>*/}
+              {/*  <FaEllipsis className={'text-3xl text-white'} />*/}
+              {/*</button>*/}
+              {/*<ModalAnchor*/}
+              {/*  className={'z-30'}*/}
+              {/*  show={isShowSettingModal}*/}
+              {/*  onCloseClick={handleToggleSettingModal}*/}
+              {/*  ref={modalHeight}*/}
+              {/*  height={height}*/}
+              {/*  top={top}*/}
+              {/*  right={right}*/}
+              {/*>*/}
+              {/*  <Link*/}
+              {/*    to={'/profile/update'}*/}
+              {/*    className={styles.profile__settingsList_item}*/}
+              {/*  >*/}
+              {/*    <MaterialIcon*/}
+              {/*      name={'MdOutlineEdit'}*/}
+              {/*      className={styles.profile__settingsList_item_icon}*/}
+              {/*    />*/}
+              {/*    <span>Редактировать профиль</span>*/}
+              {/*  </Link>*/}
+
+              {/*  <Link to={'/'} className={styles.profile__settingsList_item}>*/}
+              {/*    <MaterialIcon*/}
+              {/*      name={'MdArrowOutward'}*/}
+              {/*      className={styles.profile__settingsList_item_icon}*/}
+              {/*    />*/}
+              {/*    <span>Поделиться профилем</span>*/}
+              {/*  </Link>*/}
+              {/*</ModalAnchor>*/}
               <Link
                 to={`/events/update/${event.id}`}
-                className={'text-white block'}
+                className={'absolute right-8 top-12'}
               >
-                Редактировать
+                <FaEllipsis className={'text-3xl text-white'} />
               </Link>
-              <Button className={'text-white'}>Удалить</Button>
+
+              {/*<Button className={'text-white'}>Удалить</Button>*/}
             </>
           )}
-          {/*<div>*/}
-          {/*  <button type="button" onClick={handleToggleSettingModal}>*/}
-          {/*    <MaterialIcon*/}
-          {/*      name={'MdSettings'}*/}
-          {/*      className={'text-gray-400 text-3xl'}*/}
-          {/*    />*/}
-          {/*  </button>*/}
-          {/*  <ModalWindow*/}
-          {/*    isSettingModal*/}
-          {/*    show={isShowSettingModal}*/}
-          {/*    onCloseClick={handleToggleSettingModal}*/}
-          {/*    ref={modalHeight}*/}
-          {/*    height={height}*/}
-          {/*  >*/}
-          {/*    <ul className={styles.profile__settingsList}>*/}
-          {/*      <li>*/}
-          {/*        <Link*/}
-          {/*          to={'/profile/update'}*/}
-          {/*          className={styles.profile__settingsList_item}*/}
-          {/*        >*/}
-          {/*          <MaterialIcon*/}
-          {/*            name={'MdOutlineEdit'}*/}
-          {/*            className={styles.profile__settingsList_item_icon}*/}
-          {/*          />*/}
-          {/*          <span>Редактировать профиль</span>*/}
-          {/*        </Link>*/}
-          {/*      </li>*/}
-          {/*      <li>*/}
-          {/*        <Link to={'/'} className={styles.profile__settingsList_item}>*/}
-          {/*          <MaterialIcon*/}
-          {/*            name={'MdArrowOutward'}*/}
-          {/*            className={styles.profile__settingsList_item_icon}*/}
-          {/*          />*/}
-          {/*          <span>Поделиться профилем</span>*/}
-          {/*        </Link>*/}
-          {/*      </li>*/}
-          {/*    </ul>*/}
-          {/*  </ModalWindow>*/}
-          {/*</div>*/}
-        </div>
+        </>
       )}
       <div className={styles.card__info}>
         <Link to={`/events/${event.id}`} className={styles.card__title}>

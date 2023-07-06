@@ -1,0 +1,59 @@
+@import "libs/shared/styles/themes/dark";
+@import "libs/shared/styles/themes/normal";
+
+.modal {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  padding: 0 35px 0 15px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.3s ease-in-out;
+  width: 100vw;
+  z-index: -1;
+
+  &__content {
+    background-color: var(--bg-modal);
+    border-radius: 24px;
+    padding: 20px;
+    position: relative;
+    transform: scale(0.5);
+    transition: all 0.3s ease-out;
+    width: 100%;
+    z-index: 100;
+
+    &.active {
+      transform: scale(1);
+    }
+
+  }
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 6;
+  }
+
+  &__btnClose {
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 11;
+  }
+
+}
+
+.infoTitle {
+  border-bottom: 1px solid #5b5b5b;
+  font-size: 18px;
+  margin-bottom: 16px;
+  @apply font-medium;
+}
+

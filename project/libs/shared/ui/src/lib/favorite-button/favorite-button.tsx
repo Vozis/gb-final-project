@@ -1,5 +1,5 @@
 import styles from './favorite-button.module.scss';
-import { useEffect, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import cn from 'clsx';
 import logo from './heart.png';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -10,11 +10,15 @@ import { errorCatch } from '@project/shared/utils';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
-export interface FavoriteButtonProps {
+export interface FavoriteButtonProps extends HTMLAttributes<HTMLButtonElement> {
   eventId: number;
 }
 
-export function FavoriteButton({ eventId }: FavoriteButtonProps) {
+export function FavoriteButton({
+  eventId,
+  className,
+  ...rest
+}: FavoriteButtonProps) {
   const { user } = useAuthRedux();
 
   const { getProfile } = useActions();
@@ -75,10 +79,12 @@ export function FavoriteButton({ eventId }: FavoriteButtonProps) {
         },
         { [styles.button]: isSmashed },
         { [styles.buttonReverse]: !isSmashed },
+        className,
       )}
       style={{
         backgroundImage: `url(${logo})`,
       }}
+      {...rest}
     />
   );
 }
