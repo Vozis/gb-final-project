@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "toast.module.scss"
+    ],
+    "names": [],
+    "file": "toast.module.css"
+}

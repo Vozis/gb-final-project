@@ -1,0 +1,23 @@
+@use 'libs/shared/styles/variables' as v;
+.btn,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  @apply flex items-center justify-center px-2 py-2 box-border;
+}
+
+.btn:hover,
+[type='button']:hover,
+[type='reset']:hover,
+[type='submit']:hover {
+  cursor: pointer;
+}
+
+.btn:disabled,
+[type='button']:disabled,
+[type='reset']:disabled,
+[type='submit']:disabled {
+  cursor: none;
+  @apply bg-gray-500;
+}
+/*# sourceMappingURL=button.module.css.map */

@@ -1,0 +1,72 @@
+.field {
+  margin: 0 auto;
+  position: relative;
+}
+
+.fieldLabel {
+  border-top: 20px solid transparent;
+  display: inline-block;
+  font-size: 14px;
+  padding: 12px;
+  position: relative;
+}
+
+.input {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 2px solid #5b5b5b;
+  border-radius: 3px;
+  font-size: 14px;
+  outline: none;
+  padding: 12px;
+  -webkit-transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease;
+  width: 300px;
+}
+
+.placeholder {
+  color: #5b5b5b;
+  font-size: 16px;
+  left: 24px;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+  white-space: nowrap;
+}
+
+.icon {
+  font-size: 16px;
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.fieldLabel input:not(:placeholder-shown),
+.fieldLabel input:focus {
+  border-color: #222;
+  -webkit-transition-delay: 0.1s;
+          transition-delay: 0.1s;
+}
+
+.fieldLabel input:not(:placeholder-shown) + .placeholder,
+.fieldLabel input:focus + .placeholder {
+  color: #222;
+  font-size: 14px;
+  top: 0;
+}
+
+.error {
+  color: red;
+  margin: -14px 0px 0px 13px;
+}
+/*# sourceMappingURL=input.module.css.map */

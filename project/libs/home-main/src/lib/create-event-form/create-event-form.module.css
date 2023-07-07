@@ -1,0 +1,14 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.formBtn {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: aquamarine;
+}
+/*# sourceMappingURL=create-event-form.module.css.map */

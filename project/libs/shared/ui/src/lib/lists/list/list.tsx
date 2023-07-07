@@ -1,7 +1,6 @@
-import styles from './list.module.scss';
-import React, { PropsWithChildren } from 'react';
-import cn from 'clsx';
 import { Heading } from '@project/shared/ui';
+import cn from 'clsx';
+import React, { PropsWithChildren } from 'react';
 
 /* eslint-disable-next-line */
 export interface ListProps
@@ -11,7 +10,8 @@ export function List({ children, className, title }: ListProps) {
   return (
     <div className={cn('', className)}>
       <Heading>{title}</Heading>
-      {children}
+      {/* {children} */}
+      <div className="flex flex-col gap-3">{children}</div>
     </div>
   );
 }

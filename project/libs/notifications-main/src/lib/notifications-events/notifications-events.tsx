@@ -1,138 +1,137 @@
-import { useActions, useNotificationState } from '@project/shared/hooks';
-import { List } from '@project/shared/ui';
+import { INotification } from '@project/shared/types';
 import { Link } from 'react-router-dom';
+import Avatar from '../../../../shared/ui/src/lib/avatar/avatar';
 import styles from './notifications-events.module.scss';
 /* eslint-disable-next-line */
-export interface NotificationsEventsProps {}
+export interface NotificationsEventsProps {
+  data: INotification;
+}
 
-export function NotificationsEvents(props: NotificationsEventsProps) {
-  // ушел в notification.tsx
-  // const { user } = useAuthRedux();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate('/auth');
-  //   }
-  // }, []);
-
-  const { notifications, count } = useNotificationState();
-  console.log('notifications: ', notifications);
-  // notifications.map(notification => console.log(notification.type));
-  // const index = notifications.map(item => item.type === 'EVENT_PARTICIPATE');
-  // console.log('index: ', index);
-
-  // const card = notifications.find(function (item) {
-  //   return item.type.match(/EVENT/);
-  // });
-  // console.log('card: ', card);
-
-  const notiEvents = notifications.filter(item => item.type.match(/EVENT/));
-  console.log('notiEvents: ', notiEvents);
-
-  const { changeNotificationStatus } = useActions();
-  console.log('changeNotificationStatus: ', changeNotificationStatus);
-
-  // ушел в notification.tsx
-  // useEffect(() => {
-  //   const dto: INotificationUpdateStatus = {
-  //     ids: notifications.map(item => item.id),
-  //     status: NotificationStatus.DELIVERED,
-  //   };
-
-  //   changeNotificationStatus({
-  //     dto,
-  //   });
-  // }, []);
-
+export function NotificationsEvents(data: NotificationsEventsProps) {
+  // console.log('data: ', data.data);
   return (
-    <div className={styles.notifications}>
-      <List className={styles.notifications__list}>
-        {notiEvents?.map(item => (
-          // -----------------------------------------------------------------------
-          <div key={item.id}>
-            {item.type === 'EVENT_PARTICIPATE' ? (
-              <div className={styles.event_container}>
-                <img src={item.user.avatarPath} alt={'avatar'} />
-                <p>
-                  Ваш друг
-                  <Link
-                    to={`/users/${item.user.id}`}
-                    className={styles.event_span}
-                  >
-                    {item.user.firstName} {item.user.lastName}
-                  </Link>
-                  <span> присоединился к событию </span>
-                  <Link
-                    to={`/events/${item.sourceId}`}
-                    className={styles.event_span}
-                  >
-                    {item.sourceData}
-                  </Link>
-                  {/* событию <span>{item.text.replace(/[a-z\w#]/gi, '')}</span> */}
-                </p>
-              </div>
-            ) : // --------------------------------------------------------------------------------
-            item.type === 'EVENT_CREATE' ? (
-              <div className={styles.event_container}>
-                <p>
-                  Ваш друг{' '}
-                  <Link
-                    to={`/users/${item.user.id}`}
-                    className={styles.event_span}
-                  >
-                    {item.user.firstName} {item.user.lastName}
-                  </Link>
-                  <span> создал новое событие: </span>
-                  <Link
-                    to={`/events/${item.sourceId}`}
-                    className={styles.event_span}
-                  >
-                    {item.sourceData}
-                  </Link>
-                </p>
-              </div>
-            ) : // ------------------------------------------------------------------------------
-            item.type === 'EVENT_LEAVE' ? (
-              <div className={styles.event_container}>
-                Ваш друг{' '}
-                <Link
-                  to={`/users/${item.user.id}`}
-                  className={styles.event_span}
-                >
-                  {item.user.firstName} {item.user.lastName}
-                </Link>
-                <span> покинул событие </span>
-                <Link
-                  to={`/events/${item.sourceId}`}
-                  className={styles.event_span}
-                >
-                  {item.sourceData}
-                </Link>
-              </div>
-            ) : // ------------------------------------------------------------------------------
-            item.type === 'EVENT_UPDATE' ? (
-              <div className={styles.event_container}>
-                Ваш друг{' '}
-                <Link
-                  to={`/users/${item.user.id}`}
-                  className={styles.event_span}
-                >
-                  {item.user.firstName} {item.user.lastName}
-                </Link>
-                <span> изменил событие </span>
-                <Link
-                  to={`/events/${item.sourceId}`}
-                  className={styles.event_span}
-                >
-                  {item.sourceData}
-                </Link>
-              </div>
-            ) : (
-              <p>Пусто</p>
-            )}
-          </div>
-        ))}
-      </List>
+    <div key={data.data.id}>
+      {data.data.type === 'EVENT_PARTICIPATE' ? (
+        <div className={styles.event_container}>
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
+          <p>
+            Ваш друг &nbsp;
+            <Link
+              to={`/users/${data.data.user.id}`}
+              className={styles.event_span}
+            >
+              {data.data.user.firstName} {data.data.user.lastName}
+            </Link>
+            <span> присоединился к событию </span>
+            <Link
+              to={`/events/${data.data.sourceId}`}
+              className={styles.event_span}
+            >
+              {data.data.sourceData}
+            </Link>
+            {/* событию <span>{item.text.replace(/[a-z\w#]/gi, '')}</span> */}
+          </p>
+        </div>
+      ) : data.data.type === 'EVENT_CREATE' ? (
+        <div className={styles.event_container}>
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
+          <p>
+            Ваш друг &nbsp;
+            <Link
+              to={`/users/${data.data.user.id}`}
+              className={styles.event_span}
+            >
+              {data.data.user.firstName} {data.data.user.lastName}
+            </Link>
+            <span> создал новое событие: </span>
+            <Link
+              to={`/events/${data.data.sourceId}`}
+              className={styles.event_span}
+            >
+              {data.data.sourceData}
+            </Link>
+          </p>
+        </div>
+      ) : data.data.type === 'EVENT_LEAVE' ? (
+        <div className={styles.event_container}>
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
+          <p>
+            Ваш друг &nbsp;
+            <Link
+              to={`/users/${data.data.user.id}`}
+              className={styles.event_span}
+            >
+              {data.data.user.firstName} {data.data.user.lastName}
+            </Link>{' '}
+            &nbsp;
+            <span> покинул событие &nbsp;</span>
+            <Link
+              to={`/events/${data.data.sourceId}`}
+              className={styles.event_span}
+            >
+              {data.data.sourceData}
+            </Link>
+          </p>
+        </div>
+      ) : data.data.type === 'EVENT_UPDATE' ? (
+        <div className={styles.event_container}>
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
+          <p>
+            Ваш друг &nbsp;
+            <Link
+              to={`/users/${data.data.user.id}`}
+              className={styles.event_span}
+            >
+              {data.data.user.firstName} {data.data.user.lastName}
+            </Link>
+            &nbsp;
+            <span> изменил событие &nbsp;</span>
+            <Link
+              to={`/events/${data.data.sourceId}`}
+              className={styles.event_span}
+            >
+              {data.data.sourceData}
+            </Link>
+          </p>
+        </div>
+      ) : (
+        // EVENT_COMPLETE
+        <div className={styles.event_container}>
+          <Avatar
+            imagePath={data.data.user.avatarPath}
+            className={styles.event_container_avatar}
+          />
+          <p>
+            Ваш друг &nbsp;
+            <Link
+              to={`/users/${data.data.user.id}`}
+              className={styles.event_span}
+            >
+              {data.data.user.firstName} {data.data.user.lastName}
+            </Link>
+            &nbsp;
+            <span> завершил событие &nbsp;</span>
+            <Link
+              to={`/events/${data.data.sourceId}`}
+              className={styles.event_span}
+            >
+              {data.data.sourceData}
+            </Link>
+          </p>
+        </div>
+      )}
     </div>
   );
 }

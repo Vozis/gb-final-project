@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "create-event.module.scss"
+    ],
+    "names": [],
+    "file": "create-event.module.css"
+}
