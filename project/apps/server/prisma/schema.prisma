@@ -40,6 +40,7 @@ model User {
 
   exitDate      DateTime        @default(now()) @map("exit_date")
   notifications Notifications[]
+  Rating        Rating[]
 
   // eventsList UsersOnEvents[]
   @@map("users")
@@ -93,6 +94,7 @@ model Event {
   creatorId Int?
 
   comments Comment[]
+  Rating   Rating[]
 
   // usersList UsersOnEvents[]
   @@map("events")
@@ -148,6 +150,20 @@ model Notifications {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("notifications")
+}
+
+model Rating {
+  id      Int   @id @default(autoincrement())
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
+  rating  Float
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("rating")
 }
 
 // model UsersOnEvents {

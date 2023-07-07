@@ -22,6 +22,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { SocketGateway } from './socket.gateway';
 import { NotificationModule } from './notification/notification.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     CommentModule,
     LikeModule,
     NotificationModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService, BasePrismaService, SocketGateway],
