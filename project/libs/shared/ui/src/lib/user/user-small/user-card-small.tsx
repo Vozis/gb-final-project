@@ -2,10 +2,14 @@ import styles from './user-card-small.module.scss';
 import { IUser, IUserSmall } from '@project/shared/types';
 import cn from 'clsx';
 import { Link } from 'react-router-dom';
-import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
+import {
+  useAuthRedux,
+  useCheckUserStatus,
+  useSocketState,
+} from '@project/shared/hooks';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Avatar, MaterialIcon } from '@project/shared/ui';
 
-/* eslint-disable-next-line */
 export interface UserCardSmallProps {
   userProps: IUser | IUserSmall;
   className?: string;
@@ -13,6 +17,7 @@ export interface UserCardSmallProps {
   isName?: boolean;
   isInfo?: boolean;
   isWhite?: boolean;
+  inlineStyles?: CSSProperties[];
 }
 
 export function UserCardSmall({

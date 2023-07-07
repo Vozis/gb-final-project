@@ -1,4 +1,6 @@
-@use 'libs/shared/styles/variables' as v;
+@import 'libs/shared/styles/variables';
+@import "libs/shared/styles/themes/normal";
+@import "libs/shared/styles/themes/dark";
 
 @tailwind base;
 @tailwind components;
@@ -9,9 +11,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
 body {
-  background-color: v.$background-color;
+  //background-color: v.$background-color;
   font-family: 'Ubuntu', sans-serif;
   height: 100vh;
   min-height: 100vh;
+  font-size: var(--font-size-m);
+  color: var(--text-color-primary);
+  //background: var(--bg-color);
+}
+
+#root {
+  height: 100%;
 }
 

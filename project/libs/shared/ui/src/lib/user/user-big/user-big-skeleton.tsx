@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SkeletonLoader } from '@project/shared/ui';
+import { AvatarSize, SkeletonLoader } from '@project/shared/ui';
 
 interface CardSkeletonProps {
   count?: number;
@@ -15,12 +15,12 @@ export const UserBigSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
       <div>
         <SkeletonLoader
           count={1}
-          className={'h-16 w-16 rounded-[200px]'}
+          className={'h-20 w-20 rounded-full'}
           containerClassName={'flex gap-2 flex-wrap'}
         />
         <SkeletonLoader
           count={1}
-          className={'h-8 w-8 rounded-full absolute right-3 top-3'}
+          className={'h-8 w-8 rounded-md absolute right-3 top-3'}
         />
       </div>
       <div className={'flex flex-col items-center gap-2'}>
