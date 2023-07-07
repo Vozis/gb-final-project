@@ -22,7 +22,7 @@
         }],
         "styles": ["apps/web/src/styles.scss"],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/shared/styles"]
+          "includePaths": ["libs/shared/styles", "libs/shared/styles/themes"]
         },
         "scripts": [],
         "isolatedConfig": true,

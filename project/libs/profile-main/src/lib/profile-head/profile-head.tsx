@@ -52,7 +52,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       );
       setTop(
         isShowSettingModal
-          ? `${anchorParams.y + anchorParams.width + 20}px`
+          ? `${anchorParams.y + anchorParams.height + 20}px`
           : '0px',
       );
       setRight(
