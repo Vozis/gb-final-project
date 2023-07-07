@@ -2,15 +2,18 @@ import { useActions, useAuthRedux, useTheme } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Link } from 'react-router-dom';
 import { useModal } from '@project/shared/hooks';
-import { MaterialIcon, UserBig, ModalScreen } from '@project/shared/ui';
-import { useNavigate } from 'react-router-dom';
+import {
+  MaterialIcon,
+  UserBig,
+  ModalScreen,
+  ModalAnchor,
+} from '@project/shared/ui';
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
-import ModalAnchor from '../../../../shared/ui/src/lib/modals/modal-anchor/modal-anchor';
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -35,9 +38,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     if (user && user.friends?.some(user => user.id === userProps.id)) {
       setIsFriend(true);
     }
-  }, [user]);
-
-  const { theme } = useTheme();
+  }, [user, userProps.id]);
 
   useEffect(() => {
     if (anchorRef.current) {

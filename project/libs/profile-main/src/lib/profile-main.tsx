@@ -143,7 +143,6 @@ export function ProfileMain(props: ProfileMainProps) {
           />
         </>
       )}
-      <div className={styles.container}></div>
 
       {/*{user && user.friends && (*/}
       {/*  <Accordion title={'Друзья'}>*/}

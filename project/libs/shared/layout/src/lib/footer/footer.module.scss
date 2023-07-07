@@ -6,20 +6,22 @@
  * }
 */
 .footer {
-  height: 80px;
-  background-color: #f6f6f6;
+  //height: 80px;
+  background: var(--bg-color);
+  color: var(--primary-color);
+
   &_none {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(
-      90deg,
-      rgba(2, 0, 36, 1) 0%,
-      rgba(71, 115, 217, 1) 0%,
-      rgba(29, 60, 227, 1) 100%
-    );
-    color: white;
+    //background: rgb(2, 0, 36);
+    //background: linear-gradient(
+    //    90deg,
+    //    rgba(2, 0, 36, 1) 0%,
+    //    rgba(71, 115, 217, 1) 0%,
+    //    rgba(29, 60, 227, 1) 100%
+    //);
+    //color: white;
     padding: 20px;
   }
 }

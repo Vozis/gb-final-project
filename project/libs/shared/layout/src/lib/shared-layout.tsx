@@ -5,23 +5,16 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Toaster } from 'react-hot-toast';
-import { TransitionProvider } from '@project/shared/providers';
 import clsx from 'clsx';
-import { Theme, ThemeContext } from '../../../theme/ThemeContext';
 import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
-
+console.log(styles.layout);
 export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   return (
     <>
-      <div
-        className={clsx(styles.layout, {
-          [styles.dark]: theme === 'dark',
-        })}
-      >
+      <div className={clsx(styles.layout, [theme])}>
         <Header />
         <main className={styles.containerContent}>{children}</main>
         {/*<TransitionProvider className={styles.containerContent}>*/}

@@ -21,7 +21,6 @@ import { getFinishedEvents } from '../../../../store/src/lib/actions/notificatio
 import { NotificationService } from '@project/shared/services';
 import clsx from 'clsx';
 
-
 /* eslint-disable-next-line */
 export interface HeaderProps {}
 
@@ -51,12 +50,11 @@ export function Header(props: HeaderProps) {
     }
   }, [isShowSettingModal]); //new modal
 
-
   return (
     <header
       className={clsx(styles.header, {
-        [`${styles.header} ${styles.dark}`]: theme === 'dark',
-        [`${styles.header} ${styles.light}`]: theme === 'light',
+        // [`${styles.header} ${styles.dark}`]: theme === 'dark',
+        // [`${styles.header} ${styles.light}`]: theme === 'light',
       })}
     >
       <ul className={'flex flex-wrap gap-3 items-center'}>
@@ -173,7 +171,7 @@ export function Header(props: HeaderProps) {
         )}
       </div>
       <button onClick={toggleTheme}>
-        {theme === 'dark' ? 'Темная тема' : 'Светлая тема'}
+        {theme === 'app_dark_theme' ? 'Темная тема' : 'Светлая тема'}
       </button>
     </header>
   );

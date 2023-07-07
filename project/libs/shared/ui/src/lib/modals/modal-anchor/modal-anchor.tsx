@@ -29,10 +29,8 @@ export const ModalAnchor = forwardRef<HTMLDivElement, ModalAnchorProps>(
           top: `${top}`,
           right: `${right}`,
         }}
-        className={cn(styles.modal, className, {
+        className={cn(styles.modal, [className, theme], {
           [styles.active]: show,
-          [styles.dark]: theme === 'dark',
-          [styles.light]: theme === 'light',
         })}
         onClick={onCloseClick}
       >

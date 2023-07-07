@@ -35,39 +35,34 @@ export const ModalScreen = forwardRef<HTMLDivElement, ModalScreenProps>(
     const { theme } = useTheme();
     return ReactDOM.createPortal(
       <div
-        className={cn(styles.modal, className, {
+        className={cn(styles.modal, [className, theme], {
           [styles.active]: show,
         })}
-        onClick={onCloseClick}
       >
-        <div
-          ref={ref}
-          style={{ maxHeight: `${height}` }}
-          className={cn(styles.modal__content, className, {
-            [styles.active]: show,
-            [styles.dark]: theme === 'dark',
-            [styles.light]: theme === 'light',
-          })}
-          onClick={e => {
-            e.stopPropagation();
-          }}
-        >
-          {isBtnClose && (
-            <Button
-              type={'button'}
-              className={
-                styles.modal__btnClose + ' border-none hover:text-zinc-700'
-              }
-              onClick={onCloseClick}
-            >
-              <MaterialIcon
-                name={'MdOutlineClose'}
-                className={'text-3xl hover:text-zinc-700'}
-              />
-            </Button>
-          )}
-          <p className={styles.infoTitle}>{title}</p>
-          <div>{children}</div>
+        <div className={styles.overlay} onClick={onCloseClick}>
+          <div
+            ref={ref}
+            style={{ maxHeight: `${height}` }}
+            className={styles.content}
+            onClick={e => {
+              e.stopPropagation();
+            }}
+          >
+            {isBtnClose && (
+              <Button
+                type={'button'}
+                className={styles.btnClose + ' border-none hover:text-zinc-700'}
+                onClick={onCloseClick}
+              >
+                <MaterialIcon
+                  name={'MdOutlineClose'}
+                  className={'text-3xl hover:text-zinc-700'}
+                />
+              </Button>
+            )}
+            <p className={styles.infoTitle}>{title}</p>
+            <div>{children}</div>
+          </div>
         </div>
       </div>,
       document.body,

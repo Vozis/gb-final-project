@@ -1,6 +1,6 @@
 //@use 'libs/shared/styles/variables' as v;
-@import 'libs/shared/styles/themes/dark';
-@import 'libs/shared/styles/themes/normal';
+//@import 'libs/shared/styles/themes/dark';
+//@import 'libs/shared/styles/themes/normal';
 
 .layout {
   //background-color: v.$background-color;
@@ -17,6 +17,7 @@
   //min-height: 100vh;
   transition: background-color .2s ease-out;
   width: 100%;
+  min-height: 100%;
 }
 
 
