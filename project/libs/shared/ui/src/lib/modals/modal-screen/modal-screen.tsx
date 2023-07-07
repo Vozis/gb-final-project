@@ -2,8 +2,7 @@ import styles from './modal-screen.module.scss';
 import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'clsx';
-import { Button } from '../../button/button';
-import { MaterialIcon } from '@project/shared/ui';
+import { Button, MaterialIcon } from '@project/shared/ui';
 import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */

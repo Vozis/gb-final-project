@@ -1,5 +1,4 @@
 import { ITokens, IUser } from '@project/shared/types';
-import { Role } from '.prisma/client';
 
 export interface IAuthResponse extends ITokens {
   user: IUser;

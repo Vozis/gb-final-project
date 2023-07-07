@@ -1,4 +1,3 @@
-import { Comment } from '@prisma/client';
 import { IUserSmall } from './user.types';
 import { ILike } from './like.types';
 

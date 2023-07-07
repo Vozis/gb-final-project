@@ -1,0 +1,49 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.accordion {
+  margin-top: 18px;
+}
+
+.accordion__header {
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.accordion__title {
+  font-size: 20px;
+}
+
+.accordion__arrow {
+  font-size: 28px;
+  color: #333333;
+}
+
+.accordion__content {
+  max-height: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in-out, max-height 0.3s 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s 0.3s ease-in-out;
+  color: #333;
+}
+
+.accordion__active_content-show {
+  opacity: 1;
+  max-height: var(--content-height);
+  -webkit-transition: max-height 0.3s ease-in-out, opacity 0.3s 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s 0.3s ease-in-out;
+}
+/*# sourceMappingURL=accordion.module.css.map */

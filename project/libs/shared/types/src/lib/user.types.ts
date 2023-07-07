@@ -1,4 +1,4 @@
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { ITag } from './tag.types';
 import { IEvent, IEventForCard } from './event.types';
 

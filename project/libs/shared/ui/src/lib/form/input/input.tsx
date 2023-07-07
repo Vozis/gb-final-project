@@ -4,7 +4,7 @@ import cn from 'clsx';
 
 import styles from './input.module.scss';
 import { errorCatch } from '@project/shared/utils';
-import { BiIcon } from '../../icons/bi-icon';
+import { BiIcon } from '@project/shared/ui';
 
 export const Field = forwardRef<HTMLInputElement, IField>(
   (

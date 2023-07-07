@@ -1,0 +1,19 @@
+.layout.light {
+  --bg-color: #ffffff;
+  --primary-color: #464646
+
+;
+}
+
+.header.light {
+  --bg-color: #fff;
+  --primary-color: #00007a
+;
+}
+
+.modal__content.light {
+  --bg-modal: #f4f4f4;
+  --modal-textColor: #555
+;
+}
+/*# sourceMappingURL=normal.css.map */

@@ -1,11 +1,4 @@
-import {
-  AuthApi,
-  axiosAuth,
-  axiosClassic,
-  MailApi,
-} from '@project/shared/config';
-import { errorCatch } from '@project/shared/utils';
-import { IResetPassword } from '@project/shared/types';
+import { axiosAuth, axiosClassic, MailApi } from '@project/shared/config';
 
 export const MailService = {
   async confirmEmail(data: { token: string }) {

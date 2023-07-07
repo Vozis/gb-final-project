@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
-import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Tag } from '@prisma/client';
 import { returnTagObject, TagSelect } from './returnTagObject';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';

@@ -6,7 +6,6 @@ import { errorCatch } from '@project/shared/utils';
 import { FC } from 'react';
 import Select, { OnChangeValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
-import AsyncSelect from 'react-select/async';
 
 const animatedComponents = makeAnimated();
 

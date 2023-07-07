@@ -1,0 +1,35 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.footer {
+  height: 80px;
+  background-color: #f6f6f6;
+}
+
+.footer_none {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #020024;
+  background: -webkit-gradient(linear, left top, right top, from(#020024), color-stop(0%, #4773d9), to(#1d3ce3));
+  background: linear-gradient(90deg, #020024 0%, #4773d9 0%, #1d3ce3 100%);
+  color: white;
+  padding: 20px;
+}
+
+@media (max-width: 500px) {
+  .footer_none {
+    display: none;
+  }
+}
+/*# sourceMappingURL=footer.module.css.map */

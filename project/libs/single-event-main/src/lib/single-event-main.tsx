@@ -1,41 +1,31 @@
-import { EventService } from '@project/shared/services';
 import {
-  UserCardSmall,
+  Button,
+  Comments,
   ITab,
   List,
+  SkeletonLoader,
   Tabs,
   TabsProps,
   Tag,
-  Button,
-  UserBig,
   ToggleUserButton,
-  Comments,
-  SkeletonLoader,
+  UserCardSmall,
 } from '@project/shared/ui';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import cn, { clsx } from 'clsx';
-import { Link, useParams } from 'react-router-dom';
+import { clsx } from 'clsx';
+import { useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import SingleEventHead from './single-event-head/single-event-head';
 import styles from './single-event-main.module.scss';
 import {
   useActions,
   useAuthRedux,
-  useFilterState,
   useNotificationState,
   useSocketState,
 } from '@project/shared/hooks';
-import { AxiosError } from 'axios';
-import { errorCatch } from '@project/shared/utils';
 import { SingleEventHeadSkeleton } from './single-event-head/single-event-head-skeleton';
-import { NotificationStatus, NotificationType } from '@prisma/client';
-import {
-  INotification,
-  INotificationUpdateStatus,
-} from '@project/shared/types';
-/* eslint-disable-next-line */
+import { useSingleEvent } from './useSingleEvent';
+
 export interface SingleEventMainProps {
   tabs?: TabsProps;
 }
@@ -43,15 +33,15 @@ export interface SingleEventMainProps {
 export function SingleEventMain(props: SingleEventMainProps) {
   const [run, setRun] = useState(false);
   const { id } = useParams();
+  if (!id) return null;
   const { user } = useAuthRedux();
   const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
   const [isActiveRoom, setIsActiveRoom] = useState<boolean>(false);
   const { activeRooms } = useSocketState();
+  const { event, isLoading } = useSingleEvent(id);
 
   const { notifications } = useNotificationState();
   const { changeNotificationStatus } = useActions();
-
-  if (!id) return null;
 
   useEffect(() => {
     if (
@@ -64,37 +54,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
     }
   }, [id, activeRooms]);
 
-  const { isLoading: isLoadingPublic, data: publicEvent } = useQuery(
-    ['get-single-event-public'],
-    () => EventService.getSingleEventNoUser(id),
-    {
-      select: ({ data }) => data,
-      onSuccess: () => {
-        toast.success('Событие успешно получено', {
-          containerId: 1,
-          toastId: 'get-single-event',
-        });
-      },
-      enabled: !!id,
-    },
-  );
-
-  const { isLoading, data: event } = useQuery(
-    ['get-single-event'],
-    () => EventService.getSingleEvent(id),
-    {
-      select: ({ data }) => data,
-      onSuccess: () => {
-        toast.success('Событие успешно получено', {
-          containerId: 1,
-          toastId: 'get-single-event',
-        });
-      },
-      enabled: !!user && !!id,
-    },
-  );
-
-  console.log('notifications from event-main: ', notifications);
+  // console.log('notifications from event-main: ', notifications);
 
   // useEffect(() => {
   //   console.log('start');
@@ -147,15 +107,15 @@ export function SingleEventMain(props: SingleEventMainProps) {
       id: '1',
       label: 'Описание',
       // content: <p>{event.description}</p>,
-      content: <p>{event ? event.description : publicEvent?.description}</p>,
+      content: <p>{event && event.description}</p>,
     },
     {
       id: '2',
       label: 'Участвуют',
       content: (
         <List className={'flex flex-col gap-3'}>
-          {event ? (
-            event.users.length !== 0 ? (
+          {event &&
+            (event.users.length !== 0 ? (
               event.users.map(user => (
                 <UserCardSmall
                   userProps={user}
@@ -167,34 +127,23 @@ export function SingleEventMain(props: SingleEventMainProps) {
               ))
             ) : (
               <p>Пока здесь никого нет</p>
-            )
-          ) : publicEvent && publicEvent.users.length !== 0 ? (
-            publicEvent.users.map(user => (
-              <UserCardSmall
-                userProps={user}
-                key={user.id}
-                isName
-                isInfo
-                isPhoto
-              />
-            ))
-          ) : (
-            <p>Пока здесь никого нет</p>
-          )}
+            ))}
         </List>
       ),
     },
   ];
 
-  // const { width, height } = useWindowSize();
-
   return (
     <div className={'flex-col flex gap-3'}>
-      {isLoading ? <SingleEventHeadSkeleton /> : <SingleEventHead />}
+      {isLoading ? (
+        <SingleEventHeadSkeleton />
+      ) : (
+        event && <SingleEventHead event={event} />
+      )}
       <div className={'flex flex-col gap-3'}>
         {user && event ? (
           <ToggleUserButton event={event} />
-        ) : (
+        ) : user ? (
           <SkeletonLoader
             count={7}
             className={'h-6 w-4'}
@@ -202,9 +151,11 @@ export function SingleEventMain(props: SingleEventMainProps) {
               'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-12'
             }
           />
+        ) : (
+          ''
         )}
-        <Button onClick={() => setRun(true)}>Confetti ON</Button>
-        {isLoading || isLoadingPublic ? (
+        {/*<Button onClick={() => setRun(true)}>Confetti ON</Button>*/}
+        {isLoading ? (
           <SkeletonLoader
             count={2}
             className={'h-10 w-full rounded-[50px]'}
@@ -225,64 +176,29 @@ export function SingleEventMain(props: SingleEventMainProps) {
         )}
 
         <div className={styles.card__tags}>
-          {user ? (
-            <>
-              {isLoading ? (
-                <SkeletonLoader
-                  count={4}
-                  className={'h-6 w-24 rounded-[50px]'}
-                  containerClassName={
-                    'bg-white p-3 flex gap-1 item-center justify-between rounded-xl h-12 w-full'
-                  }
-                />
-              ) : (
-                event &&
-                event.tags.map(tag => (
-                  <Tag
-                    key={tag.id}
-                    className={clsx({
-                      'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
-                      [styles.card__tag_place]: tag?.type.name === 'place',
-                      'bg-green-300 hover:bg-green-400':
-                        tag?.type.name === 'city',
-                      'bg-cyan-300 hover:bg-cyan-400':
-                        tag?.type.name === 'sport',
-                    })}
-                  >
-                    {tag.name}
-                  </Tag>
-                ))
-              )}
-            </>
+          {isLoading ? (
+            <SkeletonLoader
+              count={4}
+              className={'h-6 w-24 rounded-[50px]'}
+              containerClassName={
+                'bg-white p-3 flex gap-1 item-center justify-between rounded-xl h-12 w-full'
+              }
+            />
           ) : (
-            <>
-              {isLoadingPublic ? (
-                <SkeletonLoader
-                  count={4}
-                  className={'h-6 w-24 rounded-[50px]'}
-                  containerClassName={
-                    'bg-white p-3 flex gap-1 item-center justify-between rounded-xl h-12 w-full'
-                  }
-                />
-              ) : (
-                publicEvent &&
-                publicEvent.tags.map(tag => (
-                  <Tag
-                    key={tag.id}
-                    className={clsx({
-                      'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
-                      [styles.card__tag_place]: tag?.type.name === 'place',
-                      'bg-green-300 hover:bg-green-400':
-                        tag?.type.name === 'city',
-                      'bg-cyan-300 hover:bg-cyan-400':
-                        tag?.type.name === 'sport',
-                    })}
-                  >
-                    {tag.name}
-                  </Tag>
-                ))
-              )}
-            </>
+            event &&
+            event.tags.map(tag => (
+              <Tag
+                key={tag.id}
+                className={clsx({
+                  'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
+                  [styles.card__tag_place]: tag?.type.name === 'place',
+                  'bg-green-300 hover:bg-green-400': tag?.type.name === 'city',
+                  'bg-cyan-300 hover:bg-cyan-400': tag?.type.name === 'sport',
+                })}
+              >
+                {tag.name}
+              </Tag>
+            ))
           )}
         </div>
         {user ? (
@@ -311,8 +227,6 @@ export function SingleEventMain(props: SingleEventMainProps) {
               </>
             )}
           </div>
-        ) : isLoadingPublic ? (
-          ''
         ) : (
           <p>Комментарии доступны только для авторизованных пользователей</p>
         )}

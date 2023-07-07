@@ -1,5 +1,5 @@
 import { IComment, IEvent } from '@project/shared/types';
-import CommentsItem from '../comments-item/comments-item';
+import { CommentsItem } from '@project/shared/ui';
 import styles from './comments-list.module.scss';
 
 /* eslint-disable-next-line */

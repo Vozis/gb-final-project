@@ -4,14 +4,12 @@ import { IUserEdit } from '@project/shared/types';
 import {
   CardList,
   CardSkeleton,
+  FriendsList,
   ITab,
   SkeletonLoader,
   Tabs,
   TabsProps,
   UserBigSkeleton,
-  UserCardSmall,
-  Accordion,
-  FriendsList,
 } from '@project/shared/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';

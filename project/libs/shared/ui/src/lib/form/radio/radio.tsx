@@ -1,8 +1,5 @@
 import styles from './radio.module.scss';
-import { FC, forwardRef, InputHTMLAttributes } from 'react';
-import { IField } from '@project/shared/types';
-import cn from 'clsx';
-import { errorCatch } from '@project/shared/utils';
+import { forwardRef, InputHTMLAttributes } from 'react';
 
 /* eslint-disable-next-line */
 export interface IRadio extends InputHTMLAttributes<HTMLInputElement> {

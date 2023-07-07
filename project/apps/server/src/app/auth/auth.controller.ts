@@ -1,21 +1,15 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-  UseInterceptors,
+  Controller,
+  Post,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ReturnAuth } from './auth.interface';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { TokenDto } from './dto/token.dto';
-import { JwtAuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MailService } from '../mail/mail.service';
 

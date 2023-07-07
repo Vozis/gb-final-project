@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "single-event.module.scss"
+    ],
+    "names": [],
+    "file": "single-event.module.css"
+}

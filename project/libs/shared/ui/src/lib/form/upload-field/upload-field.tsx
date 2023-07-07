@@ -1,10 +1,7 @@
 import styles from './upload-field.module.scss';
 import { forwardRef, useState } from 'react';
 import { IField } from '@project/shared/types';
-import cn from 'clsx';
-import { BiIcon } from '../../icons/bi-icon';
 import { errorCatch } from '@project/shared/utils';
-import { IconContext } from 'react-icons/lib';
 import { AiOutlineUpload } from 'react-icons/ai';
 
 /* eslint-disable-next-line */

@@ -1,0 +1,8 @@
+.btn {
+  @apply flex items-center justify-center gap-4 px-2 py-2 box-border;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=secondary-button.module.css.map */

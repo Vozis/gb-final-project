@@ -1,4 +1,3 @@
-import styles from './confirm-email.module.scss';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';

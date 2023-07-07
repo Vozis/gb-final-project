@@ -1,18 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  ParseIntPipe,
-  Query,
-  UseInterceptors,
-  UploadedFile,
+  Get,
   HttpCode,
-  UseGuards,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
   Put,
+  Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';

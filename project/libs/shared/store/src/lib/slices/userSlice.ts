@@ -22,7 +22,18 @@ const initialState: IInitialUserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    // toggleUserEvent: (state, action: PayloadAction<IEvent>) => {
+    //   const isEventExist = state?.user?.events.some(
+    //     event => event.id === action.payload.id,
+    //   );
+    //   console.log(isEventExist);
+    //   // !isEventExist
+    //   //   ? state?.user?.events.filter(event => event.id === action.payload.id)
+    //   //   : state?.user?.events.push(action.payload);
+    // },
+    // toggleUserFriend: (state, action: PayloadAction<any>) => {},
+  },
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => {
@@ -55,11 +66,18 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
       })
+      .addCase(getProfile.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(getProfile.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+      })
+      .addCase(getProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.user = null;
       });
   },
 });
 
-export const { reducer } = userSlice;
+export const { reducer, actions } = userSlice;

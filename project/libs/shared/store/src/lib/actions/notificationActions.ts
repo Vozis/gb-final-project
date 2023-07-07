@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IEvent } from '@project/shared/types';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import { NotificationService } from '@project/shared/services';
 
@@ -9,9 +10,12 @@ export const getFinishedEvents = createAsyncThunk<IEvent[]>(
   async (_, thunkAPI) => {
     try {
       const response = await NotificationService.getFinishedEvents();
+      // toast.success('Получены данные о завершенных событиях', {
+      //   toastId: 'get-finished-events',
+      //   containerId: 1,
+      // });
       toast.success('Получены данные о завершенных событиях', {
-        toastId: 'get-finished-events',
-        containerId: 1,
+        id: 'get-finished-events',
       });
       return response.data;
     } catch (err) {

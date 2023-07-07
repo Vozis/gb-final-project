@@ -1,9 +1,9 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { BasePrismaService, PrismaService } from './prisma/prisma.service';
+import { BasePrismaService } from './prisma/prisma.service';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
@@ -14,8 +14,6 @@ import { EventModule } from './event/event.module';
 import { MailModule } from './mail/mail.module';
 import { TypeTagModule } from './type-tag/type-tag.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { APP_GUARD } from '@nestjs/core';
-import { EmailConfirmationGuard } from './auth/guards/emailConfirmation.guard';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
 import { ScheduleModule } from '@nestjs/schedule';

@@ -1,29 +1,22 @@
 import styles from './home-main.module.scss';
 import {
-  UserCardSmall,
   CardList,
   CardSkeleton,
   Filter,
+  List,
   MaterialIcon,
   SkeletonLoader,
-  UserSmallSkeleton,
-  List,
+  useFilter,
+  UserCardSmall,
 } from '@project/shared/ui';
-import React, { useEffect, useState } from 'react';
-import { IEventForCard, IOption, ISearch } from '@project/shared/types';
-import {
-  useActions,
-  useAuthRedux,
-  useCheckEventStatus,
-  useFilterState,
-  useNotificationState,
-} from '@project/shared/hooks';
+import React from 'react';
+import { IEventForCard } from '@project/shared/types';
+import { useAuthRedux } from '@project/shared/hooks';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'clsx';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, MailService } from '@project/shared/services';
-import { useFilter } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}

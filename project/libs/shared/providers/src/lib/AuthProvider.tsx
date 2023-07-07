@@ -2,11 +2,7 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
 
-import {
-  useActions,
-  useAuthRedux,
-  useNotificationState,
-} from '@project/shared/hooks';
+import { useActions, useAuthRedux } from '@project/shared/hooks';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 

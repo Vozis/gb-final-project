@@ -1,4 +1,3 @@
-import styles from './single-event.module.scss';
 import { SingleEventMain } from '@project/single-event-main';
 
 /* eslint-disable-next-line */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME;AACF,AAAA,cAAc,CAAC;EACb,KAAK,EAAE,KAAK;CACb",
+    "sources": [
+        "profile-hobbies.module.scss"
+    ],
+    "names": [],
+    "file": "profile-hobbies.module.css"
+}

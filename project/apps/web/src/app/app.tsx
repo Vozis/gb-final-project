@@ -14,7 +14,6 @@ import {
   UpdateEvent,
   UpdateUser,
 } from '@project/pages';
-import ThemeProvider from '../../../../libs/shared/providers/src/lib/ThemeProvider';
 import { SharedLayout } from '@project/shared/layout';
 import { SharedProviders } from '@project/shared/providers';
 import * as React from 'react';
