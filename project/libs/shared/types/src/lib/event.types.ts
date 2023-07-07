@@ -50,7 +50,7 @@ export interface ICreateEvent {
   name: string;
   description: string;
   image: string;
-  eventTime?: Date | string;
+  eventTime?: string;
   sport: number[];
   place: number[];
   city: number[];

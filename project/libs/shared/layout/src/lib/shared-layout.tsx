@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
-console.log(styles.layout);
 export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useTheme();
   return (

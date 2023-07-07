@@ -4,10 +4,16 @@ import { HTMLAttributes, useEffect, useState } from 'react';
 import { useSocketState } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
+export enum AvatarSize {
+  M = 'size_m',
+  L = 'size_l',
+}
+
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   imagePath: string;
   isOnline?: boolean;
   isStatusVisible?: boolean;
+  size?: AvatarSize;
 }
 
 export function Avatar({
@@ -16,11 +22,17 @@ export function Avatar({
   className,
   imagePath,
   style,
+  size = AvatarSize.M,
   ...rest
 }: AvatarProps) {
   return (
     <div className={'text-center'}>
-      <div className={cn(className, styles.avatarWrapper)} style={style}>
+      <div
+        className={cn(className, styles.avatarWrapper, {
+          [styles[size]]: true,
+        })}
+        style={style}
+      >
         <img className={cn(styles.avatarImg)} src={imagePath} alt={'avatar'} />
         {isStatusVisible && isOnline && (
           <span className={styles.isOnline}></span>

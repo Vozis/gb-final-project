@@ -9,7 +9,7 @@ import {
   useSocketState,
 } from '@project/shared/hooks';
 import Avatar from '../../avatar/avatar';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 
 /* eslint-disable-next-line */
 export interface UserCardSmallProps {
@@ -19,6 +19,7 @@ export interface UserCardSmallProps {
   isName?: boolean;
   isInfo?: boolean;
   isWhite?: boolean;
+  inlineStyles?: CSSProperties[];
 }
 
 export function UserCardSmall({

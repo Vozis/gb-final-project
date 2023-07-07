@@ -1,6 +1,7 @@
 .container {
   align-items: center;
-  display: flex;
+  display: inline-flex;
+  gap: 10px;
   position: relative;
 }
 
@@ -32,11 +33,13 @@
   &:not(:last-child) {
     margin-right: 8px;
   }
+
   & span {
     color: #949494;
     font-size: 14px;
   }
 }
+
 @media (min-width: 499px) {
   .fullname {
     width: auto;

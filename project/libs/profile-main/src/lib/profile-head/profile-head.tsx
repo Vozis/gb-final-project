@@ -1,4 +1,4 @@
-import { useActions, useAuthRedux, useTheme } from '@project/shared/hooks';
+import { useActions, useAuthRedux } from '@project/shared/hooks';
 import styles from './profile-head.module.scss';
 import { Link } from 'react-router-dom';
 import { useModal } from '@project/shared/hooks';
@@ -53,7 +53,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       );
       setTop(
         isShowSettingModal
-          ? `${anchorParams.y + anchorParams.width + 20}px`
+          ? `${anchorParams.y + anchorParams.height + 10}px`
           : '0px',
       );
       setRight(

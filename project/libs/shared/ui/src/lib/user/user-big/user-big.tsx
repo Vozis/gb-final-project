@@ -1,20 +1,11 @@
 import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
-import { IToggle, IUser } from '@project/shared/types';
-import clsx from 'clsx';
+import { IUser } from '@project/shared/types';
 import cn from 'clsx';
 import { MaterialIcon } from '../../icons/material-icon';
-import {
-  useAuthRedux,
-  useCheckUserStatus,
-  useModal,
-} from '@project/shared/hooks';
+import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
-import Avatar from '../../avatar/avatar';
-import { useMutation } from '@tanstack/react-query';
-import { UserService } from '@project/shared/services';
-import { toast } from 'react-toastify';
-import { errorCatch } from '@project/shared/utils';
+import Avatar, { AvatarSize } from '../../avatar/avatar';
 // import { Modal } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
@@ -38,7 +29,7 @@ export function UserBig({
         to={isProfile ? '/profile' : `/users/${userProps.id}`}
         className={styles.container}
       >
-        <Avatar imagePath={userProps.avatarPath} isOnline={isOnline} />
+        <Avatar size={AvatarSize.L} imagePath={userProps.avatarPath} isOnline={isOnline} />
         <div className={styles.info} onClick={onClick}>
           <h2
             className={cn(styles.fullname)}

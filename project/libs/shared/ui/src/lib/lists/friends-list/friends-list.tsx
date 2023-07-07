@@ -17,6 +17,7 @@ export interface FriendsListProps {
   className?: string;
   slidesPerView?: number | 'auto';
   breakPoints?: { [p: number]: SwiperOptions };
+  injectStyles?: string[];
 }
 
 export function FriendsList({
@@ -53,7 +54,7 @@ export function FriendsList({
   console.log(prevArrowRef.current);
   return (
     <div className={styles.friends__list}>
-      <Heading>Список друзей</Heading>
+      <Heading className={styles.title}>Список друзей</Heading>
       <Swiper
         onBeforeInit={onBeforeInit}
         modules={[Navigation]}
@@ -63,7 +64,7 @@ export function FriendsList({
       >
         {list?.length
           ? list.map(friend => (
-              <SwiperSlide key={friend.id}>
+              <SwiperSlide key={friend.id} style={{ width: '90px' }}>
                 <UserCardSmall userProps={friend} isPhoto />
               </SwiperSlide>
             ))

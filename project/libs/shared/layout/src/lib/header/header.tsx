@@ -5,7 +5,7 @@ import {
   useNotificationState,
   useTheme,
 } from '@project/shared/hooks';
-import { Badge, Button, MaterialIcon } from '@project/shared/ui';
+import { Badge, Button, MaterialIcon, ThemeSwitcher } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
 import {
   AiOutlineBell,
@@ -36,7 +36,6 @@ export function Header(props: HeaderProps) {
 
   const { logout } = useActions();
   const { count } = useNotificationState();
-  const { theme, toggleTheme } = useTheme();
 
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
@@ -170,9 +169,7 @@ export function Header(props: HeaderProps) {
           </NavLink>
         )}
       </div>
-      <button onClick={toggleTheme}>
-        {theme === 'app_dark_theme' ? 'Темная тема' : 'Светлая тема'}
-      </button>
+      <ThemeSwitcher />
     </header>
   );
 }
