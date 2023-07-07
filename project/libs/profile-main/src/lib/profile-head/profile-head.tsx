@@ -13,6 +13,7 @@ import {
   ModalScreen,
   UserBig,
 } from '@project/shared/ui';
+
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ import { UserService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
 // import { toast } from 'react-toastify';
+
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -184,6 +186,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
               />
               <span>Поделиться профилем</span>
             </Link>
+
             <Button
               className={'underline'}
               type={'button'}
@@ -191,6 +194,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
             >
               Выйти
             </Button>
+
           </ModalAnchor>
 
           <ModalScreen
