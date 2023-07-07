@@ -6,11 +6,9 @@
  * }
 */
 .footer {
-  height: 80px;
+  //height: 80px;
   background-color: #f6f6f6;
   &_none {
-    display: flex;
-    justify-content: center;
     align-items: center;
     background: rgb(2, 0, 36);
     background: linear-gradient(
@@ -20,6 +18,8 @@
       rgba(29, 60, 227, 1) 100%
     );
     color: white;
+    display: flex;
+    justify-content: center;
     padding: 20px;
   }
 }

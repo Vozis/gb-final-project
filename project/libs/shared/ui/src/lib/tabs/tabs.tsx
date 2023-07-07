@@ -20,7 +20,7 @@ export interface TabsProps {
 
 const tabVariant = {
   active: {
-    width: '55%',
+    width: '60%',
     transition: {
       ease: 'easeInOut',
       type: 'tween',
@@ -28,7 +28,7 @@ const tabVariant = {
     },
   },
   inactive: {
-    width: '15%',
+    width: '30%',
     transition: {
       ease: 'easeInOut',
       type: 'tween',

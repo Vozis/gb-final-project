@@ -78,7 +78,7 @@ export function HomeMain(props: HomeMainProps) {
   // console.log('isEvent: ', isEvent);
 
   return (
-    <div className={styles.container}>
+    <div className={'flex flex-col gap-4'}>
       <div>
         {user && (
           <div className={'flex justify-between items-center'}>

@@ -39,7 +39,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
     () => EventService.getSingleEvent(eventId),
     {
       onSuccess: ({ data }) => {
-        const date = moment().format('YYYY-MM-DDTHH:MM');
+        // const date = moment().format('YYYY-MM-DDTHH:MM');
         // date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
         // date.toISOString().slice(0, 16);
         // console.log('date: ', date);
@@ -47,7 +47,9 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
           name: data.name,
           description: data.description,
           count: data.peopleCount,
-          // eventTime: new Date(date),
+          eventTime: `${data.eventTime.split(':')[0]}:${
+            data.eventTime.split(':')[1]
+          }`,
           place: data.tags
             .filter(tag => tag.type.name === 'place')
             .map(tag => tag.id),
