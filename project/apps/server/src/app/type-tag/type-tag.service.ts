@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateTypeTagDto } from './dto/create-type-tag.dto';
 import { UpdateTypeTagDto } from './dto/update-type-tag.dto';
 import { returnTypeTagObject, TypeTag } from './returnTypeTagObject';
-import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()

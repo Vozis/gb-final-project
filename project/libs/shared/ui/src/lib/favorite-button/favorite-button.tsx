@@ -5,7 +5,8 @@ import logo from './heart.png';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { IToggle } from '@project/shared/types';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 
@@ -35,24 +36,35 @@ export function FavoriteButton({
     if (isSmashed !== isFavorite) setIsSmashed(isFavorite);
   }, [isSmashed, user, eventId]);
 
-  const { mutateAsync } = useMutation(
+  const { mutateAsync, isLoading } = useMutation(
     ['toggle-favorite-event'],
     (data: IToggle) => UserService.toggleFavorite(data),
     {
+      onMutate: () => {
+        toast.loading('Процесс запущен...', {
+          id: 'toggle-favorite-success',
+        });
+      },
       onError: error => {
+        // toast.error(errorCatch(error), {
+        //   toastId: 'toggle-favorite-error',
+        //   containerId: 1,
+        // });
         toast.error(errorCatch(error), {
-          toastId: 'toggle-favorite-error',
-          containerId: 1,
+          id: 'toggle-favorite-success',
         });
       },
       onSuccess: async () => {
         setIsSmashed(!isSmashed);
-        getProfile();
         await queryClient.invalidateQueries(['get-all-events']);
+        // toast.success('Статус события успешно изменен', {
+        //   toastId: 'toggle-favorite-success',
+        //   containerId: 1,
+        // });
         toast.success('Статус события успешно изменен', {
-          toastId: 'toggle-favorite-success',
-          containerId: 1,
+          id: 'toggle-favorite-success',
         });
+        getProfile();
       },
     },
   );
@@ -68,6 +80,7 @@ export function FavoriteButton({
 
   return (
     <button
+      disabled={isLoading}
       onClick={handleClick}
       className={cn(
         // [styles.button],

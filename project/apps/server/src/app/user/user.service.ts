@@ -1,23 +1,21 @@
 import {
-  Injectable,
-  NotFoundException,
   BadRequestException,
   Inject,
+  Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { BasePrismaService, PrismaService } from '../prisma/prisma.service';
-import { Role, User, Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
+import { Prisma, Role, User } from '@prisma/client';
 import { hash } from 'argon2';
 import { v4 as uuidv4 } from 'uuid';
 import { ToggleDto } from '../../utils/toggle.dto';
 
 import {
   returnAuthUserObject,
-  returnUserFullObject,
   returnUserObject,
   UserAuthSelect,
-  UserFullSelect,
   UserSelect,
 } from './returnUserObject';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
@@ -25,7 +23,6 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
 import { FriendsNotification } from '../notification/dto/create-notification.dto';
 import { fileUploadHelper } from '../../utils/file-upload.helper';
-import { MailService } from '../mail/mail.service';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';

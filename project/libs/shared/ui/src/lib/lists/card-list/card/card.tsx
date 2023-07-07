@@ -1,19 +1,11 @@
-import { useAuthRedux, useModal } from '@project/shared/hooks';
+import { useAuthRedux } from '@project/shared/hooks';
 import { IEventForCard } from '@project/shared/types';
-import {
-  Button,
-  FavoriteButton,
-  MaterialIcon,
-  ModalScreen,
-  Tag,
-  ToggleUserButton,
-} from '@project/shared/ui';
+import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
 import clsx from 'clsx';
 import moment from 'moment';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import styles from './card.module.scss';
-import ModalAnchor from '../../../modals/modal-anchor/modal-anchor';
 import { FaEllipsis } from 'react-icons/fa6';
 
 /* eslint-disable-next-line */

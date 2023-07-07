@@ -1,4 +1,3 @@
-import styles from './single-user.module.scss';
 import { SingleUserMain } from '@project/single-user-main';
 
 /* eslint-disable-next-line */

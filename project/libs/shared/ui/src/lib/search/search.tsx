@@ -1,7 +1,6 @@
 import styles from './search.module.scss';
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
-import { IEvent } from '@project/shared/types';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface SearchProps {

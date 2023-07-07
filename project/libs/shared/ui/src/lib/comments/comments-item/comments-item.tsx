@@ -1,14 +1,6 @@
-import styles from './comments-item.module.scss';
 import { IComment, IEvent } from '@project/shared/types';
 
-import {
-  UserCardSmall,
-  Button,
-  CreateCommentForm,
-  MaterialIcon,
-  BiIcon,
-  SecondaryButton,
-} from '@project/shared/ui';
+import { Avatar, BiIcon, Button, CreateCommentForm, MaterialIcon } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import TimeAgo from 'react-timeago';
@@ -18,7 +10,7 @@ import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import russianStrings from 'react-timeago/lib/language-strings/ru';
 import { Link } from 'react-router-dom';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
-import Avatar from '../../avatar/avatar';
+
 import cn from 'clsx';
 
 /* eslint-disable-next-line */

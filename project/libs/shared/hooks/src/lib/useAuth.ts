@@ -1,9 +1,10 @@
 import { AuthService } from '@project/shared/services';
-import { ILogin, IRegister } from '@project/shared/types';
+import { ILogin } from '@project/shared/types';
 import { errorCatch } from '@project/shared/utils';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { useLocalStorage } from './useLocalStorage';
 import { useUser } from './useUser';
 
@@ -40,7 +41,6 @@ export const useAuth = () => {
   const login = async (data: ILogin) => {
     try {
       const response = await AuthService.login(data);
-      toast.success('Успешная регистрация');
       addUser(response.data.user);
       return response.data;
     } catch (err) {
@@ -57,8 +57,11 @@ export const useAuth = () => {
   const checkAuth = async () => {
     try {
       const response = await AuthService.getNewTokens();
+      // toast.success('Проверка авторизации успешна', {
+      //   toastId: 'check-auth',
+      // });
       toast.success('Проверка авторизации успешна', {
-        toastId: 'check-auth',
+        id: 'auth',
       });
       addUser(response.data.user);
       return response.data;

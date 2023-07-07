@@ -1,7 +1,7 @@
 import styles from './secondary-button.module.scss';
 import cn from 'clsx';
 import React from 'react';
-import { ButtonProps } from '../button/button';
+import { ButtonProps } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export function SecondaryButton({

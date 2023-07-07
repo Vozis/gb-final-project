@@ -1,4 +1,3 @@
-import styles from './profile.module.scss';
 import { ProfileMain } from '@project/profile-main';
 
 /* eslint-disable-next-line */

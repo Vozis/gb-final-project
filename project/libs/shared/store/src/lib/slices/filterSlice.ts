@@ -23,6 +23,9 @@ export const filterSlice = createSlice({
     resetFilterParamsArray: state => {
       return initialState;
     },
+    resetFilterState: state => {
+      return initialState;
+    },
   },
 });
 

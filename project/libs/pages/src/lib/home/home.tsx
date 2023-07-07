@@ -1,4 +1,3 @@
-import styles from './home.module.scss';
 import React from 'react';
 import { HomeMain } from '@project/home-main';
 

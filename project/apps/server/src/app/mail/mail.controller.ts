@@ -1,22 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { CreateMailDto } from './dto/create-mail.dto';
-import { UpdateMailDto } from './dto/update-mail.dto';
-import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ConfirmEmailTokenDto, ConfirmResetPassword } from './dto/email.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { UserService } from '../user/user.service';
-import { EventService } from '../event/event.service';
 import { Cron } from '@nestjs/schedule';
 
 @Controller('mail')

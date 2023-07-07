@@ -1,44 +1,28 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
-.notifications {
-}
-// .notifications__list {
-//   margin-top: 20px;
-// }
-
-.notifications__item {
-  display: flex;
+.container {
   align-items: center;
-  justify-content: space-between;
   background-color: #fff;
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
   padding: 10px;
-  margin-bottom: 15px;
+  width: 100%;
 }
 
-svg.star-svg {
-  display: inline;
+.avatar {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
 }
 
-.event {
-  &_container {
-    display: flex;
-    align-items: center;
-    &_avatar {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-  }
-  &_span {
-    cursor: pointer;
-    color: #2e6d9c;
-  }
-  &_span:hover {
+.title {
+  margin-top: 10px;
+}
+
+.span {
+  color: #2e6d9c;
+  cursor: pointer;
+
+  &:hover {
     color: blue;
   }
 }

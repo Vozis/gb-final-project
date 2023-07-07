@@ -1,4 +1,3 @@
-import styles from './create-comment-form.module.scss';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICommentCreateForm, IEvent } from '@project/shared/types';
 import { useActions } from '@project/shared/hooks';

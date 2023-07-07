@@ -1,13 +1,11 @@
 import { axiosAuth, axiosClassic, EventApi } from '@project/shared/config';
 import {
   IEvent,
-  IEventForCard,
   IEventResponse,
   ISearch,
-  ISearchItem,
   IToggle,
 } from '@project/shared/types';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 export const EventService = {
   async getAllEventsNoUser(data?: ISearch) {
@@ -72,6 +70,12 @@ export const EventService = {
     //     icon: '🟢',
     //   },
     //   error: 'error message',
+    // });
+    //
+    // await toast.promise(res, {
+    //   loading: 'Loading',
+    //   success: 'Got the data',
+    //   error: 'Error when fetching',
     // });
 
     return res.then(data => data);

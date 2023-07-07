@@ -5,6 +5,7 @@ import NotificationsComments from './notifications-comments/notifications-commen
 import NotificationsEvents from './notifications-events/notifications-events';
 import NotificationsFriends from './notifications-friends/notifications-friends';
 import styles from './notifications-main.module.scss';
+
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
@@ -23,8 +24,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
 
   return (
     <div className={styles.notifications}>
-      {/* <Heading>Уведомления</Heading> */}
-      <List title={'Уведомления'} className={styles.notifications_title}>
+      <List title={'Уведомления'} headingClassName={'text-center'}>
         {notifications.map(notification => (
           <React.Fragment key={notification.id}>
             {notification.type.match(/EVENT/) !== null ? (

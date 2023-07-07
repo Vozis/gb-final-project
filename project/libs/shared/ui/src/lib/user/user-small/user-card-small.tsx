@@ -1,15 +1,9 @@
 import styles from './user-card-small.module.scss';
 import { IUser, IUserSmall } from '@project/shared/types';
-import { MaterialIcon } from '../../icons/material-icon';
 import cn from 'clsx';
 import { Link } from 'react-router-dom';
-import {
-  useAuthRedux,
-  useCheckUserStatus,
-  useSocketState,
-} from '@project/shared/hooks';
-import Avatar from '../../avatar/avatar';
-import { useEffect, useState } from 'react';
+import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
+import { Avatar, MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
 export interface UserCardSmallProps {

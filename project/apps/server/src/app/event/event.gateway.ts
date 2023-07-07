@@ -1,26 +1,10 @@
-import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  WebSocketServer,
-  ConnectedSocket,
-} from '@nestjs/websockets';
+import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 
 import { UserService } from '../user/user.service';
-import { CommentService } from '../comment/comment.service';
 import { EventService } from './event.service';
-import { Server, Socket } from 'websocket-driver';
-import { UseGuards } from '@nestjs/common';
-import { WsJwtGuard } from '../auth/guards/ws-jwt.guard';
-import { UserWs } from '../auth/decorators/user-ws.decorator';
+import { Server } from 'websocket-driver';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EventSelect } from './returnEventObject';
-import { NotificationStatus, NotificationType } from '@prisma/client';
-
-import { UserSelect } from '../user/returnUserObject';
 import { NotificationService } from '../notification/notification.service';
-import { CreateNotificationDto } from '../notification/dto/create-notification.dto';
-import { INotificationResponse } from '../notification/notification.types';
 
 @WebSocketGateway({
   cors: {

@@ -1,17 +1,10 @@
-import {
-  AuthApi,
-  axiosAuth,
-  axiosClassic,
-  UserApi,
-} from '@project/shared/config';
+import { axiosAuth, axiosClassic, UserApi } from '@project/shared/config';
 import {
   IResetPassword,
   IToggle,
   IUser,
-  IUserEdit,
   IUserSmall,
 } from '@project/shared/types';
-import { saveToStorage } from '@project/shared/utils';
 
 export const UserService = {
   async getProfile() {

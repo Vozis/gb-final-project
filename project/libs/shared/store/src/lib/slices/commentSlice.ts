@@ -1,11 +1,5 @@
-import {
-  IComment,
-  ICommentPayload,
-  IEventStatus,
-  ILike,
-} from '@project/shared/types';
+import { IComment, IEventStatus } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { comment } from 'postcss';
 import { toggleCommentLike } from '../actions/likeActions';
 
 export interface IInitialCommentState {
@@ -102,6 +96,9 @@ const commentSlice = createSlice({
         action.payload.id,
       );
       state.allComments = newArray;
+    },
+    resetCommentsState: state => {
+      return initialState;
     },
   },
   extraReducers: builder => {

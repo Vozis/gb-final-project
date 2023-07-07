@@ -1,27 +1,20 @@
 import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  OnGatewayInit,
-  OnGatewayDisconnect,
-  OnGatewayConnection,
-  WebSocketServer,
   ConnectedSocket,
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Server, Socket } from 'websocket-driver';
-import { Logger, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { WsJwtGuard } from '../auth/guards/ws-jwt.guard';
 import { UserWs } from '../auth/decorators/user-ws.decorator';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
-import _ from 'lodash';
 import { EventService } from '../event/event.service';
-import { activeRooms, onlineUsers } from '../../constants/online-users';
-import { NotificationStatus, NotificationType } from '@prisma/client';
-import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
-import { log } from 'handlebars';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @WebSocketGateway({
   cors: {

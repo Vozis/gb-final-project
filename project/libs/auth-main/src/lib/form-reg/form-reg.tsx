@@ -6,10 +6,9 @@ import { errorCatch } from '@project/shared/utils';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { AiOutlineUpload } from 'react-icons/ai';
-import { IconContext } from 'react-icons/lib';
 import { FormProps } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import styles from './form-reg.module.scss';
 import { InputActionMeta } from 'react-select';
 

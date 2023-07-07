@@ -1,6 +1,6 @@
 import { INotification } from '@project/shared/types';
 import { Link } from 'react-router-dom';
-import Avatar from '../../../../shared/ui/src/lib/avatar/avatar';
+import { Avatar } from '@project/shared/ui';
 import styles from './notifications-friends.module.scss';
 
 /* eslint-disable-next-line */
@@ -11,37 +11,29 @@ export interface NotificationsFriendsProps {
 export function NotificationsFriends(data: NotificationsFriendsProps) {
   // console.log('data: ', data);
   return (
-    <div className={styles.notifications} key={data.data.id}>
+    <>
       {data.data.type === 'FRIEND_ADD' ? (
-        <div className={styles.event_container}>
-          {/* <img src={data.data.user.avatarPath} alt={'avatar'} /> */}
-
+        <div className={styles.container} id={`notification-${data.data.id}`}>
           <Avatar
             imagePath={data.data.user.avatarPath}
-            className={styles.event_container_avatar}
+            className={styles.avatar}
           />
           <p>
-            <Link
-              to={`/users/${data.data.user.id}`}
-              className={styles.event_span}
-            >
+            <Link to={`/users/${data.data.user.id}`} className={styles.span}>
               {data.data.user.firstName} {data.data.user.lastName}
             </Link>
             <span> добавил вас в друзья </span>
           </p>
         </div>
       ) : (
-        <div className={styles.event_container}>
+        <div className={styles.container} id={`notification-${data.data.id}`}>
           <Avatar
             imagePath={data.data.user.avatarPath}
-            className={styles.event_container_avatar}
+            className={styles.avatar}
           />
           <p>
             Ваш друг &nbsp;
-            <Link
-              to={`/users/${data.data.user.id}`}
-              className={styles.event_span}
-            >
+            <Link to={`/users/${data.data.user.id}`} className={styles.span}>
               {data.data.user.firstName} {data.data.user.lastName}
             </Link>
             &nbsp;
@@ -49,7 +41,7 @@ export function NotificationsFriends(data: NotificationsFriendsProps) {
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

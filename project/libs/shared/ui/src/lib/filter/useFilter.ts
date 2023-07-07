@@ -1,15 +1,13 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { EventService, UserService } from '@project/shared/services';
 import { IEventForCard, ISearch, ISearchForm } from '@project/shared/types';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import React, { useMemo, useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { useMemo, useState } from 'react';
 import {
   useActions,
   useAuthRedux,
   useFilterState,
 } from '@project/shared/hooks';
-import Filter from './filter';
-import { UserApi } from '@project/shared/config';
 
 export const useFilter = () => {
   const [isUseFilter, setIsUseFilter] = useState<boolean>(false);
