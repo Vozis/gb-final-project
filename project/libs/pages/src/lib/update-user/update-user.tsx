@@ -1,4 +1,3 @@
-import styles from './update-user.module.scss';
 import { UpdateUserMain } from '@project/update-user-main';
 
 /* eslint-disable-next-line */

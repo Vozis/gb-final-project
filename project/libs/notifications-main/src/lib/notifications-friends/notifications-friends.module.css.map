@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "notifications-friends.module.scss"
+    ],
+    "names": [],
+    "file": "notifications-friends.module.css"
+}

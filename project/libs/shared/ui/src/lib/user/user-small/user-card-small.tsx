@@ -1,6 +1,5 @@
 import styles from './user-card-small.module.scss';
 import { IUser, IUserSmall } from '@project/shared/types';
-import { MaterialIcon } from '../../icons/material-icon';
 import cn from 'clsx';
 import { Link } from 'react-router-dom';
 import {
@@ -8,10 +7,9 @@ import {
   useCheckUserStatus,
   useSocketState,
 } from '@project/shared/hooks';
-import Avatar from '../../avatar/avatar';
 import { CSSProperties, useEffect, useState } from 'react';
+import { Avatar, MaterialIcon } from '@project/shared/ui';
 
-/* eslint-disable-next-line */
 export interface UserCardSmallProps {
   userProps: IUser | IUserSmall;
   className?: string;

@@ -1,9 +1,10 @@
 import styles from './toggle-user-button.module.scss';
 import cn from 'clsx';
-import { Button } from '../button/button';
+import { Button } from '@project/shared/ui';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import {
   useActions,
   useAuthRedux,
@@ -34,7 +35,26 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
     ({ eventId, toggleId }: { eventId: number; toggleId: number }) =>
       EventService.toggleUser(eventId, { toggleId, type: 'users' }),
     {
+      onMutate: async toggleUserEvent => {
+        // await queryClient.cancelQueries([
+        //   'get-all-events-auth',
+        //   filterParamsArray,
+        // ]);
+        //
+        // const previousEventList = await queryClient.ensureQueryData(
+        //   ['get-all-events-auth-no-hobby'],
+        //   () => EventService.getAllEvents({}, false),
+        // );
+        //
+        // console.log(previousEventList);
+        // console.log(toggleUserEvent);
+        toast.loading('Процесс запущен...', {
+          id: 'toggle-user',
+        });
+      },
       onSuccess: async data => {
+        // console.log(data.data);
+        // queryClient.setQueryData(['get-single-event', event.id], data);
         await queryClient.invalidateQueries([
           'get-all-events-auth',
           filterParamsArray,
@@ -43,30 +63,43 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
         await queryClient.invalidateQueries(['get-all-events-auth']);
         await queryClient.invalidateQueries(['get-all-events-auth-no-hobby']);
         await queryClient.invalidateQueries(['get-profile-events']);
-        await getProfile();
+        getProfile();
+        // toggleUserEvent(data.data);
+        // toast.success('Изменение статуса участия прошло успешно', {
+        //   containerId: 1,
+        //   toastId: 'toggle-user',
+        // });
         toast.success('Изменение статуса участия прошло успешно', {
-          containerId: 1,
-          toastId: 'toggle-user',
+          id: 'toggle-user',
         });
       },
       onError: async (err: AxiosError<{ message: string }>) => {
         const error = errorCatch(err);
-        console.log(error);
+        // console.log(error);
         if (error === 'Max people count exceeded') {
           toast.error(
             'Свободные места закончились :( Попробуй поискать что-нибудь еще',
             {
-              toastId: 'link-join-error',
-              containerId: 1,
+              id: 'link-join-error',
             },
           );
+          // toast.error(
+          //   'Свободные места закончились :( Попробуй поискать что-нибудь еще',
+          //   {
+          //     toastId: 'link-join-error',
+          //     containerId: 1,
+          //   },
+          // );
           await queryClient.cancelQueries(['toggle-user-to-event']);
           // await queryClient.invalidateQueries(['get-single-event']);
         }
         if (error === 'no free time') {
+          // toast.error('На это время уже запланировано событие', {
+          //   toastId: 'link-join-error',
+          //   containerId: 1,
+          // });
           toast.error('На это время уже запланировано событие', {
-            toastId: 'link-join-error',
-            containerId: 1,
+            id: 'link-join-error',
           });
           await queryClient.cancelQueries(['toggle-user-to-event']);
           // await queryClient.invalidateQueries(['get-single-event']);
@@ -90,7 +123,8 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
       className={cn(styles.toggleBtn, 'w-full')}
       onClick={() => handleToggle(user.id)}
       disabled={
-        event._count.users === event.peopleCount && !event.isParticipate
+        isLoading ||
+        (event._count.users === event.peopleCount && !event.isParticipate)
       }
     >
       {isLoading ? (

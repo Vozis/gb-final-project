@@ -1,5 +1,5 @@
-import React, { Component, ComponentType, ReactElement, useState } from 'react';
 import type { FC } from 'react';
+import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
 import styles from './tabs.module.scss';
 import { motion } from 'framer-motion';

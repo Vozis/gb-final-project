@@ -1,12 +1,10 @@
 import {
-  IComment,
-  IEvent,
   INotification,
   INotificationUpdateStatus,
 } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFinishedEvents } from '../actions/notificationActions';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 export interface IInitialNotificationState {
   isLoading: boolean;
@@ -42,9 +40,12 @@ const notificationSlice = createSlice({
     ) => {
       state.notifications.unshift(action.payload.notification);
       state.count++;
+      // toast.success(action.payload.notification.text, {
+      //   toastId: 'get-notification',
+      //   containerId: 1,
+      // });
       toast.success(action.payload.notification.text, {
-        toastId: 'get-notification',
-        containerId: 1,
+        id: 'get-notification',
       });
     },
     changeNotificationStatus: (
@@ -61,6 +62,9 @@ const notificationSlice = createSlice({
       );
       state.notifications = newArr;
       state.count--;
+    },
+    resetNotificationState: state => {
+      return initialState;
     },
   },
   // extraReducers: builder => {

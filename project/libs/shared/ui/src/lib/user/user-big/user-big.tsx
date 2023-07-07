@@ -2,13 +2,10 @@ import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
 import { IUser } from '@project/shared/types';
 import cn from 'clsx';
-import { MaterialIcon } from '../../icons/material-icon';
+import { Avatar, MaterialIcon, AvatarSize } from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
-import Avatar, { AvatarSize } from '../../avatar/avatar';
-// import { Modal } from '@project/shared/ui';
 
-/* eslint-disable-next-line */
 export interface UserBigProps extends HTMLAttributes<HTMLDivElement> {
   userProps: IUser;
 }

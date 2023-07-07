@@ -1,4 +1,3 @@
-import styles from './auth.module.scss';
 import { AuthMain } from '@project/auth-main';
 
 /* eslint-disable-next-line */

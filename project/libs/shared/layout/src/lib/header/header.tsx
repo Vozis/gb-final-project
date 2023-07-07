@@ -14,11 +14,8 @@ import {
   AiOutlineUser,
 } from 'react-icons/ai';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import styles from './header.module.scss';
-import isActive = toast.isActive;
-import { getFinishedEvents } from '../../../../store/src/lib/actions/notificationActions';
-import { NotificationService } from '@project/shared/services';
 import clsx from 'clsx';
 
 /* eslint-disable-next-line */
@@ -131,33 +128,26 @@ export function Header(props: HeaderProps) {
             </ul>
           </ModalWindow> */}
           {/* меняем navlinck на ModalWindow */}
-          <NavLink
-            to="/notifications"
-            className={({ isActive }) =>
-              isActive ? styles.active_link : styles.on_active_link
-            }
-          >
-            <div>
-              <Badge badgeContent={count}>
-                <AiOutlineBell className={'text-[30px]'} />
-              </Badge>
-            </div>
-            <span>Уведомления</span>
-          </NavLink>
+          {user && (
+            <NavLink
+              to="/notifications"
+              className={({ isActive }) =>
+                isActive ? styles.active_link : styles.on_active_link
+              }
+            >
+              <div>
+                <Badge badgeContent={count}>
+                  <AiOutlineBell className={'text-[30px]'} />
+                </Badge>
+              </div>
+              <span>Уведомления</span>
+            </NavLink>
+          )}
         </li>
       </ul>
       <div className={styles.header_btn_login}>
         {/* <span>{user?.userName}</span> */}
-        {user ? (
-          <Button
-            // className={styles.active_link}
-            className={'underline'}
-            type={'button'}
-            onClick={() => logout()}
-          >
-            Выйти
-          </Button>
-        ) : (
+        {!user && (
           <NavLink
             to="/auth"
             className={({ isActive }) =>

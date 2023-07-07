@@ -1,9 +1,4 @@
-import {
-  IAuthResponse,
-  ILogin,
-  IRegister,
-  IResetPassword,
-} from '@project/shared/types';
+import { IAuthResponse, ILogin } from '@project/shared/types';
 import { AuthApi, axiosClassic } from '@project/shared/config';
 import { removeTokensFromStorage, saveToStorage } from '@project/shared/utils';
 import Cookies from 'js-cookie';

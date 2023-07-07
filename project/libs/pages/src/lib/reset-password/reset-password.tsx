@@ -6,7 +6,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { MailService, UserService } from '@project/shared/services';
 import { AxiosError } from 'axios';
 import { errorCatch } from '@project/shared/utils';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { Button, Field } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
@@ -47,11 +48,17 @@ export function ResetPassword(props: ResetPasswordProps) {
       onError: (err: AxiosError<{ message: string }>) => {
         const error = errorCatch(err);
         if (error === 'Email confirmation token expired') {
+          // toast.error(
+          //   'Ссылка устарела, необходимо выполнить восстановление пароля заново',
+          //   {
+          //     toastId: 'link-reset-error',
+          //     containerId: 1,
+          //   },
+          // );
           toast.error(
             'Ссылка устарела, необходимо выполнить восстановление пароля заново',
             {
-              toastId: 'link-reset-error',
-              containerId: 1,
+              id: 'link-reset-error',
             },
           );
           navigate('/auth');

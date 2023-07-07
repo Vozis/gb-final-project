@@ -1,22 +1,12 @@
-import styles from './filter.module.scss';
-import { SearchField } from '../form/search-input/search-input';
-import { RadioField } from '../form/radio/radio';
-import {
-  Controller,
-  FormState,
-  SubmitHandler,
-  useForm,
-  UseFormRegister,
-} from 'react-hook-form';
-import { SelectField } from '../form/select/select';
-import { Button } from '../button/button';
-import { IOption, ISearchForm, ITag } from '@project/shared/types';
+import { Button, MaterialIcon, RadioField, SearchField, SelectField } from '@project/shared/ui';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { IOption, ISearchForm } from '@project/shared/types';
 import React, { FC, useState } from 'react';
-import { MaterialIcon } from '../icons/material-icon';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { TagService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 
 /* eslint-disable-next-line */

@@ -1,19 +1,28 @@
-import { useActions, useAuthRedux } from '@project/shared/hooks';
-import styles from './profile-head.module.scss';
-import { Link } from 'react-router-dom';
-import { useModal } from '@project/shared/hooks';
 import {
+  useActions,
+  useAuthRedux,
+  useModal,
+  useTheme,
+} from '@project/shared/hooks';
+import styles from './profile-head.module.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Button,
   MaterialIcon,
-  UserBig,
-  ModalScreen,
   ModalAnchor,
+  ModalScreen,
+  UserBig,
 } from '@project/shared/ui';
+
+
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
+// import { toast } from 'react-toastify';
+
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -22,7 +31,14 @@ export interface ProfileHeadProps {
 
 export function ProfileHead({ userProps }: ProfileHeadProps) {
   const { user } = useAuthRedux();
-  const { getProfile } = useActions();
+  const {
+    getProfile,
+    logout,
+    resetFilterState,
+    resetNotificationState,
+    resetCommentsState,
+    resetSocketState,
+  } = useActions();
   const [isShowSettingModal, handleToggleSettingModal] = useModal(false);
   const [isShowUserInfoModal, handleToggleUserInfoModal] = useModal(false);
   const modalHeight = useRef<HTMLDivElement>(null);
@@ -31,6 +47,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
   const [top, setTop] = useState('0px');
   const [right, setRight] = useState('0px');
   const [isFriend, setIsFriend] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
@@ -62,26 +79,33 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     }
   }, [isShowSettingModal]);
 
-  const { mutateAsync } = useMutation(
+  const { mutateAsync, isLoading } = useMutation(
     ['toggle-friend-event'],
     (data: IToggle) => UserService.toggleFriend(data),
     {
       onError: error => {
         toast.error(errorCatch(error), {
-          toastId: 'toggle-friend-error',
-          containerId: 1,
+          id: 'toggle-friend-error',
         });
       },
       onSuccess: async () => {
         getProfile();
         await queryClient.invalidateQueries(['get-single-user']);
-        toast.success('Статус друга успешно изменен', {
-          toastId: 'toggle-friend-success',
-          containerId: 1,
-        });
+        // toast.success('Статус друга успешно изменен', {
+        //   toastId: 'toggle-friend-success',
+        //   containerId: 1,
+        // });
       },
     },
   );
+
+  // useEffect(() => {
+  //   if (user && user.friends?.some(user => user.id === userProps.id)) {
+  //     setIsFriend(!isFriend);
+  //   }
+  // }, [getProfile, mutateAsync]);
+
+  // console.log('isFriend: ', isFriend);
 
   const handleClickAddUser = async () => {
     const data: IToggle = {
@@ -90,6 +114,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     };
 
     await mutateAsync(data);
+    setIsFriend(!isFriend);
   };
 
   // if (!user) {
@@ -99,7 +124,19 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
 
   // console.log('isShowUserInfoModal: ', isShowUserInfoModal);
 
+  // console.log('isFriend: ', isFriend);
+
   const isProfile = userProps.id === user?.id;
+
+  const handleLogout = () => {
+    navigate('/auth');
+    resetFilterState();
+    resetNotificationState();
+    resetCommentsState();
+    resetSocketState();
+    logout();
+  };
+
   return (
     <div className={styles.container}>
       <UserBig
@@ -148,6 +185,15 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
               />
               <span>Поделиться профилем</span>
             </Link>
+
+            <Button
+              className={'underline'}
+              type={'button'}
+              onClick={handleLogout}
+            >
+              Выйти
+            </Button>
+
           </ModalAnchor>
 
           <ModalScreen
@@ -183,22 +229,34 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
           </ModalScreen>
         </>
       ) : (
-        <button
-          className={styles.profile__settingBtn}
-          onClick={handleClickAddUser}
-        >
-          {isFriend ? (
-            <MaterialIcon
-              name={'MdOutlinePersonAddDisabled'}
-              className={styles.profile__settingBtn_icon}
-            />
-          ) : (
-            <MaterialIcon
-              name={'MdPersonAddAlt'}
-              className={styles.profile__settingBtn_icon}
-            />
-          )}
-        </button>
+        user && (
+          <button
+            className={styles.profile__settingBtn}
+            onClick={handleClickAddUser}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <MaterialIcon
+                name={'MdAccessTime'}
+                className={styles.profile__settingBtn_icon}
+              />
+            ) : (
+              <>
+                {isFriend ? (
+                  <MaterialIcon
+                    name={'MdOutlinePersonAddDisabled'}
+                    className={styles.profile__settingBtn_icon}
+                  />
+                ) : (
+                  <MaterialIcon
+                    name={'MdPersonAddAlt'}
+                    className={styles.profile__settingBtn_icon}
+                  />
+                )}
+              </>
+            )}
+          </button>
+        )
       )}
     </div>
   );

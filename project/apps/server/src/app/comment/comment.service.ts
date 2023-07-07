@@ -6,7 +6,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
-import { CommentSelect } from './returnCommentObject';
 
 @Injectable()
 export class CommentService {

@@ -3,7 +3,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
-import { Cron } from '@nestjs/schedule';
 import { EventService } from '../event/event.service';
 
 @Injectable()

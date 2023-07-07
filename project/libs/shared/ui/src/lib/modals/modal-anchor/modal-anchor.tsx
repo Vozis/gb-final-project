@@ -2,7 +2,6 @@ import styles from './modal-anchor.module.scss';
 import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'clsx';
-import { MaterialIcon, Button } from '@project/shared/ui';
 import { useTheme } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */

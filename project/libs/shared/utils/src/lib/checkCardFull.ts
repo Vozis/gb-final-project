@@ -1,4 +1,4 @@
-import { IEvent, IUser } from '@project/shared/types';
+import { IEvent } from '@project/shared/types';
 
 export const checkCardFull = (dto: Pick<IEvent, 'users' | 'tags'>) => {
   const userCount = dto.users.length - 1;

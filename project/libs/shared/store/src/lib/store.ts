@@ -8,21 +8,20 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistReducer,
-  persistStore,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import socketMiddleware from './middleware/socket.middleware';
-import { useDispatch } from 'react-redux';
 
 const persistConfig = {
   key: 'gb-final',
   storage,
   whitelist: ['user', 'filter', 'comments'],
-  blacklist: ['socket'],
+  // blacklist: ['socket'],
 };
 
 const rootReducer = combineReducers({

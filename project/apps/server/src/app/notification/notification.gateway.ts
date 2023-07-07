@@ -1,9 +1,9 @@
 import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  WebSocketServer,
   ConnectedSocket,
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { NotificationService } from './notification.service';
 import {
@@ -13,7 +13,6 @@ import {
 } from './dto/create-notification.dto';
 import { UpdateNotificationStatusDto } from './dto/update-notification-status.dto';
 import { UserService } from '../user/user.service';
-import { CommentService } from '../comment/comment.service';
 import { EventService } from '../event/event.service';
 import { Server, Socket } from 'websocket-driver';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -21,9 +20,8 @@ import { WsJwtGuard } from '../auth/guards/ws-jwt.guard';
 import { UserWs } from '../auth/decorators/user-ws.decorator';
 import { OnEvent } from '@nestjs/event-emitter';
 import { EventSelect } from '../event/returnEventObject';
-import { NotificationStatus, NotificationType, Comment } from '@prisma/client';
+import { NotificationStatus, NotificationType } from '@prisma/client';
 import { ENotificationType, INotificationResponse } from './notification.types';
-import { UserSelect } from '../user/returnUserObject';
 import { CommentSelect } from '../comment/returnCommentObject';
 
 @WebSocketGateway({

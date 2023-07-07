@@ -1,4 +1,3 @@
-import styles from './hello.module.scss';
 import { useAuthRedux } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */

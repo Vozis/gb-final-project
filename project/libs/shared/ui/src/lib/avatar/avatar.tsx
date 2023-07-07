@@ -1,7 +1,6 @@
 import styles from './avatar.module.scss';
 import cn from 'clsx';
-import { HTMLAttributes, useEffect, useState } from 'react';
-import { useSocketState } from '@project/shared/hooks';
+import { HTMLAttributes } from 'react';
 
 /* eslint-disable-next-line */
 export enum AvatarSize {

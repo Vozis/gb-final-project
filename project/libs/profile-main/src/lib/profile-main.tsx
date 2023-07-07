@@ -4,6 +4,7 @@ import { IUserEdit } from '@project/shared/types';
 import {
   CardList,
   CardSkeleton,
+  FriendsList,
   ITab,
   SkeletonLoader,
   Tabs,

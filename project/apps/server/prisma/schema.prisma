@@ -9,45 +9,40 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-
-  email       String  @unique
-  isConfirmed Boolean @default(false)
-  password    String  @db.VarChar(200)
-  firstName   String  @map("first_name")
-  lastName    String  @map("last_name")
-  userName    String  @unique @map("user_name")
-  avatarPath  String  @default("/assets/default-avatar.png") @map("avatar_path")
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String   @db.VarChar(200)
+  avatarPath  String   @default("/assets/default-avatar.png") @map("avatar_path")
   role        Role[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  firstName   String   @map("first_name")
+  lastName    String   @map("last_name")
+  userName    String   @unique @map("user_name")
+  isConfirmed Boolean  @default(false)
+  exitDate    DateTime @default(now()) @map("exit_date")
 
-  hobbies Tag[]
+  comments          Comment[]
+  creations         Event[]         @relation("creations")
+  likes             Like[]
+  notifications     Notifications[]
+  ratings           Rating[]
+  hobbies           Tag[]           @relation("TagToUser")
+  events            Event[]         @relation("events")
+  favorites         Event[]         @relation("favorites")
+  friends           User[]          @relation("userFriends")
+  friendsRelation   User[]          @relation("userFriends")
+  blackList         User[]          @relation("userBlocked")
+  blackListRelation User[]          @relation("userBlocked")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  creations Event[] @relation("creations")
-  events    Event[] @relation("events")
-  favorites Event[] @relation("favorites")
-
-  friends         User[] @relation("userFriends")
-  friendsRelation User[] @relation("userFriends")
-
-  blackList         User[] @relation("userBlocked")
-  blackListRelation User[] @relation("userBlocked")
-
-  comments Comment[]
-  likes    Like[]
-
-  exitDate      DateTime        @default(now()) @map("exit_date")
-  notifications Notifications[]
-
-  // eventsList UsersOnEvents[]
   @@map("users")
 }
 
 model TypeTag {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   tag Tag[]
 
@@ -55,111 +50,98 @@ model TypeTag {
 }
 
 model Tag {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  shortName String @unique
-
+  shortName String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
-  type   TypeTag @relation(fields: [typeId], references: [id])
-  typeId Int     @default(1) @map("type_id")
-
-  users  User[]
-  events Event[]
+  typeId    Int      @default(1) @map("type_id")
+  type      TypeTag  @relation(fields: [typeId], references: [id])
+  events    Event[]  @relation("EventToTag")
+  users     User[]   @relation("TagToUser")
 
   @@map("tags")
 }
 
 model Event {
-  id          Int         @id @default(autoincrement())
-  name        String
-  description String?
-  imageUrl    String      @default("/assets/default-event.png") @map("image_url")
-  coordinateX String?     @default("0") @map("coordinate_x")
-  coordinateY String?     @default("0") @map("coordinate_y")
-  eventTime   DateTime?   @default(dbgenerated("NOW() + interval '2 days'")) @map("event_time")
-  peopleCount Int         @default(2) @map("people_count")
-  status      EventStatus @default(OPEN)
+  id               Int         @id @default(autoincrement())
+  name             String
+  description      String?
+  imageUrl         String      @default("/assets/default-event.png") @map("image_url")
+  coordinateX      String?     @default("0") @map("coordinate_x")
+  coordinateY      String?     @default("0") @map("coordinate_y")
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt @map("updated_at")
+  creatorId        Int?
+  eventTime        DateTime?   @default(dbgenerated("(now() + '2 days'::interval)")) @map("event_time")
+  peopleCount      Int         @default(2) @map("people_count")
+  status           EventStatus @default(OPEN)
+  comments         Comment[]
+  creator          User?       @relation("creations", fields: [creatorId], references: [id])
+  ratings          Rating[]
+  tags             Tag[]       @relation("EventToTag")
+  users            User[]      @relation("events")
+  usersOfFavorites User[]      @relation("favorites")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tags             Tag[]
-  users            User[] @relation("events")
-  usersOfFavorites User[] @relation("favorites")
-
-  creator   User? @relation("creations", fields: [creatorId], references: [id])
-  creatorId Int?
-
-  comments Comment[]
-
-  // usersList UsersOnEvents[]
   @@map("events")
 }
 
 model Comment {
-  id       Int    @id @default(autoincrement())
-  message  String @db.VarChar(1000)
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId Int
-
-  children Comment[] @relation("CommentReplies")
-  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
-  parentId Int?      @map("parent_id")
-
-  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId Int
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  likes Like[]
+  id        Int       @id @default(autoincrement())
+  message   String    @db.VarChar(1000)
+  authorId  Int
+  eventId   Int
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  parentId  Int?      @map("parent_id")
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Comment[] @relation("CommentReplies")
+  likes     Like[]
 
   @@map("comments")
 }
 
 model Like {
-  // id        Int     @id @default(autoincrement())
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  commentId Int     @map("comment_id")
-
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int  @map("user")
-
+  commentId Int      @map("comment_id")
+  userId    Int      @map("user")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, commentId])
   @@map("likes")
 }
 
 model Notifications {
-  id       Int                @id @default(autoincrement())
-  type     NotificationType
-  text     String?            @db.VarChar(1000)
-  sourceId Int                @map("source_id")
-  status   NotificationStatus @default(SENT)
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id        Int                @id @default(autoincrement())
+  type      NotificationType
+  sourceId  Int                @map("source_id")
+  status    NotificationStatus @default(SENT)
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @updatedAt @map("updated_at")
+  text      String?            @db.VarChar(1000)
+  userId    Int
+  user      User               @relation(fields: [userId], references: [id])
 
   @@map("notifications")
 }
 
-// model UsersOnEvents {
-//   user       Users    @relation(fields: [userId], references: [id])
-//   userId     Int // relation scalar field (used in the `@relation` attribute above)
-//   event      Events   @relation(fields: [eventId], references: [id])
-//   eventId    Int // relation scalar field (used in the `@relation` attribute above)
-//   assignedAt DateTime @default(now())
-//   assignedBy String
-//
-//   @@id([userId, eventId])
-// }
+model Rating {
+  id        Int      @id @default(autoincrement())
+  value     Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+
+  @@map("rating")
+}
 
 enum Role {
   USER
@@ -172,10 +154,10 @@ enum NotificationType {
   EVENT_CREATE
   EVENT_UPDATE
   EVENT_COMPLETE
-  EVENT_PARTICIPATE
-  EVENT_LEAVE
   FRIEND_ADD
   FRIEND_REMOVE
+  EVENT_PARTICIPATE
+  EVENT_LEAVE
 }
 
 enum NotificationStatus {

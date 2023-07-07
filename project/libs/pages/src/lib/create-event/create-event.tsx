@@ -1,4 +1,3 @@
-import styles from './create-event.module.scss';
 import { CreateEventMain } from '@project/create-event-main';
 
 /* eslint-disable-next-line */

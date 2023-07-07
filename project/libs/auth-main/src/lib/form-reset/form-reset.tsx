@@ -1,11 +1,11 @@
 import styles from './form-reset.module.scss';
 import { Button, Field } from '@project/shared/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ILogin } from '@project/shared/types';
 import { useMutation } from '@tanstack/react-query';
 import { MailService } from '@project/shared/services';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 
 /* eslint-disable-next-line */
 export interface FormResetProps {}
@@ -24,11 +24,17 @@ export function FormReset(props: FormResetProps) {
     (data: { email: string }) => MailService.sendResetPasswordLink(data),
     {
       onSuccess: () => {
+        // toast.success(
+        //   'На указанный email отправлено сообщение для восстановления пароля',
+        //   {
+        //     toastId: 'send-reset-password-link',
+        //     containerId: 1,
+        //   },
+        // );
         toast.success(
           'На указанный email отправлено сообщение для восстановления пароля',
           {
-            toastId: 'send-reset-password-link',
-            containerId: 1,
+            id: 'send-reset-password-link',
           },
         );
         navigate('/');

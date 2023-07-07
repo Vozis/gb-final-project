@@ -6,11 +6,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { CommentService } from '../comment/comment.service';
 import { EventService } from '../event/event.service';
-import { NotificationStatus, NotificationType } from '@prisma/client';
+import { NotificationType } from '@prisma/client';
 import { INotificationResponse } from './notification.types';
-import { OnEvent } from '@nestjs/event-emitter';
-import { EventSelect } from '../event/returnEventObject';
-import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class NotificationService {
@@ -56,7 +53,7 @@ export class NotificationService {
       notifications.map(async notification => {
         switch (notification.type) {
           case 'EVENT_CREATE':
-            console.log('event_create');
+            // console.log('event_create');
             const eventCreate = await this.eventService.getById(
               notification.sourceId,
             );
@@ -73,7 +70,7 @@ export class NotificationService {
             };
             return eventCreateNotification;
           case 'EVENT_UPDATE':
-            console.log('event_update');
+            // console.log('event_update');
             const eventUpdate = await this.eventService.getById(
               notification.sourceId,
             );
@@ -89,7 +86,7 @@ export class NotificationService {
             };
             return eventUpdateNotification;
           case 'EVENT_COMPLETE':
-            console.log('event_complete');
+            // console.log('event_complete');
             const eventComplete = await this.eventService.getById(
               notification.sourceId,
             );
@@ -105,7 +102,7 @@ export class NotificationService {
             };
             return eventCompleteNotification;
           case 'COMMENT_CREATE':
-            console.log('comment_create');
+            // console.log('comment_create');
             const commentCreate = await this.commentService.getCommentById(
               notification.sourceId,
             );
@@ -124,7 +121,7 @@ export class NotificationService {
 
             return commentCreateNotification;
           case 'EVENT_PARTICIPATE':
-            console.log('event_participate');
+            // console.log('event_participate');
             const eventParticipate = await this.eventService.getById(
               notification.sourceId,
             );
@@ -142,7 +139,7 @@ export class NotificationService {
             };
             return eventParticipateNotification;
           case 'EVENT_LEAVE':
-            console.log('event_leave');
+            // console.log('event_leave');
             const eventLeave = await this.eventService.getById(
               notification.sourceId,
             );
@@ -160,7 +157,7 @@ export class NotificationService {
             };
             return eventLeaveNotification;
           case 'COMMENT_REPLY':
-            console.log('comment_reply');
+            // console.log('comment_reply');
             const commentReply = await this.commentService.getCommentById(
               notification.sourceId,
             );
@@ -258,90 +255,4 @@ export class NotificationService {
 
     return notifications;
   }
-
-  // Черновик ==================================================================
-
-  // async createNotification(dto: CreateNotificationDto) {
-  //   const newNotification = await this.prisma.notifications.create({
-  //     data: dto,
-  //   });
-  //
-  //   switch (newNotification.type) {
-  //     case 'EVENT_CREATE':
-  //       const eventCreate = await this.eventService.getById(
-  //         newNotification.sourceId,
-  //       );
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: eventCreate.creator,
-  //         sourceId: newNotification.sourceId,
-  //         sourceData: eventCreate.name,
-  //         text: newNotification.text,
-  //       };
-  //     case 'EVENT_UPDATE':
-  //       const eventUpdate = await this.eventService.getById(
-  //         newNotification.sourceId,
-  //       );
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: eventUpdate.creator,
-  //         sourceId: newNotification.sourceId,
-  //         sourceData: eventUpdate.name,
-  //         text: newNotification.text,
-  //       };
-  //     case 'EVENT_COMPLETE':
-  //       const eventComplete = await this.eventService.getById(
-  //         newNotification.sourceId,
-  //       );
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: eventComplete.creator,
-  //         sourceId: newNotification.sourceId,
-  //         sourceData: eventComplete.name,
-  //         text: newNotification.text,
-  //       };
-  //     case 'COMMENT_CREATE':
-  //       const commentCreate = await this.commentService.getCommentById(
-  //         newNotification.sourceId,
-  //       );
-  //
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: commentCreate.event.creator,
-  //         sourceId: commentCreate.event.id,
-  //         sourceData: commentCreate.event.name,
-  //         additionalData: commentCreate.message,
-  //         text: newNotification.text,
-  //       };
-  //     case 'COMMENT_REPLY':
-  //       const commentReply = await this.commentService.getCommentById(
-  //         newNotification.sourceId,
-  //       );
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: commentReply.author,
-  //         sourceId: newNotification.sourceId,
-  //         sourceData: commentReply.message,
-  //         parent: commentReply.parent.message,
-  //         text: newNotification.text,
-  //       };
-  //     case 'FRIEND_ADD':
-  //       const userFriend = await this.userService.getById(
-  //         newNotification.sourceId,
-  //       );
-  //       return {
-  //         id: newNotification.id,
-  //         type: newNotification.type,
-  //         user: userFriend,
-  //         sourceId: newNotification.sourceId,
-  //         sourceData: '',
-  //         text: newNotification.text,
-  //       };
-  //   }
-  // }
 }

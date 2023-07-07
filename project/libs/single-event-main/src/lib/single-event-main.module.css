@@ -1,0 +1,17 @@
+.card {
+  height: 244px;
+}
+
+.card__tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.white {
+  background-color: #fff;
+}
+/*# sourceMappingURL=single-event-main.module.css.map */

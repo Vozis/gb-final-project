@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CACJ;EACE,MAAM,CAAN,2DAAM;CAKP;;AAPD,AAIE,IAJE,AAID,MAAM,CAAC;EACN,MAAM,EAAE,OAAO;CAChB",
+    "sources": [
+        "secondary-button.module.scss"
+    ],
+    "names": [],
+    "file": "secondary-button.module.css"
+}

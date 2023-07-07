@@ -1,10 +1,10 @@
-import styles from './update-event-form.module.scss';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { ICreateEvent, IOption, IUpdateEvent } from '@project/shared/types';
+import { IOption, IUpdateEvent } from '@project/shared/types';
 import { EventService, TagService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch, getKeys } from '@project/shared/utils';
 import {
   Button,
@@ -13,8 +13,6 @@ import {
   SelectField,
   UploadField,
 } from '@project/shared/ui';
-import { InputActionMeta } from 'react-select';
-import moment from 'moment/moment';
 
 /* eslint-disable-next-line */
 export interface UpdateEventFormProps {
@@ -132,9 +130,12 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries(['get-all-events']);
+        // toast.success('Параметры события успешно обновлены', {
+        //   toastId: 'update-events',
+        //   containerId: 1,
+        // });
         toast.success('Параметры события успешно обновлены', {
-          toastId: 'update-events',
-          containerId: 1,
+          id: 'update-events',
         });
       },
     },

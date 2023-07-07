@@ -10,10 +10,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ICreateEvent, IOption } from '@project/shared/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EventService, TagService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import React, { useState } from 'react';
 import { InputActionMeta } from 'react-select';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface CreateEventFormProps {}
@@ -23,6 +25,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
   const [isTime, setIsTime] = useState(false);
   const [isCity, setIsCity] = useState(false);
   const [isPlace, setIsPlace] = useState(false);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
   const {
@@ -138,11 +141,15 @@ export function CreateEventForm(props: CreateEventFormProps) {
     (data: FormData) => EventService.createEvent(data),
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(['get-all-events']);
+        // await queryClient.invalidateQueries(['get-all-events']);
+        // toast.success('Событие успешно создано', {
+        //   toastId: 'create-new-events',
+        //   containerId: 1,
+        // });
         toast.success('Событие успешно создано', {
-          toastId: 'create-new-events',
-          containerId: 1,
+          id: 'create-new-events',
         });
+        navigate('/');
       },
     },
   );

@@ -1,0 +1,76 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.tabs {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #F1F1F1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #353535;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 40px;
+  padding: 8px 10px;
+}
+
+.tabs__tab {
+  cursor: pointer;
+  padding: 12px 8px;
+  position: relative;
+  text-align: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-radius: 40px;
+  z-index: 1;
+}
+
+.tabs__tab::before {
+  bottom: 0;
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  background: none;
+  border-radius: 40px;
+  -webkit-transition: background .2s ease-out;
+  transition: background .2s ease-out;
+  width: 100%;
+  z-index: -1;
+}
+
+.tabs__tab_selected {
+  color: #f2f2f2;
+}
+
+.tabs__tab_selected::before {
+  background: #2e6d9c;
+}
+
+.tabs__label {
+  color: #2e6d9c;
+  z-index: 2;
+}
+
+.tabs__label_selected {
+  color: #FFFFFF;
+}
+
+.tabs__content {
+  display: none;
+}
+
+.tabs__content_selected {
+  display: block;
+}
+/*# sourceMappingURL=tabs.module.css.map */
