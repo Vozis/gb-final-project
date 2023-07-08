@@ -516,6 +516,27 @@ export class EventService {
     return result;
   }
 
+  async getForRating(id: number) {
+    return this.prisma.event.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        users: {
+          select: {
+            id: true,
+            userName: true,
+            firstName: true,
+            lastName: true,
+            avatarPath: true,
+          },
+        },
+      },
+    });
+  }
+
   private async checkTimeEvent(eventTime: Date, userId: number) {
     // console.log(eventTime);
 

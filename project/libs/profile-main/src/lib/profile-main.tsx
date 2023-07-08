@@ -15,6 +15,7 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
+import styles from './profile-main.module.scss';
 
 /* eslint-disable-next-line */
 

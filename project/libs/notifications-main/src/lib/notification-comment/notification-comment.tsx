@@ -1,14 +1,14 @@
 import { INotification } from '@project/shared/types';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
-import styles from './notifications-comments.module.scss';
+import styles from './notification-comment.module.scss';
 
 /* eslint-disable-next-line */
 export interface NotificationsCommentsProps {
   data: INotification;
 }
 
-export function NotificationsComments(data: NotificationsCommentsProps) {
+export function NotificationComment(data: NotificationsCommentsProps) {
   // console.log('data: ', data);
   return (
     <>
@@ -55,4 +55,4 @@ export function NotificationsComments(data: NotificationsCommentsProps) {
   );
 }
 
-export default NotificationsComments;
+export default NotificationComment;

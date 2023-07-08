@@ -14,3 +14,4 @@ export * from './lib/comment.types';
 export * from './lib/socket.types';
 export * from './lib/like.types';
 export * from './lib/notification.types';
+export * from './lib/rating.types';

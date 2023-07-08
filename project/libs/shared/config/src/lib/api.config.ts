@@ -22,6 +22,9 @@ export const EventApi = {
   updateEvent(id: string) {
     return `events/${id}`;
   },
+  getForRating(id: number) {
+    return `events/for-rating/${id}`;
+  },
 };
 
 export const TagApi = {
@@ -49,6 +52,17 @@ export const MailApi = {
   resendConfirmationLink: 'mail/resend-confirmation-link',
   sendResetPasswordLink: 'mail/send-reset',
   checkResetPasswordLink: 'mail/check-reset-password',
+};
+
+export const RatingApi = {
+  setRating: 'ratings',
+  getAllRating: 'ratings/all',
+  getAverageUserRating(id: string) {
+    return `ratings/average/${id}`;
+  },
+  deleteRating(id: string) {
+    return `ratings/${id}`;
+  },
 };
 
 export const TypeApi = {};

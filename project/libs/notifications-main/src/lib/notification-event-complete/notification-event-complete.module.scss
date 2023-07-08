@@ -1,0 +1,38 @@
+.container {
+  //background-color: var(--bg-color);
+  background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
+  //max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.content {
+  //align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.avatar {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.span {
+  color: var(--accent-color-blue);
+  cursor: pointer;
+
+  &:hover {
+    color: blue;
+  }
+}

@@ -25,8 +25,12 @@ export class RatingController {
     return this.ratingService.getAll(searchRatingDto);
   }
 
+  // @Auth()
+  // @Get(':userId')
+  // async getUserRating(@Param('userId', ParseIntPipe) userId: number) {}
+
   @Auth()
-  @Get(':id')
+  @Get('by-id/:id')
   async getById(@Param('id', ParseIntPipe) id: number) {
     return this.ratingService.getById(id);
   }
@@ -47,5 +51,10 @@ export class RatingController {
     return this.ratingService.delete(id);
   }
 
+  @Auth()
+  @Get('average/:userId')
+  async getAverageRating(@Param('userId', ParseIntPipe) userId: number) {
+    return this.ratingService.updateAverageUserRating(userId);
+  }
   // Admin routes ==============================================================
 }

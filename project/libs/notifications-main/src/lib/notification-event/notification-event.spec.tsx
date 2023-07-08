@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import NotificationsEvents from './notifications-events';
+import NotificationEvent from './notification-event';
 
 describe('NotificationsEvents', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<NotificationsEvents />);
+    const { baseElement } = render(<NotificationEvent />);
     expect(baseElement).toBeTruthy();
   });
 });

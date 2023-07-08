@@ -4,8 +4,8 @@ import { IUser } from '@project/shared/types';
 import cn from 'clsx';
 import {
   Avatar,
-  MaterialIcon,
   AvatarSize,
+  MaterialIcon,
   UserRating,
 } from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
@@ -24,6 +24,7 @@ export function UserBig({
   const { user } = useAuthRedux();
   const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
+  console.log('average user raring', userProps.averageRating);
 
   return (
     <>
@@ -37,11 +38,13 @@ export function UserBig({
           isOnline={isOnline}
         />
         <UserRating
+          initialValue={userProps.averageRating}
           size={25}
           SVGstyle={{ display: 'inline' }}
           iconsCount={1}
           showTooltip
-          tooltipDefaultText={'4.7'}
+          readonly
+          tooltipDefaultText={String(userProps.averageRating)}
           tooltipClassName={styles.rating_tooltip}
         />
         <div className={styles.info} onClick={onClick}>
