@@ -9,31 +9,35 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique
-  password    String   @db.VarChar(200)
-  avatarPath  String   @default("/assets/default-avatar.png") @map("avatar_path")
-  role        Role[]
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  firstName   String   @map("first_name")
-  lastName    String   @map("last_name")
-  userName    String   @unique @map("user_name")
-  isConfirmed Boolean  @default(false)
-  exitDate    DateTime @default(now()) @map("exit_date")
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password      String   @db.VarChar(200)
+  avatarPath    String   @default("/assets/default-avatar.png") @map("avatar_path")
+  role          Role[]
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  firstName     String   @map("first_name")
+  lastName      String   @map("last_name")
+  userName      String   @unique @map("user_name")
+  isConfirmed   Boolean  @default(false)
+  exitDate      DateTime @default(now()) @map("exit_date")
+  averageRating Float    @default(4.0) @map("average_rating")
 
-  comments          Comment[]
-  creations         Event[]         @relation("creations")
-  likes             Like[]
-  notifications     Notifications[]
-  ratings           Rating[]
-  hobbies           Tag[]           @relation("TagToUser")
-  events            Event[]         @relation("events")
-  favorites         Event[]         @relation("favorites")
-  friends           User[]          @relation("userFriends")
-  friendsRelation   User[]          @relation("userFriends")
-  blackList         User[]          @relation("userBlocked")
-  blackListRelation User[]          @relation("userBlocked")
+  comments      Comment[]
+  creations     Event[]         @relation("creations")
+  likes         Like[]
+  notifications Notifications[]
+
+  userRatings   Rating[] @relation("user_ratings")
+  authorRatings Rating[] @relation("author_ratings")
+
+  hobbies           Tag[]   @relation("TagToUser")
+  events            Event[] @relation("events")
+  favorites         Event[] @relation("favorites")
+  friends           User[]  @relation("userFriends")
+  friendsRelation   User[]  @relation("userFriends")
+  blackList         User[]  @relation("userBlocked")
+  blackListRelation User[]  @relation("userBlocked")
 
   @@map("users")
 }
@@ -64,24 +68,26 @@ model Tag {
 }
 
 model Event {
-  id               Int         @id @default(autoincrement())
-  name             String
-  description      String?
-  imageUrl         String      @default("/assets/default-event.png") @map("image_url")
-  coordinateX      String?     @default("0") @map("coordinate_x")
-  coordinateY      String?     @default("0") @map("coordinate_y")
-  createdAt        DateTime    @default(now()) @map("created_at")
-  updatedAt        DateTime    @updatedAt @map("updated_at")
-  creatorId        Int?
-  eventTime        DateTime?   @default(dbgenerated("(now() + '2 days'::interval)")) @map("event_time")
-  peopleCount      Int         @default(2) @map("people_count")
-  status           EventStatus @default(OPEN)
-  comments         Comment[]
-  creator          User?       @relation("creations", fields: [creatorId], references: [id])
-  ratings          Rating[]
-  tags             Tag[]       @relation("EventToTag")
-  users            User[]      @relation("events")
-  usersOfFavorites User[]      @relation("favorites")
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String      @default("/assets/default-event.png") @map("image_url")
+  coordinateX String?     @default("0") @map("coordinate_x")
+  coordinateY String?     @default("0") @map("coordinate_y")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  creatorId   Int?
+  eventTime   DateTime?   @default(dbgenerated("(now() + '2 days'::interval)")) @map("event_time")
+  peopleCount Int         @default(2) @map("people_count")
+  status      EventStatus @default(OPEN)
+  comments    Comment[]
+  creator     User?       @relation("creations", fields: [creatorId], references: [id])
+
+  ratings Rating[]
+
+  tags             Tag[]  @relation("EventToTag")
+  users            User[] @relation("events")
+  usersOfFavorites User[] @relation("favorites")
 
   @@map("events")
 }
@@ -108,8 +114,9 @@ model Like {
   userId    Int      @map("user")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, commentId])
   @@map("likes")
@@ -123,23 +130,29 @@ model Notifications {
   createdAt DateTime           @default(now()) @map("created_at")
   updatedAt DateTime           @updatedAt @map("updated_at")
   text      String?            @db.VarChar(1000)
-  userId    Int
-  user      User               @relation(fields: [userId], references: [id])
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 
   @@map("notifications")
 }
 
 model Rating {
   id        Int      @id @default(autoincrement())
-  value     Float
+  value     Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  event   Event @relation(fields: [eventId], references: [id])
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId Int
-  user    User  @relation(fields: [userId], references: [id])
-  userId  Int
 
+  user   User @relation("user_ratings", fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  author   User @relation("author_ratings", fields: [authorId], references: [id], onDelete: Cascade)
+  authorId Int
+
+  @@unique([eventId, userId], name: "compositeId")
   @@map("rating")
 }
 

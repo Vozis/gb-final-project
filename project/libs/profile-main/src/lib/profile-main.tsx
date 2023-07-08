@@ -4,18 +4,17 @@ import { IUserEdit } from '@project/shared/types';
 import {
   CardList,
   CardSkeleton,
+  FriendsList,
+  FriendsListSkeleton,
   ITab,
   SkeletonLoader,
   Tabs,
   TabsProps,
   UserBigSkeleton,
-  FriendsList,
 } from '@project/shared/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
-import styles from './profile-main.module.scss';
-import { FriendsListSkeleton } from '../../../shared/ui/src/lib/lists/friends-list/friends-list-skeleton';
 
 /* eslint-disable-next-line */
 
