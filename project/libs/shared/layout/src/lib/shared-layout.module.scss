@@ -8,10 +8,7 @@
     'footer';
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  //height: 100vh;
-  //min-height: 100vh;
   transition: background .3s ease-out;
-  width: 100%;
   min-height: 100%;
 }
 
@@ -23,13 +20,10 @@
 .layout > main {
   grid-area: main;
   min-width: 100%;
-  //margin: 15px auto;
-  //max-width: 1200px;
 }
 
 .layout > footer {
   grid-area: footer;
-  // margin-top: 20px;
 }
 
 .containerContent {
@@ -37,15 +31,24 @@
   padding: 0 20px;
 }
 
-
-@media (min-width: 499px) {
+@media (min-width: 992px) {
   .layout > main {
-    min-width: 450px;
+    min-width: auto;
+
+  }
+  .containerContent {
+    max-width: 960px;
+    margin: 0 auto;
   }
 }
 
-@media (min-width: 999px) {
+@media (min-width: 1200px) {
   .layout > main {
-    min-width: 1000px;
+    min-width: auto;
+
+  }
+  .containerContent {
+    max-width: 1140px;
+    margin: 0 auto;
   }
 }

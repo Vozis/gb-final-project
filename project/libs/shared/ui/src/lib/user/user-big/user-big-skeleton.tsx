@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AvatarSize, SkeletonLoader } from '@project/shared/ui';
+import { SkeletonLoader } from '@project/shared/ui';
 
 interface CardSkeletonProps {
   count?: number;

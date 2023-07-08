@@ -2,7 +2,12 @@ import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
 import { IUser } from '@project/shared/types';
 import cn from 'clsx';
-import { Avatar, MaterialIcon, AvatarSize } from '@project/shared/ui';
+import {
+  Avatar,
+  MaterialIcon,
+  AvatarSize,
+  UserRating,
+} from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +31,19 @@ export function UserBig({
         to={isProfile ? '/profile' : `/users/${userProps.id}`}
         className={styles.container}
       >
-        <Avatar size={AvatarSize.L} imagePath={userProps.avatarPath} isOnline={isOnline} />
+        <Avatar
+          size={AvatarSize.L}
+          imagePath={userProps.avatarPath}
+          isOnline={isOnline}
+        />
+        <UserRating
+          size={25}
+          SVGstyle={{ display: 'inline' }}
+          iconsCount={1}
+          showTooltip
+          tooltipDefaultText={'4.7'}
+          tooltipClassName={styles.rating_tooltip}
+        />
         <div className={styles.info} onClick={onClick}>
           <h2
             className={cn(styles.fullname)}

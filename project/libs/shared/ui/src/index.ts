@@ -1,3 +1,4 @@
+export * from './lib/user/user-rating/user-rating';
 export * from './lib/theme-switcher/theme-switcher';
 export * from './lib/lists/friends-list/friends-list';
 export * from './lib/lists/friends-list/friends-list-skeleton';

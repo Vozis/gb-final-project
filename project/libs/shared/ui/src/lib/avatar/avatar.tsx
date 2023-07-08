@@ -37,7 +37,6 @@ export function Avatar({
           <span className={styles.isOnline}></span>
         )}
       </div>
-      {/*{isStatusVisible && <span>{isOnline ? 'Онлайн' : 'Не в сети'}</span>}*/}
     </div>
   );
 }

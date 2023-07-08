@@ -14,15 +14,14 @@ import {
   UserBig,
 } from '@project/shared/ui';
 
-
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
+import clsx from 'clsx';
 // import { toast } from 'react-toastify';
-
 
 /* eslint-disable-next-line */
 export interface ProfileHeadProps {
@@ -55,7 +54,9 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     if (user && user.friends?.some(user => user.id === userProps.id)) {
       setIsFriend(true);
     }
-  }, [user, userProps.id]);
+  }, [user]);
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (anchorRef.current) {
@@ -70,7 +71,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       );
       setTop(
         isShowSettingModal
-          ? `${anchorParams.y + anchorParams.height + 10}px`
+          ? `${anchorParams.y + anchorParams.height + 20}px`
           : '0px',
       );
       setRight(
@@ -187,13 +188,20 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
             </Link>
 
             <Button
-              className={'underline'}
+              className={clsx(styles.profile__settingsList_item, [
+                'underline',
+                'w-full',
+                'justify-start',
+              ])}
               type={'button'}
               onClick={handleLogout}
             >
-              Выйти
+              <MaterialIcon
+                name={'MdOutlineExitToApp'}
+                className={styles.profile__settingsList_item_icon}
+              />
+              <span>Выйти</span>
             </Button>
-
           </ModalAnchor>
 
           <ModalScreen
