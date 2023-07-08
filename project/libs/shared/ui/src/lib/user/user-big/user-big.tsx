@@ -2,11 +2,15 @@ import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
 import { IUser } from '@project/shared/types';
 import cn from 'clsx';
-import { MaterialIcon } from '../../icons/material-icon';
+import {
+  MaterialIcon,
+  Avatar,
+  AvatarSize,
+  UserRating,
+} from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
-import Avatar, { AvatarSize } from '../../avatar/avatar';
-// import { Modal } from '@project/shared/ui';
+import { Rating } from 'react-simple-star-rating';
 
 /* eslint-disable-next-line */
 export interface UserBigProps extends HTMLAttributes<HTMLDivElement> {
@@ -22,14 +26,29 @@ export function UserBig({
   const { user } = useAuthRedux();
   const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
-
+  console.log(user);
   return (
     <>
       <Link
         to={isProfile ? '/profile' : `/users/${userProps.id}`}
         className={styles.container}
       >
-        <Avatar size={AvatarSize.L} imagePath={userProps.avatarPath} isOnline={isOnline} />
+        <Avatar
+          size={AvatarSize.L}
+          imagePath={userProps.avatarPath}
+          isOnline={isOnline}
+        />
+        <UserRating
+          fillColor={'#FFD700'}
+          SVGstyle={{ display: 'inline' }}
+          size={25}
+          iconsCount={1}
+          initialValue={4.7}
+          readonly={true}
+          showTooltip
+          tooltipDefaultText={'4.7'}
+          tooltipClassName={styles.rating_tooltip}
+        />
         <div className={styles.info} onClick={onClick}>
           <h2
             className={cn(styles.fullname)}

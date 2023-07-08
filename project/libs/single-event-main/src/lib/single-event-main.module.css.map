@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,KAAK,CAAC;EACJ,MAAM,EAAE,KAAK;CAMd;;AALE,AAAD,WAAO,CAAC;EACN,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,IAAI;CACjB;;AAEH,AAAA,MAAM,CAAC;EACL,gBAAgB,EAAE,IAAI;CACvB",
+    "sources": [
+        "single-event-main.module.scss"
+    ],
+    "names": [],
+    "file": "single-event-main.module.css"
+}

@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Avatar from './avatar';
+import UserRating from './user-rating';
 
-describe('Avatar', () => {
+describe('UserRating', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Avatar />);
+    const { baseElement } = render(<UserRating />);
     expect(baseElement).toBeTruthy();
   });
 });

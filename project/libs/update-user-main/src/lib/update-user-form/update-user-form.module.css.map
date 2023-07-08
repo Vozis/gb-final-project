@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "update-user-form.module.scss"
+    ],
+    "names": [],
+    "file": "update-user-form.module.css"
+}

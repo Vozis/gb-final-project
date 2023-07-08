@@ -1,0 +1,15 @@
+.hover {
+  -webkit-filter: contrast("20%");
+          filter: contrast("20%");
+}
+
+.active {
+  -webkit-filter: drop-shadow(5px 5px 0 black);
+          filter: drop-shadow(5px 5px 0 black);
+}
+
+.error {
+  -webkit-filter: #fbeba3;
+          filter: #fbeba3;
+}
+/*# sourceMappingURL=variables.css.map */

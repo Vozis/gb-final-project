@@ -1,0 +1,107 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.register_form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.register_form_title {
+  color: #555555;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 34px;
+}
+
+.register_form_icon {
+  color: 'blue';
+  width: 30px;
+}
+
+.register_form_btn {
+  width: 320px;
+  height: 52px;
+  background: #2e6d9c;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.err {
+  color: red;
+  font-size: 10px;
+}
+
+.app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.parent {
+  width: 250px;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #5b5b5b;
+  border-radius: 8px;
+}
+
+.file_upload {
+  text-align: center;
+  border: 3px dashed #d2e3f4;
+  position: relative;
+  cursor: pointer;
+}
+
+.file_upload p {
+  font-size: 0.87rem;
+  margin-top: 10px;
+  color: #bbcada;
+}
+
+.file-upload h4 {
+  margin: 0;
+}
+
+.file_upload input {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file_upload_img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=form-reg.module.css.map */

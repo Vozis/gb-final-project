@@ -1,5 +1,5 @@
 import { useAuthRedux } from '@project/shared/hooks';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export const useAuthRedirect = () => {

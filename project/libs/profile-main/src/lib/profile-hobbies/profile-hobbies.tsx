@@ -6,7 +6,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import styles from './profile-hobbies.module.scss';
 
 /* eslint-disable-next-line */

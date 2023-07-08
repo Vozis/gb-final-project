@@ -1,9 +1,10 @@
 import styles from './update-user-form.module.scss';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IOption, IRegister, IUserUpdateForm } from '@project/shared/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { IOption, IUserUpdateForm } from '@project/shared/types';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { TagService, UserService } from '@project/shared/services';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 import { errorCatch, getKeys } from '@project/shared/utils';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 import React, { useEffect, useState } from 'react';
@@ -16,7 +17,6 @@ import {
   UploadField,
 } from '@project/shared/ui';
 import cn from 'clsx';
-import { InputActionMeta } from 'react-select';
 
 /* eslint-disable-next-line */
 export interface UpdateUserFormProps {}
@@ -163,9 +163,12 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     {
       onSuccess: async () => {
         getProfile();
+        // toast.success('Данные пользователя успешно обновлены', {
+        //   toastId: 'update-profile',
+        //   containerId: 1,
+        // });
         toast.success('Данные пользователя успешно обновлены', {
-          toastId: 'update-profile',
-          containerId: 1,
+          id: 'update-profile',
         });
       },
     },

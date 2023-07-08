@@ -1,5 +1,3 @@
-import { IToggle } from '@project/shared/types';
-
 export const AuthApi = {
   register: `auth/register`,
   login: `auth/login`,

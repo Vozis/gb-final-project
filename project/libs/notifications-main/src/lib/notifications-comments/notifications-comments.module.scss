@@ -1,7 +1,34 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.container {
+  align-items: center;
+  background-color: var(--bg-color);
+
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 10px;
+  //max-width: 500px;
+  padding: 10px;
+  width: 100%;
+}
+
+.avatar {
+  height: 40px;
+  margin-right: 10px;
+  width: 40px;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.span {
+  color: #2e6d9c;
+  cursor: pointer;
+
+  &:hover {
+    color: blue;
+  }
+}
+
+@media screen {
+
+}

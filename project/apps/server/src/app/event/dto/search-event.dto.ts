@@ -1,10 +1,5 @@
-import {
-  isBoolean,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { Transform, Type } from 'class-transformer';
+import { IsOptional, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class SearchEventDto {
   paramsSearch?: string;

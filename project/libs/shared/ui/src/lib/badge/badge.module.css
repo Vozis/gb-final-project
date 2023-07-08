@@ -1,0 +1,37 @@
+/*
+ * Replace this with your own classes
+ *
+ * e.g.
+ * .container {
+ * }
+*/
+.badge__root {
+  position: relative;
+}
+
+.badge__el {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: #a33333;
+  font-size: 12px;
+  color: #fff;
+}
+
+.badge__el_hidden {
+  display: none;
+}
+/*# sourceMappingURL=badge.module.css.map */

@@ -1,10 +1,14 @@
 import { errorCatch } from '@project/shared/utils';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 
 const toastError = (error: any, title?: string) => {
   const message = errorCatch(error);
+  // toast.error(message, {
+  //   toastId: message,
+  // });
   toast.error(message, {
-    toastId: message,
+    id: message,
   });
 
   throw message;

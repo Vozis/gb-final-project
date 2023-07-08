@@ -1,14 +1,13 @@
 import styles from './shared-layout.module.scss';
-import { FC, PropsWithChildren, useContext, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import Header from './header/header';
-
 import Footer from './footer/footer';
 import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
 import { useTheme } from '@project/shared/hooks';
 
-/* eslint-disable-next-line */
 export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useTheme();
   return (
@@ -23,6 +22,7 @@ export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
         <Footer />
       </div>
       <ToastContainer autoClose={2000} containerId={1} />
+      <Toaster position="top-center" reverseOrder={false} gutter={8} />
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );

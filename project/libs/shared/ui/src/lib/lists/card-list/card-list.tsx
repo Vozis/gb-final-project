@@ -1,6 +1,4 @@
-import styles from './card-list.module.scss';
-
-import { IEvent, IEventForCard } from '@project/shared/types';
+import { IEventForCard } from '@project/shared/types';
 import React, { FC } from 'react';
 import { Card, Heading } from '@project/shared/ui';
 

@@ -2,7 +2,6 @@ import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { NotificationStatus, NotificationType } from '@prisma/client';
 import { UserSelect } from '../../user/returnUserObject';
 import { INotificationUser } from '../notification.types';
-import { EventSelect, ReturnEvent } from '../../event/returnEventObject';
 
 export class CreateNotificationDto {
   @IsString({})

@@ -111,43 +111,28 @@ export function ProfileMain(props: ProfileMainProps) {
               'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }
           />
-          {/*Скелетон для списка друзей*/}
-
-          {/*<SkeletonLoader*/}
-          {/*  count={1}*/}
-          {/*  className={''}*/}
-          {/*  containerClassName={*/}
-          {/*    'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'*/}
-          {/*  }*/}
-          {/*/>*/}
-          {/*<SkeletonLoader*/}
-          {/*  count={2}*/}
-          {/*  className={'h-10 w-full rounded-[50px]'}*/}
-          {/*  containerClassName={*/}
-          {/*    'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'*/}
-          {/*  }*/}
-          {/*/>*/}
           <CardSkeleton count={3} />
         </div>
       ) : (
-        <>
+        <div>
           <ProfileHead userProps={user} />
-          <FriendsList
-            list={user.friends}
-            loop={true}
-            slidesPerView={user.friends ? user.friends.length : undefined}
-            arrows
-            breakPoints={{
-              300: { slidesPerView: 3 },
-              400: { slidesPerView: 4 },
-              500: { slidesPerView: 5 },
-              700: { slidesPerView: 6 },
-            }}
-          />
-        </>
+          <div className={styles.contentWrapper}>
+            <FriendsList
+              list={user.friends}
+              loop={true}
+              slidesPerView={user.friends ? user.friends.length : undefined}
+              arrows
+              breakPoints={{
+                300: { slidesPerView: 3 },
+                400: { slidesPerView: 4 },
+                500: { slidesPerView: 5 },
+                700: { slidesPerView: 6 },
+              }}
+            />
+            {!isLoading && <Tabs tabs={tabs} />}
+          </div>
+        </div>
       )}
-
-      {!isLoading && <Tabs tabs={tabs} />}
     </>
   );
 }

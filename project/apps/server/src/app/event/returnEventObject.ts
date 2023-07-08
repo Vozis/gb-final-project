@@ -1,9 +1,5 @@
 import { Prisma } from '@prisma/client';
-import {
-  returnUserObject,
-  returnUserSingleEventObject,
-} from '../user/returnUserObject';
-import { returnTagObject } from '../tag/returnTagObject';
+import { returnUserObject } from '../user/returnUserObject';
 
 interface IReturnEvent {
   isParticipate: boolean;

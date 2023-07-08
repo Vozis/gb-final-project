@@ -66,9 +66,9 @@ export class SocketGateway
     @MessageBody() dto: { eventId: number },
     @ConnectedSocket() client: Socket,
   ) {
-    const _event = await this.eventService.getById(dto.eventId);
+    const _event = await this.eventService.getById(dto.eventId, id);
 
-    if (_event.users.some(user => user.id === id)) {
+    if (_event.isParticipate) {
       _.remove(activeRooms[dto.eventId], item => item === id);
       if (activeRooms[dto.eventId] && activeRooms[dto.eventId].length === 0) {
         delete activeRooms[dto.eventId];
@@ -76,12 +76,13 @@ export class SocketGateway
         //   console.log(`room ${room} was deleted`);
         // });
       }
-
+      // console.log('activeRooms after remove', activeRooms);
       client.emit('removeActiveRoom', { room: `room:${dto.eventId}` });
     } else {
       if (!activeRooms[dto.eventId]) activeRooms[dto.eventId] = [];
       activeRooms[dto.eventId].push(id);
-      client.emit('sendActiveRooms', { room: `room:${dto.eventId}` });
+      // console.log('activeRooms after add', activeRooms);
+      client.emit('addActiveRoom', { room: `room:${dto.eventId}` });
     }
   }
 

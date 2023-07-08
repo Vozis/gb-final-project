@@ -18,48 +18,48 @@
 // Light theme
 
 $primary-color: #04145C;
-$secondary-color: '';
-$background-color: #F7F7F7;
+//$secondary-color: '';
+//$background-color: #F7F7F7;
 $text-primary-color: #363636;
-$text-secondary-color: #696969;
+//$text-secondary-color: #696969;
 $text-white-color: #FFFFFF;
-$placeholder-color: #9D9D9D;
-$border-color: white;
-
-
-// radius
-
+//$placeholder-color: #9D9D9D;
+//$border-color: white;
+//
+//
+//// radius
+//
 $border-radius: 24px;
-$border-full: 100px;
-
-// shadow
-
-
-// text-size
-
-$text-5xl: 64px;
-$text-3xl: 32px;
+//$border-full: 100px;
+//
+//// shadow
+//
+//
+//// text-size
+//
+//$text-5xl: 64px;
+//$text-3xl: 32px;
 $text-2xl: 28px;
-$text-xl: 20px;
-$text-base: 16px;
-$text-small: 14px;
-
-// percent
-
-$percent: '20%';
-
-
-.hover {
-  filter: contrast($percent);
-}
-
-.active {
-  filter: drop-shadow(5px 5px 0 black);
-}
-
-.error {
-  filter: invert($primary-color);
-}
+//$text-xl: 20px;
+//$text-base: 16px;
+//$text-small: 14px;
+//
+//// percent
+//
+//$percent: '20%';
+//
+//
+//.hover {
+//  filter: contrast($percent);
+//}
+//
+//.active {
+//  filter: drop-shadow(5px 5px 0 black);
+//}
+//
+//.error {
+//  filter: invert($primary-color);
+//}
 
 
 //// Dark theme

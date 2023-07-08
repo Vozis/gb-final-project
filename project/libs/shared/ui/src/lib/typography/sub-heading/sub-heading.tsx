@@ -1,5 +1,3 @@
-import styles from './sub-heading.module.scss';
-
 /* eslint-disable-next-line */
 import React, { FC, PropsWithChildren } from 'react';
 import cn from 'clsx';

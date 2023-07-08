@@ -1,11 +1,5 @@
 import styles from './accordion.module.scss';
-import React, {
-  FC,
-  PropsWithChildren,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { MaterialIcon } from '@project/shared/ui';
 

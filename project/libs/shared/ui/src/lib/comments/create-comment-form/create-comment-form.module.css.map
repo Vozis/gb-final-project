@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "create-comment-form.module.scss"
+    ],
+    "names": [],
+    "file": "create-comment-form.module.css"
+}

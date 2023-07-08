@@ -1,5 +1,5 @@
 import { ITag } from './tag.types';
-import { IEventUser, IUser, IUserSmall } from './user.types';
+import { IUserSmall } from './user.types';
 
 export interface ICount {
   users: number;

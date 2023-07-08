@@ -1,15 +1,4 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsEnum,
-  IsOptional,
-  IsString,
-  MinLength,
-  IsNotEmpty,
-  IsArray,
-} from 'class-validator';
-
-import { Prisma } from '@prisma/client';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 // implements Prisma.UserUpdateInput
 export class CreateUserDto {

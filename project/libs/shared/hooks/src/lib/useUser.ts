@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { AuthContext } from '@project/shared/store';
 import { IUser } from '@project/shared/types';
-import { useCookies } from './useCookies';
 
 export const useUser = () => {
   const { user, setUser } = useContext(AuthContext);

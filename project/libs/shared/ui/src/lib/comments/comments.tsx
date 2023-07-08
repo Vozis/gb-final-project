@@ -1,7 +1,6 @@
 import styles from './comments.module.scss';
-import { useActions, useCommentState } from '@project/shared/hooks';
+import { useCommentState } from '@project/shared/hooks';
 import CreateCommentForm from './create-comment-form/create-comment-form';
-import CommentsItem from './comments-item/comments-item';
 import CommentsList from './comments-list/comments-list';
 import { IEvent } from '@project/shared/types';
 

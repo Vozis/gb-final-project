@@ -1,7 +1,6 @@
 import styles from './avatar.module.scss';
 import cn from 'clsx';
-import { HTMLAttributes, useEffect, useState } from 'react';
-import { useSocketState } from '@project/shared/hooks';
+import { HTMLAttributes } from 'react';
 
 /* eslint-disable-next-line */
 export enum AvatarSize {
@@ -38,7 +37,6 @@ export function Avatar({
           <span className={styles.isOnline}></span>
         )}
       </div>
-      {/*{isStatusVisible && <span>{isOnline ? 'Онлайн' : 'Не в сети'}</span>}*/}
     </div>
   );
 }

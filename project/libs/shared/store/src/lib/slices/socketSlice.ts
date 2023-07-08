@@ -54,18 +54,22 @@ const socketSlice = createSlice({
       state,
       action: PayloadAction<{ rooms: IUserActiveRooms[] }>,
     ) => {
+      console.log('all rooms', action.payload);
       state.activeRooms = action.payload.rooms;
     },
     addActiveRoom: (
       state,
       action: PayloadAction<{ room: IUserActiveRooms }>,
     ) => {
+      console.log('add', action.payload);
+
       state.activeRooms.push(action.payload.room);
     },
     removeActiveRoom: (
       state,
       action: PayloadAction<{ room: IUserActiveRooms }>,
     ) => {
+      console.log('remove', action.payload);
       const newArr = state.activeRooms.filter(
         activeRoom => activeRoom.name !== action.payload.room.name,
       );
@@ -79,6 +83,9 @@ const socketSlice = createSlice({
       }>,
     ) => {
       return;
+    },
+    resetSocketState: state => {
+      return initialState;
     },
   },
 });

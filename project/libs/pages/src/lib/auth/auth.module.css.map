@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "auth.module.scss"
+    ],
+    "names": [],
+    "file": "auth.module.css"
+}

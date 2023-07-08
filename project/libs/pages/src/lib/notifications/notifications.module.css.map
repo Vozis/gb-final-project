@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;EAME",
+    "sources": [
+        "notifications.module.scss"
+    ],
+    "names": [],
+    "file": "notifications.module.css"
+}
