@@ -7,7 +7,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
 import { useTheme } from '@project/shared/hooks';
-
 export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useTheme();
   return (

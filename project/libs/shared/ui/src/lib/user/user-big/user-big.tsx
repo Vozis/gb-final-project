@@ -3,16 +3,14 @@ import { HTMLAttributes } from 'react';
 import { IUser } from '@project/shared/types';
 import cn from 'clsx';
 import {
-  MaterialIcon,
   Avatar,
+  MaterialIcon,
   AvatarSize,
   UserRating,
 } from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
-import { Rating } from 'react-simple-star-rating';
 
-/* eslint-disable-next-line */
 export interface UserBigProps extends HTMLAttributes<HTMLDivElement> {
   userProps: IUser;
 }
@@ -26,7 +24,7 @@ export function UserBig({
   const { user } = useAuthRedux();
   const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
-  console.log(user);
+
   return (
     <>
       <Link
@@ -39,12 +37,9 @@ export function UserBig({
           isOnline={isOnline}
         />
         <UserRating
-          fillColor={'#FFD700'}
-          SVGstyle={{ display: 'inline' }}
           size={25}
+          SVGstyle={{ display: 'inline' }}
           iconsCount={1}
-          initialValue={4.7}
-          readonly={true}
           showTooltip
           tooltipDefaultText={'4.7'}
           tooltipClassName={styles.rating_tooltip}

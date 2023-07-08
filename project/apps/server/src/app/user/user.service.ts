@@ -231,6 +231,15 @@ export class UserService {
       },
     });
 
+    const ratings = await this.prisma.rating.aggregate({
+      where: {
+        userId: userId,
+      },
+      _avg: {
+        rating: true
+      },
+    })
+    const userRating = ratings._avg.rating;
     if (!_user) throw new NotFoundException('User not found');
 
     if (id) {
@@ -260,6 +269,7 @@ export class UserService {
         creations,
         favorites,
         events,
+        userRating
       };
     } else {
       return _user;
