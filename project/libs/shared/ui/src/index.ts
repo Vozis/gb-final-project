@@ -1,4 +1,6 @@
+export * from './lib/theme-switcher/theme-switcher';
 export * from './lib/lists/friends-list/friends-list';
+export * from './lib/lists/friends-list/friends-list-skeleton';
 export * from './lib/badge/badge';
 export * from './lib/comments/comments-list/comments-list';
 export * from './lib/avatar/avatar';

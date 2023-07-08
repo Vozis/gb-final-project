@@ -14,6 +14,7 @@ import {
   UserBig,
 } from '@project/shared/ui';
 
+
 import { IToggle, IUser } from '@project/shared/types';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -54,9 +55,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     if (user && user.friends?.some(user => user.id === userProps.id)) {
       setIsFriend(true);
     }
-  }, [user]);
-
-  const { theme } = useTheme();
+  }, [user, userProps.id]);
 
   useEffect(() => {
     if (anchorRef.current) {
@@ -71,7 +70,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
       );
       setTop(
         isShowSettingModal
-          ? `${anchorParams.y + anchorParams.height + 20}px`
+          ? `${anchorParams.y + anchorParams.height + 10}px`
           : '0px',
       );
       setRight(

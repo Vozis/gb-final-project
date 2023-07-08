@@ -1,16 +1,25 @@
-.layout.light {
-  --bg-color: #ffffff;
+.app_light_theme {
+  --bg-color: #ebedf0;
 
-  --primary-color: #464646
+  --primary-color: #333;
+  --secondary-color: #99a2ad;
+  --header-bg: #fff;
+  --border-color: #e7e8ec;
+  --profile-tab-color: #f9f9f9;
+  --modal-bg: #f9f9f9;
+  --text-color-primary: #222;
+  --avatar-outline-color: #fff;
+
+  --components-bg-color: #fff;
 
 }
 
-.header.light {
-  --bg-color: #fff;
-  --primary-color: #00007a
-}
-
-.modal__content.light {
-  --bg-modal: #f4f4f4;
-  --modal-textColor: #555
-}
+//.header.light {
+//  --bg-color: #fff;
+//  --primary-color: #00007a
+//}
+//
+//.modal__content.light {
+//  --bg-modal: #f4f4f4;
+//  --modal-textColor: #555
+//}

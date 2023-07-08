@@ -1,22 +1,23 @@
-@use 'libs/shared/styles/variables' as v;
-@import "libs/shared/styles/themes/dark";
-@import "libs/shared/styles/themes/normal";
+//@use 'libs/shared/styles/variables' as v;
+//@import "libs/shared/styles/themes/dark";
+//@import "libs/shared/styles/themes/normal";
 
 .header {
   align-items: center;
   //background: #fff;
-  background: var(--bg-color);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
   border-radius: 15px 15px 0 0;
   bottom: 0;
-  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
-  color: var(--primary-color);
+  //box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
+  //color: var(--primary-color);
   display: flex;
   justify-content: space-between;
   left: 0;
   padding: 10px;
   position: fixed;
   right: 0;
-  transition-duration: 1s;
+  //transition-duration: 1s;
   z-index: 100;
   font-size: 14px;
 }
@@ -24,6 +25,7 @@
 .on_active_link {
   display: flex;
   margin: 10px;
+  color: var(--secondary-color);
 
   & span {
     display: none;
@@ -32,7 +34,7 @@
 
 .active_link {
   align-items: center;
-  background-color: v.$primary-color !important;
+  background-color: var(--header-active-link) !important;
   border-radius: 40px;
   color: white;
   cursor: pointer;

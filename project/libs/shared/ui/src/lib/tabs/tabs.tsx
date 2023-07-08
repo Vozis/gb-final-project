@@ -9,6 +9,7 @@ export interface ITab {
   id: string | number;
   label?: string;
   content?: ReactElement<any>;
+  className?: string;
 }
 
 export interface TabsProps {

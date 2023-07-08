@@ -5,7 +5,7 @@ import {
   useNotificationState,
   useTheme,
 } from '@project/shared/hooks';
-import { Badge, Button, MaterialIcon } from '@project/shared/ui';
+import { Badge, Button, MaterialIcon, ThemeSwitcher } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
 import {
   AiOutlineBell,
@@ -33,7 +33,6 @@ export function Header(props: HeaderProps) {
 
   const { logout } = useActions();
   const { count } = useNotificationState();
-  const { theme, toggleTheme } = useTheme();
 
   // const { finishedEvents } = useCheckEventStatus();
   // console.log('notifications: ', finishedEvents?.length);
@@ -50,8 +49,8 @@ export function Header(props: HeaderProps) {
   return (
     <header
       className={clsx(styles.header, {
-        [`${styles.header} ${styles.dark}`]: theme === 'dark',
-        [`${styles.header} ${styles.light}`]: theme === 'light',
+        // [`${styles.header} ${styles.dark}`]: theme === 'dark',
+        // [`${styles.header} ${styles.light}`]: theme === 'light',
       })}
     >
       <ul className={'flex flex-wrap gap-3 items-center'}>
@@ -160,9 +159,7 @@ export function Header(props: HeaderProps) {
           </NavLink>
         )}
       </div>
-      <button onClick={toggleTheme}>
-        {theme === 'dark' ? 'Темная тема' : 'Светлая тема'}
-      </button>
+      <ThemeSwitcher />
     </header>
   );
 }

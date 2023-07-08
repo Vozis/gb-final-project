@@ -1,19 +1,30 @@
-.layout.dark {
-  --bg-color: #1f1f1f;
+.app_dark_theme {
+  --bg-color: #141414;
 
-  --primary-color: #9f9f9f
+  --primary-color: #fff;
+  --secondary-color: #76787a;
+  --header-bg: #222;
+  --border-color: #292929;
+  --profile-tab-color: #222;
+  --modal-bg: #262626;
+  --text-color-primary: #e1e3e6;
+  --avatar-outline-color: #222;
+
+  --components-bg-color: #222;
+
+
 }
 
-.header.dark {
-  --bg-color: #333;
-  --primary-color: #d9d9d9;
-
-  &.active_link {
-    --link-bgColor: #5151f1
-  }
-}
-
-.modal__content.dark {
-  --bg-modal: #262626;
-  --modal-textColor: #f2f2f2
-}
+//.header.dark {
+//  --bg-color: #333;
+//  --primary-color: #d9d9d9;
+//
+//  &.active_link {
+//    --link-bgColor: #5151f1
+//  }
+//}
+//
+//.modal__content.dark {
+//  --bg-modal: #262626;
+//  --modal-textColor: #f2f2f2
+//}

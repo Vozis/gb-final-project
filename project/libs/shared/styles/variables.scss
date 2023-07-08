@@ -1,17 +1,35 @@
+:root {
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 24px;
+  --font-size-xl: 32px;
+
+  --overlay-color: rgba(0 0 0 / 60%);
+
+  --modal-z-index: 10;
+
+  --header-active-link: #304bc3;
+  --accent-color-blue: #304bc3;
+  --accent-color-red: #ff3347;
+  --accent-color-green: #4bb34b;
+
+}
+
 // Light theme
 
 $primary-color: #04145C;
 $secondary-color: '';
 $background-color: #F7F7F7;
 $text-primary-color: #363636;
-$text-secondary-color:#696969;
+$text-secondary-color: #696969;
 $text-white-color: #FFFFFF;
 $placeholder-color: #9D9D9D;
 $border-color: white;
 
+
 // radius
 
-$border-radius: 24px ;
+$border-radius: 24px;
 $border-full: 100px;
 
 // shadow
@@ -30,6 +48,7 @@ $text-small: 14px;
 
 $percent: '20%';
 
+
 .hover {
   filter: contrast($percent);
 }
@@ -39,9 +58,8 @@ $percent: '20%';
 }
 
 .error {
-filter: invert($primary-color);
+  filter: invert($primary-color);
 }
-
 
 
 //// Dark theme
@@ -55,3 +73,5 @@ filter: invert($primary-color);
 //$hover-color:
 //$active-color:
 //$error-color:
+
+

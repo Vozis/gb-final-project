@@ -5,6 +5,7 @@ import {
   CardList,
   CardSkeleton,
   FriendsList,
+  FriendsListSkeleton,
   ITab,
   SkeletonLoader,
   Tabs,
@@ -14,7 +15,6 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
-import styles from './profile-main.module.scss';
 
 /* eslint-disable-next-line */
 
@@ -68,8 +68,6 @@ export function ProfileMain(props: ProfileMainProps) {
     },
   ];
 
-  console.log('friends', user.friends);
-
   // const { isLoading: isLoadingTags, data: times } = useQuery(
   //   ['get-tags-count'],
   //   () => axios.get<ITag[]>('/api/tags/by-type/count'),
@@ -104,6 +102,7 @@ export function ProfileMain(props: ProfileMainProps) {
       {isLoading ? (
         <div className={'flex flex-col gap-4'}>
           <UserBigSkeleton />
+          <FriendsListSkeleton count={user.friends?.length} />
           <SkeletonLoader
             count={2}
             className={'h-10 w-full rounded-[50px]'}
@@ -112,20 +111,21 @@ export function ProfileMain(props: ProfileMainProps) {
             }
           />
           {/*Скелетон для списка друзей*/}
-          <SkeletonLoader
-            count={1}
-            className={''}
-            containerClassName={
-              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
-            }
-          />
-          <SkeletonLoader
-            count={2}
-            className={'h-10 w-full rounded-[50px]'}
-            containerClassName={
-              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
-            }
-          />
+
+          {/*<SkeletonLoader*/}
+          {/*  count={1}*/}
+          {/*  className={''}*/}
+          {/*  containerClassName={*/}
+          {/*    'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<SkeletonLoader*/}
+          {/*  count={2}*/}
+          {/*  className={'h-10 w-full rounded-[50px]'}*/}
+          {/*  containerClassName={*/}
+          {/*    'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'*/}
+          {/*  }*/}
+          {/*/>*/}
           <CardSkeleton count={3} />
         </div>
       ) : (
@@ -133,23 +133,18 @@ export function ProfileMain(props: ProfileMainProps) {
           <ProfileHead userProps={user} />
           <FriendsList
             list={user.friends}
+            loop={true}
+            slidesPerView={user.friends ? user.friends.length : undefined}
             arrows
             breakPoints={{
-              340: { slidesPerView: 2 },
-              400: { slidesPerView: 3 },
+              300: { slidesPerView: 3 },
+              400: { slidesPerView: 4 },
+              500: { slidesPerView: 5 },
+              700: { slidesPerView: 6 },
             }}
           />
         </>
       )}
-      <div className={styles.container}></div>
-
-      {/*{user && user.friends && (*/}
-      {/*  <Accordion title={'Друзья'}>*/}
-      {/*    {user.friends.map(user => (*/}
-      {/*      <UserCardSmall userProps={user} key={user.id} />*/}
-      {/*    ))}*/}
-      {/*  </Accordion>*/}
-      {/*)}*/}
 
       {!isLoading && <Tabs tabs={tabs} />}
     </>

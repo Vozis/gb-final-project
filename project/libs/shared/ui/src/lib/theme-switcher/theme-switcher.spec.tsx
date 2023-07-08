@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import FavoriteButton from './favorite-button';
+import ThemeSwitcher from './theme-switcher';
 
-describe('FavoriteButton', () => {
+describe('ThemeSwitcher', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<FavoriteButton />);
+    const { baseElement } = render(<ThemeSwitcher />);
     expect(baseElement).toBeTruthy();
   });
 });

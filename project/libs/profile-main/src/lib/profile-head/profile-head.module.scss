@@ -32,7 +32,7 @@
     z-index: 4;
 
     &_icon {
-      color: #949494;
+      color: var(--text-color-primary);
       font-size: 40px;
     }
   }
@@ -41,6 +41,7 @@
     //color: #5b5b5b;
     color: var(--modal-textColor);
 
+
     & li:not(:last-child) {
       margin-bottom: 12px;
     }
@@ -48,9 +49,18 @@
     &_item {
       align-items: center;
       display: flex;
+      font-size: var(--font-size-s);
+      height: 36px;
+      padding: 0 16px;
+      transition: background 0.2s ease-in-out;
+
+      &:hover {
+        background: rgba(0 0 0 / 0.08);
+      }
 
       &_icon {
-        font-size: 28px;
+        font-size: var(--font-size-l);
+        margin-right: 8px;
       }
     }
   }
