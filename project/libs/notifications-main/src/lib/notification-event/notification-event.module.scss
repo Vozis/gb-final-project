@@ -1,9 +1,11 @@
 .container {
   align-items: center;
+  //background-color: var(--bg-color);
   background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   gap: 10px;
-  max-width: 500px;
+  //max-width: 500px;
   padding: 10px;
   width: 100%;
 }
@@ -19,7 +21,7 @@
 }
 
 .span {
-  color: #2e6d9c;
+  color: var(--accent-color-blue);
   cursor: pointer;
 
   &:hover {

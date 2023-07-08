@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import NotificationsFriends from './notifications-friends';
+import NotificationFriend from './notification-friend';
 
 describe('NotificationsFriends', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<NotificationsFriends />);
+    const { baseElement } = render(<NotificationFriend />);
     expect(baseElement).toBeTruthy();
   });
 });

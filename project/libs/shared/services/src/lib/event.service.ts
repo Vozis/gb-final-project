@@ -80,4 +80,10 @@ export const EventService = {
 
     return res.then(data => data);
   },
+
+  async getForRating(id: number) {
+    const res = await axiosAuth.get<IEvent>(EventApi.getForRating(id));
+
+    return res.data;
+  },
 };

@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
-import { returnRatingObject } from './returnRatingObject';
+import { RatingSelect, returnRatingObject } from './returnRatingObject';
 import { UserService } from '../user/user.service';
 import { SearchRatingDto } from './dto/searchRatingDto';
 import { Prisma } from '@prisma/client';
@@ -14,7 +14,7 @@ export class RatingService {
     private readonly userService: UserService,
   ) {}
 
-  async getAll(searchRatingDto?: SearchRatingDto) {
+  async getAll(searchRatingDto?: SearchRatingDto): Promise<RatingSelect[]> {
     const ratingSearchFilter: Prisma.RatingWhereInput = searchRatingDto
       ? {
           [searchRatingDto.param]: {
@@ -46,7 +46,7 @@ export class RatingService {
   }
 
   async setRating(authorId: number, createRatingDto: CreateRatingDto) {
-    return await this.prisma.rating.upsert({
+    const rating = await this.prisma.rating.upsert({
       where: {
         compositeId: {
           eventId: createRatingDto.eventId,
@@ -76,9 +76,18 @@ export class RatingService {
       },
       select: returnRatingObject,
     });
+
+    const averageRating = await this.updateAverageUserRating(
+      createRatingDto.userId,
+    );
+
+    return {
+      rating,
+      averageRating,
+    };
   }
 
-  async getAverageUserRating(userId: number) {
+  async updateAverageUserRating(userId: number) {
     const { value } = await this.prisma.rating
       .aggregate({
         where: { userId },
@@ -88,8 +97,11 @@ export class RatingService {
       })
       .then(data => data._avg);
 
-    console.log(value);
-    return this.userService.updateAverageRating(userId, value);
+    const rating = await this.userService.updateAverageRating(userId, value);
+
+    return {
+      value: rating.averageRating,
+    };
   }
 
   async delete(id: number) {

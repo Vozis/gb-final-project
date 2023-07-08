@@ -130,6 +130,12 @@ export class EventController {
     return this.eventService.cancelEvent(eventId);
   }
 
+  @Auth()
+  @Get('for-rating/:id')
+  async getForRating(@Param('id', ParseIntPipe) id: number) {
+    return this.eventService.getForRating(id);
+  }
+
   // Admin routes ==============================================================
 
   @Auth()

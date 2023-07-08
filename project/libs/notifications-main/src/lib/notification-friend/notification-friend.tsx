@@ -1,14 +1,14 @@
 import { INotification } from '@project/shared/types';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
-import styles from './notifications-friends.module.scss';
+import styles from './notification-friend.module.scss';
 
 /* eslint-disable-next-line */
-export interface NotificationsFriendsProps {
+export interface NotificationFriendsProps {
   data: INotification;
 }
 
-export function NotificationsFriends(data: NotificationsFriendsProps) {
+export function NotificationFriend(data: NotificationFriendsProps) {
   // console.log('data: ', data);
   return (
     <>
@@ -45,4 +45,4 @@ export function NotificationsFriends(data: NotificationsFriendsProps) {
   );
 }
 
-export default NotificationsFriends;
+export default NotificationFriend;

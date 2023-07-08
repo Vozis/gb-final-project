@@ -2,7 +2,12 @@ import styles from './user-big.module.scss';
 import { HTMLAttributes } from 'react';
 import { IUser } from '@project/shared/types';
 import cn from 'clsx';
-import { Avatar, MaterialIcon, AvatarSize } from '@project/shared/ui';
+import {
+  Avatar,
+  AvatarSize,
+  MaterialIcon,
+  UserRating,
+} from '@project/shared/ui';
 import { useAuthRedux, useCheckUserStatus } from '@project/shared/hooks';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +24,7 @@ export function UserBig({
   const { user } = useAuthRedux();
   const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
+  console.log('average user raring', userProps.averageRating);
 
   return (
     <>
@@ -26,7 +32,21 @@ export function UserBig({
         to={isProfile ? '/profile' : `/users/${userProps.id}`}
         className={styles.container}
       >
-        <Avatar size={AvatarSize.L} imagePath={userProps.avatarPath} isOnline={isOnline} />
+        <Avatar
+          size={AvatarSize.L}
+          imagePath={userProps.avatarPath}
+          isOnline={isOnline}
+        />
+        <UserRating
+          initialValue={userProps.averageRating}
+          size={25}
+          SVGstyle={{ display: 'inline' }}
+          iconsCount={1}
+          showTooltip
+          readonly
+          tooltipDefaultText={String(userProps.averageRating)}
+          tooltipClassName={styles.rating_tooltip}
+        />
         <div className={styles.info} onClick={onClick}>
           <h2
             className={cn(styles.fullname)}

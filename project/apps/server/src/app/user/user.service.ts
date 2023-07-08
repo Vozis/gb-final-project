@@ -92,6 +92,7 @@ export class UserService {
         lastName: true,
         userName: true,
         avatarPath: true,
+        averageRating: true,
       },
     });
   }
@@ -496,6 +497,7 @@ export class UserService {
         userName: true,
         avatarPath: true,
         role: true,
+        averageRating: true,
         friends: {
           select: {
             id: true,
@@ -620,11 +622,22 @@ export class UserService {
     });
   }
 
+  async getAverageRating(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        authorRatings: true,
+      },
+    });
+  }
+
   async updateAverageRating(id: number, value: number) {
+    const { averageRating } = await this.getAverageRating(id);
+
     return this.prisma.user.update({
       where: { id },
       data: {
-        averageRating: value,
+        averageRating: value !== null ? value : averageRating,
       },
       select: returnUserObject,
     });

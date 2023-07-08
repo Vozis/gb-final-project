@@ -139,7 +139,7 @@ model Notifications {
 
 model Rating {
   id        Int      @id @default(autoincrement())
-  value     Int
+  value     Float
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

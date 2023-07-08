@@ -1,5 +1,11 @@
 import styles from './accordion.module.scss';
-import React, { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import clsx from 'clsx';
 import { MaterialIcon } from '@project/shared/ui';
 
@@ -9,11 +15,13 @@ export interface AccordionProps
   className?: string;
   title?: string;
   isActive?: boolean;
+  info?: string;
 }
 
 export const Accordion: FC<AccordionProps> = ({
   children,
   className,
+  info,
   title = '',
   isActive = false,
 }) => {
@@ -25,7 +33,7 @@ export const Accordion: FC<AccordionProps> = ({
     // console.log(isOpen);
   };
 
-  console.log(children);
+  // console.log(children);
 
   const setAtToStringAndPx = (value: number): string => {
     return value.toString() + 'px';
@@ -46,6 +54,7 @@ export const Accordion: FC<AccordionProps> = ({
     >
       <div className={styles.accordion__header} onClick={handleToggleAccordion}>
         <h3 className={styles.accordion__title}>{title}</h3>
+        <p className={''}>{info}</p>
         <MaterialIcon
           name={'MdKeyboardArrowDown'}
           className={styles.accordion__arrow}

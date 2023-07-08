@@ -10,6 +10,7 @@ export const returnUserObject: Prisma.UserSelect = {
   userName: true,
   role: true,
   avatarPath: true,
+  averageRating: true,
   friends: {
     select: {
       id: true,
@@ -54,6 +55,7 @@ export const returnHomeUserObject: Prisma.UserSelect = {
   role: true,
   avatarPath: true,
   creations: false,
+  averageRating: true,
   hobbies: {
     select: {
       id: true,
@@ -76,6 +78,7 @@ export const returnAuthUserObject: Prisma.UserSelect = {
   firstName: true,
   lastName: true,
   avatarPath: true,
+  averageRating: true,
   friends: {
     select: {
       id: true,
@@ -122,6 +125,7 @@ export const returnUserSingleEventObject: Prisma.UserSelect = {
   lastName: true,
   userName: true,
   avatarPath: true,
+  averageRating: true,
 };
 
 export const returnUserFullObject: Prisma.UserSelect = {
@@ -138,6 +142,7 @@ export const returnUserFullObject: Prisma.UserSelect = {
   hobbies: true,
   favorites: true,
   events: true,
+  averageRating: true,
 };
 
 export type UserSelect = Prisma.UserGetPayload<{

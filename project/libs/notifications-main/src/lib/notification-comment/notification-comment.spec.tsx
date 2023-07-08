@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import NotificationsComments from './notifications-comments';
+import NotificationComment from './notification-comment';
 
 describe('NotificationsComments', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<NotificationsComments />);
+    const { baseElement } = render(<NotificationComment />);
     expect(baseElement).toBeTruthy();
   });
 });

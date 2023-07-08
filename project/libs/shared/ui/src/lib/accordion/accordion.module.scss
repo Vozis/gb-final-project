@@ -7,15 +7,14 @@
 */
 
 .accordion {
-  margin-top: 18px;
+  //margin-top: 18px;
   //border: 1px solid pink;
 
   &__header {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
   }
 
   &__title {
@@ -25,24 +24,24 @@
 
 
   &__arrow {
-    font-size: 28px;
     color: #333333;
+    font-size: 28px;
   }
 
   &__content {
+    color: #333;
     max-height: 0;
     opacity: 0;
     transition: opacity 0.3s ease-in-out,
     max-height 0.3s 0.3s ease-in-out;
-    color: #333;
   }
 
 
 }
 
 .accordion__active_content-show {
-  opacity: 1;
   max-height: var(--content-height);
+  opacity: 1;
   transition: max-height 0.3s ease-in-out,
   opacity 0.3s 0.3s ease-in-out;
 

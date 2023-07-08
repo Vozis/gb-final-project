@@ -1,14 +1,15 @@
 import { INotification } from '@project/shared/types';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
-import styles from './notifications-events.module.scss';
+import styles from './notification-event.module.scss';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface NotificationsEventsProps {
   data: INotification;
 }
 
-export function NotificationsEvents(data: NotificationsEventsProps) {
+export function NotificationEvent(data: NotificationsEventsProps) {
   // console.log('data: ', data.data);
   return (
     <>
@@ -85,26 +86,41 @@ export function NotificationsEvents(data: NotificationsEventsProps) {
         </div>
       ) : (
         // EVENT_COMPLETE
-        <div className={styles.container}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
-          <p>
-            Ваш друг &nbsp;
-            <Link to={`/users/${data.data.user.id}`} className={styles.span}>
-              {data.data.user.firstName} {data.data.user.lastName}
-            </Link>
-            &nbsp;
-            <span> завершил событие &nbsp;</span>
-            <Link to={`/events/${data.data.sourceId}`} className={styles.span}>
-              {data.data.sourceData}
-            </Link>
-          </p>
-        </div>
+        ''
+        // <div className={styles.container}>
+        //   <span className={'text-sm'}>{item.name}</span>
+        //   <div className={'grow'}>
+        //     <Rating transition allowFraction SVGclassName={'inline h-8'} />
+        //   </div>
+        //   <Button
+        //     className={
+        //       'transition ease-in border-2 rounded-xl hover:bg-slate-50'
+        //     }
+        //     type={'button'}
+        //   >
+        //     Пропустить
+        //   </Button>
+        // </div>
+        // <div className={styles.container}>
+        //   <Avatar
+        //     imagePath={data.data.user.avatarPath}
+        //     className={styles.avatar}
+        //   />
+        //   <p>
+        //     Ваш друг &nbsp;
+        //     <Link to={`/users/${data.data.user.id}`} className={styles.span}>
+        //       {data.data.user.firstName} {data.data.user.lastName}
+        //     </Link>
+        //     &nbsp;
+        //     <span> завершил событие &nbsp;</span>
+        //     <Link to={`/events/${data.data.sourceId}`} className={styles.span}>
+        //       {data.data.sourceData}
+        //     </Link>
+        //   </p>
+        // </div>
       )}
     </>
   );
 }
 
-export default NotificationsEvents;
+export default NotificationEvent;
