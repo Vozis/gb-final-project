@@ -52,7 +52,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
           id: 'toggle-user',
         });
       },
-      onSuccess: async data => {
+      onSuccess: async ({ data }) => {
         // console.log(data.data);
         // queryClient.setQueryData(['get-single-event', event.id], data);
         await queryClient.invalidateQueries([
@@ -69,9 +69,14 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
         //   containerId: 1,
         //   toastId: 'toggle-user',
         // });
-        toast.success('Изменение статуса участия прошло успешно', {
-          id: 'toggle-user',
-        });
+        toast.success(
+          data.isParticipate
+            ? `Вы присоединились к событию "${data.name}"`
+            : `Вы отказались от участия в событии "${data.name}"`,
+          {
+            id: 'toggle-user',
+          },
+        );
       },
       onError: async (err: AxiosError<{ message: string }>) => {
         const error = errorCatch(err);
@@ -80,7 +85,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
           toast.error(
             'Свободные места закончились :( Попробуй поискать что-нибудь еще',
             {
-              id: 'link-join-error',
+              id: 'toggle-user',
             },
           );
           // toast.error(
@@ -99,7 +104,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
           //   containerId: 1,
           // });
           toast.error('На это время уже запланировано событие', {
-            id: 'link-join-error',
+            id: 'toggle-user',
           });
           await queryClient.cancelQueries(['toggle-user-to-event']);
           // await queryClient.invalidateQueries(['get-single-event']);

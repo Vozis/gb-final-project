@@ -37,7 +37,7 @@ export const UserService = {
   },
 
   async toggleFriend(data: IToggle) {
-    return axiosAuth.put(UserApi.toggle, data);
+    return axiosAuth.put<IUser>(UserApi.toggle, data);
   },
 
   async resetPassword(data: IResetPassword) {

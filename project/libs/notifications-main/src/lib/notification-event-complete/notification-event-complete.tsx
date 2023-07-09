@@ -69,12 +69,9 @@ export function NotificationEventComplete({
         });
       },
       onSuccess: async data => {
-        toast.success(
-          `Ваш рейтинг для пользователя ${data.data.user.firstName} ${data.data.user.lastName} принят :)`,
-          {
-            id: 'set-rating-movie',
-          },
-        );
+        toast.success(`Ваш рейтинг для пользователя принят :)`, {
+          id: 'set-rating-movie',
+        });
         setIsSended(true);
         await queryClient.invalidateQueries([
           'get-single-user',

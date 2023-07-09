@@ -3,7 +3,6 @@ import {
   useAuthRedux,
   useModal,
   useNotificationState,
-  useTheme,
 } from '@project/shared/hooks';
 import { Badge, Button, MaterialIcon, ThemeSwitcher } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
@@ -46,12 +45,14 @@ export function Header(props: HeaderProps) {
       );
     }
   }, [isShowSettingModal]); //new modal
+
   useEffect(() => {
     if (headerRef.current) {
       const header = headerRef.current;
       let prevScroll: number = window.pageYOffset;
       let currentScroll = undefined;
-      window.addEventListener('scroll', () => {
+
+      const scrollEffect = () => {
         currentScroll = window.pageYOffset;
         const headerHidden = () =>
           header.classList?.contains(styles.header_hidden);
@@ -62,9 +63,16 @@ export function Header(props: HeaderProps) {
           header.classList.remove(styles.header_hidden);
         }
         prevScroll = currentScroll;
-      });
+      };
+
+      window.addEventListener('scroll', scrollEffect);
+
+      return () => {
+        window.removeEventListener('scroll', scrollEffect);
+      };
     }
   }, []);
+
   return (
     <header
       ref={headerRef}

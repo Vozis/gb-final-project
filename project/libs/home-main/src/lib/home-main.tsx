@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 import cn from 'clsx';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, MailService } from '@project/shared/services';
+import { toast } from 'react-hot-toast';
+import { errorCatch } from '@project/shared/utils';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
@@ -28,8 +30,26 @@ export function HomeMain(props: HomeMainProps) {
   //   getProfile();
   // }, []);
 
-  const { mutateAsync } = useMutation(['resend-confirmation-link'], () =>
-    MailService.resendConfirmationLink(),
+  const { mutateAsync, isLoading: isMutateLoading } = useMutation(
+    ['resend-confirmation-link'],
+    () => MailService.resendConfirmationLink(),
+    {
+      onMutate: () => {
+        toast.loading('Отправка нового подтверждения...', {
+          id: 'resend-confirmation-email',
+        });
+      },
+      onSuccess: () => {
+        toast.success('Успешно отправлено, проверьте почту :)', {
+          id: 'resend-confirmation-email',
+        });
+      },
+      onError: error => {
+        toast.error(errorCatch(error), {
+          id: 'resend-confirmation-email',
+        });
+      },
+    },
   );
 
   const {
@@ -68,6 +88,12 @@ export function HomeMain(props: HomeMainProps) {
     },
   );
 
+  const handleConfirmEmailLink = async () => {
+    console.log('click');
+
+    await mutateAsync();
+  };
+
   // console.log('isEvent: ', isEvent);
 
   return (
@@ -99,12 +125,15 @@ export function HomeMain(props: HomeMainProps) {
             <p>
               Для создания события необходимо подтвердить email. Проверьте свою
               почту или{' '}
-              <span
-                onClick={() => mutateAsync()}
-                className={'text-blue-500 underline '}
+              <button
+                onClick={handleConfirmEmailLink}
+                className={cn('text-blue-500 underline cursor-pointer', {
+                  ['text-gray-500 cursor-wait']: isMutateLoading,
+                })}
+                disabled={isMutateLoading}
               >
                 отправьте новый запрос
-              </span>
+              </button>
             </p>
           )}
         </div>
