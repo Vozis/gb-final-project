@@ -3,24 +3,22 @@
 //@import "libs/shared/styles/themes/normal";
 
 .header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  //background: #fff;
   background: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   border-radius: 15px 15px 0 0;
   bottom: 0;
-  //box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
-  //color: var(--primary-color);
-  display: flex;
-  justify-content: space-between;
   left: 0;
   padding: 10px;
   position: fixed;
   right: 0;
-  //transition-duration: 1s;
   z-index: 100;
   font-size: 14px;
+  transition: 500ms;
 }
+
 
 .on_active_link {
   display: flex;
@@ -45,11 +43,16 @@
 @media (min-width: 500px) {
   .header {
     border-radius: 0;
-    bottom: 0;
+    //bottom: 0;
     margin: 0 auto;
-    position: relative;
+    //position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     justify-content: center;
     gap: 5px;
+  }
+  .header_hidden {
+    transform: translateY(-100%);
   }
 }

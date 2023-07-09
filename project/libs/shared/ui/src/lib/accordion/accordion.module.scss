@@ -24,7 +24,8 @@
 
 
   &__arrow {
-    color: #333333;
+    //color: #333333;
+    color: var(--primary-color);
     font-size: 28px;
   }
 

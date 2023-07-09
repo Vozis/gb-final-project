@@ -3,7 +3,6 @@ import {
   useAuthRedux,
   useModal,
   useNotificationState,
-  useTheme,
 } from '@project/shared/hooks';
 import { Badge, Button, MaterialIcon, ThemeSwitcher } from '@project/shared/ui';
 import { useEffect, useRef, useState } from 'react';
@@ -26,6 +25,7 @@ const setActive = ({ isActive }: { isActive: any }) =>
 
 export function Header(props: HeaderProps) {
   const [isShowSettingModal, handleToggleSettingModal] = useModal(false); // new modal
+  const headerRef = useRef<HTMLDivElement>(null);
   const { user } = useAuthRedux();
   const location = useLocation();
 
@@ -46,8 +46,36 @@ export function Header(props: HeaderProps) {
     }
   }, [isShowSettingModal]); //new modal
 
+  useEffect(() => {
+    if (headerRef.current) {
+      const header = headerRef.current;
+      let prevScroll: number = window.pageYOffset;
+      let currentScroll = undefined;
+
+      const scrollEffect = () => {
+        currentScroll = window.pageYOffset;
+        const headerHidden = () =>
+          header.classList?.contains(styles.header_hidden);
+        if (currentScroll > prevScroll && !headerHidden()) {
+          header.classList.add(styles.header_hidden);
+        }
+        if (currentScroll < prevScroll && headerHidden()) {
+          header.classList.remove(styles.header_hidden);
+        }
+        prevScroll = currentScroll;
+      };
+
+      window.addEventListener('scroll', scrollEffect);
+
+      return () => {
+        window.removeEventListener('scroll', scrollEffect);
+      };
+    }
+  }, []);
+
   return (
     <header
+      ref={headerRef}
       className={clsx(styles.header, {
         // [`${styles.header} ${styles.dark}`]: theme === 'dark',
         // [`${styles.header} ${styles.light}`]: theme === 'light',

@@ -127,13 +127,11 @@ export const Card: FC<CardProps> = ({ event }) => {
         <Link to={`/events/${event.id}`} className={styles.card__title}>
           {event.name}
         </Link>
-        {event._count.users && (
-          <p className={'text-white'}>
-            {event._count.users < event.peopleCount &&
-              `осталось ${event.peopleCount - event._count.users} мест`}
-            {event._count.users === event.peopleCount && `нет мест`}
-          </p>
-        )}
+        <p className={'text-white'}>
+          {event._count.users < event.peopleCount &&
+            `осталось ${event.peopleCount - event._count.users} мест`}
+          {event._count.users === event.peopleCount && `нет мест`}
+        </p>
         <p className={'text-white'}>
           {moment(event.eventTime).format('MMMM Do YYYY, h:mm a')}
         </p>

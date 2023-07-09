@@ -29,11 +29,14 @@
 .containerContent {
   margin-top: 20px;
   padding: 0 20px;
+
 }
 
 @media (min-width: 992px) {
   .layout > main {
     min-width: auto;
+    width: 100%;
+
 
   }
   .containerContent {
@@ -45,6 +48,8 @@
 @media (min-width: 1200px) {
   .layout > main {
     min-width: auto;
+    width: 100%;
+    //outline: 1px solid tomato;
 
   }
   .containerContent {

@@ -84,18 +84,28 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
     ['toggle-friend-event'],
     (data: IToggle) => UserService.toggleFriend(data),
     {
+      onMutate: () => {
+        // toast.loading('Добавление в подписки...', {
+        //   id: 'toggle-friend',
+        // });
+      },
       onError: error => {
         toast.error(errorCatch(error), {
-          id: 'toggle-friend-error',
+          id: 'toggle-friend',
         });
       },
-      onSuccess: async () => {
+      onSuccess: async ({ data }) => {
         getProfile();
+        console.log(data.friends);
         await queryClient.invalidateQueries(['get-single-user']);
-        // toast.success('Статус друга успешно изменен', {
-        //   toastId: 'toggle-friend-success',
-        //   containerId: 1,
-        // });
+        toast.success(
+          data.friends && data.friends.some(user => user.id === userProps.id)
+            ? `Пользователь ${userProps.firstName} добавлен в подписки`
+            : `Пользователь ${userProps.firstName} удален из подписок`,
+          {
+            id: 'toggle-friend',
+          },
+        );
       },
     },
   );

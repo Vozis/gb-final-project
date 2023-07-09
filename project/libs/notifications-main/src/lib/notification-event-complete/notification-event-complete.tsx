@@ -69,12 +69,9 @@ export function NotificationEventComplete({
         });
       },
       onSuccess: async data => {
-        toast.success(
-          `Ваш рейтинг для пользователя ${data.data.user.firstName} ${data.data.user.lastName} принят :)`,
-          {
-            id: 'set-rating-movie',
-          },
-        );
+        toast.success(`Ваш рейтинг для пользователя принят :)`, {
+          id: 'set-rating-movie',
+        });
         setIsSended(true);
         await queryClient.invalidateQueries([
           'get-single-user',
@@ -123,6 +120,7 @@ export function NotificationEventComplete({
                   </p>
                 </Link>
                 <Rating
+                  size={25}
                   transition
                   allowFraction
                   SVGclassName={'inline h-8'}
@@ -173,9 +171,7 @@ export function NotificationEventComplete({
               </Accordion>
             </div>
             <Button
-              className={
-                'transition ease-in border-2 rounded-xl hover:bg-slate-50'
-              }
+              className={`${styles.button} transition ease-in  rounded-xl`}
               type={'button'}
               onClick={handleSkip}
             >
