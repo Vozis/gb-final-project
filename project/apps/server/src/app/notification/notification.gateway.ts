@@ -56,6 +56,8 @@ export class NotificationGateway {
       count: data.count,
     });
 
+    // console.log('success');
+
     return data;
   }
 
@@ -82,7 +84,7 @@ export class NotificationGateway {
   // Events Events =============================================================
   @OnEvent(ENotificationType.CreateEventNote, { async: true })
   async handleEventCreate(eventCreate: EventSelect) {
-    console.log('start create event notification');
+    // console.log('start create event notification');
 
     const userFriends = await this.userService.findUsersWhereFriends(
       eventCreate.creator.id,
@@ -94,7 +96,7 @@ export class NotificationGateway {
         sourceId: eventCreate.id,
         type: NotificationType.EVENT_CREATE,
         status: NotificationStatus.SENT,
-        text: `User ${eventCreate.creator.lastName} created new event ${eventCreate.name}`,
+        text: `Пользователь ${eventCreate.creator.firstName} ${eventCreate.creator.lastName} создал событие "${eventCreate.name}":`,
       };
 
       const notification =
@@ -124,7 +126,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.UpdateEventNote, { async: true })
   async handleEventUpdate(eventUpdate: EventSelect) {
-    console.log('start update event notification');
+    // console.log('start update event notification');
     // const updatedEvent = await this.eventService.getById(event.id);
 
     for (const participant of eventUpdate.users.filter(
@@ -135,7 +137,7 @@ export class NotificationGateway {
         sourceId: eventUpdate.id,
         type: NotificationType.EVENT_UPDATE,
         status: NotificationStatus.SENT,
-        text: `Event ${eventUpdate.name} was updated`,
+        text: `В событии "${eventUpdate.name}" появились изменения. Не пропустите!:`,
       };
 
       const notification =
@@ -163,7 +165,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.CompleteEventNote, { async: true })
   async handleEventComplete(eventComplete: EventSelect) {
-    console.log('start complete event notification');
+    // console.log('start complete event notification');
     // const completeEvent = await this.eventService.getById(event.id);
 
     for (const participant of eventComplete.users) {
@@ -172,7 +174,7 @@ export class NotificationGateway {
         sourceId: eventComplete.id,
         type: NotificationType.EVENT_COMPLETE,
         status: NotificationStatus.SENT,
-        text: `Event ${eventComplete.name} CLOSED. Please estimate it`,
+        text: `Событие "${eventComplete.name}" завершено. Оцените участников события:`,
       };
 
       const notification =
@@ -200,7 +202,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.ParticipateEventNote, { async: true })
   async handleEventParticipate(data: EventParticipateNotification) {
-    console.log('start event-participate notification');
+    // console.log('start event-participate notification');
 
     const userFriends = await this.userService.findUsersWhereFriends(data.id);
     const user = await this.userService.getById(data.id);
@@ -211,7 +213,7 @@ export class NotificationGateway {
         sourceId: data.event.id,
         type: NotificationType.EVENT_PARTICIPATE,
         status: NotificationStatus.SENT,
-        text: `${data.id} join the event ${data.event.name}`,
+        text: `${user.firstName} ${user.lastName} присоединился к событию "${data.event.name}":${data.id} `,
       };
 
       const notification =
@@ -241,7 +243,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.LeaveEventNote, { async: true })
   async handleEventLeave(data: EventParticipateNotification) {
-    console.log('start event-leave notification');
+    // console.log('start event-leave notification');
 
     const userFriends = await this.userService.findUsersWhereFriends(data.id);
 
@@ -253,7 +255,7 @@ export class NotificationGateway {
         sourceId: data.event.id,
         type: NotificationType.EVENT_LEAVE,
         status: NotificationStatus.SENT,
-        text: `${data.id} leave the event ${data.event.name}`,
+        text: `${user.firstName} ${user.lastName} покинул событие "${data.event.name}":${data.id}`,
       };
 
       // console.log(leaveEventNotification);
@@ -287,7 +289,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.CreateCommentNote, { async: true })
   async handleCreateComment(commentCreate: CommentSelect) {
-    console.log('start create comment notification');
+    // console.log('start create comment notification');
     // const eventWithNewComment = await this.eventService.getById(
     //   newComment.eventId,
     // );
@@ -298,7 +300,7 @@ export class NotificationGateway {
         sourceId: commentCreate.id,
         type: NotificationType.COMMENT_CREATE,
         status: NotificationStatus.SENT,
-        text: `User ${commentCreate.author.lastName} create a comment for event ${commentCreate.event.name}`,
+        text: `Пользователь ${commentCreate.author.lastName} создал новый комментарий для события "${commentCreate.event.name}":`,
       };
       const commentCreateNotification =
         await this.notificationService.createOnlyNotification(createCommentDto);
@@ -391,7 +393,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.AddFriendNote, { async: true })
   async handleAddFriend(data: FriendsNotification) {
-    console.log('start add friend notification');
+    // console.log('start add friend notification');
 
     // const user = await this.userService.getById(data.id);
 
@@ -400,7 +402,7 @@ export class NotificationGateway {
       sourceId: data.user.id,
       type: NotificationType.FRIEND_ADD,
       status: NotificationStatus.SENT,
-      text: `User ${data.user.lastName} add you to friends`,
+      text: `Пользователь ${data.user.lastName} подписался на Вас:`,
     };
 
     const friendAddNotification =
@@ -426,7 +428,7 @@ export class NotificationGateway {
 
   @OnEvent(ENotificationType.RemoveFriendNote, { async: true })
   async handleRemoveFriend(data: FriendsNotification) {
-    console.log('start remove friend notification');
+    // console.log('start remove friend notification');
 
     // const user = await this.userService.getById(data.id);
 
@@ -435,7 +437,7 @@ export class NotificationGateway {
       sourceId: data.user.id,
       type: NotificationType.FRIEND_REMOVE,
       status: NotificationStatus.SENT,
-      text: `User ${data.user.lastName} remove you from friends`,
+      text: `Пользователь ${data.user.lastName} удалил Вас из подписок:`,
     };
 
     const friendRemoveNotification =

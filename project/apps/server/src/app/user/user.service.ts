@@ -271,7 +271,6 @@ export class UserService {
         creations,
         favorites,
         events,
-        // userRating
       };
     } else {
       return _user;
