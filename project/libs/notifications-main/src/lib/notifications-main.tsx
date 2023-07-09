@@ -2,21 +2,21 @@ import { useActions, useNotificationState } from '@project/shared/hooks';
 import { List } from '@project/shared/ui';
 import React from 'react';
 import NotificationComment from './notification-comment/notification-comment';
+import NotificationEventComplete from './notification-event-complete/notification-event-complete';
 import NotificationEvent from './notification-event/notification-event';
 import NotificationFriend from './notification-friend/notification-friend';
-import NotificationEventComplete from './notification-event-complete/notification-event-complete';
 
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
   const { notifications, count } = useNotificationState();
-  console.log(
-    'notifications: ',
-    notifications.filter(item => item.type === 'EVENT_COMPLETE'),
-  );
+  // console.log(
+  //   'notifications: ',
+  //   notifications.filter(item => item.type === 'EVENT_COMPLETE'),
+  // );
 
-  const notiEvents = notifications.filter(item => item.type.match(/FRIEND/));
+  // const notiEvents = notifications.filter(item => item.type.match(/FRIEND/));
   // console.log('notiEvents: ', notiEvents);
 
   // const index = notifications.map(item => item.type.match(/EVENT/) !== null);

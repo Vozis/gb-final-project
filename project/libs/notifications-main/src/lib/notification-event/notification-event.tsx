@@ -1,8 +1,13 @@
 import { INotification } from '@project/shared/types';
-import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
+import { Link } from 'react-router-dom';
 import styles from './notification-event.module.scss';
-import React from 'react';
+import { TbCalendarEvent } from 'react-icons/tb';
+import {
+  MdOutlineEventAvailable,
+  MdOutlineEventBusy,
+  MdOutlineEventNote,
+} from 'react-icons/md';
 
 /* eslint-disable-next-line */
 export interface NotificationsEventsProps {
@@ -15,10 +20,13 @@ export function NotificationEvent(data: NotificationsEventsProps) {
     <>
       {data.data.type === 'EVENT_PARTICIPATE' ? (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <MdOutlineEventAvailable className={styles.infoIcon} />
+          </div>
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>
@@ -33,10 +41,13 @@ export function NotificationEvent(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_CREATE' ? (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <TbCalendarEvent className={styles.infoIcon} />
+          </div>
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>
@@ -50,10 +61,13 @@ export function NotificationEvent(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_LEAVE' ? (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <MdOutlineEventBusy className={styles.infoIcon} />
+          </div>
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>
@@ -68,10 +82,13 @@ export function NotificationEvent(data: NotificationsEventsProps) {
         </div>
       ) : data.data.type === 'EVENT_UPDATE' ? (
         <div className={styles.container}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <MdOutlineEventNote className={styles.infoIcon} />
+          </div>
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>

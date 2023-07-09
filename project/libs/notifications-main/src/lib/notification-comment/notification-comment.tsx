@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
 import styles from './notification-comment.module.scss';
 import React from 'react';
+import { FaRegComment } from 'react-icons/fa6';
 
 /* eslint-disable-next-line */
 export interface NotificationsCommentsProps {
@@ -15,11 +16,12 @@ export function NotificationComment(data: NotificationsCommentsProps) {
     <>
       {data.data.type === 'COMMENT_CREATE' ? (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <div className={'relative'}>
+          <div className={styles.avatar_space}>
             <Avatar
               imagePath={data.data.user.avatarPath}
               className={styles.avatar}
             />
+            <FaRegComment className={styles.infoIcon} />
           </div>
           <p>
             Ваш друг &nbsp;
@@ -38,10 +40,13 @@ export function NotificationComment(data: NotificationsCommentsProps) {
       ) : (
         // EVENT_COMPLETE
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <FaRegComment className={styles.infoIcon} />
+          </div>
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>
