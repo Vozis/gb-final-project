@@ -12,6 +12,7 @@ import {
 } from '@project/shared/ui';
 import React from 'react';
 import { useSingleUser } from './useSingleUser';
+import styles from './single-user-main.module.scss';
 
 /* eslint-disable-next-line */
 export interface SingleUserMainProps {}
@@ -28,12 +29,19 @@ export function SingleUserMain(props: SingleUserMainProps) {
     {
       id: '1',
       label: 'Мои события',
-      content: <CardList list={userData?.creations || []} />,
+      content: (
+        <CardList
+          className={styles.tabs_list}
+          list={userData?.creations || []}
+        />
+      ),
     },
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={userData?.events || []} />,
+      content: (
+        <CardList className={styles.tabs_list} list={userData?.events || []} />
+      ),
     },
   ];
 

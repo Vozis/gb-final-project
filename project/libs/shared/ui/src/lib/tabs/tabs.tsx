@@ -47,7 +47,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
 
   return (
     <>
-      <ul className={clsx(styles.tabs, className)}>
+      <ul className={clsx(styles.tabs, [className])}>
         {tabs &&
           tabs.map((tab, index) => (
             <motion.li

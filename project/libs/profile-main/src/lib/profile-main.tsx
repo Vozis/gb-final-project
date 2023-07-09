@@ -55,6 +55,7 @@ export function ProfileMain(props: ProfileMainProps) {
   const { myEvents, participationArr, isLoading, isSuccess } = useUserEvents(
     user.id,
   );
+  console.log(myEvents);
 
   const tabs: ITab[] = [
     {
@@ -114,12 +115,12 @@ export function ProfileMain(props: ProfileMainProps) {
           <CardSkeleton count={3} />
         </div>
       ) : (
-        <div>
+        <>
           <ProfileHead userProps={user} />
           <div className={styles.contentWrapper}>
             <FriendsList
+              className={styles.friends__list}
               list={user.friends}
-              loop={true}
               slidesPerView={user.friends ? user.friends.length : undefined}
               arrows
               breakPoints={{
@@ -127,11 +128,16 @@ export function ProfileMain(props: ProfileMainProps) {
                 400: { slidesPerView: 4 },
                 500: { slidesPerView: 5 },
                 700: { slidesPerView: 6 },
+                1200: { slidesPerView: 5 },
               }}
             />
-            {!isLoading && <Tabs tabs={tabs} />}
+            {!isLoading && (
+              <div className={styles.profile_tabs}>
+                <Tabs tabs={tabs} />
+              </div>
+            )}
           </div>
-        </div>
+        </>
       )}
     </>
   );

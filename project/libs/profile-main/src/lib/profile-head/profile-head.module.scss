@@ -1,4 +1,4 @@
-@import "libs/shared/styles/themes/dark";
+//@import "libs/shared/styles/themes/dark";
 
 .visuallyHidden {
   border: 0;
@@ -19,6 +19,7 @@
   display: flex;
   position: relative;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .profile {
@@ -39,7 +40,6 @@
   }
 
   &__settingsList {
-    //color: #5b5b5b;
     color: var(--modal-textColor);
 
 
@@ -86,7 +86,5 @@
       font-size: 20px;
     }
   }
-
-
 }
 

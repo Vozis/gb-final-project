@@ -18,6 +18,7 @@ export interface FriendsListProps {
   slidesPerView?: number | 'auto';
   breakPoints?: { [p: number]: SwiperOptions };
   injectStyles?: string[];
+  disabledClass?: string;
 }
 
 export function FriendsList({
@@ -30,9 +31,16 @@ export function FriendsList({
 }: FriendsListProps) {
   const prevArrowRef = useRef<HTMLButtonElement>(null);
   const nextArrowRef = useRef<HTMLButtonElement>(null);
+  // const buttonsRef = useRef<HTMLButtonElement[]>([]);
 
   useEffect(() => {
+    // if (buttonsRef.current) {
+    //   const buttonsBox = buttonsRef.current;
+    //   console.log(buttonsBox);
+    // }
+
     if (prevArrowRef.current && nextArrowRef.current) {
+      // const btnDisabled =
       const disabled: boolean =
         prevArrowRef.current.hasAttribute('disabled') ||
         nextArrowRef.current.hasAttribute('disabled');
@@ -51,9 +59,9 @@ export function FriendsList({
       }
     }
   };
-  console.log(prevArrowRef.current);
+  // console.log(prevArrowRef.current);
   return (
-    <div className={styles.friends__list}>
+    <div className={clsx(styles.friends__list, [className])}>
       <Heading className={styles.title}>Список друзей</Heading>
       <Swiper
         onBeforeInit={onBeforeInit}
@@ -70,10 +78,11 @@ export function FriendsList({
             ))
           : 'нет друзей'}
         {arrows && (
-          <>
+          <div className={styles.buttons}>
             <button
               className={clsx(styles.Slider__btn, styles.Slider__btn_left, {
-                // [styles.Slider__btn_disabled]: disabled,
+                // [styles.disabled]:
+                // prevArrowRef?.current?.hasAttribute('disabled'),
               })}
               ref={prevArrowRef}
             >
@@ -88,7 +97,7 @@ export function FriendsList({
             >
               <MaterialIcon name={'MdKeyboardArrowRight'} />
             </button>
-          </>
+          </div>
         )}
       </Swiper>
     </div>

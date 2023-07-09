@@ -12,16 +12,17 @@
 .Slider__btn {
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   color: #2e6d9c;
   font-size: 30px;
   z-index: 10;
   padding: 8px;
 }
 
-.Slider__btn_disabled {
+.disabled {
   color: #9D9D9D;
+  background-color: #4bb34b;
+  border: 1px solid tomato;
 }
 
 .Slider__btn_left {
@@ -31,4 +32,5 @@
 .Slider__btn_right {
   right: 0;
 }
+
 /*# sourceMappingURL=friends-list.module.css.map */
