@@ -1,14 +1,16 @@
 .container {
   //background-color: var(--bg-color);
-  background-color: #fff;
+  //background-color: #fff;
+  background-color: var(--components-bg-color);
   border-bottom: 1px solid var(--border-color);
   //max-width: 500px;
   display: flex;
   flex-direction: column;
   //align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 20px 15px;
   width: 100%;
+  border-radius: var(--border-radius-m);
 }
 
 .content {
@@ -19,9 +21,9 @@
 }
 
 .avatar {
-  height: 40px;
+  height: 50px;
   margin-right: 10px;
-  width: 40px;
+  width: 50px;
 }
 
 .title {
@@ -34,5 +36,14 @@
 
   &:hover {
     color: blue;
+  }
+}
+
+.button {
+  border: 2px solid var(--accent-color-grey);
+  color: var(--primary-color);
+
+  &:hover {
+    background-color: var(--accent-color-grey);
   }
 }
