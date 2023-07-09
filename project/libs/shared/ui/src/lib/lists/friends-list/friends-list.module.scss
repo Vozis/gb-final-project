@@ -24,14 +24,19 @@
 
 .Slider {
   &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: #2e6d9c;
-    font-size: 30px;
+    color: var(--accent-color-blue);
+    font-size: 32px;
     z-index: 10;
-    padding: 8px;
-
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: rgba(41 41 41 / 0.55);
 
     &_disabled {
       color: #9D9D9D;
@@ -49,6 +54,7 @@
 
 
 }
+
 
 
 
