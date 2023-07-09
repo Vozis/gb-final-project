@@ -19,6 +19,10 @@ export class NotificationService {
   ) {}
 
   async getUserNotifications(id: number) {
+    // console.log('getAllUserNotifications');
+
+    // console.log('id: ', id);
+
     const [notifications, count] = await this.prisma.$transaction([
       this.prisma.notifications.findMany({
         where: {
@@ -57,7 +61,7 @@ export class NotificationService {
             const eventCreate = await this.eventService.getById(
               notification.sourceId,
             );
-            // console.log('eventCreate', eventCreate);
+            // console.log('eventCreate', eventCreate.name);
 
             const eventCreateNotification: INotificationResponse = {
               id: notification.id,
@@ -84,13 +88,14 @@ export class NotificationService {
               text: notification.text,
               createdAt: notification.createdAt,
             };
+            // console.log(eventUpdateNotification);
             return eventUpdateNotification;
           case 'EVENT_COMPLETE':
             // console.log('event_complete');
             const eventComplete = await this.eventService.getById(
               notification.sourceId,
             );
-            // console.log('eventComplete', eventComplete);
+            // console.log('eventComplete', eventComplete.name);
             const eventCompleteNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
@@ -125,7 +130,9 @@ export class NotificationService {
             const eventParticipate = await this.eventService.getById(
               notification.sourceId,
             );
-            const userId = notification.text.split(' ')[0];
+            const userId = notification.text.split(':')[1];
+
+            // console.log('EVENT_PARTICIPATE id: ', userId);
             const user = await this.userService.getById(+userId);
 
             const eventParticipateNotification: INotificationResponse = {
@@ -143,7 +150,9 @@ export class NotificationService {
             const eventLeave = await this.eventService.getById(
               notification.sourceId,
             );
-            const _userId = notification.text.split(' ')[0];
+            const _userId = notification.text.split(':')[1];
+
+            // console.log('EVENT_LEAVE id: ', _userId);
             const _user = await this.userService.getById(+_userId);
 
             const eventLeaveNotification: INotificationResponse = {
@@ -176,9 +185,11 @@ export class NotificationService {
 
             return commentReplyNotification;
           case 'FRIEND_ADD':
+            // console.log('friend_add');
             const userFriend = await this.userService.getById(
               notification.sourceId,
             );
+            // console.log('friend_add_user: ', userFriend.firstName);
             const friendAddNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,
@@ -190,9 +201,11 @@ export class NotificationService {
             };
             return friendAddNotification;
           case 'FRIEND_REMOVE':
+            // console.log('friend_remove');
             const _userFriend = await this.userService.getById(
               notification.sourceId,
             );
+            // console.log('friend_remove_user: ', _userFriend.firstName);
             const friendRemoveNotification: INotificationResponse = {
               id: notification.id,
               type: notification.type,

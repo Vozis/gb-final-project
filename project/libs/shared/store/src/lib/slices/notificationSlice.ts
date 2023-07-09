@@ -44,7 +44,7 @@ const notificationSlice = createSlice({
       //   toastId: 'get-notification',
       //   containerId: 1,
       // });
-      toast.success(action.payload.notification.text, {
+      toast.success(action.payload.notification.text.split(':')[0], {
         id: 'get-notification',
       });
     },

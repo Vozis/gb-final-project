@@ -123,7 +123,7 @@ export class SocketGateway
     client.leave(userId);
 
     _.remove(onlineUsers[+userId], item => item === client.id);
-    if (onlineUsers[+userId].length === 0) {
+    if (onlineUsers[+userId] && onlineUsers[+userId].length === 0) {
       console.log(`user ${userId} offline`);
       this.server.emit('removeOnlineUser', userId);
       delete onlineUsers[+userId];

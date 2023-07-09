@@ -5,6 +5,8 @@ import { IOption, IUpdateEvent } from '@project/shared/types';
 import { EventService, TagService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 // import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 import { errorCatch, getKeys } from '@project/shared/utils';
 import {
   Button,
@@ -22,6 +24,7 @@ export interface UpdateEventFormProps {
 export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
   const queryClient = useQueryClient();
   const [eventUpdate, setEventUpdate] = useState<IUpdateEvent>({});
+  const navigate = useNavigate();
 
   const {
     register,
@@ -66,7 +69,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
   );
 
   useEffect(() => {
-    console.log('eventUpdate: ', eventUpdate);
+    // console.log('eventUpdate: ', eventUpdate);
 
     getKeys(eventUpdate).forEach(key => {
       setValue(key, eventUpdate[key]);
@@ -189,6 +192,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
     }
 
     await mutateAsync(formData);
+    navigate(-1);
   };
 
   return (
