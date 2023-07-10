@@ -122,6 +122,8 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
     }
   };
 
+  // console.log('isParticipate: ', event.isParticipate);
+
   return (
     <Button
       type={'button'}

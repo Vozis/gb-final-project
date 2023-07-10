@@ -79,7 +79,7 @@ export class EventController {
 
   @Auth()
   @Get('by-user/:id')
-  async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
+  async getUserEvents(@User('id') id: number) {
     return this.eventService.getUserEvents(id);
   }
 

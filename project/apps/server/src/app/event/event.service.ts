@@ -409,7 +409,7 @@ export class EventService {
     });
   }
 
-  async getUserEvents(userId: number): Promise<EventSelect[]> {
+  async getUserEvents(userId: number) {
     const eventsSearchFilter: Prisma.EventWhereInput = {
       OR: [
         {
@@ -427,13 +427,26 @@ export class EventService {
       ],
     };
 
-    return this.prisma.event.findMany({
+    const result = await this.prisma.event.findMany({
       where: eventsSearchFilter,
-      select: returnEventObject,
       orderBy: {
         eventTime: 'desc',
       },
+      select: {
+        ...returnEventObject,
+        isParticipate: true,
+      },
     });
+
+    result.forEach(item => {
+      if (item.users.some(user => user.id === userId)) {
+        item.isParticipate = true;
+      } else {
+        item.isParticipate = false;
+      }
+    });
+
+    return result;
   }
 
   // async getByUserTags(id: number): Promise<EventSelect[]> {
