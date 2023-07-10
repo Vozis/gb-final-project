@@ -22,7 +22,7 @@
     height: 38px;
     padding: 0;
     position: absolute;
-    right: 12px;
+    right: 10px;
     top: 16px;
     width: 38px;
     z-index: 1000;
@@ -76,9 +76,9 @@
     color: #f8f8f8;
     display: block;
     font-family: 'Roboto', sans-serif;
+    margin-right: 15px;
 
     font-size: 20px;
-    margin-right: 50px;
     text-decoration: none;
     @media (min-width: 1200px) {
       font-size: v.$text-2xl;
@@ -100,6 +100,25 @@
   }
 }
 
+.cardHeader {
+  display: flex;
+  align-items: center;
+}
+
+.cardDate {
+  align-self: flex-start;
+  display: flex;
+  padding: 7px;
+  border-radius: 12px;
+  background-color: var(--accent-info-color);
+}
+
+.countInfo {
+  align-self: flex-start;
+  padding: 8px;
+  border-radius: 12px;
+  background-color: var(--accent-color-red);
+}
 
 //.card {
 //  box-sizing: border-box;

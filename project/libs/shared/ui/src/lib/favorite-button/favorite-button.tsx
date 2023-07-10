@@ -6,7 +6,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { IToggle } from '@project/shared/types';
 import { toast } from 'react-hot-toast';
-// import { toast } from 'react-toastify';
 import { errorCatch } from '@project/shared/utils';
 import { useActions, useAuthRedux } from '@project/shared/hooks';
 

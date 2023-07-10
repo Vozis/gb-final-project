@@ -1,7 +1,6 @@
 .container {
   align-items: center;
-  //background-color: var(--bg-color);
-  background-color: #fff;
+  background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   gap: 10px;
@@ -14,6 +13,7 @@
   height: 40px;
   margin-right: 10px;
   width: 40px;
+
   &_space {
     position: relative;
   }

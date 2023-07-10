@@ -1,19 +1,24 @@
 import React, { FC } from 'react';
 import { SkeletonLoader } from '@project/shared/ui';
+import clsx from 'clsx';
 
 interface CardSkeletonProps {
   count?: number;
+  classWrapper?: string;
 }
 
-export const CardSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
+export const CardSkeleton: FC<CardSkeletonProps> = ({
+  count = 1,
+  classWrapper,
+}) => {
   return (
-    <div className={'flex flex-col gap-6'}>
+    <div className={clsx('flex gap-6', [classWrapper])}>
       {[...Array(count).keys()].map(item => (
         <div
           key={item}
-          className={
-            'skeleton__bg p-3 rounded-xl block flex flex-col justify-between h-52 gap-4'
-          }
+          className={clsx(
+            'skeleton__bg p-3 rounded-xl block flex flex-col justify-between h-52 gap-4',
+          )}
         >
           <div className={'flex justify-between'}>
             <SkeletonLoader
