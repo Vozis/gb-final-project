@@ -13,7 +13,9 @@ import {
 import React from 'react';
 import { useSingleUser } from './useSingleUser';
 import styles from './single-user-main.module.scss';
+import { incline, inclineFirstname } from 'lvovich';
 import { IEventStatus } from '@project/shared/types';
+
 
 /* eslint-disable-next-line */
 export interface SingleUserMainProps {}
@@ -26,10 +28,13 @@ export function SingleUserMain(props: SingleUserMainProps) {
 
   const { isLoading, userData } = useSingleUser(id);
 
+  const tabUserName = incline({ first: userData?.firstName }, 'genitive');
+  console.log(tabUserName);
+
   const tabs: ITab[] = [
     {
       id: '1',
-      label: 'Мои события',
+      label: `События ${tabUserName.first}`,
       content: (
         <div className={'flex flex-col gap-4'}>
           <CardList
@@ -90,7 +95,7 @@ export function SingleUserMain(props: SingleUserMainProps) {
             count={2}
             className={'h-10 w-full rounded-[50px]'}
             containerClassName={
-              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+              'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }
           />
           <CardSkeleton count={3} />
