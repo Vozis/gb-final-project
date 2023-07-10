@@ -1,5 +1,6 @@
 import {
   INotification,
+  INotificationStatus,
   INotificationUpdateStatus,
 } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -62,6 +63,22 @@ const notificationSlice = createSlice({
       );
       state.notifications = newArr;
       state.count--;
+    },
+    updateNotification: (
+      state,
+      action: PayloadAction<{
+        id: number;
+        status: INotificationStatus;
+      }>,
+    ) => {
+      const updatedNotification = state.notifications.find(
+        el => el.id === action.payload.id,
+      );
+
+      if (updatedNotification) {
+        updatedNotification.status = action.payload.status;
+        state.count--;
+      }
     },
     resetNotificationState: state => {
       return initialState;

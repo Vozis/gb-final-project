@@ -12,6 +12,7 @@ import {
   IComment,
   INotification,
   IOnlineSocketUser,
+  IUpdateNotification,
   IUserActiveRooms,
   NotificationEvent,
   SocketEvent,
@@ -109,7 +110,7 @@ const socketMiddleware: Middleware = store => {
       socket.on(
         NotificationEvent.GetNotification,
         (notification: INotification) => {
-          console.log('new notification: ', notification);
+          // console.log('new notification: ', notification);
 
           store.dispatch(
             notificationActions.receiveNotification({ notification }),
@@ -117,10 +118,17 @@ const socketMiddleware: Middleware = store => {
         },
       );
 
-      socket.on(NotificationEvent.RemoveNotification, (id: number) => {
-        console.log(id);
-        store.dispatch(notificationActions.removeNotification({ id }));
-      });
+      socket.on(
+        NotificationEvent.UpdateNotification,
+        (dto: IUpdateNotification) => {
+          store.dispatch(notificationActions.updateNotification(dto));
+        },
+      );
+
+      // socket.on(NotificationEvent.RemoveNotification, (id: number) => {
+      //   // console.log(id);
+      //   store.dispatch(notificationActions.removeNotification({ id }));
+      // });
     }
 
     if (

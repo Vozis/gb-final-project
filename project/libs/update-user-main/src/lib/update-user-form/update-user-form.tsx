@@ -63,7 +63,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
   }, []);
 
   useEffect(() => {
-    console.log(userUpdate);
+    // console.log(userUpdate);
 
     getKeys(userUpdate).forEach(key => {
       setValue(key, userUpdate[key]);
@@ -227,6 +227,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     }
 
     await mutateAsync(formData);
+    navigate('/profile');
   };
 
   return (

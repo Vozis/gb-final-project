@@ -90,7 +90,7 @@ export function CreateEventForm(props: CreateEventFormProps) {
   );
 
   const { data: time, isLoading: isTimeLoading } = useQuery(
-    ['get-count-tags'],
+    ['get-peopleCount-tags'],
     () => TagService.getByType('time'),
     {
       select: ({ data }) =>
@@ -224,7 +224,8 @@ export function CreateEventForm(props: CreateEventFormProps) {
         <Field
           placeholder={'Количество людей'}
           type={'number'}
-          {...register('count', { required: true })}
+          min={2}
+          {...register('peopleCount', { required: true })}
         />
         <UploadField
           {...register('image')}

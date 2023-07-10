@@ -24,7 +24,7 @@ export function UserBig({
   const { user } = useAuthRedux();
   const { isOnline } = useCheckUserStatus(userProps.id);
   const isProfile = user?.id === userProps.id;
-  console.log('average user raring', userProps.averageRating);
+  // console.log('average user raring', userProps.averageRating);
 
   return (
     <>

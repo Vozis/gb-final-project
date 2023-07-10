@@ -16,6 +16,9 @@
   height: 40px;
   margin-right: 10px;
   width: 40px;
+  &_space {
+    position: relative;
+  }
 }
 
 .title {
@@ -29,4 +32,15 @@
   &:hover {
     color: blue;
   }
+}
+
+.infoIcon {
+  color: #304bc3;
+  position: absolute;
+  right: 10px;
+  bottom: 0px;
+  background: white;
+  border-radius: 4px;
+  margin: 0px;
+  border: 1px solid #304bc3;
 }

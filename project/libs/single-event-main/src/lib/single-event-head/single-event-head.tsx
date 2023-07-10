@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './single-event-head.module.scss';
 import { UserCardSmall } from '@project/shared/ui';
 import { useAuthRedux } from '@project/shared/hooks';
-import { IEvent } from '@project/shared/types';
+import { IEvent, IEventStatus } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface SingleEventHeadProps {
@@ -26,6 +26,9 @@ export function SingleEventHead({ event }: SingleEventHeadProps) {
       }}
     >
       <h1 className={styles.card_title}>{event.name}</h1>
+      {event.status !== IEventStatus.OPEN && (
+        <p className={'absolute top-4 right-4'}>{event.status}</p>
+      )}
       <UserCardSmall userProps={event.creator} isName isInfo isPhoto isWhite />
     </div>
   );

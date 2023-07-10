@@ -54,7 +54,7 @@ const socketSlice = createSlice({
       state,
       action: PayloadAction<{ rooms: IUserActiveRooms[] }>,
     ) => {
-      console.log('all rooms', action.payload);
+      // console.log('all rooms', action.payload);
       state.activeRooms = action.payload.rooms;
     },
     addActiveRoom: (

@@ -47,7 +47,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
         const eventData: IUpdateEvent = {
           name: data.name,
           description: data.description,
-          count: data.peopleCount,
+          peopleCount: data.peopleCount,
           eventTime: `${data.eventTime.split(':')[0]}:${
             data.eventTime.split(':')[1]
           }`,
@@ -216,7 +216,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
         <Field
           placeholder={'Количество людей'}
           type={'number'}
-          {...register('count', { required: false })}
+          {...register('peopleCount', { required: false })}
         />
         <UploadField
           {...register('image')}

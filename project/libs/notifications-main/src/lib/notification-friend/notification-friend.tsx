@@ -1,6 +1,7 @@
 import { INotification } from '@project/shared/types';
-import { Link } from 'react-router-dom';
 import { Avatar } from '@project/shared/ui';
+import { TbFriends, TbFriendsOff } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
 import styles from './notification-friend.module.scss';
 
 /* eslint-disable-next-line */
@@ -14,10 +15,14 @@ export function NotificationFriend(data: NotificationFriendsProps) {
     <>
       {data.data.type === 'FRIEND_ADD' ? (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          {/* <MdOutlineEventAvailable /> */}
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <TbFriends className={styles.infoIcon} />
+          </div>
           <p>
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>
               {data.data.user.firstName} {data.data.user.lastName}
@@ -27,10 +32,14 @@ export function NotificationFriend(data: NotificationFriendsProps) {
         </div>
       ) : (
         <div className={styles.container} id={`notification-${data.data.id}`}>
-          <Avatar
-            imagePath={data.data.user.avatarPath}
-            className={styles.avatar}
-          />
+          <div className={styles.avatar_space}>
+            <Avatar
+              imagePath={data.data.user.avatarPath}
+              className={styles.avatar}
+            />
+            <TbFriendsOff className={styles.infoIcon} />
+          </div>
+
           <p>
             Ваш друг &nbsp;
             <Link to={`/users/${data.data.user.id}`} className={styles.span}>

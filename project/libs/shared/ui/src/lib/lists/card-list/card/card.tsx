@@ -1,5 +1,5 @@
 import { useAuthRedux } from '@project/shared/hooks';
-import { IEventForCard } from '@project/shared/types';
+import { IEventForCard, IEventStatus } from '@project/shared/types';
 import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
 import clsx from 'clsx';
 import moment from 'moment';
@@ -135,6 +135,9 @@ export const Card: FC<CardProps> = ({ event }) => {
         <p className={'text-white'}>
           {moment(event.eventTime).format('MMMM Do YYYY, h:mm a')}
         </p>
+        {event.status !== IEventStatus.OPEN && (
+          <p className={'text-white'}>{event.status}</p>
+        )}
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag
@@ -150,7 +153,9 @@ export const Card: FC<CardProps> = ({ event }) => {
             </Tag>
           ))}
         </div>
-        {user && <ToggleUserButton event={event} />}
+        {user && event.status !== IEventStatus.CLOSED && (
+          <ToggleUserButton event={event} />
+        )}
       </div>
     </div>
   );

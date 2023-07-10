@@ -46,6 +46,8 @@ export class RatingService {
   }
 
   async setRating(authorId: number, createRatingDto: CreateRatingDto) {
+    // console.log(createRatingDto);
+
     const rating = await this.prisma.rating.upsert({
       where: {
         compositeId: {
@@ -77,14 +79,18 @@ export class RatingService {
       select: returnRatingObject,
     });
 
+    // console.log('newRating: ', rating);
+
     const averageRating = await this.updateAverageUserRating(
       createRatingDto.userId,
     );
 
-    return {
-      rating,
-      averageRating,
-    };
+    return rating;
+
+    // return {
+    //   rating,
+    //   averageRating,
+    // };
   }
 
   async updateAverageUserRating(userId: number) {

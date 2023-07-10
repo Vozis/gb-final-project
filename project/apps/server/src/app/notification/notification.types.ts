@@ -14,6 +14,7 @@ export interface INotificationResponse {
   moreData?: string | number;
   text: string;
   createdAt: Date;
+  status: string;
 }
 
 export interface INotificationUser {

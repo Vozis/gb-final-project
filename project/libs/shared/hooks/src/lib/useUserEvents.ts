@@ -27,6 +27,8 @@ export const useUserEvents = (id: number) => {
     [id],
   );
 
+  // console.log(filterProfileParamsArray);
+
   const {
     isLoading,
     data: profileEvents,
@@ -35,7 +37,7 @@ export const useUserEvents = (id: number) => {
     isSuccess,
   } = useQuery(
     ['get-profile-events', id],
-    () => EventService.getAllEvents(filterProfileParamsArray),
+    () => EventService.getAllEvents('OR', filterProfileParamsArray),
     {
       select: ({ data }) => data,
       enabled: !!filterProfileParamsArray,
@@ -51,7 +53,9 @@ export const useUserEvents = (id: number) => {
     profileEvents?.filter(event => event.users?.some(item => item.id === id)) ||
     [];
 
-  // return { myEvents, participationArr, isLoading };
+  // console.log(participationArr);
+
+  return { myEvents, participationArr, isLoading, isSuccess };
 
   return useMemo(
     () => ({

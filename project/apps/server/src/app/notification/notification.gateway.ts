@@ -72,11 +72,14 @@ export class NotificationGateway {
 
     // console.log('delivered notifications: ', data);
 
-    data.forEach(item => {
+    data.ids.forEach(item => {
       // console.log(item);
-      console.log(`user:${id}`);
-      this.server.to(`user:${id}`).emit('removeNotification', { id: item });
+      // console.log(`user:${id}`);
+      this.server
+        .to(`user:${id}`)
+        .emit('updateNotification', { id: item, status: data.status });
     });
+    // this.server.to(`user:${id}`).emit('updateNotifications', { ids: data });
 
     return data;
   }
@@ -112,6 +115,7 @@ export class NotificationGateway {
         sourceData: eventCreate.name,
         text: notification.text,
         createdAt: notification.createdAt,
+        status: notification.status,
       };
 
       console.log(
@@ -151,6 +155,7 @@ export class NotificationGateway {
         sourceData: eventUpdate.name,
         text: notification.text,
         createdAt: notification.createdAt,
+        status: notification.status,
       };
 
       console.log(
@@ -188,6 +193,7 @@ export class NotificationGateway {
         sourceData: eventComplete.name,
         text: notification.text,
         createdAt: notification.createdAt,
+        status: notification.status,
       };
 
       console.log(
@@ -229,6 +235,7 @@ export class NotificationGateway {
         sourceData: data.event.id.name,
         text: notification.text,
         createdAt: notification.createdAt,
+        status: notification.status,
       };
 
       console.log(
@@ -273,6 +280,7 @@ export class NotificationGateway {
         sourceData: data.event.name,
         text: notification.text,
         createdAt: notification.createdAt,
+        status: notification.status,
       };
 
       console.log(
@@ -315,6 +323,7 @@ export class NotificationGateway {
         moreData: commentCreate.event.id,
         text: commentCreateNotification.text,
         createdAt: commentCreateNotification.createdAt,
+        status: commentCreateNotification.status,
       };
 
       console.log(
@@ -352,6 +361,7 @@ export class NotificationGateway {
         moreData: commentCreate.event.id,
         text: replyCommentNotification.text,
         createdAt: replyCommentNotification.createdAt,
+        status: replyCommentNotification.status,
       };
 
       // console.log(CommentReplyNotification);
@@ -416,6 +426,7 @@ export class NotificationGateway {
       sourceData: '',
       text: friendAddNotification.text,
       createdAt: friendAddNotification.createdAt,
+      status: friendAddNotification.status,
     };
 
     console.log(
@@ -451,6 +462,7 @@ export class NotificationGateway {
       sourceData: '',
       text: friendRemoveNotification.text,
       createdAt: friendRemoveNotification.createdAt,
+      status: friendRemoveNotification.status,
     };
 
     console.log(

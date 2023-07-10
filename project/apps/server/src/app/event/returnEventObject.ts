@@ -67,6 +67,7 @@ export const returnEventFullObject: ReturnEvent = {
   peopleCount: true,
   isParticipate: true,
   eventTime: true,
+  status: true,
   _count: {
     select: {
       users: true,
@@ -120,6 +121,7 @@ export const returnEventCardObject: Prisma.EventSelect = {
   id: true,
   name: true,
   imageUrl: true,
+  status: true,
   creator: {
     select: {
       id: true,
