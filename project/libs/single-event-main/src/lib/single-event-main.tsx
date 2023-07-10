@@ -53,7 +53,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
     event?.users.some(participant => participant.id === user?.id)
       ? setIsParticipant(true)
       : setIsParticipant(false);
-  }, [user]);
+  }, [user, event]);
 
   // console.log(event);
   //
@@ -73,8 +73,8 @@ export function SingleEventMain(props: SingleEventMainProps) {
   // console.log('notifications from event-main: ', notifications);
 
   useEffect(() => {
-    console.log('start');
-    console.log(notifications.length);
+    // console.log('start');
+    // console.log(notifications.length);
 
     const readNotifications: number[] = notifications
       .filter(item => {
