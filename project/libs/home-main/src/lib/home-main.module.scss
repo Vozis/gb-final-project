@@ -6,15 +6,12 @@
 
 
 .btnAddEvent {
-  background-color: v.$primary-color;
-  border-radius: 50%;
-  color: v.$text-white-color;
-  height: 60px;
-  width: 60px;
+  //background-color: v.$primary-color
+}
 
-  &__icon {
-    font-size: 27px;
-  }
+.addEventIcon {
+  font-size: 36px;
+  color: var(--accent-color-blue);
 }
 
 .title {
@@ -23,7 +20,7 @@
 .desc {
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .mainCardList {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

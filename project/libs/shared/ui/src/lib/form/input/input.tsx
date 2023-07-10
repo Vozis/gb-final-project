@@ -13,6 +13,7 @@ export const Field = forwardRef<HTMLInputElement, IField>(
       placeholder,
       error,
       type = 'text',
+      className,
       style,
       onChange,
       children,
@@ -26,7 +27,7 @@ export const Field = forwardRef<HTMLInputElement, IField>(
       <div className={cn(styles.field)} style={style}>
         <label className={styles.fieldLabel}>
           <input
-            className={cn(styles.input)}
+            className={cn(styles.input, [className])}
             ref={ref}
             type={
               type === 'password' ? (!isVisible ? 'password' : 'text') : type

@@ -17,17 +17,18 @@
   -webkit-appearance: none;
   appearance: none;
   background: none;
-  border: 2px solid #5b5b5b;
+  border: 2px solid var(--primary-color);
   border-radius: 3px;
   font-size: 14px;
   outline: none;
   padding: 12px;
   transition: border-color 0.3s ease;
   width: 300px;
+  color: var(--primary-color);
 }
 
 .placeholder {
-  color: #5b5b5b;
+  color: var(--primary-color);
   font-size: 16px;
   //width: calc(100% - 24px);
   left: 24px;
@@ -50,13 +51,13 @@
 
 .fieldLabel input:not(:placeholder-shown),
 .fieldLabel input:focus {
-  border-color: #222;
+  border-color: var(--primary-color);
   transition-delay: 0.1s;
 }
 
 .fieldLabel input:not(:placeholder-shown) + .placeholder,
 .fieldLabel input:focus + .placeholder {
-  color: #222;
+  color: var(--primary-color);
   font-size: 14px;
   top: 0;
 }

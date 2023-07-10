@@ -1,18 +1,22 @@
 import React, { FC } from 'react';
 import { SkeletonLoader } from '@project/shared/ui';
+import clsx from 'clsx';
 
 interface FriendsListSkeletonProps {
   count?: number;
+  classWrapper?: string;
 }
 
 export const FriendsListSkeleton: FC<FriendsListSkeletonProps> = ({
   count = 1,
+  classWrapper,
 }) => {
   return (
     <div
-      className={
-        'skeleton__bg m-auto w-full px-5 py-4 rounded-xl flex flex-col items-start gap-2 relative overflow-hidden'
-      }
+      className={clsx(
+        'skeleton__bg px-5 py-4 rounded-xl flex flex-col items-start gap-2 relative overflow-hidden',
+        [classWrapper],
+      )}
     >
       <SkeletonLoader
         count={1}
