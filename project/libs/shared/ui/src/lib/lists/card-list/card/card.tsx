@@ -135,9 +135,6 @@ export const Card: FC<CardProps> = ({ event }) => {
         <p className={'text-white'}>
           {moment(event.eventTime).format('MMMM Do YYYY, h:mm a')}
         </p>
-        {event.status !== IEventStatus.OPEN && (
-          <p className={'text-white'}>{event.status}</p>
-        )}
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag
@@ -153,6 +150,15 @@ export const Card: FC<CardProps> = ({ event }) => {
             </Tag>
           ))}
         </div>
+        {event.status !== IEventStatus.OPEN && (
+          <p
+            className={
+              'text-white text-center font-semibold px-4 py-2 border border-2 rounded-full border-white'
+            }
+          >
+            {event.status}
+          </p>
+        )}
         {user && event.status !== IEventStatus.CLOSED && (
           <ToggleUserButton event={event} />
         )}
