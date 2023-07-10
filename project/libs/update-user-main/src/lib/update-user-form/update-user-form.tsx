@@ -234,7 +234,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     <div>
       <Heading className={'text-center'}>Редактировать профиль:</Heading>
       <form
-        className={styles['register_form']}
+        className={'flex flex-col gap-3 items-center'}
         onSubmit={handleSubmit(onSubmit)}
       >
         <Field
@@ -297,7 +297,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
           error={errors.avatar}
         />
 
-        <h2>
+        <h2 className={'text-center max-w-[500px]'}>
           Укажите свои предпочтения, это позволит получать самое интересное из
           всего списка возможных событий
         </h2>

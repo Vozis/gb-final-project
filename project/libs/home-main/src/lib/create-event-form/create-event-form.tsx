@@ -207,7 +207,10 @@ export function CreateEventForm(props: CreateEventFormProps) {
   return (
     <div>
       <Heading className={'text-center'}>Создай свое событие:</Heading>
-      <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={'flex flex-col gap-3 items-center'}
+      >
         <Field
           placeholder={'Название'}
           {...register('name', { required: true })}

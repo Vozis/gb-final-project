@@ -4,7 +4,7 @@
 /* React Select */
 .custom-select {
   &__control {
-    background-color: #FFFFFF !important;
+    background-color: var(--components-bg-color) !important;
     border: none !important;
     border-bottom: 1px solid #66676e !important;
     border-radius: 12px !important;

@@ -199,7 +199,10 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
     <div>
       <Heading className={'text-center'}>Редактирование события:</Heading>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={'flex flex-col gap-3 items-center'}
+      >
         <Field
           placeholder={'Название'}
           {...register('name', { required: false })}
