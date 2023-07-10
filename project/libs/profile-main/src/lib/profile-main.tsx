@@ -1,6 +1,6 @@
 import { useAuthRedux, useUserEvents } from '@project/shared/hooks';
 import React, { useEffect } from 'react';
-import { IUserEdit } from '@project/shared/types';
+import { IEventStatus, IUserEdit } from '@project/shared/types';
 import {
   CardList,
   CardSkeleton,
@@ -60,12 +60,42 @@ export function ProfileMain(props: ProfileMainProps) {
     {
       id: '1',
       label: 'Мои события',
-      content: <CardList list={myEvents} />,
+      content: (
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            list={myEvents.filter(
+              event => event.status !== IEventStatus.CLOSED,
+            )}
+            title={'Активные события'}
+          />
+          <CardList
+            list={myEvents.filter(
+              event => event.status === IEventStatus.CLOSED,
+            )}
+            title={'Завершенные события'}
+          />
+        </div>
+      ),
     },
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={participationArr} />,
+      content: (
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            list={participationArr.filter(
+              event => event.status !== IEventStatus.CLOSED,
+            )}
+            title={'Активные события'}
+          />
+          <CardList
+            list={participationArr.filter(
+              event => event.status === IEventStatus.CLOSED,
+            )}
+            title={'Завершенные события'}
+          />
+        </div>
+      ),
     },
   ];
 

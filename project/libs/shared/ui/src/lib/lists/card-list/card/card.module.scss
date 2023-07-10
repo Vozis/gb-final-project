@@ -1,8 +1,8 @@
 @use 'libs/shared/styles/variables' as v;
 
 .card {
-  border-radius: v.$border-radius;
   border: 1px solid var(--border-color);
+  border-radius: v.$border-radius;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.29);
   display: flex;
   height: 290px;
@@ -53,7 +53,6 @@
   &__tags {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 15px;
   }
 
   &__btn {

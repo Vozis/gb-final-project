@@ -409,16 +409,32 @@ export class EventService {
     });
   }
 
-  // async getUserEvents(userId: number): Promise<EventSelect[]> {
-  //   return this.prisma.event.findMany({
-  //     where: {
-  //       creator: {
-  //         id: userId,
-  //       },
-  //     },
-  //     select: returnEventObject,
-  //   });
-  // }
+  async getUserEvents(userId: number): Promise<EventSelect[]> {
+    const eventsSearchFilter: Prisma.EventWhereInput = {
+      OR: [
+        {
+          creator: {
+            id: userId,
+          },
+        },
+        {
+          users: {
+            some: {
+              id: userId,
+            },
+          },
+        },
+      ],
+    };
+
+    return this.prisma.event.findMany({
+      where: eventsSearchFilter,
+      select: returnEventObject,
+      orderBy: {
+        eventTime: 'desc',
+      },
+    });
+  }
 
   // async getByUserTags(id: number): Promise<EventSelect[]> {
   //   const _user = await this.userService.getById(id);

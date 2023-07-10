@@ -1,6 +1,6 @@
 import { useActions, useNotificationState } from '@project/shared/hooks';
-import { List } from '@project/shared/ui';
-import React, { useEffect } from 'react';
+import { List, SkeletonLoader } from '@project/shared/ui';
+import React, { useEffect, useState } from 'react';
 import NotificationComment from './notification-comment/notification-comment';
 import NotificationEventComplete from './notification-event-complete/notification-event-complete';
 import NotificationEvent from './notification-event/notification-event';
@@ -10,14 +10,15 @@ import {
   INotificationStatus,
   INotificationUpdateStatus,
 } from '@project/shared/types';
-import { NotificationEventCompleteSkeleton } from './notification-event-complete/notification-event-complete-skeleton';
+import { NotificationEventSkeleton } from './notification-event/notification-event-skeleton';
 
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
-  const { notifications, count, isLoading } = useNotificationState();
+  const { notifications, count } = useNotificationState();
   const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   // console.log(
   //   'notifications: ',
   //   notifications.filter(item => item.type === 'EVENT_COMPLETE'),
@@ -31,6 +32,12 @@ export function NotificationsMain(props: NotificationsMainProps) {
   // notifications.map(notification => console.log('notification', notification));
   const { changeNotificationStatus } = useActions();
   // console.log('changeNotificationStatus: ', changeNotificationStatus);
+
+  console.log('notifications: ', notifications);
+
+  useEffect(() => {
+    if (notifications.length) setIsLoading(false);
+  }, [notifications]);
 
   useEffect(() => {
     if (pathname === '/notifications') {
@@ -46,64 +53,103 @@ export function NotificationsMain(props: NotificationsMainProps) {
   }, [notifications, count, pathname]);
 
   return (
-    <>
-      {notifications.some(note => note.status === INotificationStatus.SENT) && (
-        <List
-          title={'Новые уведомления'}
-          headingClassName={'text-center'}
-          className={''}
-        >
-          {notifications
-            .filter(
-              notification => notification.status === INotificationStatus.SENT,
-            )
-            .map(notification => (
-              <React.Fragment key={notification.id}>
-                {notification.type.match(/EVENT_COMPLETE/) !== null ? (
-                  <NotificationEventComplete data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/EVENT/) !== null ? (
-                  <NotificationEvent data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/FRIEND/) !== null ? (
-                  <NotificationFriend data={notification} />
-                ) : (
-                  // <p>заглушка</p>
-                  <NotificationComment data={notification} />
-                )}
-              </React.Fragment>
+    <div className={'flex flex-col gap-6'}>
+      {isLoading ? (
+        <div>
+          <SkeletonLoader
+            className={'rounded-xl'}
+            containerClassName={
+              'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
+            }
+          />
+          <div className={'flex flex-col gap-4'}>
+            {[...Array(4).keys()].map(item => (
+              <NotificationEventSkeleton key={item} />
             ))}
-        </List>
+          </div>
+        </div>
+      ) : (
+        <>
+          {notifications.some(
+            note => note.status === INotificationStatus.SENT,
+          ) && (
+            <List
+              title={'Новые уведомления'}
+              headingClassName={'text-center'}
+              className={''}
+            >
+              {notifications
+                .filter(
+                  notification =>
+                    notification.status === INotificationStatus.SENT,
+                )
+                .map(notification => (
+                  <React.Fragment key={notification.id}>
+                    {notification.type.match(/EVENT_COMPLETE/) !== null ? (
+                      <NotificationEventComplete data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/EVENT/) !== null ? (
+                      <NotificationEvent data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/FRIEND/) !== null ? (
+                      <NotificationFriend data={notification} />
+                    ) : (
+                      // <p>заглушка</p>
+                      <NotificationComment data={notification} />
+                    )}
+                  </React.Fragment>
+                ))}
+            </List>
+          )}
+        </>
       )}
-      {notifications.some(
-        note => note.status === INotificationStatus.DELIVERED,
-      ) && (
-        <List
-          title={'Просмотренные уведомления'}
-          headingClassName={'text-center'}
-          className={''}
-        >
-          {notifications
-            .filter(note => note.status === INotificationStatus.DELIVERED)
-            .map(notification => (
-              <React.Fragment key={notification.id}>
-                {notification.type.match(/EVENT_COMPLETE/) !== null ? (
-                  <NotificationEventComplete data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/EVENT/) !== null ? (
-                  <NotificationEvent data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/FRIEND/) !== null ? (
-                  <NotificationFriend data={notification} />
-                ) : (
-                  // <p>заглушка</p>
-                  <NotificationComment data={notification} />
-                )}
-              </React.Fragment>
+      {isLoading ? (
+        <div>
+          <SkeletonLoader
+            className={'rounded-xl'}
+            containerClassName={
+              'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
+            }
+          />
+          <div className={'flex flex-col gap-4'}>
+            {[...Array(4).keys()].map(item => (
+              <NotificationEventSkeleton key={item} />
             ))}
-        </List>
+          </div>
+        </div>
+      ) : (
+        <>
+          {notifications.some(
+            note => note.status === INotificationStatus.DELIVERED,
+          ) && (
+            <List
+              title={'Просмотренные уведомления'}
+              headingClassName={'text-center'}
+              className={''}
+            >
+              {notifications
+                .filter(note => note.status === INotificationStatus.DELIVERED)
+                .map(notification => (
+                  <React.Fragment key={notification.id}>
+                    {notification.type.match(/EVENT_COMPLETE/) !== null ? (
+                      <NotificationEventComplete data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/EVENT/) !== null ? (
+                      <NotificationEvent data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/FRIEND/) !== null ? (
+                      <NotificationFriend data={notification} />
+                    ) : (
+                      // <p>заглушка</p>
+                      <NotificationComment data={notification} />
+                    )}
+                  </React.Fragment>
+                ))}
+            </List>
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 }
 

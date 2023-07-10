@@ -18,7 +18,7 @@ export const CardList: FC<CardListProps> = ({
   ...props
 }) => {
   return (
-    <>
+    <div>
       <Heading className={'mb-3'}>{title}</Heading>
       <div className={clsx(styles.cardList, [className])}>
         {list.length ? (
@@ -27,7 +27,7 @@ export const CardList: FC<CardListProps> = ({
           <p>Пока здесь ничего нет</p>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,9 +3,13 @@ import { UserService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
 import { useAuthRedux } from '@project/shared/hooks';
+import { IEventForCard } from '@project/shared/types';
 
 export const useSingleUser = (id: string) => {
   const { user } = useAuthRedux();
+
+  let userAuthorEvents: IEventForCard[] = [];
+  let userJoinEvents: IEventForCard[] = [];
 
   const { isLoading: isLoadingPublic, data: noUserData } = useQuery(
     ['get-single-user-public', id],
