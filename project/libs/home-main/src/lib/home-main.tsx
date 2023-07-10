@@ -8,6 +8,7 @@ import {
   SkeletonLoader,
   useFilter,
   UserCardSmall,
+  UserSmallSkeleton,
 } from '@project/shared/ui';
 import React from 'react';
 import { IEventForCard } from '@project/shared/types';
@@ -19,12 +20,19 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { EventService, MailService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
+import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip } from 'react-tooltip';
+import { useMediaQuery } from 'react-responsive';
+import { FilterSkeleton } from '../../../shared/ui/src/lib/filter/filter-skeleton';
 
 /* eslint-disable-next-line */
 export interface HomeMainProps {}
 
 export function HomeMain(props: HomeMainProps) {
   const { user } = useAuthRedux();
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 992px)',
+  });
 
   // useEffect(() => {
   //   getProfile();
@@ -103,27 +111,43 @@ export function HomeMain(props: HomeMainProps) {
   // console.log('isUseFilter: ', isUseFilter);
 
   return (
-    <div className={'flex flex-col gap-4'}>
+    <div className={'flex flex-col gap-5'}>
       <div>
         {user && (
           <div className={'flex justify-between items-center mt-10'}>
-            <UserCardSmall
-              userProps={user}
-              className={styles.profile__img_wrapper}
-              isName
-              isPhoto
-            />
-            <Link
-              to={'/create-event'}
-              className={cn('p-3 text-3xl', {
-                'pointer-events-none text-red-500': !user?.isConfirmed,
-              })}
-            >
-              <MaterialIcon
-                name={'MdAdd'}
-                className={styles.btnAddEvent__icon}
-              />
-            </Link>
+            {isLoading ? (
+              <UserSmallSkeleton hasBtn classWrapper={'w-full '} />
+            ) : (
+              <>
+                <UserCardSmall
+                  userProps={user}
+                  className={styles.profile__img_wrapper}
+                  isName
+                  isPhoto
+                />
+                <Link
+                  to={'/create-event'}
+                  className={cn('p-2 text-3xl', {
+                    'pointer-events-none text-red-500': !user?.isConfirmed,
+                  })}
+                  data-tooltip-id="add-event-tooltip"
+                >
+                  <MaterialIcon
+                    name={'MdAdd'}
+                    className={styles.addEventIcon}
+                  />
+                </Link>
+                <Tooltip
+                  id="add-event-tooltip"
+                  content={'Добавить событие'}
+                  place={'left'}
+                  style={{
+                    color: 'var(--primary-color)',
+                    backgroundColor: 'var(--accent-info-color)',
+                  }}
+                />
+              </>
+            )}
           </div>
         )}
         <div>
@@ -144,13 +168,22 @@ export function HomeMain(props: HomeMainProps) {
           )}
         </div>
       </div>
-      <Filter
-        setSearchTerm={setSearchTerm}
-        onSubmit={onSubmit}
-        setIsUseFilter={setIsUseFilter}
-        setIsEvent={setIsEvent}
-        isEvent={isEvent}
-      />
+      {isLoading ? (
+        isDesktopOrLaptop ? (
+          <FilterSkeleton classWrapper={`w-[580px]`} />
+        ) : (
+          <FilterSkeleton classWrapper={`w-full`} />
+        )
+      ) : (
+        <Filter
+          setSearchTerm={setSearchTerm}
+          onSubmit={onSubmit}
+          setIsUseFilter={setIsUseFilter}
+          setIsEvent={setIsEvent}
+          isEvent={isEvent}
+        />
+      )}
+
       {!isUseFilter ? (
         <>
           {isLoading ? (
@@ -158,10 +191,14 @@ export function HomeMain(props: HomeMainProps) {
               <SkeletonLoader
                 className={'rounded-xl'}
                 containerClassName={
-                  'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
+                  'p-2 skeleton__bg w-full mb-3 box-border block rounded-xl'
                 }
               />
-              <CardSkeleton count={3} />
+              {isDesktopOrLaptop ? (
+                <CardSkeleton classWrapper={`flex-row`} count={2} />
+              ) : (
+                <CardSkeleton classWrapper={`flex-col`} count={2} />
+              )}
             </>
           ) : (
             isEvent && (
@@ -177,10 +214,14 @@ export function HomeMain(props: HomeMainProps) {
               <SkeletonLoader
                 className={'rounded-xl'}
                 containerClassName={
-                  'p-2 bg-white w-full mb-3 box-border block rounded-xl'
+                  'p-2 skeleton__bg w-full mb-3 box-border block rounded-xl'
                 }
               />
-              <CardSkeleton count={3} />
+              {isDesktopOrLaptop ? (
+                <CardSkeleton classWrapper={`flex-row`} count={2} />
+              ) : (
+                <CardSkeleton classWrapper={`flex-col`} count={2} />
+              )}
             </>
           ) : (
             <CardList

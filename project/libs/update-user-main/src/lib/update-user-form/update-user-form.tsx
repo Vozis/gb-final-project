@@ -241,6 +241,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
           {...register('userName')}
           placeholder={'Ваш ник...'}
           error={errors.userName}
+          className={styles.input}
         />
         <Field
           {...register('firstName')}

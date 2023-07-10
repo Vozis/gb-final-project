@@ -4,8 +4,8 @@
   box-sizing: border-box;
   width: 100%;
 
-  @media (min-width: 540px) {
-    width: 480px;
+  @media (min-width: 720px) {
+    width: 580px;
   }
 
   &__wrapper {
@@ -15,8 +15,9 @@
 
   &__input {
     border: none;
-    border-radius: v.$border-radius;
+    //border-radius: v.$border-radius;
     //box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.29);
+    border-radius: 12px;
     font-family: inherit;
     font-size: 16px;
     font-weight: 300;

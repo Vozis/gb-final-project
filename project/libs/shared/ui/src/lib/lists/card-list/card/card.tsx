@@ -3,6 +3,7 @@ import { IEventForCard, IEventStatus } from '@project/shared/types';
 import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
 import clsx from 'clsx';
 import moment from 'moment';
+import 'moment/locale/ru.js';
 import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import styles from './card.module.scss';
@@ -58,6 +59,15 @@ export const Card: FC<CardProps> = ({ event }) => {
   //     );
   //   }
   // }, [isShowSettingModal]);
+  function declOfNum(number: number, words: string[]) {
+    return words[
+      number % 100 > 4 && number % 100 < 20
+        ? 2
+        : [2, 0, 1, 1, 1, 2][number % 10 < 5 ? Math.abs(number) % 10 : 5]
+    ];
+  }
+
+  const wordsArr: string[] = ['место', 'места', 'мест'];
 
   return (
     <div
@@ -76,71 +86,47 @@ export const Card: FC<CardProps> = ({ event }) => {
           />
           {user.id === event.creator?.id && (
             <>
-              {/*<button*/}
-              {/*  ref={el => (anchorRef.current[event.id] = el)}*/}
-              {/*  type="button"*/}
-              {/*  onClick={handleToggleSettingModal}*/}
-              {/*>*/}
-              {/*  <FaEllipsis className={'text-3xl text-white'} />*/}
-              {/*</button>*/}
-              {/*<ModalAnchor*/}
-              {/*  className={'z-30'}*/}
-              {/*  show={isShowSettingModal}*/}
-              {/*  onCloseClick={handleToggleSettingModal}*/}
-              {/*  ref={modalHeight}*/}
-              {/*  height={height}*/}
-              {/*  top={top}*/}
-              {/*  right={right}*/}
-              {/*>*/}
-              {/*  <Link*/}
-              {/*    to={'/profile/update'}*/}
-              {/*    className={styles.profile__settingsList_item}*/}
-              {/*  >*/}
-              {/*    <MaterialIcon*/}
-              {/*      name={'MdOutlineEdit'}*/}
-              {/*      className={styles.profile__settingsList_item_icon}*/}
-              {/*    />*/}
-              {/*    <span>Редактировать профиль</span>*/}
-              {/*  </Link>*/}
-
-              {/*  <Link to={'/'} className={styles.profile__settingsList_item}>*/}
-              {/*    <MaterialIcon*/}
-              {/*      name={'MdArrowOutward'}*/}
-              {/*      className={styles.profile__settingsList_item_icon}*/}
-              {/*    />*/}
-              {/*    <span>Поделиться профилем</span>*/}
-              {/*  </Link>*/}
-              {/*</ModalAnchor>*/}
               <Link
                 to={`/events/update/${event.id}`}
                 className={'absolute right-8 top-12'}
               >
                 <FaEllipsis className={'text-3xl text-white'} />
               </Link>
-
-              {/*<Button className={'text-white'}>Удалить</Button>*/}
             </>
           )}
         </>
       )}
       <div className={styles.card__info}>
-        <Link to={`/events/${event.id}`} className={styles.card__title}>
-          {event.name}
-        </Link>
-        <p className={'text-white'}>
-          {event._count.users < event.peopleCount &&
-            `осталось ${event.peopleCount - event._count.users} мест`}
-          {event._count.users === event.peopleCount && `нет мест`}
-        </p>
-        <p className={'text-white'}>
-          {moment(event.eventTime).format('MMMM Do YYYY, h:mm a')}
-        </p>
+        <div className={styles.cardHeader}>
+          <Link to={`/events/${event.id}`} className={styles.card__title}>
+            {event.name.length > 18
+              ? `${event.name?.substring(0, 22)}...`
+              : event.name}
+          </Link>
+          <p
+            className={clsx(styles.countInfo, {
+              hidden: event.status === 'CLOSED',
+            })}
+          >
+            {event.status !== 'CLOSED' &&
+              event._count.users < event.peopleCount &&
+              `осталось ${event.peopleCount - event._count.users} ${declOfNum(
+                event.peopleCount - event._count.users,
+                wordsArr,
+              )}`}
+            {event._count.users === event.peopleCount && `нет мест`}
+          </p>
+        </div>
+
+        <span className={`${styles.cardDate} text-white`}>
+          Дата: {moment(event.eventTime).format('DD.MM.YYYY LT')}
+        </span>
         <div className={styles.card__tags}>
           {event.tags.map(tag => (
             <Tag
               key={tag.id}
               className={clsx({
-                'bg-red-300 hover:bg-red-400': tag?.type?.name === 'count',
+                'bg-red-300 hover:bg-red-400': tag?.type?.name === 'time',
                 [styles.card__tag_place]: tag?.type?.name === 'place',
                 'bg-green-300 hover:bg-green-400': tag?.type?.name === 'city',
                 'bg-cyan-300 hover:bg-cyan-400': tag?.type?.name === 'sport',

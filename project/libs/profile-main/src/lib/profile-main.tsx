@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
+import { useMediaQuery } from 'react-responsive';
 
 /* eslint-disable-next-line */
 
@@ -26,6 +27,9 @@ export interface ProfileMainProps {
 export function ProfileMain(props: ProfileMainProps) {
   const { user } = useAuthRedux();
   const navigate = useNavigate();
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 992px)',
+  });
 
   useEffect(() => {
     if (!user) {
@@ -61,7 +65,7 @@ export function ProfileMain(props: ProfileMainProps) {
       id: '1',
       label: 'Мои события',
       content: (
-        <div className={'flex flex-col gap-4'}>
+        <div className={'flex flex-col gap-4 mt-4'}>
           <CardList
             list={myEvents.filter(
               event => event.status !== IEventStatus.CLOSED,
@@ -81,7 +85,7 @@ export function ProfileMain(props: ProfileMainProps) {
       id: '2',
       label: 'Участвую',
       content: (
-        <div className={'flex flex-col gap-4'}>
+        <div className={'flex flex-col gap-4 mt-4'}>
           <CardList
             list={participationArr.filter(
               event => event.status !== IEventStatus.CLOSED,
@@ -133,15 +137,43 @@ export function ProfileMain(props: ProfileMainProps) {
       {isLoading ? (
         <div className={'flex flex-col gap-4'}>
           <UserBigSkeleton />
-          <FriendsListSkeleton count={user.friends?.length} />
-          <SkeletonLoader
-            count={2}
-            className={'h-10 w-full rounded-[50px]'}
-            containerClassName={
-              'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
-            }
-          />
-          <CardSkeleton count={3} />
+          {isDesktopOrLaptop ? (
+            <div className={'flex flex-row gap-3 items-start'}>
+              <FriendsListSkeleton
+                classWrapper={'w-[40%] flex-auto'}
+                count={user.friends?.length}
+              />
+              <div className={`flex flex-col  w-[60%] gap-3`}>
+                <SkeletonLoader
+                  count={2}
+                  className={'h-10 w-full rounded-[50px]'}
+                  containerClassName={
+                    'skeleton__bg  p-3 flex gap-1 w-full item-center rounded-full h-16'
+                  }
+                />
+                <CardSkeleton count={3} classWrapper={'flex-col'} />
+              </div>
+            </div>
+          ) : (
+            <>
+              <FriendsListSkeleton count={user.friends?.length} />
+              <SkeletonLoader
+                count={2}
+                className={'h-10 w-full rounded-[50px]'}
+                containerClassName={
+                  'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
+                }
+              />
+              <SkeletonLoader
+                count={1}
+                className={'h-8 w-[250px] rounded-md block'}
+                containerClassName={
+                  'skeleton__bg p-3 flex items-center rounded-md h-16'
+                }
+              />
+              <CardSkeleton count={3} classWrapper={'flex-col'} />
+            </>
+          )}
         </div>
       ) : (
         <>

@@ -5,3 +5,21 @@
  * .container {
  * }
 */
+.button {
+  background-color: var(--accent-color-blue);
+  transition: background-color .3s ease-in-out;
+
+  &:hover {
+    background-color: darken(#304BC3FF, 10%);
+  }
+
+  &__reset {
+    background-color: #A5A5A5FF;
+    transition: background-color .3s ease-in-out;
+
+    &:hover {
+      background-color: darken(#A5A5A5FF, 20%);
+    }
+  }
+
+}
