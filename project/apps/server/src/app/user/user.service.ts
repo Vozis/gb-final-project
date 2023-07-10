@@ -324,7 +324,7 @@ export class UserService {
     });
     let email;
     let isConfirmed = true;
-    if (updateUserDto.email) {
+    if (updateUserDto.email !== user.email) {
       const isSameUser = await this.getByEmail(updateUserDto.email);
       if (isSameUser && isSameUser.id !== id)
         throw new BadRequestException(
@@ -347,7 +347,7 @@ export class UserService {
 
       await this.mailerService
         .sendMail({
-          to: email,
+          to: updateUserDto.email,
           subject: `Добро пожаловать, ${user.firstName}!`,
           template: './confirm-email',
           context: {

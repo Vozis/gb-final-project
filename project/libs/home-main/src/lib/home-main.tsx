@@ -63,11 +63,12 @@ export function HomeMain(props: HomeMainProps) {
     setIsUseFilter,
     isEvent,
     setIsEvent,
+    setSearchTerm,
   } = useFilter();
 
   const { data: allEvents } = useQuery(
     ['get-all-events-auth-no-hobby'],
-    () => EventService.getAllEvents({}, false),
+    () => EventService.getAllEvents('AND', {}, false),
     {
       select: ({ data: events }) =>
         events.map(
@@ -82,6 +83,7 @@ export function HomeMain(props: HomeMainProps) {
             peopleCount: event.peopleCount,
             _count: event._count,
             isParticipate: event.isParticipate,
+            status: event.status,
           }),
         ),
       enabled: !!user,
@@ -95,6 +97,10 @@ export function HomeMain(props: HomeMainProps) {
   };
 
   // console.log('isEvent: ', isEvent);
+
+  // console.log(foundUsers);
+
+  // console.log('isUseFilter: ', isUseFilter);
 
   return (
     <div className={'flex flex-col gap-4'}>
@@ -139,6 +145,7 @@ export function HomeMain(props: HomeMainProps) {
         </div>
       </div>
       <Filter
+        setSearchTerm={setSearchTerm}
         onSubmit={onSubmit}
         setIsUseFilter={setIsUseFilter}
         setIsEvent={setIsEvent}

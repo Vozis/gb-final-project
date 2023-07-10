@@ -8,6 +8,7 @@ import { Accordion, Avatar, Button } from '@project/shared/ui';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
+import { useAuthRedux } from '@project/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface NotificationsEventsCompleteProps {
@@ -20,6 +21,7 @@ export function NotificationEventComplete({
   const queryClient = useQueryClient();
   const [showRating, setShowRating] = useState<boolean>(true);
   const [isSended, setIsSended] = useState<boolean>(true);
+  const { user } = useAuthRedux();
 
   // const data = queryClient.ensureQueryData(
   //   ['get-single-event', notification.sourceId],
@@ -68,15 +70,16 @@ export function NotificationEventComplete({
           id: 'set-rating-movie',
         });
       },
-      onSuccess: async data => {
-        toast.success(`Ваш рейтинг для пользователя принят :)`, {
-          id: 'set-rating-movie',
-        });
+      onSuccess: async ({ data }) => {
+        console.log('data setRating: ', data);
+        toast.success(
+          `Ваш рейтинг для пользователя ${data.user.firstName} ${data.user.lastName} принят`,
+          {
+            id: 'set-rating-movie',
+          },
+        );
         setIsSended(true);
-        await queryClient.invalidateQueries([
-          'get-single-user',
-          data.data.user.id,
-        ]);
+        await queryClient.invalidateQueries(['get-single-user', data.user.id]);
 
         setTimeout(() => {
           setIsSended(false);
@@ -107,31 +110,36 @@ export function NotificationEventComplete({
           <>
             <div className={styles.content}>
               <div className={'flex items-center gap-3 grow'}>
-                <Link
-                  to={`/users/${notification.user.id}`}
-                  className={'w-1/2 flex gap-3 items-center'}
-                >
-                  <Avatar
-                    imagePath={notification.user.avatarPath}
-                    className={styles.avatar}
-                  />
-                  <p className={styles.span}>
-                    {notification.user.firstName} {notification.user.lastName}
-                  </p>
-                </Link>
-                <Rating
-                  size={25}
-                  transition
-                  allowFraction
-                  SVGclassName={'inline h-8'}
-                  onClick={nextValue =>
-                    handleClickRating({
-                      value: nextValue,
-                      userId: notification.user.id,
-                      eventId: notification.sourceId,
-                    })
-                  }
-                />
+                {user && user.id !== notification.user.id && (
+                  <>
+                    <Link
+                      to={`/users/${notification.user.id}`}
+                      className={'w-1/2 flex gap-3 items-center'}
+                    >
+                      <Avatar
+                        imagePath={notification.user.avatarPath}
+                        className={styles.avatar}
+                      />
+                      <p className={styles.span}>
+                        {notification.user.firstName}{' '}
+                        {notification.user.lastName}
+                      </p>
+                    </Link>
+                    <Rating
+                      size={25}
+                      transition
+                      allowFraction
+                      SVGclassName={'inline h-8'}
+                      onClick={nextValue =>
+                        handleClickRating({
+                          value: nextValue,
+                          userId: notification.user.id,
+                          eventId: notification.sourceId,
+                        })
+                      }
+                    />
+                  </>
+                )}
               </div>
               <Accordion info={'Поставьте оценки остальным участникам события'}>
                 {completeEvent &&

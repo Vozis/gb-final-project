@@ -25,6 +25,12 @@ import {
 } from '@project/shared/hooks';
 import { SingleEventHeadSkeleton } from './single-event-head/single-event-head-skeleton';
 import { useSingleEvent } from './useSingleEvent';
+import {
+  IEventStatus,
+  INotificationStatus,
+  INotificationUpdateStatus,
+} from '@project/shared/types';
+import { NotificationStatus, NotificationType } from '@prisma/client';
 
 export interface SingleEventMainProps {
   tabs?: TabsProps;
@@ -39,9 +45,19 @@ export function SingleEventMain(props: SingleEventMainProps) {
   const [isActiveRoom, setIsActiveRoom] = useState<boolean>(false);
   const { activeRooms } = useSocketState();
   const { event, isLoading } = useSingleEvent(id);
-
+  const [isParticipant, setIsParticipant] = useState<boolean>(false);
   const { notifications } = useNotificationState();
   const { changeNotificationStatus } = useActions();
+
+  useEffect(() => {
+    event?.users.some(participant => participant.id === user?.id)
+      ? setIsParticipant(true)
+      : setIsParticipant(false);
+  }, [user]);
+
+  // console.log(event);
+  //
+  // console.log('isParticipant', isParticipant);
 
   useEffect(() => {
     if (
@@ -56,49 +72,64 @@ export function SingleEventMain(props: SingleEventMainProps) {
 
   // console.log('notifications from event-main: ', notifications);
 
-  // useEffect(() => {
-  //   console.log('start');
-  //   console.log(notifications.length);
+  useEffect(() => {
+    console.log('start');
+    console.log(notifications.length);
 
-  //   const readNotifications: number[] = notifications
-  //     .filter(item => {
-  //       if (
-  //         item.moreData === +id &&
-  //         item.type === NotificationType.COMMENT_CREATE
-  //       ) {
-  //         return item;
-  //       } else if (
-  //         item.type === NotificationType.COMMENT_REPLY &&
-  //         item.moreData === +id
-  //       ) {
-  //         return item;
-  //       } else if (
-  //         item.type === NotificationType.EVENT_CREATE &&
-  //         item.sourceId === +id
-  //       ) {
-  //         return item;
-  //       } else if (
-  //         item.type === NotificationType.EVENT_UPDATE &&
-  //         item.sourceId === +id
-  //       ) {
-  //         return item;
-  //       }
-  //     })
-  //     .map(item => item.id);
+    const readNotifications: number[] = notifications
+      .filter(item => {
+        if (
+          item.moreData === +id &&
+          item.type === NotificationType.COMMENT_CREATE &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        } else if (
+          item.type === NotificationType.COMMENT_REPLY &&
+          item.moreData === +id &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        } else if (
+          item.type === NotificationType.EVENT_CREATE &&
+          item.sourceId === +id &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        } else if (
+          item.type === NotificationType.EVENT_UPDATE &&
+          item.sourceId === +id &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        } else if (
+          item.type === NotificationType.EVENT_PARTICIPATE &&
+          item.sourceId === +id &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        } else if (
+          item.type === NotificationType.EVENT_LEAVE &&
+          item.sourceId === +id &&
+          item.status === INotificationStatus.SENT
+        ) {
+          return item;
+        }
+      })
+      .map(item => item.id);
 
-  //   console.log('readNotifications: ', readNotifications);
+    console.log('readNotifications: ', readNotifications);
 
-  //   const dto: INotificationUpdateStatus = {
-  //     ids: readNotifications,
-  //     status: NotificationStatus.DELIVERED,
-  //   };
+    const dto: INotificationUpdateStatus = {
+      ids: readNotifications,
+      status: NotificationStatus.DELIVERED,
+    };
 
-  //   changeNotificationStatus({ dto });
-  // }, []); чтобы не удалялись уведомления
+    changeNotificationStatus({ dto });
+  }, []);
+  // чтобы не удалялись уведомления
 
-  // if (!publicEvent) return null;
-
-  // if (!event) return null;
+  if (!event) return null;
 
   // console.log('event users', event.users);
 
@@ -111,7 +142,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
     },
     {
       id: '2',
-      label: 'Участвуют',
+      label: 'Участники',
       content: (
         <List className={'flex flex-col gap-3'}>
           {event &&
@@ -142,7 +173,9 @@ export function SingleEventMain(props: SingleEventMainProps) {
       )}
       <div className={'flex flex-col gap-3'}>
         {user && event ? (
-          <ToggleUserButton event={event} />
+          event.status !== IEventStatus.CLOSED && (
+            <ToggleUserButton event={event} />
+          )
         ) : user ? (
           <SkeletonLoader
             count={7}
@@ -214,15 +247,25 @@ export function SingleEventMain(props: SingleEventMainProps) {
             ) : (
               <>
                 {isActiveRoom ? (
-                  <Button onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
-                    {isCommentsOpen ? 'Скрыть ' : 'Показать '}
-                    комментарии
-                  </Button>
+                  <>
+                    {isParticipant ? (
+                      <Button
+                        onClick={() => setIsCommentsOpen(!isCommentsOpen)}
+                      >
+                        {isCommentsOpen ? 'Скрыть ' : 'Показать '}
+                        комментарии
+                      </Button>
+                    ) : (
+                      <p>Комментарии доступны только для участников события</p>
+                    )}
+                    {event && isActiveRoom && isCommentsOpen && (
+                      <Comments event={event} />
+                    )}
+                  </>
                 ) : (
-                  <p>Комментарии доступны только для участников события</p>
-                )}
-                {event && isActiveRoom && isCommentsOpen && (
-                  <Comments event={event} />
+                  <p>
+                    Для завершенного события комментарии оставлять невозможно
+                  </p>
                 )}
               </>
             )}

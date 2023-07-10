@@ -60,10 +60,16 @@ export class EventController {
     data?: IFilterDto,
     // @Body() filterSearchDto?: FilterSearchDto,
     @Query('withHobby') withHobby?: string,
+    @Query('type') type?: string,
   ) {
     // console.log(withHobby);
     // : Promise<EventSelect[]>
-    return this.eventService.getAllEvents(id, data.filterSearchDto, withHobby);
+    return this.eventService.getAllEvents(
+      id,
+      data.filterSearchDto,
+      withHobby,
+      type,
+    );
   }
   @Auth()
   @Get('finished')

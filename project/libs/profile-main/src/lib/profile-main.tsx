@@ -55,7 +55,6 @@ export function ProfileMain(props: ProfileMainProps) {
   const { myEvents, participationArr, isLoading, isSuccess } = useUserEvents(
     user.id,
   );
-  console.log(myEvents);
 
   const tabs: ITab[] = [
     {

@@ -1,6 +1,12 @@
 import { NotificationStatus, NotificationType } from '@prisma/client';
 import { IEventUser, IUser } from '@project/shared/types';
 
+export enum INotificationStatus {
+  SENT = 'SENT',
+  DELIVERED = 'DELIVERED',
+  ERROR = 'ERROR',
+}
+
 export interface INotification {
   id: number;
   type: NotificationType;
@@ -11,6 +17,7 @@ export interface INotification {
   moreData?: string | number;
   text: string;
   createdAt: Date;
+  status: INotificationStatus;
 }
 
 export interface INotificationUpdateStatus {
@@ -24,10 +31,16 @@ export enum NotificationEvent {
   CreateNotification = 'createNotification',
   GetNotification = 'getNotification',
   RemoveNotification = 'removeNotification',
+  UpdateNotification = 'updateNotification',
   ChangeNotificationStatus = 'changeNotificationStatus',
 }
 
 export interface IAllNotificationResponse {
   notifications: INotification[];
   count: number;
+}
+
+export interface IUpdateNotification {
+  id: number;
+  status: INotificationStatus;
 }

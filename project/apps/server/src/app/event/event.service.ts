@@ -39,6 +39,7 @@ export class EventService {
     id?: number,
     filterSearchDto?: FilterSearchDto,
     withHobby: string = 'true',
+    type: string = 'AND',
   ) {
     // console.log('id: ', id);
     // console.log('filterSearchDto: ', filterSearchDto);
@@ -149,7 +150,7 @@ export class EventService {
     const eventsSearchFilter: Prisma.EventWhereInput =
       !isEmpty(search) || filterTag.length || filterParams.length
         ? {
-            AND: [
+            [type]: [
               search,
               {
                 OR: filterTag,
@@ -257,7 +258,7 @@ export class EventService {
         description: dto.description,
         imageUrl: dto.imageUrl,
         eventTime: new Date(dto.eventTime),
-        peopleCount: dto.peopleCount,
+        peopleCount: +dto.peopleCount,
         creator: {
           connect: {
             id: creatorId,
@@ -290,6 +291,8 @@ export class EventService {
     dto: UpdateEventDto,
     image: Express.Multer.File,
   ): Promise<EventSelect> {
+    console.log('UpdateEventDto: ', dto);
+
     if (image) {
       dto.imageUrl = await fileUploadHelper(image, 'events');
     }
@@ -301,7 +304,7 @@ export class EventService {
         description: dto.description,
         imageUrl: dto.imageUrl,
         eventTime: new Date(dto.eventTime),
-        peopleCount: dto.peopleCount,
+        peopleCount: +dto.peopleCount,
         tags: {
           set: [],
           connect:

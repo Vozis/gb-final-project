@@ -39,6 +39,7 @@ export const useFilter = () => {
             peopleCount: event.peopleCount,
             _count: event._count,
             isParticipate: event.isParticipate,
+            status: event.status,
           }),
         ),
       enabled: user === null,
@@ -47,7 +48,7 @@ export const useFilter = () => {
 
   const { isLoading: isLoadingAuth, data: authEvents } = useQuery(
     ['get-all-events-auth'],
-    () => EventService.getAllEvents({}, true),
+    () => EventService.getAllEvents('AND', {}, true),
     {
       select: ({ data: events }) =>
         events.map(
@@ -62,6 +63,7 @@ export const useFilter = () => {
             peopleCount: event.peopleCount,
             _count: event._count,
             isParticipate: event.isParticipate,
+            status: event.status,
           }),
         ),
       enabled: !!user,
@@ -71,7 +73,7 @@ export const useFilter = () => {
   const { isLoading: isLoadingAuthWithFilter, data: authEventsWithFilter } =
     useQuery(
       ['get-all-events-auth', filterParamsArray],
-      () => EventService.getAllEvents(filterParamsArray, false),
+      () => EventService.getAllEvents('AND', filterParamsArray, false),
       {
         select: ({ data: events }) =>
           events.map(
@@ -86,6 +88,7 @@ export const useFilter = () => {
               peopleCount: event.peopleCount,
               _count: event._count,
               isParticipate: event.isParticipate,
+              status: event.status,
             }),
           ),
         enabled: isUseFilter && isEvent && !!user && !!filterParamsArray,
@@ -103,12 +106,13 @@ export const useFilter = () => {
 
   const onSubmitUsers: SubmitHandler<ISearchForm> = (data, event) => {
     event?.preventDefault();
+    console.log('onSubmitUsers');
     setSearchTerm(data.searchTerm || '');
   };
 
   const onSubmitEvents: SubmitHandler<ISearchForm> = async (data, event) => {
     event?.preventDefault();
-
+    console.log('onSubmitEvents');
     // console.log('submit data: ', data);
 
     let result: ISearch = {
@@ -165,6 +169,7 @@ export const useFilter = () => {
       setIsEvent,
       isEvent,
       foundUsers,
+      setSearchTerm,
     }),
     [
       events,

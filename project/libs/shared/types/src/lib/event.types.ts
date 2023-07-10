@@ -6,10 +6,10 @@ export interface ICount {
 }
 
 export enum IEventStatus {
-  OPEN,
-  CLOSED,
-  CANCELED,
-  ACTIVE,
+  OPEN = 'OPEN',
+  CLOSED = 'CLOSED',
+  CANCELED = 'CANCELED',
+  ACTIVE = 'ACTIVE',
 }
 
 export interface IEvent {
@@ -40,6 +40,7 @@ export interface IEventForCard {
   peopleCount: number;
   _count: ICount;
   isParticipate?: boolean | null;
+  status?: IEventStatus;
 }
 
 export interface IEventResponse {
@@ -54,7 +55,7 @@ export interface ICreateEvent {
   sport: number[];
   place: number[];
   city: number[];
-  count: number;
+  peopleCount: number;
   time: number[];
 }
 

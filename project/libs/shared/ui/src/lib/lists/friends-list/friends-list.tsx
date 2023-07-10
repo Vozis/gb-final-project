@@ -45,7 +45,7 @@ export function FriendsList({
         prevArrowRef.current.hasAttribute('disabled') ||
         nextArrowRef.current.hasAttribute('disabled');
 
-      console.log(disabled);
+      // console.log(disabled);
     }
   }, []);
   //

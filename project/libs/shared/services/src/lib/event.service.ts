@@ -14,7 +14,11 @@ export const EventService = {
     });
   },
 
-  async getAllEvents(filterSearchDto?: ISearch, withHobby?: boolean) {
+  async getAllEvents(
+    type: string = 'AND',
+    filterSearchDto?: ISearch,
+    withHobby?: boolean,
+  ) {
     // return axiosAuth.post<IEvent[]>(EventApi.getAll, data, {
     //   params: withHobby ? { withHobby: true } : { withHobby: false },
     // });
@@ -24,6 +28,7 @@ export const EventService = {
         ? {
             filterSearchDto,
             withHobby: withHobby ? 'true' : 'false',
+            type: type,
           }
         : {},
       // withHobby ? { withHobby: true } : { withHobby: false },

@@ -1,4 +1,10 @@
-import { Button, MaterialIcon, RadioField, SearchField, SelectField } from '@project/shared/ui';
+import {
+  Button,
+  MaterialIcon,
+  RadioField,
+  SearchField,
+  SelectField,
+} from '@project/shared/ui';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IOption, ISearchForm } from '@project/shared/types';
 import React, { FC, useState } from 'react';
@@ -17,6 +23,7 @@ export interface FilterProps {
   onSubmit: SubmitHandler<ISearchForm> | any;
   setIsUseFilter: (value: boolean) => void;
   setIsEvent: (value: boolean) => void;
+  setSearchTerm: (value: string) => void;
   isEvent: boolean;
 }
 
@@ -25,6 +32,7 @@ export const Filter: FC<FilterProps> = ({
   setIsUseFilter,
   setIsEvent,
   isEvent,
+  setSearchTerm,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -54,6 +62,8 @@ export const Filter: FC<FilterProps> = ({
   //   // setValue('tags', userSportHobbies);
   // }
 
+  // const { setSearchTerm } = useFilter();
+
   const { data: sports, isLoading: isSportsLoading } = useQuery(
     ['get-sport-tags'],
     () => TagService.getByType('sport'),
@@ -72,7 +82,9 @@ export const Filter: FC<FilterProps> = ({
   );
 
   const handleResetButton = () => {
+    console.log('reset filter');
     resetFilterParamsArray();
+    setSearchTerm('');
     setIsUseFilter(false);
   };
 

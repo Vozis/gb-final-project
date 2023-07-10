@@ -42,4 +42,5 @@ export class FilterSearchDto {
 export interface IFilterDto {
   filterSearchDto?: FilterSearchDto;
   withHobby?: boolean;
+  type?: string;
 }

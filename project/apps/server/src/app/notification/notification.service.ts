@@ -27,7 +27,7 @@ export class NotificationService {
       this.prisma.notifications.findMany({
         where: {
           userId: id,
-          status: 'SENT',
+          // status: 'SENT',
         },
         include: {
           user: {
@@ -71,6 +71,7 @@ export class NotificationService {
               sourceData: eventCreate.name,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             return eventCreateNotification;
           case 'EVENT_UPDATE':
@@ -87,6 +88,7 @@ export class NotificationService {
               sourceData: eventUpdate.name,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             // console.log(eventUpdateNotification);
             return eventUpdateNotification;
@@ -104,6 +106,7 @@ export class NotificationService {
               sourceData: eventComplete.name,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             return eventCompleteNotification;
           case 'COMMENT_CREATE':
@@ -122,6 +125,7 @@ export class NotificationService {
               moreData: commentCreate.event.id,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
 
             return commentCreateNotification;
@@ -143,6 +147,7 @@ export class NotificationService {
               sourceData: eventParticipate.name,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             return eventParticipateNotification;
           case 'EVENT_LEAVE':
@@ -163,6 +168,7 @@ export class NotificationService {
               sourceData: eventLeave.name,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             return eventLeaveNotification;
           case 'COMMENT_REPLY':
@@ -181,6 +187,7 @@ export class NotificationService {
               moreData: commentReply.event.id,
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
 
             return commentReplyNotification;
@@ -198,6 +205,7 @@ export class NotificationService {
               sourceData: '',
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
             return friendAddNotification;
           case 'FRIEND_REMOVE':
@@ -214,6 +222,7 @@ export class NotificationService {
               sourceData: '',
               text: notification.text,
               createdAt: notification.createdAt,
+              status: notification.status,
             };
 
             return friendRemoveNotification;
@@ -247,7 +256,7 @@ export class NotificationService {
         },
       });
     }
-    return dto.ids;
+    return { ids: dto.ids, status: dto.status };
   }
 
   async deleteNotification(id: number, type: NotificationType) {
