@@ -33,7 +33,7 @@ export const UserService = {
   },
 
   async toggleFavorite(data: IToggle) {
-    return axiosAuth.put(UserApi.toggle, data);
+    return axiosAuth.put<IUser>(UserApi.toggle, data);
   },
 
   async toggleFriend(data: IToggle) {

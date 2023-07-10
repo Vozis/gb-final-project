@@ -7,6 +7,7 @@ import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import styles from './card.module.scss';
 import { FaEllipsis } from 'react-icons/fa6';
+import { Tooltip } from 'react-tooltip';
 
 /* eslint-disable-next-line */
 export interface CardProps {
@@ -59,6 +60,8 @@ export const Card: FC<CardProps> = ({ event }) => {
   //   }
   // }, [isShowSettingModal]);
 
+  // console.log(user?.favorites);
+
   return (
     <div
       className={styles.card}
@@ -73,6 +76,16 @@ export const Card: FC<CardProps> = ({ event }) => {
           <FavoriteButton
             className={'absolute right-0 top-0'}
             eventId={event.id}
+            id={`favBtn-${event.id}`}
+          />
+          <Tooltip
+            style={{ backgroundColor: '#54B4D3', color: '#fff' }}
+            anchorSelect={`[id^='favBtn-${event.id}']`}
+            content={`${
+              user.favorites?.some(item => item.id === event.id)
+                ? 'Удалить из избранного'
+                : 'Добавить в избранное'
+            }`}
           />
           {user.id === event.creator?.id && (
             <>
@@ -114,8 +127,15 @@ export const Card: FC<CardProps> = ({ event }) => {
               <Link
                 to={`/events/update/${event.id}`}
                 className={'absolute right-8 top-12'}
+                id={`card-${event.id}`}
               >
                 <FaEllipsis className={'text-3xl text-white'} />
+                <Tooltip
+                  style={{ backgroundColor: '#54B4D3', color: '#fff' }}
+                  place={'right'}
+                  anchorSelect="[id^='card-']"
+                  content={'Редактирование события'}
+                />
               </Link>
 
               {/*<Button className={'text-white'}>Удалить</Button>*/}
