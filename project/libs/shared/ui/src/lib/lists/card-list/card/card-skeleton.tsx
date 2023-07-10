@@ -12,7 +12,7 @@ export const CardSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
         <div
           key={item}
           className={
-            'bg-white p-3 rounded-xl block flex flex-col justify-between h-52 gap-4'
+            'skeleton__bg p-3 rounded-xl block flex flex-col justify-between h-52 gap-4'
           }
         >
           <div className={'flex justify-between'}>

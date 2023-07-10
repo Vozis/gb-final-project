@@ -80,7 +80,22 @@ export function ProfileMain(props: ProfileMainProps) {
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={participationArr} />,
+      content: (
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            list={participationArr.filter(
+              event => event.status !== IEventStatus.CLOSED,
+            )}
+            title={'Активные события'}
+          />
+          <CardList
+            list={participationArr.filter(
+              event => event.status === IEventStatus.CLOSED,
+            )}
+            title={'Завершенные события'}
+          />
+        </div>
+      ),
     },
   ];
 
@@ -123,7 +138,7 @@ export function ProfileMain(props: ProfileMainProps) {
             count={2}
             className={'h-10 w-full rounded-[50px]'}
             containerClassName={
-              'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
+              'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }
           />
           <CardSkeleton count={3} />
