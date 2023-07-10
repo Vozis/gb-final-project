@@ -137,7 +137,6 @@ export const Card: FC<CardProps> = ({ event }) => {
             {event._count.users === event.peopleCount && `нет мест`}
           </p>
         </div>
-
         <span className={`${styles.cardDate} text-white`}>
           Дата: {moment(event.eventTime).format('DD.MM.YYYY LT')}
         </span>

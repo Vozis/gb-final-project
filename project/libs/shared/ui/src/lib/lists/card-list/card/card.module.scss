@@ -76,9 +76,9 @@
     color: #f8f8f8;
     display: block;
     font-family: 'Roboto', sans-serif;
-    margin-right: 15px;
-
     font-size: 20px;
+
+    margin-right: 15px;
     text-decoration: none;
     @media (min-width: 1200px) {
       font-size: v.$text-2xl;
@@ -89,6 +89,7 @@
   &__info {
     display: flex;
     flex-direction: column;
+    gap: 5px;
     justify-content: space-between;
     padding: 15px;
     width: 100%;
@@ -101,23 +102,27 @@
 }
 
 .cardHeader {
+  align-items: self-start;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .cardDate {
   align-self: flex-start;
-  display: flex;
-  padding: 7px;
+  border: 2px solid var(--accent-info-color);
+  //background-color: var(--accent-info-color);
   border-radius: 12px;
-  background-color: var(--accent-info-color);
+  display: flex;
+  font-weight: bolder;
+  padding: 4px 8px;
 }
 
 .countInfo {
   align-self: flex-start;
-  padding: 8px;
-  border-radius: 12px;
   background-color: var(--accent-color-red);
+  border-radius: 12px;
+  padding: 4px 8px;
 }
 
 //.card {

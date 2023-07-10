@@ -1,10 +1,11 @@
 .container {
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: var(--components-bg-color);
   border-bottom: 1px solid var(--border-color);
+  border-radius: var(--border-radius-m);
   display: flex;
-  gap: 10px;
   //max-width: 500px;
+  gap: 10px;
   padding: 10px;
   width: 100%;
 }
@@ -24,7 +25,7 @@
 }
 
 .span {
-  color: #2e6d9c;
+  color: var(--accent-color-blue);
   cursor: pointer;
 
   &:hover {
@@ -32,16 +33,14 @@
   }
 }
 
-@media screen {
-}
 
 .infoIcon {
+  background: white;
+  border: 1px solid #304bc3;
+  border-radius: 4px;
+  bottom: 0;
   color: #304bc3;
+  margin: 0;
   position: absolute;
   right: 10px;
-  bottom: 0px;
-  background: white;
-  border-radius: 4px;
-  margin: 0px;
-  border: 1px solid #304bc3;
 }
