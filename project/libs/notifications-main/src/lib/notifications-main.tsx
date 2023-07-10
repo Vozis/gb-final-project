@@ -10,12 +10,13 @@ import {
   INotificationStatus,
   INotificationUpdateStatus,
 } from '@project/shared/types';
+import { NotificationEventCompleteSkeleton } from './notification-event-complete/notification-event-complete-skeleton';
 
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
-  const { notifications, count } = useNotificationState();
+  const { notifications, count, isLoading } = useNotificationState();
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // console.log(
