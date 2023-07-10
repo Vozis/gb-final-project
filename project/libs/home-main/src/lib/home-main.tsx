@@ -106,7 +106,7 @@ export function HomeMain(props: HomeMainProps) {
     <div className={'flex flex-col gap-4'}>
       <div>
         {user && (
-          <div className={'flex justify-between items-center'}>
+          <div className={'flex justify-between items-center mt-10'}>
             <UserCardSmall
               userProps={user}
               className={styles.profile__img_wrapper}
@@ -165,7 +165,11 @@ export function HomeMain(props: HomeMainProps) {
             </>
           ) : (
             isEvent && (
-              <CardList list={events || []} title={'Актуальные для вас'} />
+              <CardList
+                className={styles.mainCardList}
+                list={events || []}
+                title={'Актуальные для вас'}
+              />
             )
           )}
           {isLoading ? (
@@ -179,7 +183,11 @@ export function HomeMain(props: HomeMainProps) {
               <CardSkeleton count={3} />
             </>
           ) : (
-            <CardList list={allEvents || []} title={'Все события'} />
+            <CardList
+              className={styles.mainCardList}
+              list={allEvents || []}
+              title={'Все события'}
+            />
           )}
         </>
       ) : (
