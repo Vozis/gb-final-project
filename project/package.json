@@ -119,6 +119,7 @@
     "handlebars": "4.7.7",
     "js-cookie": "3.0.5",
     "jwt-decode": "3.1.2",
+    "lvovich": "^2.0.0",
     "moment": "2.29.4",
     "nestjs-prisma": "0.20.0",
     "node-polyfill-webpack-plugin": "2.0.1",
