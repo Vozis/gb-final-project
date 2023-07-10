@@ -158,7 +158,7 @@ export function HomeMain(props: HomeMainProps) {
               <SkeletonLoader
                 className={'rounded-xl'}
                 containerClassName={
-                  'p-2 bg-white w-full mb-3 box-border block rounded-xl'
+                  'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
                 }
               />
               <CardSkeleton count={3} />

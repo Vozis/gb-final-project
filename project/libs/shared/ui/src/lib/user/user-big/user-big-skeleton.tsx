@@ -8,9 +8,7 @@ interface CardSkeletonProps {
 export const UserBigSkeleton: FC<CardSkeletonProps> = ({ count = 1 }) => {
   return (
     <div
-      className={
-        'm-auto w-full bg-white p-3 rounded-xl flex flex-col justify-between items-center gap-2 relative'
-      }
+      className={`skeleton__bg m-auto w-full p-3 rounded-xl flex flex-col justify-between items-center gap-2 relative`}
     >
       <div>
         <SkeletonLoader

@@ -11,7 +11,7 @@ export const FriendsListSkeleton: FC<FriendsListSkeletonProps> = ({
   return (
     <div
       className={
-        'm-auto w-full bg-white px-5 py-4 rounded-xl flex flex-col items-start gap-2 relative overflow-hidden'
+        'skeleton__bg m-auto w-full px-5 py-4 rounded-xl flex flex-col items-start gap-2 relative overflow-hidden'
       }
     >
       <SkeletonLoader
