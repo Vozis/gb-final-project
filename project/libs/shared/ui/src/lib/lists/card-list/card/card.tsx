@@ -126,6 +126,7 @@ export const Card: FC<CardProps> = ({ event }) => {
           <p
             className={clsx(styles.countInfo, {
               hidden: event.status === 'CLOSED',
+              ['!bg-[#ff3347]']: event._count.users === event.peopleCount,
             })}
           >
             {event.status !== 'CLOSED' &&
