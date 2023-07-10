@@ -1,6 +1,6 @@
 import { useActions, useNotificationState } from '@project/shared/hooks';
 import { List } from '@project/shared/ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NotificationComment from './notification-comment/notification-comment';
 import NotificationEventComplete from './notification-event-complete/notification-event-complete';
 import NotificationEvent from './notification-event/notification-event';
@@ -17,6 +17,7 @@ export interface NotificationsMainProps {}
 export function NotificationsMain(props: NotificationsMainProps) {
   const { notifications, count } = useNotificationState();
   const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   // console.log(
   //   'notifications: ',
   //   notifications.filter(item => item.type === 'EVENT_COMPLETE'),
@@ -30,6 +31,12 @@ export function NotificationsMain(props: NotificationsMainProps) {
   // notifications.map(notification => console.log('notification', notification));
   const { changeNotificationStatus } = useActions();
   // console.log('changeNotificationStatus: ', changeNotificationStatus);
+
+  // console.log('notifications: ', notifications);
+
+  useEffect(() => {
+    if (notifications) setIsLoading(true);
+  }, [notifications]);
 
   useEffect(() => {
     if (pathname === '/notifications') {
@@ -46,61 +53,76 @@ export function NotificationsMain(props: NotificationsMainProps) {
 
   return (
     <>
-      {notifications.some(note => note.status === INotificationStatus.SENT) && (
-        <List
-          title={'Новые уведомления'}
-          headingClassName={'text-center'}
-          className={''}
-        >
-          {notifications
-            .filter(
-              notification => notification.status === INotificationStatus.SENT,
-            )
-            .map(notification => (
-              <React.Fragment key={notification.id}>
-                {notification.type.match(/EVENT_COMPLETE/) !== null ? (
-                  <NotificationEventComplete data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/EVENT/) !== null ? (
-                  <NotificationEvent data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/FRIEND/) !== null ? (
-                  <NotificationFriend data={notification} />
-                ) : (
-                  // <p>заглушка</p>
-                  <NotificationComment data={notification} />
-                )}
-              </React.Fragment>
-            ))}
-        </List>
+      {isLoading ? (
+        <p>Загрузка...</p>
+      ) : (
+        <>
+          {notifications.some(
+            note => note.status === INotificationStatus.SENT,
+          ) && (
+            <List
+              title={'Новые уведомления'}
+              headingClassName={'text-center'}
+              className={''}
+            >
+              {notifications
+                .filter(
+                  notification =>
+                    notification.status === INotificationStatus.SENT,
+                )
+                .map(notification => (
+                  <React.Fragment key={notification.id}>
+                    {notification.type.match(/EVENT_COMPLETE/) !== null ? (
+                      <NotificationEventComplete data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/EVENT/) !== null ? (
+                      <NotificationEvent data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/FRIEND/) !== null ? (
+                      <NotificationFriend data={notification} />
+                    ) : (
+                      // <p>заглушка</p>
+                      <NotificationComment data={notification} />
+                    )}
+                  </React.Fragment>
+                ))}
+            </List>
+          )}
+        </>
       )}
-      {notifications.some(
-        note => note.status === INotificationStatus.DELIVERED,
-      ) && (
-        <List
-          title={'Просмотренные уведомления'}
-          headingClassName={'text-center'}
-          className={''}
-        >
-          {notifications
-            .filter(note => note.status === INotificationStatus.DELIVERED)
-            .map(notification => (
-              <React.Fragment key={notification.id}>
-                {notification.type.match(/EVENT_COMPLETE/) !== null ? (
-                  <NotificationEventComplete data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/EVENT/) !== null ? (
-                  <NotificationEvent data={notification} />
-                ) : // <p>заглушка</p>
-                notification.type.match(/FRIEND/) !== null ? (
-                  <NotificationFriend data={notification} />
-                ) : (
-                  // <p>заглушка</p>
-                  <NotificationComment data={notification} />
-                )}
-              </React.Fragment>
-            ))}
-        </List>
+      {isLoading ? (
+        <p>Загрузка...</p>
+      ) : (
+        <>
+          {notifications.some(
+            note => note.status === INotificationStatus.DELIVERED,
+          ) && (
+            <List
+              title={'Просмотренные уведомления'}
+              headingClassName={'text-center'}
+              className={''}
+            >
+              {notifications
+                .filter(note => note.status === INotificationStatus.DELIVERED)
+                .map(notification => (
+                  <React.Fragment key={notification.id}>
+                    {notification.type.match(/EVENT_COMPLETE/) !== null ? (
+                      <NotificationEventComplete data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/EVENT/) !== null ? (
+                      <NotificationEvent data={notification} />
+                    ) : // <p>заглушка</p>
+                    notification.type.match(/FRIEND/) !== null ? (
+                      <NotificationFriend data={notification} />
+                    ) : (
+                      // <p>заглушка</p>
+                      <NotificationComment data={notification} />
+                    )}
+                  </React.Fragment>
+                ))}
+            </List>
+          )}
+        </>
       )}
     </>
   );

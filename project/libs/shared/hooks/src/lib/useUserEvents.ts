@@ -1,33 +1,31 @@
-import { IEventForCard, ISearch } from '@project/shared/types';
+import { IEventForCard } from '@project/shared/types';
 import { useQuery } from '@tanstack/react-query';
 import { EventService } from '@project/shared/services';
 import { useMemo } from 'react';
 
-const getFilterProfileParamsArray = (id: number): ISearch => {
-  return {
-    filterNestedFieldsParams: [
-      {
-        paramsCategory: 'users',
-        paramsType: 'id',
-        nestedFieldValue: id,
-      },
-    ],
-    filterEventFieldsParams: [
-      {
-        paramsFilter: 'creator',
-        eventFieldValue: id,
-      },
-    ],
-  };
-};
+// const getFilterProfileParamsArray = (id: number): ISearch => {
+//   return {
+//     filterNestedFieldsParams: [
+//       {
+//         paramsCategory: 'users',
+//         paramsType: 'id',
+//         nestedFieldValue: id,
+//       },
+//     ],
+//     filterEventFieldsParams: [
+//       {
+//         paramsFilter: 'creator',
+//         eventFieldValue: id,
+//       },
+//     ],
+//   };
+// };
 
 export const useUserEvents = (id: number) => {
-  const filterProfileParamsArray = useMemo(
-    () => getFilterProfileParamsArray(id),
-    [id],
-  );
-
-  // console.log(filterProfileParamsArray);
+  // const filterProfileParamsArray = useMemo(
+  //   () => getFilterProfileParamsArray(id),
+  //   [id],
+  // );
 
   const {
     isLoading,
@@ -37,10 +35,10 @@ export const useUserEvents = (id: number) => {
     isSuccess,
   } = useQuery(
     ['get-profile-events', id],
-    () => EventService.getAllEvents('OR', filterProfileParamsArray),
+    () => EventService.getUserEvents(id),
     {
       select: ({ data }) => data,
-      enabled: !!filterProfileParamsArray,
+      enabled: !!id,
     },
   );
 
@@ -64,6 +62,6 @@ export const useUserEvents = (id: number) => {
       isLoading,
       isSuccess,
     }),
-    [profileEvents, isLoading],
+    [myEvents, participationArr],
   );
 };

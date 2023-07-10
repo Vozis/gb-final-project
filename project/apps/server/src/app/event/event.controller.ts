@@ -77,11 +77,11 @@ export class EventController {
     return this.eventService.getFinishedEvents(id);
   }
 
-  // @Auth()
-  // @Get('my-events')
-  // async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
-  //   return this.eventService.getUserEvents(id);
-  // }
+  @Auth()
+  @Get('by-user/:id')
+  async getUserEvents(@User('id') id: number): Promise<EventSelect[]> {
+    return this.eventService.getUserEvents(id);
+  }
 
   // @Auth()
   // @Get('by-user-hobbies')

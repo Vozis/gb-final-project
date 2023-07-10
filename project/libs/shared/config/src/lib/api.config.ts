@@ -25,6 +25,9 @@ export const EventApi = {
   getForRating(id: number) {
     return `events/for-rating/${id}`;
   },
+  getUserEvents(id: number) {
+    return `events/by-user/${id}`;
+  },
 };
 
 export const TagApi = {

@@ -27,7 +27,13 @@ export function SingleEventHead({ event }: SingleEventHeadProps) {
     >
       <h1 className={styles.card_title}>{event.name}</h1>
       {event.status !== IEventStatus.OPEN && (
-        <p className={'absolute top-4 right-4'}>{event.status}</p>
+        <p
+          className={
+            'absolute top-4 right-4 font-semibold px-4 py-2 border border-2 border-white rounded-full'
+          }
+        >
+          {event.status}
+        </p>
       )}
       <UserCardSmall userProps={event.creator} isName isInfo isPhoto isWhite />
     </div>

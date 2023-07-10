@@ -13,6 +13,7 @@ import {
 import React from 'react';
 import { useSingleUser } from './useSingleUser';
 import styles from './single-user-main.module.scss';
+import { IEventStatus } from '@project/shared/types';
 
 /* eslint-disable-next-line */
 export interface SingleUserMainProps {}
@@ -30,10 +31,26 @@ export function SingleUserMain(props: SingleUserMainProps) {
       id: '1',
       label: 'Мои события',
       content: (
-        <CardList
-          className={styles.tabs_list}
-          list={userData?.creations || []}
-        />
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            className={styles.tabs_list}
+            list={
+              userData?.creations?.filter(
+                event => event.status !== IEventStatus.CLOSED,
+              ) || []
+            }
+            title={'Активные события'}
+          />
+          <CardList
+            className={styles.tabs_list}
+            list={
+              userData?.creations?.filter(
+                event => event.status === IEventStatus.CLOSED,
+              ) || []
+            }
+            title={'Завершенные события'}
+          />
+        </div>
       ),
     },
     {

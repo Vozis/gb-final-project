@@ -14,6 +14,10 @@ export const EventService = {
     });
   },
 
+  async getUserEvents(userId: number) {
+    return axiosAuth.get<IEvent[]>(EventApi.getUserEvents(userId));
+  },
+
   async getAllEvents(
     type: string = 'AND',
     filterSearchDto?: ISearch,
