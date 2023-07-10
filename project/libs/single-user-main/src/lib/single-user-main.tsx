@@ -57,7 +57,26 @@ export function SingleUserMain(props: SingleUserMainProps) {
       id: '2',
       label: 'Участвую',
       content: (
-        <CardList className={styles.tabs_list} list={userData?.events || []} />
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            className={styles.tabs_list}
+            list={
+              userData?.events?.filter(
+                event => event.status !== IEventStatus.CLOSED,
+              ) || []
+            }
+            title={'Активные события'}
+          />
+          <CardList
+            className={styles.tabs_list}
+            list={
+              userData?.events?.filter(
+                event => event.status === IEventStatus.CLOSED,
+              ) || []
+            }
+            title={'Завершенные события'}
+          />
+        </div>
       ),
     },
   ];

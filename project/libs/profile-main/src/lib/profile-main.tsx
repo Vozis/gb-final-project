@@ -80,7 +80,22 @@ export function ProfileMain(props: ProfileMainProps) {
     {
       id: '2',
       label: 'Участвую',
-      content: <CardList list={participationArr} />,
+      content: (
+        <div className={'flex flex-col gap-4'}>
+          <CardList
+            list={participationArr.filter(
+              event => event.status !== IEventStatus.CLOSED,
+            )}
+            title={'Активные события'}
+          />
+          <CardList
+            list={participationArr.filter(
+              event => event.status === IEventStatus.CLOSED,
+            )}
+            title={'Завершенные события'}
+          />
+        </div>
+      ),
     },
   ];
 

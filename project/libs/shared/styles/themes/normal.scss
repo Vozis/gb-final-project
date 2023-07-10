@@ -1,22 +1,22 @@
 .app_light_theme {
-  --bg-color: #ebedf0;
+  --header-bg: #fff;
 
+  --modal-bg: #f9f9f9;
+  --components-bg-color: #fff;
+  --skeleton-bg-color: #fff;
+  --bg-color: #ebedf0;
+  --border-color: #e7e8ec;
   --primary-color: #333;
   --secondary-color: #99a2ad;
-  --header-bg: #fff;
-  --border-color: #e7e8ec;
-  --profile-tab-color: #f9f9f9;
-  --modal-bg: #f9f9f9;
-  --text-color-primary: #222;
-  --avatar-outline-color: #fff;
-
-  --components-bg-color: #fff;
-
   --accent-color-grey: #E5E4E2;
 
-  --skeleton-bg-color: #fff;
-  --skeleton-el-bg: #ebedf0;
+  --text-color-primary: #222;
+
+  --skeleton-el-bg: #F2F2F2;
+
   --skeleton-highlight-color: #f5f5f5;
+  --avatar-outline-color: #fff;
+  --profile-tab-color: #f9f9f9;
 
 }
 

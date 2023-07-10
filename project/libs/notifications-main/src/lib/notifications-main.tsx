@@ -1,5 +1,5 @@
 import { useActions, useNotificationState } from '@project/shared/hooks';
-import { List } from '@project/shared/ui';
+import { List, SkeletonLoader } from '@project/shared/ui';
 import React, { useEffect, useState } from 'react';
 import NotificationComment from './notification-comment/notification-comment';
 import NotificationEventComplete from './notification-event-complete/notification-event-complete';
@@ -10,13 +10,13 @@ import {
   INotificationStatus,
   INotificationUpdateStatus,
 } from '@project/shared/types';
-import { NotificationEventCompleteSkeleton } from './notification-event-complete/notification-event-complete-skeleton';
+import { NotificationEventSkeleton } from './notification-event/notification-event-skeleton';
 
 /* eslint-disable-next-line */
 export interface NotificationsMainProps {}
 
 export function NotificationsMain(props: NotificationsMainProps) {
-  const { notifications, count, isLoading } = useNotificationState();
+  const { notifications, count } = useNotificationState();
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // console.log(
@@ -33,10 +33,10 @@ export function NotificationsMain(props: NotificationsMainProps) {
   const { changeNotificationStatus } = useActions();
   // console.log('changeNotificationStatus: ', changeNotificationStatus);
 
-  // console.log('notifications: ', notifications);
+  console.log('notifications: ', notifications);
 
   useEffect(() => {
-    if (notifications) setIsLoading(true);
+    if (notifications.length) setIsLoading(false);
   }, [notifications]);
 
   useEffect(() => {
@@ -53,9 +53,21 @@ export function NotificationsMain(props: NotificationsMainProps) {
   }, [notifications, count, pathname]);
 
   return (
-    <>
+    <div className={'flex flex-col gap-6'}>
       {isLoading ? (
-        <p>Загрузка...</p>
+        <div>
+          <SkeletonLoader
+            className={'rounded-xl'}
+            containerClassName={
+              'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
+            }
+          />
+          <div className={'flex flex-col gap-4'}>
+            {[...Array(4).keys()].map(item => (
+              <NotificationEventSkeleton key={item} />
+            ))}
+          </div>
+        </div>
       ) : (
         <>
           {notifications.some(
@@ -92,7 +104,19 @@ export function NotificationsMain(props: NotificationsMainProps) {
         </>
       )}
       {isLoading ? (
-        <p>Загрузка...</p>
+        <div>
+          <SkeletonLoader
+            className={'rounded-xl'}
+            containerClassName={
+              'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
+            }
+          />
+          <div className={'flex flex-col gap-4'}>
+            {[...Array(4).keys()].map(item => (
+              <NotificationEventSkeleton key={item} />
+            ))}
+          </div>
+        </div>
       ) : (
         <>
           {notifications.some(
@@ -125,7 +149,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
 
