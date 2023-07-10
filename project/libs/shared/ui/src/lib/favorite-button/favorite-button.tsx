@@ -25,6 +25,7 @@ export function FavoriteButton({
   const { getProfile } = useActions();
 
   const [isSmashed, setIsSmashed] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -42,7 +43,7 @@ export function FavoriteButton({
     {
       onMutate: () => {
         toast.loading('Процесс запущен...', {
-          id: 'toggle-favorite-success',
+          id: 'toggle-favorite',
         });
       },
       onError: error => {
@@ -51,20 +52,27 @@ export function FavoriteButton({
         //   containerId: 1,
         // });
         toast.error(errorCatch(error), {
-          id: 'toggle-favorite-success',
+          id: 'toggle-favorite',
         });
       },
-      onSuccess: async () => {
+      onSuccess: async ({ data }) => {
         setIsSmashed(!isSmashed);
         await queryClient.invalidateQueries(['get-all-events']);
         // toast.success('Статус события успешно изменен', {
         //   toastId: 'toggle-favorite-success',
         //   containerId: 1,
         // });
-        toast.success('Статус события успешно изменен', {
-          id: 'toggle-favorite-success',
-        });
+
         getProfile();
+        const isFavorite = user?.favorites?.some(item => item.id === eventId);
+        toast.success(
+          `Событие ${
+            isFavorite ? 'удалено из избранного' : 'добавлено в избранное'
+          }`,
+          {
+            id: 'toggle-favorite',
+          },
+        );
       },
     },
   );
