@@ -10,11 +10,10 @@ import {
   ToggleUserButton,
   UserCardSmall,
 } from '@project/shared/ui';
-import { clsx } from 'clsx';
 import { useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useEffect, useState } from 'react';
-// import { toast } from 'react-toastify';
+import cn from 'clsx';
 import SingleEventHead from './single-event-head/single-event-head';
 import styles from './single-event-main.module.scss';
 import {
@@ -179,7 +178,11 @@ export function SingleEventMain(props: SingleEventMainProps) {
         ) : user ? (
           <SkeletonLoader
             count={7}
-            className={'h-6 w-4'}
+            style={{
+              height: '1.5rem',
+              width: '1rem',
+            }}
+            // className={'h-6 w-4'}
             containerClassName={
               'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-12'
             }
@@ -191,7 +194,12 @@ export function SingleEventMain(props: SingleEventMainProps) {
         {isLoading ? (
           <SkeletonLoader
             count={2}
-            className={'h-10 w-full rounded-[50px]'}
+            style={{
+              height: '2.5rem',
+              width: '100%',
+              borderRadius: '100px',
+            }}
+            // className={'h-10 w-full rounded-[50px]'}
             containerClassName={
               'bg-white p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }
@@ -212,7 +220,12 @@ export function SingleEventMain(props: SingleEventMainProps) {
           {isLoading ? (
             <SkeletonLoader
               count={4}
-              className={'h-6 w-24 rounded-[50px]'}
+              style={{
+                height: '1.5rem',
+                width: '6rem',
+                borderRadius: '100px',
+              }}
+              // className={'h-6 w-24 rounded-[50px]'}
               containerClassName={
                 'bg-white p-3 flex gap-1 item-center justify-between rounded-xl h-12 w-full'
               }
@@ -222,7 +235,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
             event.tags.map(tag => (
               <Tag
                 key={tag.id}
-                className={clsx({
+                className={cn({
                   'bg-red-300 hover:bg-red-400': tag?.type.name === 'count',
                   [styles.card__tag_place]: tag?.type.name === 'place',
                   'bg-green-300 hover:bg-green-400': tag?.type.name === 'city',
@@ -239,7 +252,12 @@ export function SingleEventMain(props: SingleEventMainProps) {
             {isLoading ? (
               <SkeletonLoader
                 count={1}
-                className={'h-5 w-1/2 rounded-[50px]'}
+                style={{
+                  height: '1.25rem',
+                  width: '50%',
+                  borderRadius: '100px',
+                }}
+                // className={'h-5 w-1/2 rounded-[50px]'}
                 containerClassName={
                   'bg-white p-3 flex gap-1 item-center justify-between rounded-full h-12 w-full'
                 }

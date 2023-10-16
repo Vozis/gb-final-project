@@ -14,9 +14,9 @@ import {
 } from '@project/shared/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import ProfileHead from './profile-head/profile-head';
 import styles from './profile-main.module.scss';
-import { useMediaQuery } from 'react-responsive';
 
 /* eslint-disable-next-line */
 
@@ -146,9 +146,14 @@ export function ProfileMain(props: ProfileMainProps) {
               <div className={`flex flex-col  w-[60%] gap-3`}>
                 <SkeletonLoader
                   count={2}
-                  className={'h-10 w-full rounded-[50px]'}
+                  style={{
+                    height: '2.5rem',
+                    width: '100%',
+                    borderRadius: '50px',
+                  }}
+                  // className={'h-10 w-full rounded-[50px]'}
                   containerClassName={
-                    'skeleton__bg  p-3 flex gap-1 w-full item-center rounded-full h-16'
+                    'skeleton__bg p-3 flex gap-1 w-full item-center rounded-full h-16'
                   }
                 />
                 <CardSkeleton count={3} classWrapper={'flex-col'} />
@@ -159,14 +164,25 @@ export function ProfileMain(props: ProfileMainProps) {
               <FriendsListSkeleton count={user.friends?.length} />
               <SkeletonLoader
                 count={2}
-                className={'h-10 w-full rounded-[50px]'}
+                style={{
+                  height: '2.5rem',
+                  width: '100%',
+                  borderRadius: '100px',
+                }}
+                // className={'h-10 w-full rounded-[50px]'}
                 containerClassName={
                   'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
                 }
               />
               <SkeletonLoader
                 count={1}
-                className={'h-8 w-[250px] rounded-md block'}
+                style={{
+                  height: '2rem',
+                  width: '250px',
+                  borderRadius: '0.375rem',
+                  display: 'block',
+                }}
+                // className={'h-8 w-[250px] rounded-md block'}
                 containerClassName={
                   'skeleton__bg p-3 flex items-center rounded-md h-16'
                 }

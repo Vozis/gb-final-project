@@ -15,7 +15,13 @@ export const SingleEventHeadSkeleton: FC<CardSkeletonProps> = ({
       }
     >
       <div className={'mt-auto'}>
-        <SkeletonLoader count={1} className={'h-6'} />
+        <SkeletonLoader
+          count={1}
+          style={{
+            height: '1.5rem',
+          }}
+          // className={'h-6'}
+        />
         <UserSmallSkeleton />
       </div>
     </div>

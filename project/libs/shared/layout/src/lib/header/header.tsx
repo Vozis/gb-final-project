@@ -15,7 +15,7 @@ import {
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 import styles from './header.module.scss';
-import clsx from 'clsx';
+import cn from 'clsx';
 
 /* eslint-disable-next-line */
 export interface HeaderProps {}
@@ -76,7 +76,7 @@ export function Header(props: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className={clsx(styles.header, {
+      className={cn(styles.header, {
         // [`${styles.header} ${styles.dark}`]: theme === 'dark',
         // [`${styles.header} ${styles.light}`]: theme === 'light',
       })}

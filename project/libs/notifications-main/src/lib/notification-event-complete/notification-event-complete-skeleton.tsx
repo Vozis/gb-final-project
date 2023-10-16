@@ -14,21 +14,42 @@ export const NotificationEventCompleteSkeleton: FC<
     >
       <SkeletonLoader
         count={1}
-        className={'h-6 w-64'}
+        style={{
+          height: '1.5rem',
+          width: '16rem',
+        }}
+        // className={'h-6 w-64'}
         containerClassName={'flex'}
       />
       <div className={'flex items-center justify-between'}>
         <SkeletonLoader
           count={1}
-          className={'h-6 w-40'}
+          style={{
+            height: '1.5rem',
+            width: '10rem',
+          }}
+          // className={'h-6 w-40'}
           containerClassName={'flex justify-center'}
         />
-        <SkeletonLoader count={1} className={'h-8 w-8 rounded-md '} />
+        <SkeletonLoader
+          count={1}
+          style={{
+            height: '2rem',
+            width: '2rem',
+            borderRadius: '0.375rem',
+          }}
+          // className={'h-8 w-8 rounded-md '}
+        />
       </div>
 
       <SkeletonLoader
         count={1}
-        className={'h-10 w-full block'}
+        style={{
+          height: '2.5rem',
+          width: '100%',
+          display: 'block',
+        }}
+        // className={'h-10 w-full block'}
         containerClassName={'flex'}
       />
       {/*<SkeletonLoader*/}

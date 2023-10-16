@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { ReactElement, useState } from 'react';
-import clsx from 'clsx';
+import cn from 'clsx';
 import styles from './tabs.module.scss';
 import { motion } from 'framer-motion';
 
@@ -47,11 +47,11 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
 
   return (
     <>
-      <ul className={clsx(styles.tabs, [className])}>
+      <ul className={cn(styles.tabs, [className])}>
         {tabs &&
           tabs.map((tab, index) => (
             <motion.li
-              className={clsx(styles.tabs__tab, {
+              className={cn(styles.tabs__tab, {
                 [styles.tabs__tab_selected]: activeTabIndex === index,
               })}
               key={tab.id}
@@ -60,7 +60,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
               animate={activeTabIndex === index ? 'active' : 'inactive'}
             >
               <span
-                className={clsx(styles.tabs__label, {
+                className={cn(styles.tabs__label, {
                   [styles.tabs__label_selected]: activeTabIndex === index,
                 })}
               >
@@ -73,7 +73,7 @@ export const Tabs: FC<TabsProps> = ({ className, selectedId = 0, tabs }) => {
         <div
           role={'tabPanel'}
           key={tab.id}
-          className={clsx(styles.tabs__content, {
+          className={cn(styles.tabs__content, {
             [styles.tabs__content_selected]: activeTabIndex === index,
           })}
         >

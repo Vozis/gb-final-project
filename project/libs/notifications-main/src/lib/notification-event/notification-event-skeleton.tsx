@@ -27,13 +27,23 @@ export const NotificationEventSkeleton: FC<
       {/*</div>*/}
       <SkeletonLoader
         count={1}
-        className={'rounded-full h-8 w-8'}
+        style={{
+          height: '2rem',
+          width: '2rem',
+          borderRadius: '100px',
+        }}
+        // className={'rounded-full h-8 w-8'}
         containerClassName={'flex-1 text-right'}
       />
 
       <SkeletonLoader
         count={1}
-        className={'h-10 w-full block'}
+        style={{
+          height: '2.5rem',
+          width: '100%',
+          display: 'block',
+        }}
+        // className={'h-10 w-full block'}
         containerClassName={'flex'}
       />
     </div>

@@ -1,7 +1,7 @@
 import { useAuthRedux } from '@project/shared/hooks';
 import { IEventForCard, IEventStatus } from '@project/shared/types';
 import { FavoriteButton, Tag, ToggleUserButton } from '@project/shared/ui';
-import clsx from 'clsx';
+import cn from 'clsx';
 import moment from 'moment';
 import 'moment/locale/ru.js';
 import { FC } from 'react';
@@ -124,7 +124,7 @@ export const Card: FC<CardProps> = ({ event }) => {
               : event.name}
           </Link>
           <p
-            className={clsx(styles.countInfo, {
+            className={cn(styles.countInfo, {
               hidden: event.status === 'CLOSED',
               ['!bg-[#ff3347]']: event._count.users === event.peopleCount,
             })}
@@ -145,7 +145,7 @@ export const Card: FC<CardProps> = ({ event }) => {
           {event.tags.map(tag => (
             <Tag
               key={tag.id}
-              className={clsx({
+              className={cn({
                 'bg-red-300 hover:bg-red-400': tag?.type?.name === 'time',
                 [styles.card__tag_place]: tag?.type?.name === 'place',
                 'bg-green-300 hover:bg-green-400': tag?.type?.name === 'city',

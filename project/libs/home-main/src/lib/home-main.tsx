@@ -105,9 +105,7 @@ export function HomeMain(props: HomeMainProps) {
   };
 
   // console.log('isEvent: ', isEvent);
-
   // console.log(foundUsers);
-
   // console.log('isUseFilter: ', isUseFilter);
 
   return (
@@ -116,7 +114,7 @@ export function HomeMain(props: HomeMainProps) {
         {user && (
           <div className={'flex justify-between items-center mt-10'}>
             {isLoading ? (
-              <UserSmallSkeleton hasBtn classWrapper={'w-full '} />
+              <UserSmallSkeleton hasBtn classWrapper={'w-full'} />
             ) : (
               <>
                 <UserCardSmall
@@ -189,7 +187,10 @@ export function HomeMain(props: HomeMainProps) {
           {isLoading ? (
             <>
               <SkeletonLoader
-                className={'rounded-xl'}
+                style={{
+                  borderRadius: '0.75rem',
+                }}
+                // className={'rounded-xl'}
                 containerClassName={
                   'p-2 skeleton__bg w-full mb-3 box-border block rounded-xl'
                 }
@@ -212,7 +213,10 @@ export function HomeMain(props: HomeMainProps) {
           {isLoading ? (
             <>
               <SkeletonLoader
-                className={'rounded-xl'}
+                style={{
+                  borderRadius: '0.75rem',
+                }}
+                // className={'rounded-xl'}
                 containerClassName={
                   'p-2 skeleton__bg w-full mb-3 box-border block rounded-xl'
                 }
@@ -236,7 +240,10 @@ export function HomeMain(props: HomeMainProps) {
           {isLoadingWithFilter ? (
             <>
               <SkeletonLoader
-                className={'rounded-xl'}
+                style={{
+                  borderRadius: '0.75rem',
+                }}
+                // className={'rounded-xl'}
                 containerClassName={
                   'p-2 bg-white w-full mb-3 box-border block rounded-xl'
                 }

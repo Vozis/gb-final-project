@@ -1,7 +1,7 @@
 import { IEventForCard } from '@project/shared/types';
 import React, { FC } from 'react';
 import { Card, Heading } from '@project/shared/ui';
-import clsx from 'clsx';
+import cn from 'clsx';
 import styles from './card-list.module.scss';
 
 /* eslint-disable-next-line */
@@ -20,7 +20,7 @@ export const CardList: FC<CardListProps> = ({
   return (
     <div>
       <Heading className={'mb-3'}>{title}</Heading>
-      <div className={clsx(styles.cardList, [className])}>
+      <div className={cn(styles.cardList, [className])}>
         {list.length ? (
           list.map(card => <Card key={card.id} event={card} />)
         ) : (

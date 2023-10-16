@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from 'clsx';
 import { useState } from 'react';
 import styles from './auth-main.module.scss';
 import FormReg from './form-reg/form-reg';
@@ -16,7 +16,7 @@ export function AuthMain(props: AuthMainProps) {
       {activeForm === 'form' ? <Form /> : <FormReg />}
       <div className={styles.container_btn}>
         <button
-          className={clsx(
+          className={cn(
             activeForm === 'form-reg' ? styles.form_btn : styles.form_btn_none,
           )}
           onClick={() => setActiveForm('form')}
@@ -24,7 +24,7 @@ export function AuthMain(props: AuthMainProps) {
           войти
         </button>
         <button
-          className={clsx(
+          className={cn(
             activeForm === 'form' ? styles.form_btn : styles.form_btn_none,
           )}
           // className={cn('text-black', {

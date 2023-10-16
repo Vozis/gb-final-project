@@ -16,7 +16,6 @@ import styles from './single-user-main.module.scss';
 import { incline, inclineFirstname } from 'lvovich';
 import { IEventStatus } from '@project/shared/types';
 
-
 /* eslint-disable-next-line */
 export interface SingleUserMainProps {}
 
@@ -93,7 +92,12 @@ export function SingleUserMain(props: SingleUserMainProps) {
           <UserBigSkeleton />
           <SkeletonLoader
             count={2}
-            className={'h-10 w-full rounded-[50px]'}
+            style={{
+              height: '2.5rem',
+              width: '100%',
+              borderRadius: '50px',
+            }}
+            // className={'h-10 w-full rounded-[50px]'}
             containerClassName={
               'skeleton__bg p-3 flex gap-1 item-center justify-center rounded-full h-16'
             }

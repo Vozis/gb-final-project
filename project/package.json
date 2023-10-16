@@ -9,11 +9,14 @@
   "scripts": {
     "start": "nx run-many --target=serve --all --configuration=production",
     "front": "nx serve web",
+    "front:production": "nx serve web --configuration=production",
+    "server:production": "nx serve server --configuration=production",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "build": "nx run-many -t  build ",
     "test": "nx run-many --target=test --all",
     "prisma-migrate": "cd apps/server && npx prisma migrate dev",
-    "prisma-reset": "cd apps/server && npx prisma db reset"
+    "prisma-reset": "cd apps/server && npx prisma db reset",
+    "db:studio:docker": "env-cmd --no-override -f .env npx primsa studio --hostname 0.0.0.0"
   },
   "private": true,
   "devDependencies": {
@@ -114,6 +117,7 @@
     "crypto-browserify": "3.12.0",
     "debounce": "1.2.1",
     "ejs": "3.1.9",
+    "env-cmd": "^10.1.0",
     "framer-motion": "10.12.16",
     "fs-extra": "11.1.1",
     "graceful-fs": "4.2.11",
