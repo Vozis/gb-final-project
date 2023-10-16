@@ -20,7 +20,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserService } from '@project/shared/services';
 import { toast } from 'react-hot-toast';
 import { errorCatch } from '@project/shared/utils';
-import clsx from 'clsx';
+import cn from 'clsx';
 // import { toast } from 'react-toastify';
 
 /* eslint-disable-next-line */
@@ -198,7 +198,7 @@ export function ProfileHead({ userProps }: ProfileHeadProps) {
             </Link>
 
             <Button
-              className={clsx(styles.profile__settingsList_item, [
+              className={cn(styles.profile__settingsList_item, [
                 'underline',
                 'w-full',
                 'justify-start',

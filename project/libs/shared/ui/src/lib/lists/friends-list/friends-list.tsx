@@ -7,7 +7,7 @@ import 'swiper/scss/navigation';
 import { Heading, MaterialIcon, UserCardSmall } from '@project/shared/ui';
 
 import { IUserSmall } from '@project/shared/types';
-import clsx from 'clsx';
+import cn from 'clsx';
 
 /* eslint-disable-next-line */
 export interface FriendsListProps {
@@ -61,7 +61,7 @@ export function FriendsList({
   };
   // console.log(prevArrowRef.current);
   return (
-    <div className={clsx(styles.friends__list, [className])}>
+    <div className={cn(styles.friends__list, [className])}>
       <Heading className={styles.title}>Список друзей</Heading>
       <Swiper
         onBeforeInit={onBeforeInit}
@@ -80,7 +80,7 @@ export function FriendsList({
         {arrows && (
           <div className={styles.buttons}>
             <button
-              className={clsx(styles.Slider__btn, styles.Slider__btn_left, {
+              className={cn(styles.Slider__btn, styles.Slider__btn_left, {
                 // [styles.disabled]:
                 // prevArrowRef?.current?.hasAttribute('disabled'),
               })}
@@ -92,7 +92,7 @@ export function FriendsList({
               />
             </button>
             <button
-              className={clsx(styles.Slider__btn, styles.Slider__btn_right)}
+              className={cn(styles.Slider__btn, styles.Slider__btn_right)}
               ref={nextArrowRef}
             >
               <MaterialIcon name={'MdKeyboardArrowRight'} />

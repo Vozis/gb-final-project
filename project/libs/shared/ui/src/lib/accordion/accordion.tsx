@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import clsx from 'clsx';
+import cn from 'clsx';
 import { MaterialIcon } from '@project/shared/ui';
 
 /* eslint-disable-next-line */
@@ -48,7 +48,7 @@ export const Accordion: FC<AccordionProps> = ({
   }, [contentHeight]);
   return (
     <div
-      className={clsx(styles.accordion, className, {
+      className={cn(styles.accordion, className, {
         Accordion__active: isOpen,
       })}
     >

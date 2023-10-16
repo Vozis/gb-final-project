@@ -5,20 +5,19 @@ import Footer from './footer/footer';
 import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
-import clsx from 'clsx';
+import cn from 'clsx';
 import { useTheme } from '@project/shared/hooks';
 
 export const SharedLayout: FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useTheme();
   return (
     <>
-      <div className={clsx(styles.layout, [theme])}>
+      <div className={cn(styles.layout, [theme])}>
         <Header />
         <main className={styles.containerContent}>{children}</main>
         {/*<TransitionProvider className={styles.containerContent}>*/}
         {/*  {children}*/}
         {/*</TransitionProvider>*/}
-
         <Footer />
       </div>
       <ToastContainer autoClose={2000} containerId={1} />

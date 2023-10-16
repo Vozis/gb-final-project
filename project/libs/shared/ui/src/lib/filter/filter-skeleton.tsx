@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { SkeletonLoader } from '@project/shared/ui';
-import clsx from 'clsx';
+import cn from 'clsx';
 
 interface FilterSkeletonProps {
   count?: number;
@@ -13,7 +13,7 @@ export const FilterSkeleton: FC<FilterSkeletonProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         `skeleton__bg p-3 rounded-xl block flex flex-col h-28 gap-2`,
         [classWrapper],
       )}
@@ -21,20 +21,33 @@ export const FilterSkeleton: FC<FilterSkeletonProps> = ({
       <div className={`flex justify-between items-center gap-3`}>
         <SkeletonLoader
           count={1}
-          className={'h-8'}
+          style={{
+            height: '2rem',
+          }}
+          // className={'h-8'}
           containerClassName={'flex-1'}
         />
         <SkeletonLoader
           count={1}
-          className={'h-8 w-8 rounded-md'}
+          style={{
+            height: '2rem',
+            width: '2rem',
+            borderRadius: '0.375rem',
+          }}
+          // className={'h-8 w-8 rounded-md'}
           containerClassName={'flex'}
         />
       </div>
       <div className={`flex mt-3`}>
         <SkeletonLoader
           count={2}
-          className={'h-8 w-36 rounded-md'}
-          containerClassName={'flex gap-2'}
+          style={{
+            height: '2rem',
+            width: '50%',
+            borderRadius: '0.375rem',
+          }}
+          // className={'h-8 w-36 rounded-md'}
+          containerClassName={'flex-1 flex gap-2'}
         />
       </div>
     </div>

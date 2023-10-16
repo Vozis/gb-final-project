@@ -1,5 +1,5 @@
 import styles from './search.module.scss';
-import clsx from 'clsx';
+import cn from 'clsx';
 import React from 'react';
 
 /* eslint-disable-next-line */
@@ -14,7 +14,7 @@ export function Search({ setSearchInput, searchInput }: SearchProps) {
   };
 
   return (
-    <div className={clsx(styles.search)}>
+    <div className={cn(styles.search)}>
       <form action="" method="get" className={styles.search__wrapper}>
         <input
           className={styles.search__input}

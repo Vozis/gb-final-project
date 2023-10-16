@@ -57,7 +57,10 @@ export function NotificationsMain(props: NotificationsMainProps) {
       {isLoading ? (
         <div>
           <SkeletonLoader
-            className={'rounded-xl'}
+            style={{
+              borderRadius: '0.75rem',
+            }}
+            // className={'rounded-xl'}
             containerClassName={
               'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
             }
@@ -106,7 +109,10 @@ export function NotificationsMain(props: NotificationsMainProps) {
       {isLoading ? (
         <div>
           <SkeletonLoader
-            className={'rounded-xl'}
+            style={{
+              borderRadius: '0.75rem',
+            }}
+            // className={'rounded-xl'}
             containerClassName={
               'skeleton__bg p-2 w-full mb-3 box-border block rounded-xl'
             }
