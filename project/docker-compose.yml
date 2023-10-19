@@ -11,22 +11,12 @@ services:
     env_file:
       - ./apps/web/.env
     ports:
-      - 127.0.0.1:4200:4200
+      - 4200:4200
     networks:
       - project-network
-#    depends_on:
-#      server:
-#        condition: service_started
-
-  # Create-prisma-client
-#  create-prisma-client:
-#    container_name: db_create-client
-#    working_dir: /app
-#    build:
-#      context: ./apps/server
-#    networks:
-#     - network-app
-#    command: npx prisma generate --watch
+      - nginx-proxy
+    depends_on:
+      - server
 
   # Server app
   server:
@@ -37,23 +27,23 @@ services:
     env_file:
       - ./apps/server/.env
     ports:
-      - 127.0.0.1:3000:3000
+      - 3000:3000
     networks:
       - project-network
     command: npm run server
-#    depends_on:
-#      - create-prisma-client
 
   #    volumes:
 #      - ./:/app
 
-  # Prisma studio
-
-#volumes:
-#  mono-node-modules: null
+volumes:
+  mono-node-modules: null
+  application:
 
 networks:
   project-network:
+  nginx-proxy:
+    name: nginx-proxy
+    external: true
 
     #  api:
 #    build:
