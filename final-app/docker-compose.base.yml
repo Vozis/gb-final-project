@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - application:/app
-      - mono-node-modules:/app/node_modules
+      - application:/usr/src/app
+      - mono-node-modules:/usr/src/app/node_modules
       - /app/node_modules/argon2/
 

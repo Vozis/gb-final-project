@@ -2,54 +2,36 @@
 # Develop stage
 ################################
 
-FROM node:18-alpine3.18
+FROM node:18-alpine3.18 as dev
 
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 
 #RUN apt-get update && apt-get install -y openssl nodejs
-RUN apk update && apk add openssl nodejs
+RUN apk update && apk add openssl nodejs --no-cache libc6-compat
 
 #ENV NODE_ENV development
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY --chown=node:node package*.json ./
 
 RUN npm ci
 #RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 
 #RUN npm uninstall argon2
 #RUN npm install argon2
 
 #RUN npx prisma generate
 
-#USER node
+USER node
 
-#
-#################################
-## Develop stage
-#################################
-#
-#FROM node:18-alpine as dev
-#
-#MAINTAINER ilya <sizov.ilya1996@gmail.com>
-#
-#RUN apk add --no-cache libc6-compat
-#
-#WORKDIR /usr/src/app
-#
-#COPY package*.json ./
-#
-#RUN npm ci
-#
-#COPY . .
-#
+
 #################################
 ## Build stage
 #################################
-#
+
 #FROM node:18-alpine as build
 #
 #WORKDIR /usr/src/app
@@ -65,6 +47,7 @@ COPY . .
 #RUN npm run build
 #
 ##RUN npm ci --only=production && npm cache clean --force
+##RUN npm ci --omit=dev && npm cache clean --force
 #
 #################################
 ## Production stage
