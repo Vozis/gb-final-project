@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # React app
   web:
-    container_name: web_app
+    container_name: final-project-web
     extends:
       file: docker-compose.base.yml
       service: nx-app-base
@@ -16,13 +16,13 @@ services:
       - project-network
       - final-project-common-network
     depends_on:
-      - server
+      - final-project-server
     links:
-      - server
+      - final-project-server
 
   # Server app
   server:
-    container_name: server_app
+    container_name: final-project-server
     extends:
         file: docker-compose.base.yml
         service: nx-app-base
