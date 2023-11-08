@@ -9,5 +9,5 @@ services:
     volumes:
       - application:/usr/src/app
       - mono-node-modules:/usr/src/app/node_modules
-      - /app/node_modules/argon2/
+      - /user/src/app/node_modules/argon2/
 

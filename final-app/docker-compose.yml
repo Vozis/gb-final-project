@@ -11,11 +11,13 @@ services:
     env_file:
       - ./apps/web/.env
     ports:
-      - 4200:4200
+      - 3002:3002
     networks:
       - project-network
-      - nginx-proxy
+      - final-project-common-network
     depends_on:
+      - server
+    links:
       - server
 
   # Server app
@@ -27,13 +29,13 @@ services:
     env_file:
       - ./apps/server/.env
     ports:
-      - 3000:3000
+      - 4202:4202
     networks:
       - project-network
+      - final-project-common-network
     command: npm run server
 
-  #    volumes:
-#      - ./:/app
+
 
 volumes:
   mono-node-modules: null
@@ -41,57 +43,8 @@ volumes:
 
 networks:
   project-network:
-  nginx-proxy:
-    name: nginx-proxy
+  final-project-common-network:
     external: true
-
-    #  api:
-#    build:
-#      dockerfile: Dockerfile
-#      context: ./back-postgres
-#    #      target: dev
-#    volumes:
-#      - .:/usr/src/app
-#      - /usr/src/app/node_modules
-#    env_file:
-#      - ./back-postgres/.env
-#    environment:
-#      POSTGRES_DB: ${POSTGRES_DB}
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public&connect_timeout=300
-#    #    command: npm run dev
-#    ports:
-#      - '4200:4200'
-#    depends_on:
-#      - postgres
-#
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin4_container
-#    restart: always
-#    ports:
-#      - "5050:80"
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
-#      PGADMIN_DEFAULT_PASSWORD: root
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
-
-#  web:
-#      build:
-#        dockerfile: Dockerfile
-#        context: ./frontend-postgres
-#      volumes:
-#        - .:/usr/src/app
-#      env_file:
-#        - ./frontend-postgres/.env
-#      environment:
-#        NODE_ENV: development
-#      ports:
-#        - 3000:3000
-#      depends_on:
-#        - postgres
 
 
 

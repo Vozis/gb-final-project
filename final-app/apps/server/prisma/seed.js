@@ -9,18 +9,25 @@ const prisma = new PrismaClient();
 const createTag = async quantity => {
   const tags = [];
 
-  for (let i = 2500; i < quantity; i += 1) {
+  // const index = cities.findIndex(item => item.city === 'Алексеевское')
+  //
+  // console.log('index: ', index);
+
+  for (let i = 2506; i < quantity; i += 1) {
     const name = `${cities[i].city} | ${cities[i].region}`;
     const shortName = slugify(name, {
       locale: 'en',
       lower: true,
     });
 
+    console.log(i);
+    console.log(cities[i]);
+
     const tag = await prisma.tag.create({
       data: {
         name,
         shortName,
-        type: 'city',
+        typeId: 4,
       },
     });
 

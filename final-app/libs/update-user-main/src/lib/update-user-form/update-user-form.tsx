@@ -178,7 +178,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     const formData = new FormData();
     const tags: number[] = [];
 
-    // console.log('data:', data);
+    console.log('data:', data);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry =>
