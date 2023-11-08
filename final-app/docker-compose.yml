@@ -16,9 +16,9 @@ services:
       - project-network
       - final-project-common-network
     depends_on:
-      - final-project-server
+      - server
     links:
-      - final-project-server
+      - server
 
   # Server app
   server:
