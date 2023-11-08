@@ -10,7 +10,7 @@
     "start": "nx run-many --target=serve --all --configuration=production",
     "front": "nx serve web",
     "front:production": "nx serve web --configuration=production",
-    "server:production": "nx serve server --configuration=production",
+    "server:production": "cd apps/server && npx prisma generate && nx serve server --configuration=production",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "build": "nx run-many -t  build ",
     "test": "nx run-many --target=test --all",
