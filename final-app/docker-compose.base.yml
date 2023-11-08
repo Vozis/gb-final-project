@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  nx-app-base:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - application:/usr/src/app
+      - mono-node-modules:/usr/src/app/node_modules
+      - /user/src/app/node_modules/argon2/
+

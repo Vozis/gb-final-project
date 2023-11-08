@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  # React app
+  web:
+    container_name: web_app
+    extends:
+      file: docker-compose.base.yml
+      service: nx-app-base
+    command: npm run front
+    env_file:
+      - ./apps/web/.env
+    ports:
+      - 3002:3002
+    networks:
+      - project-network
+      - final-project-common-network
+    depends_on:
+      - server
+    links:
+      - server
+
+  # Server app
+  server:
+    container_name: server_app
+    extends:
+        file: docker-compose.base.yml
+        service: nx-app-base
+    env_file:
+      - ./apps/server/.env
+    ports:
+      - 4202:4202
+    networks:
+      - project-network
+      - final-project-common-network
+    command: npm run server
+
+
+
+volumes:
+  mono-node-modules: null
+  application:
+
+networks:
+  project-network:
+  final-project-common-network:
+    external: true
+
+
+
