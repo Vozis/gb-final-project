@@ -7,7 +7,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: nx-app-base
-    command: npm run front
+    command: npm run front:production
     env_file:
       - ./apps/web/.env
     ports:
@@ -33,7 +33,7 @@ services:
     networks:
       - project-network
       - final-project-common-network
-    command: npm run server
+    command: npm run server:production
 
 
 
