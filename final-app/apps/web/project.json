@@ -62,7 +62,8 @@
       "options": {
         "buildTarget": "web:build",
         "hmr": true,
-        "proxyConfig": "proxy.conf.json"
+        "proxyConfig": "proxy.conf.json",
+        "port": 3002
       },
       "configurations": {
         "development": {
@@ -70,7 +71,9 @@
         },
         "production": {
           "buildTarget": "web:build:production",
-          "hmr": false
+          "hmr": false,
+          "proxyConfig": "proxy.conf.json",
+          "port": 3002
         }
       }
     },
