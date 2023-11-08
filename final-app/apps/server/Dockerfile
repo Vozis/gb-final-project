@@ -7,6 +7,7 @@ COPY dist/apps/server/package*.json ./
 RUN npm install --only=production
 
 # Production image, copy all the files and run nest
+
 FROM docker.io/node:lts-alpine as runner
 RUN apk add --no-cache dumb-init
 ENV NODE_ENV production
