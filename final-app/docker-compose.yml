@@ -34,7 +34,7 @@ services:
     env_file:
       - ./apps/server/.env
     ports:
-      - 4200:4202
+      - 4202:4202
     networks:
       - project-network
       - final-project-common-network
