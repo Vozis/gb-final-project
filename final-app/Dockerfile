@@ -25,8 +25,7 @@ RUN npm install argon2
 
 #RUN npx prisma generate
 
-#EXPOSE 4200
+EXPOSE 4200
 
-#ENV PORT 4200
+ENV PORT 4200
 ENV HOST 0.0.0.0
-#USER node
