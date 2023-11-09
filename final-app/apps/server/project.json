@@ -32,7 +32,8 @@
       "defaultConfiguration": "development",
       "watch": false,
       "options": {
-        "buildTarget": "server:build"
+        "buildTarget": "server:build",
+        "port": 4202
       },
       "configurations": {
         "development": {
