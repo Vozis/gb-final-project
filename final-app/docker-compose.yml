@@ -10,6 +10,11 @@ services:
     command: npm run front
     env_file:
       - ./apps/web/.env
+    environment:
+      - VIRTUAL_HOST=final-project.ilyasizov.webtm.ru
+      - VIRTUAL_PORT=4200
+      - LETSENCRYPT_HOST=final-project.ilyasizov.webtm.ru
+      - LETSENCRYPT_EMAIL=user@domain.com
     ports:
       - 4200:4200
     networks:
