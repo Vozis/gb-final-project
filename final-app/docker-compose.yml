@@ -11,7 +11,7 @@ services:
     env_file:
       - ./apps/web/.env
     ports:
-      - 3002:3002
+      - 4200:4200
     networks:
       - project-network
       - final-project-common-network
