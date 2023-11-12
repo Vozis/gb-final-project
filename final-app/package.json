@@ -10,7 +10,7 @@
     "start": "nx run-many --target=serve --all",
     "start:production": "nx run-many --target=serve --all --configuration=production",
     "front": "nx serve web",
-    "front:docker": "nx serve web --host=0.0.0.0",
+    "front:docker": "nx serve web --hostname=0.0.0.0",
     "front:production": "nx serve web --configuration=production",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "server:docker": "nx serve server",

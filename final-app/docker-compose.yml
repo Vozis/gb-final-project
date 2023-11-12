@@ -9,9 +9,9 @@ services:
       service: nx-app-base
     build:
       dockerfile: ./apps/web/Dockerfile
-      target: prod
+      target: develop
       context: .
-#    command: npm run front
+    command: npm run front:docker
     stdin_open: true
     tty: true
     env_file:
