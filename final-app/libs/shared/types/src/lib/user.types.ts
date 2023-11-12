@@ -1,8 +1,25 @@
-import { User } from '@prisma/client';
 import { ITag } from './tag.types';
 import { IEvent, IEventForCard } from './event.types';
 
-export interface IUser extends User {
+export enum EnumRole {
+  USER= 'USER',
+  ADMIN= 'ADMIN',
+}
+
+export interface IUser {
+  id: number
+  email: string
+  password: string
+  avatarPath: string
+  role: EnumRole[]
+  createdAt: Date
+  updatedAt: Date
+  firstName: string
+  lastName: string
+  userName: string
+  isConfirmed: boolean
+  exitDate: Date
+  averageRating: number
   favorites?: IEvent[] | IEventForCard[];
   hobbies?: ITag[] | [];
   creations?: IEvent[] | IEventForCard[];
@@ -29,7 +46,7 @@ export interface IUserSmall {
 }
 
 export interface IUserEdit
-  extends Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'role'> {
+  extends Omit<IUser, 'id' | 'createdAt' | 'updatedAt' | 'role'> {
   hobbies?: ITag[] | [];
   favorites?: IEvent[] | [];
 }

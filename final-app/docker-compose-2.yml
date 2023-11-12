@@ -7,17 +7,21 @@ services:
     extends:
       file: docker-compose.base.yml
       service: nx-app-base
-    build:
-      dockerfile: ./apps/web/Dockerfile
-      target: prod
-      context: .
-#    command: npm run front
+#    build:
+#      dockerfile: apps/server/Dockerfile
+#      target: prod
+    command: npm run front
     stdin_open: true
     tty: true
     env_file:
       - ./apps/web/.env
+#    environment:
+#      - VIRTUAL_HOST=final-project.ilyasizov.webtm.ru
+#      - VIRTUAL_PORT=4203
+#      - LETSENCRYPT_HOST=final-project.ilyasizov.webtm.ru
+#      - LETSENCRYPT_EMAIL=user@domain.com
     ports:
-      - "4202:4200"
+      - 4202:4200
     networks:
       - project-network
       - final-project-common-network
@@ -32,18 +36,12 @@ services:
     extends:
         file: docker-compose.base.yml
         service: nx-app-base
-    build:
-      dockerfile: ./apps/server/Dockerfile
-      target: prod
-      context: .
     env_file:
       - ./apps/server/.env
     stdin_open: true
     tty: true
     ports:
-      - "4300:4300"
-#    expose:
-#      - 4300
+      - 4300:4300
     networks:
       - project-network
       - final-project-common-network

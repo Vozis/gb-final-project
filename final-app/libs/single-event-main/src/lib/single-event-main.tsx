@@ -26,10 +26,9 @@ import { SingleEventHeadSkeleton } from './single-event-head/single-event-head-s
 import { useSingleEvent } from './useSingleEvent';
 import {
   IEventStatus,
-  INotificationStatus,
-  INotificationUpdateStatus,
+  EnumNotificationStatusFront,
+  INotificationUpdateStatus, EnumNotificationType,
 } from '@project/shared/types';
-import { NotificationStatus, NotificationType } from '@prisma/client';
 
 export interface SingleEventMainProps {
   tabs?: TabsProps;
@@ -79,38 +78,38 @@ export function SingleEventMain(props: SingleEventMainProps) {
       .filter(item => {
         if (
           item.moreData === +id &&
-          item.type === NotificationType.COMMENT_CREATE &&
-          item.status === INotificationStatus.SENT
+          item.type === EnumNotificationType.COMMENT_CREATE &&
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         } else if (
-          item.type === NotificationType.COMMENT_REPLY &&
+          item.type === EnumNotificationType.COMMENT_REPLY &&
           item.moreData === +id &&
-          item.status === INotificationStatus.SENT
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         } else if (
-          item.type === NotificationType.EVENT_CREATE &&
+          item.type === EnumNotificationType.EVENT_CREATE &&
           item.sourceId === +id &&
-          item.status === INotificationStatus.SENT
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         } else if (
-          item.type === NotificationType.EVENT_UPDATE &&
+          item.type === EnumNotificationType.EVENT_UPDATE &&
           item.sourceId === +id &&
-          item.status === INotificationStatus.SENT
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         } else if (
-          item.type === NotificationType.EVENT_PARTICIPATE &&
+          item.type === EnumNotificationType.EVENT_PARTICIPATE &&
           item.sourceId === +id &&
-          item.status === INotificationStatus.SENT
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         } else if (
-          item.type === NotificationType.EVENT_LEAVE &&
+          item.type === EnumNotificationType.EVENT_LEAVE &&
           item.sourceId === +id &&
-          item.status === INotificationStatus.SENT
+          item.status === EnumNotificationStatusFront.SENT
         ) {
           return item;
         }
@@ -121,7 +120,7 @@ export function SingleEventMain(props: SingleEventMainProps) {
 
     const dto: INotificationUpdateStatus = {
       ids: readNotifications,
-      status: NotificationStatus.DELIVERED,
+      status: EnumNotificationStatusFront.DELIVERED,
     };
 
     changeNotificationStatus({ dto });

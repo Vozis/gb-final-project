@@ -11,17 +11,17 @@ RUN apk update && apk add openssl nodejs --no-cache libc6-compat
 
 #ENV NODE_ENV development
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/builder
 
 COPY package*.json ./
 
-RUN npm ci
-#RUN npm install
+#RUN npm ci
+RUN npm install
 
 COPY  . .
 
-RUN npm uninstall argon2
-RUN npm install argon2
+#RUN npm uninstall argon2
+#RUN npm install argon2
 
 #RUN npx prisma generate
 

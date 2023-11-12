@@ -62,7 +62,7 @@
       "options": {
         "buildTarget": "web:build",
         "hmr": true,
-        "proxyConfig": "proxy.conf.json"
+        "proxyConfig": "apps/web/proxy.conf.json"
 
       },
       "configurations": {
@@ -71,8 +71,7 @@
         },
         "production": {
           "buildTarget": "web:build:production",
-          "hmr": false,
-          "proxyConfig": "proxy.conf.json"
+          "hmr": false
         }
       }
     },

@@ -7,7 +7,7 @@ import NotificationEvent from './notification-event/notification-event';
 import NotificationFriend from './notification-friend/notification-friend';
 import { useLocation } from 'react-router-dom';
 import {
-  INotificationStatus,
+  EnumNotificationStatusFront,
   INotificationUpdateStatus,
 } from '@project/shared/types';
 import { NotificationEventSkeleton } from './notification-event/notification-event-skeleton';
@@ -44,9 +44,9 @@ export function NotificationsMain(props: NotificationsMainProps) {
       // console.log('delivered');
       const dto: INotificationUpdateStatus = {
         ids: notifications
-          .filter(note => note.status === INotificationStatus.SENT)
+          .filter(note => note.status === EnumNotificationStatusFront.SENT)
           .map(item => item.id),
-        status: INotificationStatus.DELIVERED,
+        status: EnumNotificationStatusFront.DELIVERED,
       };
       changeNotificationStatus({ dto });
     }
@@ -74,7 +74,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
       ) : (
         <>
           {notifications.some(
-            note => note.status === INotificationStatus.SENT,
+            note => note.status === EnumNotificationStatusFront.SENT,
           ) && (
             <List
               title={'Новые уведомления'}
@@ -84,7 +84,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
               {notifications
                 .filter(
                   notification =>
-                    notification.status === INotificationStatus.SENT,
+                    notification.status === EnumNotificationStatusFront.SENT,
                 )
                 .map(notification => (
                   <React.Fragment key={notification.id}>
@@ -126,7 +126,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
       ) : (
         <>
           {notifications.some(
-            note => note.status === INotificationStatus.DELIVERED,
+            note => note.status === EnumNotificationStatusFront.DELIVERED,
           ) && (
             <List
               title={'Просмотренные уведомления'}
@@ -134,7 +134,7 @@ export function NotificationsMain(props: NotificationsMainProps) {
               className={''}
             >
               {notifications
-                .filter(note => note.status === INotificationStatus.DELIVERED)
+                .filter(note => note.status === EnumNotificationStatusFront.DELIVERED)
                 .map(notification => (
                   <React.Fragment key={notification.id}>
                     {notification.type.match(/EVENT_COMPLETE/) !== null ? (

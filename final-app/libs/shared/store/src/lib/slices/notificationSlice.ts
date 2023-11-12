@@ -1,6 +1,6 @@
 import {
   INotification,
-  INotificationStatus,
+  EnumNotificationStatusFront,
   INotificationUpdateStatus,
 } from '@project/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -68,7 +68,7 @@ const notificationSlice = createSlice({
       state,
       action: PayloadAction<{
         id: number;
-        status: INotificationStatus;
+        status: EnumNotificationStatusFront;
       }>,
     ) => {
       const updatedNotification = state.notifications.find(

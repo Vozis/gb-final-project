@@ -7,13 +7,19 @@
     "npm": "9.5.1"
   },
   "scripts": {
-    "start": "nx run-many --target=serve --all --configuration=production",
+    "start": "nx run-many --target=serve --all",
+    "start:production": "nx run-many --target=serve --all --configuration=production",
     "front": "nx serve web",
+    "front:docker": "nx serve web --host=0.0.0.0",
     "front:production": "nx serve web --configuration=production",
-    "server:production": "cd apps/server && npx prisma generate && nx serve server --configuration=production",
     "server": "cd apps/server && npx prisma generate && nx serve server",
-    "build": "nx run-many -t  build ",
+    "server:docker": "nx serve server",
+    "server:production": "cd apps/server && npx prisma generate && nx serve server --configuration=production",
+    "build:server": "nx build server",
+    "build:web": "nx build web",
+    "build:all": "nx run-many -t  build",
     "test": "nx run-many --target=test --all",
+    "prisma-generate": "cd apps/server && npx prisma generate",
     "prisma-migrate": "cd apps/server && npx prisma migrate dev",
     "prisma-reset": "cd apps/server && npx prisma db reset",
     "db:studio:docker": "env-cmd --no-override -f .env npx primsa studio --hostname 0.0.0.0"

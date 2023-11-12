@@ -4,8 +4,8 @@ services:
   nx-app-base:
     restart: always
     build:
-      context: .
       dockerfile: Dockerfile
+      context: .
     volumes:
       - application:/usr/src/app
       - mono-node-modules:/usr/src/app/node_modules
