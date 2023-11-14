@@ -6,7 +6,7 @@ import { UserModule } from './user/user.module';
 import { BasePrismaService } from './prisma/prisma.service';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { path } from 'app-root-path';
 import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
@@ -21,6 +21,7 @@ import { SocketGateway } from './socket.gateway';
 import { NotificationModule } from './notification/notification.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RatingModule } from './rating/rating.module';
+import * as process from 'process';
 
 @Module({
   imports: [
@@ -33,9 +34,20 @@ import { RatingModule } from './rating/rating.module';
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: `${path}/dist/apps/server/assets`,
+      rootPath:
+        process.env.NODE_ENV === 'production'
+          ? `${path}/assets`
+          : `${path}/dist/apps/server/assets`,
       serveRoot: '/assets',
     }),
+    // ServeStaticModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject:[ConfigService],
+    //   useFactory: (configService: ConfigService) => ({
+    //     rootPath: `${path}/`,
+    //     serveRoot: '/assets',
+    //   }),
+    // }),
     MailModule,
     UserModule,
     AuthModule,

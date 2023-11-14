@@ -35,7 +35,7 @@ const socketMiddleware: Middleware = store => {
 
     if (socketActions.startConnecting.match(action)) {
       userId = store.getState().user.user.id;
-      socket = io('http://localhost:3002', {
+      socket = io('http://127.0.0.1:4300', {
         withCredentials: true,
         query: { userId: userId },
         transports: ['websocket', 'polling'],

@@ -1,14 +1,17 @@
 {
   "/api": {
-    "target": "http://localhost:4300",
-    "secure": false
+    "target": "http://0.0.0.0:4300",
+    "secure": false,
+    "changeOrigin" : true
   },
   "/assets": {
-    "target": "http://localhost:4300",
-    "secure": false
+    "target": "http://0.0.0.0:4300",
+    "secure": false,
+    "changeOrigin" : true
   },
   "/comments": {
-    "target": "http://localhost:4300",
-    "secure": false
+    "target": "http://0.0.0.0:4300",
+    "secure": false,
+    "changeOrigin" : true
   }
 }

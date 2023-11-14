@@ -47,6 +47,7 @@
               "with": "apps/web/src/environments/environment.prod.ts"
             }
           ],
+          "proxyConfig": "apps/web/proxy.conf.json",
           "optimization": true,
           "outputHashing": "all",
           "sourceMap": false,
@@ -67,11 +68,13 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "web:build:development"
+          "buildTarget": "web:build:development",
+          "proxyConfig": "apps/web/proxy.conf.json"
         },
         "production": {
           "buildTarget": "web:build:production",
-          "hmr": false
+          "hmr": false,
+          "proxyConfig": "apps/web/proxy.conf.json"
         }
       }
     },

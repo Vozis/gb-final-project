@@ -8,8 +8,12 @@ export const fileUploadHelper = async (
   file: Express.Multer.File,
   folder: string,
 ) => {
-  const uploadFolder = `${path}/apps/server/src/assets/${folder}`;
-  // const uploadFolder = `${path}/libs/shared/assets/${folder}`;
+  const uploadFolder =
+    process.env.NODE_ENV === 'production'
+      ? `${path}/assets/${folder}`
+      : `${path}/apps/server/src/assets/${folder}`;
+
+  console.log('uploadFolder: ', uploadFolder);
 
   await ensureDir(uploadFolder);
 

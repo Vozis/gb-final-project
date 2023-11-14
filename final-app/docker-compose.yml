@@ -1,37 +1,13 @@
 version: '3.9'
 
 services:
-  # React app
-  web:
-    container_name: final-project-web
-    extends:
-      file: docker-compose.base.yml
-      service: nx-app-base
-    build:
-      dockerfile: ./apps/web/Dockerfile
-      target: develop
-      context: .
-    command: npm run front:docker
-    stdin_open: true
-    tty: true
-    env_file:
-      - ./apps/web/.env
-    ports:
-      - "4202:4200"
-    networks:
-      - project-network
-      - final-project-common-network
-    depends_on:
-      - server
-    links:
-      - server
-
   # Server app
   server:
     container_name: final-project-server
-    extends:
-        file: docker-compose.base.yml
-        service: nx-app-base
+    volumes:
+      - application:/usr/src/app
+      - mono-node-modules:/usr/src/app/node_modules
+      - final-app-upload-files:/usr/src/app/assets
     build:
       dockerfile: ./apps/server/Dockerfile
       target: prod
@@ -42,17 +18,45 @@ services:
     tty: true
     ports:
       - "4300:4300"
-#    expose:
-#      - 4300
+    #    expose:
+    #      - 4300
     networks:
       - project-network
       - final-project-common-network
-    command: npm run server
+  #    command: npm run server
 
+
+  # React app
+  web:
+    container_name: final-project-web
+    volumes:
+      - application:/usr/src/app
+      - application-web:/usr/src/app/web
+      - mono-node-modules:/usr/src/app/node_modules
+    build:
+      dockerfile: ./apps/web/Dockerfile
+      target: develop
+      context: .
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./apps/web/.env
+    ports:
+      - "4200:4200"
+    networks:
+      - project-network
+      - final-project-common-network
+    depends_on:
+      - server
+    links:
+      - server
 
 volumes:
   mono-node-modules: null
   application:
+  final-app-upload-files:
+  application-web:
+
 
 networks:
   project-network:

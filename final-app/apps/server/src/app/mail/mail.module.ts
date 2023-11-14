@@ -18,7 +18,10 @@ import { EventModule } from '../event/event.module';
         from: '"Nest JS робот" <anasta.kell@gmail.com>',
       },
       template: {
-        dir: `${path}/apps/server/src/app/mail/templates`,
+        dir:
+          process.env.NODE_ENV === 'production'
+            ? `${path}/constants/templates`
+            : `${path}/apps/server/src/constants/templates`,
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,

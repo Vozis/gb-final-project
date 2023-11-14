@@ -14,7 +14,7 @@
     "front:production": "nx serve web --configuration=production",
     "server": "cd apps/server && npx prisma generate && nx serve server",
     "server:docker": "nx serve server",
-    "server:production": "cd apps/server && npx prisma generate && nx serve server --configuration=production",
+    "server:production": "nx serve server --configuration=production",
     "build:server": "nx build server",
     "build:web": "nx build web",
     "build:all": "nx run-many -t  build",
