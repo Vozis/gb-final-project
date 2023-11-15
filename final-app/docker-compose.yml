@@ -42,6 +42,8 @@ services:
       - ./apps/web/.env
     ports:
       - "4200:4200"
+    expose:
+      - 4200
     networks:
       - project-network
       - final-project-common-network
