@@ -4,7 +4,7 @@
 FROM node:18.16.0-alpine as develop
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update
-WORKDIR /usr/src/app/web
+WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 COPY . .
@@ -13,16 +13,15 @@ RUN npm run build:web
 ENV PORT 4200
 ENV HOSTNAME "0.0.0.0"
 EXPOSE ${PORT}
-CMD ["npm", "run", "front:production"]
+#CMD ["npm", "run", "front:production"]
 
 ################################
 # Prod stage
 ################################
 FROM nginx:1.21.0-alpine as prod
-#WORKDIR /usr/src/app/web
-WORKDIR /usr/share/nginx/html
-COPY --from=develop usr/src/app/builder/dist/apps/web ./
-#COPY --from=develop usr/src/app/builder/dist/apps/web /usr/src/app/web
+WORKDIR /usr/src/app
+#WORKDIR /usr/share/nginx/html
+COPY --from=develop usr/src/app/dist/apps/web ./
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 ENV PORT 4200
 ENV HOSTNAME "0.0.0.0"

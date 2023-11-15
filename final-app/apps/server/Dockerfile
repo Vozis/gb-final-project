@@ -5,7 +5,7 @@
 FROM node:18.16.0-alpine as develop
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update
-WORKDIR /usr/src/app/builder
+WORKDIR /usr/src/app
 COPY package*.json ./
 ENV NODE_ENV development
 
@@ -20,10 +20,10 @@ FROM node:18-alpine as prod
 RUN apk add --no-cache dumb-init
 WORKDIR /usr/src/app
 
-COPY --from=develop /usr/src/app/builder/dist/apps/server ./
-COPY --from=develop /usr/src/app/builder/apps/server/prisma /usr/src/app/prisma
-COPY --from=develop /usr/src/app/builder/apps/server/src/constants /usr/src/app/constants
-COPY --from=develop /usr/src/app/builder/node_modules ./node_modules
+COPY --from=develop /usr/src/app/dist/apps/server ./
+COPY --from=develop /usr/src/app/apps/server/prisma /usr/src/app/prisma
+COPY --from=develop /usr/src/app/apps/server/src/constants /usr/src/app/constants
+COPY --from=develop /usr/src/app/node_modules ./node_modules
 
 ENV PORT 4300
 EXPOSE ${PORT}

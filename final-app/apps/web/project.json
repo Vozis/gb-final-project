@@ -15,6 +15,7 @@
         "baseHref": "/",
         "main": "apps/web/src/main.tsx",
         "tsConfig": "apps/web/tsconfig.app.json",
+        "proxyConfig": "apps/web/proxy.conf.json",
         "assets": [
           "apps/web/src/favicon.ico",
           "apps/web/src/assets",
@@ -64,11 +65,11 @@
         "buildTarget": "web:build",
         "hmr": true,
         "proxyConfig": "apps/web/proxy.conf.json"
-
       },
       "configurations": {
         "development": {
           "buildTarget": "web:build:development",
+          "hmr": true,
           "proxyConfig": "apps/web/proxy.conf.json"
         },
         "production": {
@@ -88,7 +89,8 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "web:build"
+        "buildTarget": "web:build",
+        "proxyConfig": "apps/web/proxy.conf.json"
       }
     },
     "test": {
