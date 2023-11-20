@@ -19,8 +19,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UserController {
-  z;
-
   // Public routes =============================================================
 
   constructor(private readonly userService: UserService) {}

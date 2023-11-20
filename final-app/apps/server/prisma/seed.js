@@ -20,8 +20,8 @@ const createTag = async quantity => {
       lower: true,
     });
 
-    console.log(i);
-    console.log(cities[i]);
+    // console.log(i);
+    // console.log(cities[i]);
 
     const tag = await prisma.tag.create({
       data: {

@@ -17,6 +17,7 @@ import { EventService } from '../event/event.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @WebSocketGateway({
+  path: '/ws',
   cors: {
     origin: '*',
     allowedHeaders: '*',

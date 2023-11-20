@@ -317,7 +317,7 @@ export class UserService {
     updateUserDto: UpdateUserDto,
     avatar?: Express.Multer.File,
   ): Promise<UserSelect> {
-    console.log('updateUserDto', updateUserDto);
+    // console.log('updateUserDto', updateUserDto);
 
     const user = await this.prisma.user.findUnique({
       where: { id },

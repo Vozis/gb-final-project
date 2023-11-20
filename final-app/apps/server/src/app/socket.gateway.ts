@@ -18,6 +18,7 @@ import { UserWs } from './auth/decorators/user-ws.decorator';
 import { EventService } from './event/event.service';
 
 @WebSocketGateway({
+  path: '/ws',
   cors: {
     origin: '*',
     allowedHeaders: '*',

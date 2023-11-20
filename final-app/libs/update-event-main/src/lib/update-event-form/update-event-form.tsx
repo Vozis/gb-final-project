@@ -25,12 +25,16 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
   const queryClient = useQueryClient();
   const [eventUpdate, setEventUpdate] = useState<IUpdateEvent>({});
   const navigate = useNavigate();
+  const [isNewImageAdd, setIsNewImageAdd] = useState<boolean>(false);
+  const [result, setResult] = useState<string | ArrayBuffer | null>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    resetField,
     getValues,
     control,
   } = useForm<IUpdateEvent>();
@@ -48,6 +52,7 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
           name: data.name,
           description: data.description,
           peopleCount: data.peopleCount,
+          image: data.imageUrl,
           eventTime: `${data.eventTime.split(':')[0]}:${
             data.eventTime.split(':')[1]
           }`,
@@ -221,11 +226,29 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
           type={'number'}
           {...register('peopleCount', { required: false })}
         />
-        <UploadField
-          {...register('image')}
-          placeholder={''}
-          error={errors.image}
-        />
+        <div className={'flex gap-2'}>
+          <img
+            src={eventUpdate.image}
+            style={{
+              height: '150px',
+              width: '150px',
+              objectFit: 'cover',
+              padding: '10px',
+              borderRadius: '20px',
+            }}
+          />
+          <UploadField
+            {...register('image')}
+            placeholder={''}
+            error={errors.image}
+            resetField={resetField}
+            result={result}
+            setResult={setResult}
+            setIsNewImageAdd={setIsNewImageAdd}
+            isLoaded={isLoaded}
+            setIsLoaded={setIsLoaded}
+          />
+        </div>
         <Controller
           name={'place'}
           control={control}
@@ -271,14 +294,16 @@ export function UpdateEventForm({ eventId }: UpdateEventFormProps) {
             />
           )}
         />
-
         <Button
           className={
             'bg-sky-500 text-gray-100 rounded-md px-8 mt-5 border-none hover:bg-sky-700 hover:text-white'
           }
           type={'submit'}
+          disabled={isNewImageAdd && !isLoaded}
         >
-          Сохранить
+          {!isNewImageAdd || (isNewImageAdd && isLoaded)
+            ? 'Сохранить'
+            : 'Идет загрузка изображения...'}
         </Button>
       </form>
     </div>

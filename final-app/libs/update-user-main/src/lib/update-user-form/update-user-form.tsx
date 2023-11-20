@@ -13,10 +13,12 @@ import {
   Button,
   Field,
   Heading,
+  MaterialIcon,
   SelectField,
   UploadField,
 } from '@project/shared/ui';
 import cn from 'clsx';
+import { MdOutlineCancel } from 'react-icons/md';
 
 /* eslint-disable-next-line */
 export interface UpdateUserFormProps {}
@@ -27,6 +29,9 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
   const navigate = useNavigate();
   const [userUpdate, setUserUpdate] = useState<IUserUpdateForm>({});
   const [changePassword, setChangePassword] = useState<boolean>(false);
+  const [isNewImageAdd, setIsNewImageAdd] = useState<boolean>(false);
+  const [result, setResult] = useState<string | ArrayBuffer | null>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   if (!user) {
     navigate('/auth');
@@ -41,6 +46,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
       userName: user.userName,
       email: user.email,
       password: user.password,
+      avatar: user.avatarPath,
       city:
         (user.hobbies &&
           user?.hobbies
@@ -75,6 +81,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     handleSubmit,
     formState: { errors },
     control,
+    resetField,
     setValue,
     getValues,
     watch,
@@ -178,7 +185,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     const formData = new FormData();
     const tags: number[] = [];
 
-    console.log('data:', data);
+    // console.log('data:', data);
 
     const entries: [string, any][] = Object.entries(data).filter(
       entry =>
@@ -196,7 +203,7 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
       }
     });
 
-    if (data.avatar?.length) {
+    if (isNewImageAdd && data.avatar?.length) {
       formData.append('avatar', data.avatar[0]);
     }
 
@@ -222,9 +229,9 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
     });
 
     /* @ts-ignore */
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     await mutateAsync(formData);
     navigate('/profile');
@@ -290,12 +297,29 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
           {/*  visibility*/}
           {/*/>*/}
         </div>
-
-        <UploadField
-          {...register('avatar')}
-          placeholder={''}
-          error={errors.avatar}
-        />
+        <div className={'flex gap-2'}>
+          <img
+            src={userUpdate.avatar}
+            style={{
+              height: '150px',
+              width: '150px',
+              objectFit: 'cover',
+              padding: '10px',
+              borderRadius: '20px',
+            }}
+          />
+          <UploadField
+            {...register('avatar')}
+            placeholder={''}
+            error={errors.avatar}
+            resetField={resetField}
+            result={result}
+            setResult={setResult}
+            setIsNewImageAdd={setIsNewImageAdd}
+            isLoaded={isLoaded}
+            setIsLoaded={setIsLoaded}
+          />
+        </div>
 
         <h2 className={'text-center max-w-[500px]'}>
           Укажите свои предпочтения, это позволит получать самое интересное из
@@ -352,7 +376,24 @@ export function UpdateUserForm(props: UpdateUserFormProps) {
             )}
           />
         </div>
-        <Button type={'submit'}>Сохранить</Button>
+        <Button
+          className={
+            'bg-sky-500 text-gray-100 rounded-md px-8 mt-5 border-none hover:bg-sky-700 hover:text-white'
+          }
+          type={'submit'}
+          disabled={isNewImageAdd && !isLoaded}
+        >
+          {!isNewImageAdd || (isNewImageAdd && isLoaded)
+            ? 'Сохранить'
+            : 'Идет загрузка изображения...'}
+        </Button>
+        {/*{!isNewImageAdd ? (*/}
+        {/*  <Button type={'submit'}>Сохранить</Button>*/}
+        {/*) : isNewImageAdd && isLoaded ? (*/}
+        {/*  */}
+        {/*) : (*/}
+        {/*  <p>Загрузка изображения не завершена</p>*/}
+        {/*)}*/}
       </form>
     </div>
   );

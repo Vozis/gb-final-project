@@ -34,6 +34,7 @@ export function FormReg(props: FormProps) {
     formState: { errors },
     control,
     setValue,
+    resetField,
     getValues,
     watch,
   } = useForm<IRegister>({
@@ -46,6 +47,9 @@ export function FormReg(props: FormProps) {
   const [isTime, setIsTime] = useState(false);
   const [isCity, setIsCity] = useState(false);
   const [isPlace, setIsPlace] = useState(false);
+  const [isNewImageAdd, setIsNewImageAdd] = useState<boolean>(false);
+  const [result, setResult] = useState<string | ArrayBuffer | null>('');
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const handleSportInputChange = (meta: InputActionMeta) => {
     if (meta.action !== 'input-blur' && meta.action !== 'menu-close') {
@@ -244,11 +248,32 @@ export function FormReg(props: FormProps) {
         visibility
       />
       {/* --------------------------------------- */}
+
+      {/*<Controller*/}
+      {/*  shouldUnregister={true}*/}
+      {/*  name={'avatar'}*/}
+      {/*  control={control}*/}
+      {/*  render={({ field: { value, onChange }, fieldState: { error } }) => (*/}
+      {/*    <UploadField*/}
+      {/*      {...registerInput('avatar')}*/}
+      {/*      placeholder={'аватар'}*/}
+      {/*      error={errors.avatar}*/}
+      {/*      value={value}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*/>*/}
       <UploadField
         {...registerInput('avatar')}
         placeholder={''}
         error={errors.avatar}
+        resetField={resetField}
+        result={result}
+        setResult={setResult}
+        setIsNewImageAdd={setIsNewImageAdd}
+        isLoaded={isLoaded}
+        setIsLoaded={setIsLoaded}
       />
+
       {/*--------------------------------------------- */}
       <h2>
         Укажите свои предпочтения, это позволит получать самое интересное из
