@@ -18,7 +18,6 @@ import { UserWs } from './auth/decorators/user-ws.decorator';
 import { EventService } from './event/event.service';
 
 @WebSocketGateway({
-  path: '/ws',
   cors: {
     origin: '*',
     allowedHeaders: '*',
@@ -82,7 +81,7 @@ export class SocketGateway
     } else {
       if (!activeRooms[dto.eventId]) activeRooms[dto.eventId] = [];
       activeRooms[dto.eventId].push(id);
-      // console.log('activeRooms after add', activeRooms);
+      console.log('activeRooms after add', activeRooms);
       client.emit('addActiveRoom', { room: `room:${dto.eventId}` });
     }
   }

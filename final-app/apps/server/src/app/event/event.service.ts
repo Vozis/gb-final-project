@@ -291,7 +291,7 @@ export class EventService {
     dto: UpdateEventDto,
     image: Express.Multer.File,
   ): Promise<EventSelect> {
-    console.log('UpdateEventDto: ', dto);
+    // console.log('UpdateEventDto: ', dto);
 
     if (image) {
       dto.imageUrl = await fileUploadHelper(image, 'events');

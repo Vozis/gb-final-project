@@ -27,7 +27,8 @@ import { useSingleEvent } from './useSingleEvent';
 import {
   IEventStatus,
   EnumNotificationStatusFront,
-  INotificationUpdateStatus, EnumNotificationType,
+  INotificationUpdateStatus,
+  EnumNotificationType,
 } from '@project/shared/types';
 
 export interface SingleEventMainProps {
@@ -54,8 +55,9 @@ export function SingleEventMain(props: SingleEventMainProps) {
   }, [user, event]);
 
   // console.log(event);
-  //
   // console.log('isParticipant', isParticipant);
+
+  // console.log('activeRooms: ', activeRooms);
 
   useEffect(() => {
     if (

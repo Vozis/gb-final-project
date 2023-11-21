@@ -262,7 +262,7 @@ export class CommentService {
   }
 
   async createComment(authorId: number, createCommentDto: CreateCommentDto) {
-    console.log(authorId, createCommentDto);
+    // console.log(authorId, createCommentDto);
     const newComment = await this.prisma.comment.create({
       data: {
         authorId: authorId,
@@ -326,7 +326,7 @@ export class CommentService {
       },
     });
 
-    console.log(newComment);
+    // console.log(newComment);
 
     this.eventEmitter.emit(ENotificationType.CreateCommentNote, newComment);
 
