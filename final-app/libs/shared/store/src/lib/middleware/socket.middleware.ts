@@ -36,9 +36,10 @@ const socketMiddleware: Middleware = store => {
 
     if (socketActions.startConnecting.match(action)) {
       userId = store.getState().user.user.id;
-      socket = io(`http://${process.env.NX_SOCKET_HOST}:4300`, {
+      socket = io({
         withCredentials: true,
         query: { userId: userId },
+        protocols: ['http'],
         transports: ['websocket', 'polling'],
       });
 

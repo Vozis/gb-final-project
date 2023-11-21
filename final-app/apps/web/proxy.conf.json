@@ -13,5 +13,12 @@
     "target": "http://0.0.0.0:4300",
     "secure": false,
     "changeOrigin" : true
+  },
+  "/socket.io": {
+    "target": "http://0.0.0.0:4300",
+    "secure": false,
+    "changeOrigin" : true,
+    "ws": true,
+    "logLevel": "info"
   }
 }

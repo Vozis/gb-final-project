@@ -40,8 +40,8 @@ services:
     tty: true
     env_file:
       - ./apps/web/.env
-    environment:
-      NX_SOCKET_HOST: ${NX_SOCKET_HOST}
+#    environment:
+#      NX_SOCKET_HOST: ${NX_SOCKET_HOST}
     ports:
       - "4200:4200"
     expose:
