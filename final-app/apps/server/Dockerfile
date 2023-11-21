@@ -27,7 +27,7 @@ COPY --from=develop /usr/src/app/node_modules ./node_modules
 
 ENV PORT 4300
 EXPOSE ${PORT}
-#ENV HOSTNAME "0.0.0.0"
+ENV HOSTNAME "0.0.0.0"
 ENV NODE_ENV production
 
 #RUN npm install --only=production && npm cache clean --force
