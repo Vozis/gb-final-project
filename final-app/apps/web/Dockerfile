@@ -25,6 +25,7 @@ COPY --from=develop usr/src/app/dist/apps/web ./
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 ENV PORT 4200
 ENV HOSTNAME "0.0.0.0"
+#ENV HOSTNAME "127.0.0.1"
 EXPOSE ${PORT}
 CMD ["nginx", "-g", "daemon off;"]
 

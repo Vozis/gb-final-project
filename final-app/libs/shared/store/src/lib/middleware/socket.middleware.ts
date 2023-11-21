@@ -17,6 +17,7 @@ import {
   NotificationEvent,
   SocketEvent,
 } from '@project/shared/types';
+import * as process from 'process';
 
 const socketMiddleware: Middleware = store => {
   let socket: Socket;
@@ -35,7 +36,7 @@ const socketMiddleware: Middleware = store => {
 
     if (socketActions.startConnecting.match(action)) {
       userId = store.getState().user.user.id;
-      socket = io('http://127.0.0.1:4300', {
+      socket = io(`http://${process.env.NX_SOCKET_HOST}:4300`, {
         withCredentials: true,
         query: { userId: userId },
         transports: ['websocket', 'polling'],
