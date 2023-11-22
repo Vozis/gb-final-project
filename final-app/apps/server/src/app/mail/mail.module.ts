@@ -15,8 +15,7 @@ import { EventModule } from '../event/event.module';
       transport: {
         host: 'smtp.gmail.com',
         port: 465,
-        ignoreTLS: true,
-        secure: false,
+        secure: true,
         auth: {
           user: 'anasta.kell@gmail.com',
           pass: 'odrdjozqjkldyiup',
