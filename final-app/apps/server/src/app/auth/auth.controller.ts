@@ -29,6 +29,7 @@ export class AuthController {
     @UploadedFile() avatar: Express.Multer.File,
   ): Promise<ReturnAuth> {
     const user = await this.authService.register(dto, avatar);
+    console.log('new register user: ', user);
     await this.mailService.sendEmailConfirmation(dto.email);
     return user;
   }

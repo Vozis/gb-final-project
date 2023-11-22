@@ -25,7 +25,6 @@ services:
       - final-project-common-network
   #    command: npm run server
 
-
   # React app
   web:
     container_name: final-project-web

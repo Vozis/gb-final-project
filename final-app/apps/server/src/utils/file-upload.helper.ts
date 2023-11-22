@@ -13,7 +13,7 @@ export const fileUploadHelper = async (
       ? `${path}/assets/${folder}`
       : `${path}/apps/server/src/assets/${folder}`;
 
-  console.log('uploadFolder: ', uploadFolder);
+  // console.log('uploadFolder: ', uploadFolder);
 
   await ensureDir(uploadFolder);
 

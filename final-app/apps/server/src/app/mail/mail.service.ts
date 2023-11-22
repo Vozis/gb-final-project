@@ -29,6 +29,8 @@ export class MailService {
       'FRONTEND_API',
     )}/confirm-email?token=${token}`;
 
+    console.log('url in email: ', url);
+
     return this.mailerService
       .sendMail({
         to: email,
