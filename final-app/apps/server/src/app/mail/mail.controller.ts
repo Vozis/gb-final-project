@@ -34,6 +34,7 @@ export class MailController {
   @Post('resend-confirmation-link')
   @Auth()
   async resendConfirmationLink(@User('id') id: number) {
+    console.log('get resend confirmation link');
     return await this.mailService.resendConfirmationLink(id);
   }
 

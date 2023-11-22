@@ -18,6 +18,7 @@ services:
     tty: true
     ports:
       - "4300:4300"
+      - "465:465"
     expose:
       - 4300
     networks:

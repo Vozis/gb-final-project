@@ -99,7 +99,7 @@ export function HomeMain(props: HomeMainProps) {
   );
 
   const handleConfirmEmailLink = async () => {
-    console.log('click');
+    // console.log('click');
 
     await mutateAsync();
   };

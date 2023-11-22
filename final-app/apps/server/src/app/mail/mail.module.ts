@@ -12,8 +12,16 @@ import { EventModule } from '../event/event.module';
 @Module({
   imports: [
     MailerModule.forRoot({
-      transport:
-        'smtps://anasta.kell@gmail.com:odrdjozqjkldyiup@smtp.gmail.com',
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        ignoreTLS: true,
+        secure: false,
+        auth: {
+          user: 'anasta.kell@gmail.com',
+          pass: 'odrdjozqjkldyiup',
+        },
+      },
       defaults: {
         from: '"Nest JS робот" <anasta.kell@gmail.com>',
       },
