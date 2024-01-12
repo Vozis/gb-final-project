@@ -69,7 +69,6 @@ services:
       - final-project-common-network
     volumes:
       - sport-redis-data:/data
-    depends_on:
 
   redis-commander:
     container_name: 'redis-commander'
