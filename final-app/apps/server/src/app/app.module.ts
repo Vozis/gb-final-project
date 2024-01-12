@@ -23,8 +23,9 @@ import { RatingModule } from './rating/rating.module';
 import * as process from 'process';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
-import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CustomPrismaModule } from 'nestjs-prisma/dist/custom';
+import { extendedPrismaClient } from './prisma/prisma.extension';
+import { PrismaCustomModule } from './prisma/prisma-custom.module';
 
 @Module({
   imports: [
@@ -35,7 +36,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       global: true,
     }),
     ScheduleModule.forRoot(),
-    PrismaModule,
     ServeStaticModule.forRoot({
       rootPath:
         process.env.NODE_ENV === 'production'
@@ -57,14 +57,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         // ttl: +configService.get('CACHE_TTL'),
       }),
     }),
-    // ServeStaticModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject:[ConfigService],
-    //   useFactory: (configService: ConfigService) => ({
-    //     rootPath: `${path}/`,
-    //     serveRoot: '/assets',
-    //   }),
-    // }),
     MailModule,
     UserModule,
     AuthModule,
@@ -75,6 +67,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     LikeModule,
     NotificationModule,
     RatingModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService, SocketGateway],

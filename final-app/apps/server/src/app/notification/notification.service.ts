@@ -7,15 +7,14 @@ import { CommentService } from '../comment/comment.service';
 import { EventService } from '../event/event.service';
 import { NotificationType } from '@prisma/client';
 import { INotificationResponse } from './notification.types';
-import { CustomPrismaService } from 'nestjs-prisma';
-import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class NotificationService {
   constructor(
-    @Inject('PrismaService')
-    private prisma: CustomPrismaService<ExtendedPrismaClient>,
-    // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    // @Inject('PrismaService')
+    // private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
     private readonly commentService: CommentService,
     private readonly eventService: EventService,
@@ -26,8 +25,8 @@ export class NotificationService {
 
     // console.log('id: ', id);
 
-    const [notifications, count] = await this.prisma.client.$transaction([
-      this.prisma.client.notifications.findMany({
+    const [notifications, count] = await this.prisma.$transaction([
+      this.prisma.notifications.findMany({
         where: {
           userId: id,
           // status: 'SENT',
@@ -46,7 +45,7 @@ export class NotificationService {
           createdAt: 'desc',
         },
       }),
-      this.prisma.client.notifications.count({
+      this.prisma.notifications.count({
         where: {
           userId: id,
           status: 'SENT',
@@ -243,14 +242,14 @@ export class NotificationService {
   }
 
   async createOnlyNotification(dto: CreateNotificationDto) {
-    return this.prisma.client.notifications.create({
+    return this.prisma.notifications.create({
       data: dto,
     });
   }
 
   async updateNotificationStatus(dto: UpdateNotificationStatusDto) {
     for (const id of dto.ids) {
-      await this.prisma.client.notifications.updateMany({
+      await this.prisma.notifications.updateMany({
         where: {
           id,
         },
@@ -263,14 +262,14 @@ export class NotificationService {
   }
 
   async deleteNotification(id: number, type: NotificationType) {
-    const notifications = await this.prisma.client.notifications.findMany({
+    const notifications = await this.prisma.notifications.findMany({
       where: {
         sourceId: id,
         type: type,
       },
     });
 
-    await this.prisma.client.notifications.deleteMany({
+    await this.prisma.notifications.deleteMany({
       where: {
         id: {
           in: notifications.map(item => item.id),

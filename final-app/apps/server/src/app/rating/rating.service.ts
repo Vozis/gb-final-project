@@ -7,13 +7,14 @@ import { SearchRatingDto } from './dto/searchRatingDto';
 import { Prisma } from '@prisma/client';
 import { CustomPrismaService } from 'nestjs-prisma';
 import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class RatingService {
   constructor(
-    @Inject('PrismaService')
-    private prisma: CustomPrismaService<ExtendedPrismaClient>,
-    // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    // @Inject('PrismaService')
+    // private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
   ) {}
 
@@ -26,7 +27,7 @@ export class RatingService {
         }
       : {};
 
-    const result = await this.prisma.client.rating.findMany({
+    const result = await this.prisma.rating.findMany({
       where: ratingSearchFilter,
       select: returnRatingObject,
     });
@@ -38,7 +39,7 @@ export class RatingService {
   }
 
   async getById(id: number) {
-    const result = await this.prisma.client.rating.findUnique({
+    const result = await this.prisma.rating.findUnique({
       where: { id },
       select: returnRatingObject,
     });
@@ -51,7 +52,7 @@ export class RatingService {
   async setRating(authorId: number, createRatingDto: CreateRatingDto) {
     // console.log(createRatingDto);
 
-    const rating = await this.prisma.client.rating.upsert({
+    const rating = await this.prisma.rating.upsert({
       where: {
         compositeId: {
           eventId: createRatingDto.eventId,
@@ -97,7 +98,7 @@ export class RatingService {
   }
 
   async updateAverageUserRating(userId: number) {
-    const { value } = await this.prisma.client.rating
+    const { value } = await this.prisma.rating
       .aggregate({
         where: { userId },
         _avg: {
@@ -114,7 +115,7 @@ export class RatingService {
   }
 
   async delete(id: number) {
-    return this.prisma.client.rating.delete({
+    return this.prisma.rating.delete({
       where: { id },
       select: returnRatingObject,
     });

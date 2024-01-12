@@ -29,7 +29,6 @@ import { EnumCacheEventRoutes } from './constants';
 import { HttpCacheInterceptor } from '../common/interceptors/httpCache.interceptor';
 
 @Controller('events')
-@UseInterceptors(HttpCacheInterceptor)
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
@@ -40,13 +39,15 @@ export class EventController {
 
   // Public routes =============================================================
   @Get('public/all')
-  @CacheKey(EnumCacheEventRoutes.GET_ALL_PUBLIC_EVENTS)
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey(EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS)
   async getAllEventsNoUser(@Query() filterSearchDto?: FilterSearchDto) {
     // : Promise<EventSelect[]>
     return this.eventService.getAllEvents(undefined, filterSearchDto);
   }
 
   @Get('public/:id')
+  @UseInterceptors(HttpCacheInterceptor)
   @CacheKey(EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID)
   async getByIdNoUser(@Param('id', ParseIntPipe) id: number) {
     return this.eventService.getById(id);
@@ -57,6 +58,7 @@ export class EventController {
   @Auth()
   // @Post('all')
   @Get('all')
+  @UseInterceptors(HttpCacheInterceptor)
   @CacheKey(EnumCacheEventRoutes.GET_ALL_EVENTS)
   async getAllEvents(
     @User('id') id: number,
@@ -95,6 +97,7 @@ export class EventController {
 
   @Auth()
   @Get(':eventId')
+  @UseInterceptors(HttpCacheInterceptor)
   @CacheKey(EnumCacheEventRoutes.GET_EVENTS_BY_ID)
   async getById(
     @Param('eventId', ParseIntPipe) eventId: number,
