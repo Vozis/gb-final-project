@@ -30,7 +30,6 @@ import {
   INotificationUpdateStatus,
   EnumNotificationType,
 } from '@project/shared/types';
-import { EventStatus } from '@prisma/client';
 
 export interface SingleEventMainProps {
   tabs?: TabsProps;
