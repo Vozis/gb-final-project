@@ -24,7 +24,9 @@ services:
     networks:
       - project-network
       - final-project-common-network
-  #    command: npm run server
+    depends_on:
+      - redis
+      - redis-commander
 
   # React app
   web:
@@ -51,6 +53,8 @@ services:
       - final-project-common-network
     depends_on:
       - server
+      - redis
+      - redis-commander
     links:
       - server
 
@@ -66,7 +70,6 @@ services:
     volumes:
       - sport-redis-data:/data
     depends_on:
-      - server
 
   redis-commander:
     container_name: 'redis-commander'
@@ -81,7 +84,6 @@ services:
       - final-project-common-network
     depends_on:
       - redis
-      - server
 
 volumes:
   mono-node-modules: null

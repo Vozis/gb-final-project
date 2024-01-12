@@ -22,7 +22,7 @@
     "prisma-generate": "cd apps/server && npx prisma generate",
     "prisma-migrate": "cd apps/server && npx prisma migrate dev",
     "prisma-reset": "cd apps/server && npx prisma db reset",
-    "db:studio:docker": "env-cmd --no-override -f .env npx primsa studio --hostname 0.0.0.0" 
+    "db:studio:docker": "env-cmd --no-override -f .env npx primsa studio --hostname 0.0.0.0"
   },
   "private": true,
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@faker-js/faker": "^8.0.1",
     "@nestjs/schematics": "10.1.0",
     "@nestjs/testing": "10.3.0",
-    "@nx-tools/nx-prisma": "5.0.0",
+    "@nx-tools/nx-prisma": "^5.1.0",
     "@nx/eslint": "17.2.8",
     "@nx/eslint-plugin": "17.2.8",
     "@nx/jest": "17.2.8",
@@ -81,7 +81,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "nx": "17.2.8",
-    "postcss": "8.4.21",
+    "postcss": "^8.4.33",
     "prettier": "^2.6.2",
     "react-refresh": "^0.10.0",
     "run-script-webpack-plugin": "^0.2.0",
@@ -116,7 +116,7 @@
     "@types/react-responsive": "^8.0.5",
     "app-root-path": "3.1.0",
     "argon2": "0.30.3",
-    "axios": "1.4.0",
+    "axios": "^1.6.5",
     "cache-manager": "^5.3.2",
     "cache-manager-redis-yet": "^4.1.2",
     "class-transformer": "0.5.1",
