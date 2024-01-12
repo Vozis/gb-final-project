@@ -14,7 +14,6 @@ RUN npm install
 COPY . .
 RUN npm run prisma-generate
 RUN npm run build:server
-RUN npm ci && npm cache clean --force
 ################################
 # Prod stage
 ################################
