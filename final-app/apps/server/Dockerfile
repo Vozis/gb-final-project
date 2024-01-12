@@ -9,10 +9,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 ENV NODE_ENV development
 
-RUN npm ci
+RUN npm install
 COPY . .
 RUN npm run prisma-generate
 RUN npm run build:server
+RUN npm ci && npm cache clean --force
 ################################
 # Prod stage
 ################################
