@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -59,11 +58,14 @@ model Tag {
   shortName String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  typeId    Int      @default(1) @map("type_id")
-  type      TypeTag  @relation(fields: [typeId], references: [id])
-  events    Event[]  @relation("EventToTag")
-  users     User[]   @relation("TagToUser")
 
+  type   TypeTag @relation(fields: [typeId], references: [id])
+  typeId Int     @default(1) @map("type_id")
+
+  events Event[] @relation("EventToTag")
+  users  User[]  @relation("TagToUser")
+
+  @@index([typeId])
   @@map("tags")
 }
 
@@ -76,12 +78,14 @@ model Event {
   coordinateY String?     @default("0") @map("coordinate_y")
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
-  creatorId   Int?
   eventTime   DateTime?   @default(dbgenerated("(now() + '2 days'::interval)")) @map("event_time")
   peopleCount Int         @default(2) @map("people_count")
   status      EventStatus @default(OPEN)
-  comments    Comment[]
-  creator     User?       @relation("creations", fields: [creatorId], references: [id])
+
+  comments Comment[]
+
+  creator   User? @relation("creations", fields: [creatorId], references: [id])
+  creatorId Int?  @map("creator_id")
 
   ratings Rating[]
 
@@ -89,34 +93,45 @@ model Event {
   users            User[] @relation("events")
   usersOfFavorites User[] @relation("favorites")
 
+  @@index([creatorId])
+  @@index([status])
   @@map("events")
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
-  message   String    @db.VarChar(1000)
-  authorId  Int
-  eventId   Int
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  parentId  Int?      @map("parent_id")
-  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
-  children  Comment[] @relation("CommentReplies")
-  likes     Like[]
+  id      Int    @id @default(autoincrement())
+  message String @db.VarChar(1000)
 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId Int  @map("author_id")
+
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId Int   @map("event_id")
+
+  parent   Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId Int?     @map("parent_id")
+
+  children Comment[] @relation("CommentReplies")
+  likes    Like[]
+
+  @@index([authorId])
+  @@index([eventId])
+  @@index([parentId])
   @@map("comments")
 }
 
 model Like {
-  commentId Int      @map("comment_id")
-  userId    Int      @map("user")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId Int     @default(1) @map("comment_id")
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @default(1) @map("user_id")
 
   @@id([userId, commentId])
   @@map("likes")
@@ -132,8 +147,9 @@ model Notifications {
   text      String?            @db.VarChar(1000)
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId Int  @default(1) @map("user_id")
 
+  @@index([userId])
   @@map("notifications")
 }
 
@@ -144,15 +160,16 @@ model Rating {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId Int
+  eventId Int   @map("event_id")
 
   user   User @relation("user_ratings", fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId Int  @map("user_id")
 
   author   User @relation("author_ratings", fields: [authorId], references: [id], onDelete: Cascade)
-  authorId Int
+  authorId Int  @map("author_id")
 
   @@unique([eventId, userId], name: "compositeId")
+  @@index([authorId])
   @@map("rating")
 }
 

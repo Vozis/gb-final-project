@@ -16,6 +16,7 @@ import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { HttpCacheInterceptor } from '../common/interceptors/httpCache.interceptor';
 
 @Controller('users')
 export class UserController {

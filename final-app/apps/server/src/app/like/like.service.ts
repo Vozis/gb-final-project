@@ -1,12 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateLikeDto } from './dto/create-like.dto';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
+import { CustomPrismaService } from 'nestjs-prisma';
+import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class LikeService {
   constructor(
-    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    @Inject('PrismaService')
+    private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    private readonly eventService: EventService, // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
   ) {}
   async toggleLike(id: number, createLikeDto: CreateLikeDto) {
     const data = {
@@ -14,21 +18,23 @@ export class LikeService {
       commentId: createLikeDto.commentId,
     };
 
-    const _like = await this.prisma.like.findUnique({
+    const _like = await this.prisma.client.like.findUnique({
       where: {
         userId_commentId: data,
       },
     });
 
+    await this.eventService.clearCache();
+
     if (!_like) {
-      return await this.prisma.like.create({
+      return await this.prisma.client.like.create({
         data: {
           userId: id,
           commentId: createLikeDto.commentId,
         },
       });
     } else {
-      return await this.prisma.like.delete({
+      return await this.prisma.client.like.delete({
         where: {
           userId_commentId: data,
         },

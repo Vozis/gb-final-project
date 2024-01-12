@@ -15,6 +15,7 @@ import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import { EventService } from '../event/event.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventStatus } from '@prisma/client';
 
 @WebSocketGateway({
   cors: {
@@ -48,7 +49,7 @@ export class CommentGateway {
     );
 
     const _event = await this.eventService.getById(createCommentDto.eventId);
-    if (_event.status !== 'CLOSED' || _event.status !== 'CANCELED') {
+    if (_event.status !== EventStatus.CLOSED) {
       this.server.to(`room:${_event.id}`).emit('receiveComment', comment);
     } else {
       // Создать уведомление

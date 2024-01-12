@@ -30,6 +30,7 @@ import {
   INotificationUpdateStatus,
   EnumNotificationType,
 } from '@project/shared/types';
+import { EventStatus } from '@prisma/client';
 
 export interface SingleEventMainProps {
   tabs?: TabsProps;
@@ -265,9 +266,9 @@ export function SingleEventMain(props: SingleEventMainProps) {
               />
             ) : (
               <>
-                {isActiveRoom ? (
+                {event.status === IEventStatus.OPEN ? (
                   <>
-                    {isParticipant ? (
+                    {isActiveRoom && isParticipant ? (
                       <Button
                         onClick={() => setIsCommentsOpen(!isCommentsOpen)}
                       >

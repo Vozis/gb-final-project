@@ -12,6 +12,8 @@ export interface CommentsProps {
 export function Comments({ event }: CommentsProps) {
   const { allComments } = useCommentState();
 
+  console.log('allComments: ', allComments);
+
   const eventComments = allComments.filter(
     comment => comment.eventId === event.id,
   );

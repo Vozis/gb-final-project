@@ -18,7 +18,6 @@ import {
   UserAuthSelect,
   UserSelect,
 } from './returnUserObject';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
 import { FriendsNotification } from '../notification/dto/create-notification.dto';
@@ -26,25 +25,29 @@ import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { CustomPrismaService } from 'nestjs-prisma';
+import { ExtendedPrismaClient } from '../prisma/prisma.extension';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    @Inject('PrismaService')
+    private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly eventEmitter: EventEmitter2,
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
   ) {}
   async create(createUserDto: CreateUserDto): Promise<UserSelect> {
-    return this.prisma.user.create({
+    return this.prisma.client.user.create({
       data: {
         ...createUserDto,
         password: await hash(createUserDto.password),
         firstName: createUserDto.firstName ? createUserDto.firstName : 'User',
         lastName: createUserDto.lastName ? createUserDto.lastName : 'Cool',
         userName: createUserDto.userName ? createUserDto.userName : uuidv4(),
-        role: Role.USER,
+        role: [Role.USER],
         hobbies: {
           connect:
             typeof createUserDto.hobbies === 'object'
@@ -84,7 +87,7 @@ export class UserService {
         }
       : {};
 
-    return this.prisma.user.findMany({
+    return this.prisma.client.user.findMany({
       where: prismaSearchFilter,
       select: {
         id: true,
@@ -98,7 +101,7 @@ export class UserService {
   }
 
   async getById(userId: number, id?: number) {
-    const _user = await this.prisma.user.findUnique({
+    const _user = await this.prisma.client.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -233,7 +236,7 @@ export class UserService {
       },
     });
 
-    // const ratings = await this.prisma.rating.aggregate({
+    // const ratings = await this.prisma.client.rating.aggregate({
     //   where: {
     //     userId: userId,
     //   },
@@ -278,7 +281,7 @@ export class UserService {
   }
 
   async getByEmail(email: string): Promise<UserSelect> {
-    const _user = await this.prisma.user.findUnique({
+    const _user = await this.prisma.client.user.findUnique({
       where: { email },
       select: returnUserObject,
     });
@@ -289,7 +292,7 @@ export class UserService {
   }
 
   async getForAuth(email: string): Promise<UserAuthSelect> {
-    const _user = await this.prisma.user.findUnique({
+    const _user = await this.prisma.client.user.findUnique({
       where: { email },
       select: returnAuthUserObject,
     });
@@ -300,7 +303,7 @@ export class UserService {
   }
 
   async getByUserName(userName: string): Promise<UserSelect> {
-    const _user = await this.prisma.user.findUnique({
+    const _user = await this.prisma.client.user.findUnique({
       where: { userName },
       select: returnUserObject,
     });
@@ -319,7 +322,7 @@ export class UserService {
   ): Promise<UserSelect> {
     // console.log('updateUserDto', updateUserDto);
 
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.client.user.findUnique({
       where: { id },
     });
     let email;
@@ -367,7 +370,7 @@ export class UserService {
       updateUserDto.avatarPath = await fileUploadHelper(avatar, 'users');
     }
 
-    return this.prisma.user.update({
+    return this.prisma.client.user.update({
       where: { id },
       data: {
         ...updateUserDto,
@@ -389,7 +392,7 @@ export class UserService {
   }
 
   async remove(id: number): Promise<User> {
-    return this.prisma.user.delete({
+    return this.prisma.client.user.delete({
       where: { id },
     });
   }
@@ -397,7 +400,7 @@ export class UserService {
   async toggle(id: number, dto: ToggleDto): Promise<UserSelect> {
     // console.log(dto);
 
-    const isExist = await this.prisma.user
+    const isExist = await this.prisma.client.user
       .count({
         where: {
           id: id,
@@ -410,7 +413,7 @@ export class UserService {
       })
       .then(Boolean);
 
-    const user = await this.prisma.user.update({
+    const user = await this.prisma.client.user.update({
       where: { id: id },
       data: {
         [dto.type]: {
@@ -445,7 +448,7 @@ export class UserService {
   }
 
   async makeEmailConfirmed(email: string) {
-    return this.prisma.user.update({
+    return this.prisma.client.user.update({
       where: { email },
       data: {
         isConfirmed: true,
@@ -455,7 +458,7 @@ export class UserService {
   }
 
   async getUserEventsIds(id: number) {
-    const userEvents = await this.prisma.user.findUnique({
+    const userEvents = await this.prisma.client.user.findUnique({
       where: { id },
       select: {
         events: {
@@ -470,7 +473,7 @@ export class UserService {
   }
 
   updateExitDate(id: number) {
-    return this.prisma.user.update({
+    return this.prisma.client.user.update({
       where: { id },
       data: {
         exitDate: new Date(),
@@ -479,7 +482,7 @@ export class UserService {
   }
 
   async findUsersWhereFriends(id: number) {
-    return this.prisma.user.findMany({
+    return this.prisma.client.user.findMany({
       where: {
         friends: {
           some: {
@@ -622,7 +625,7 @@ export class UserService {
   }
 
   async getAverageRating(id: number) {
-    return this.prisma.user.findUnique({
+    return this.prisma.client.user.findUnique({
       where: { id },
       include: {
         authorRatings: true,
@@ -633,7 +636,7 @@ export class UserService {
   async updateAverageRating(id: number, value: number) {
     const { averageRating } = await this.getAverageRating(id);
 
-    return this.prisma.user.update({
+    return this.prisma.client.user.update({
       where: { id },
       data: {
         averageRating: value !== null ? value : averageRating,

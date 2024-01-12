@@ -60,12 +60,12 @@ export const returnEventObject: ReturnEvent = {
 };
 
 export const returnEventFullObject: ReturnEvent = {
+  isParticipate: true,
   id: true,
   name: true,
   description: true,
   imageUrl: true,
   peopleCount: true,
-  isParticipate: true,
   eventTime: true,
   status: true,
   _count: {

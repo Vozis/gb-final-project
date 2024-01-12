@@ -1,22 +1,31 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
+import { CustomPrismaService } from 'nestjs-prisma';
+import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class CommentService {
   constructor(
-    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    @Inject('PrismaService')
+    private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
     private readonly userService: UserService,
+    private readonly eventService: EventService,
     private readonly eventEmitter: EventEmitter2,
+
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async getAllUserComments(id?: number) {
-    const comments = await this.prisma.comment.findMany({
+    const comments = await this.prisma.client.comment.findMany({
       where: {
         event: {
           users: {
@@ -164,7 +173,7 @@ export class CommentService {
   }
 
   async getAllToEvent(id: number, eventId: number) {
-    const comments = await this.prisma.comment.findMany({
+    const comments = await this.prisma.client.comment.findMany({
       where: {
         eventId,
       },
@@ -263,7 +272,7 @@ export class CommentService {
 
   async createComment(authorId: number, createCommentDto: CreateCommentDto) {
     // console.log(authorId, createCommentDto);
-    const newComment = await this.prisma.comment.create({
+    const newComment = await this.prisma.client.comment.create({
       data: {
         authorId: authorId,
         parentId: createCommentDto.parentId && +createCommentDto.parentId,
@@ -328,6 +337,8 @@ export class CommentService {
 
     // console.log(newComment);
 
+    await this.eventService.clearCache('EVENTS_ID');
+
     this.eventEmitter.emit(ENotificationType.CreateCommentNote, newComment);
 
     return newComment;
@@ -338,7 +349,7 @@ export class CommentService {
     commentId: number,
     updateCommentDto: UpdateCommentDto,
   ) {
-    const _comment = await this.prisma.comment.findUnique({
+    const _comment = await this.prisma.client.comment.findUnique({
       where: { id: commentId },
     });
 
@@ -346,7 +357,9 @@ export class CommentService {
 
     if (!isAuthor) return new BadRequestException('You cannot update');
 
-    return this.prisma.comment.update({
+    await this.eventService.clearCache('EVENTS_ID');
+
+    return this.prisma.client.comment.update({
       where: {
         id: commentId,
       },
@@ -355,7 +368,7 @@ export class CommentService {
   }
 
   async deleteComment(id: number) {
-    const deleteComment = await this.prisma.comment.delete({
+    const deleteComment = await this.prisma.client.comment.delete({
       where: {
         id,
       },
@@ -363,11 +376,13 @@ export class CommentService {
 
     this.eventEmitter.emit(ENotificationType.DeleteCommentNote, deleteComment);
 
+    await this.eventService.clearCache('EVENTS_ID');
+
     return deleteComment;
   }
 
   async getCommentById(id: number) {
-    const result = await this.prisma.comment.findUnique({
+    const result = await this.prisma.client.comment.findUnique({
       where: { id },
       include: {
         author: {

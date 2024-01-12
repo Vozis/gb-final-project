@@ -11,8 +11,8 @@ import { EventModule } from '../event/event.module';
   imports: [
     PrismaModule,
     forwardRef(() => AuthModule),
+    forwardRef(() => EventModule),
     UserModule,
-
     forwardRef(() => EventModule),
   ],
   providers: [CommentGateway, CommentService],

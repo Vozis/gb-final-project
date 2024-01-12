@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   Param,
   ParseIntPipe,
   Patch,
@@ -25,8 +24,12 @@ import { FilterSearchDto, IFilterDto } from './dto/search-event.dto';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { EmailConfirmationGuard } from '../auth/guards/emailConfirmation.guard';
 import { Cron } from '@nestjs/schedule';
+import { CacheKey } from '@nestjs/cache-manager';
+import { EnumCacheEventRoutes } from './constants';
+import { HttpCacheInterceptor } from '../common/interceptors/httpCache.interceptor';
 
 @Controller('events')
+@UseInterceptors(HttpCacheInterceptor)
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
@@ -37,13 +40,14 @@ export class EventController {
 
   // Public routes =============================================================
   @Get('public/all')
-  @HttpCode(200)
+  @CacheKey(EnumCacheEventRoutes.GET_ALL_PUBLIC_EVENTS)
   async getAllEventsNoUser(@Query() filterSearchDto?: FilterSearchDto) {
     // : Promise<EventSelect[]>
     return this.eventService.getAllEvents(undefined, filterSearchDto);
   }
 
   @Get('public/:id')
+  @CacheKey(EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID)
   async getByIdNoUser(@Param('id', ParseIntPipe) id: number) {
     return this.eventService.getById(id);
   }
@@ -53,7 +57,7 @@ export class EventController {
   @Auth()
   // @Post('all')
   @Get('all')
-  @HttpCode(200)
+  @CacheKey(EnumCacheEventRoutes.GET_ALL_EVENTS)
   async getAllEvents(
     @User('id') id: number,
     @Query()
@@ -91,6 +95,7 @@ export class EventController {
 
   @Auth()
   @Get(':eventId')
+  @CacheKey(EnumCacheEventRoutes.GET_EVENTS_BY_ID)
   async getById(
     @Param('eventId', ParseIntPipe) eventId: number,
     @User('id') id: number,

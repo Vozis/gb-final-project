@@ -4,7 +4,6 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { BasePrismaService } from './app/prisma/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,8 +13,7 @@ async function bootstrap() {
   const port = process.env.PORT || 4202;
   const host = process.env.HOST || '0.0.0.0';
 
-  const prismaService = app.get(BasePrismaService);
-  await prismaService.enableShutdownHooks(app);
+  await app.enableShutdownHooks();
 
   await app.listen(port);
 

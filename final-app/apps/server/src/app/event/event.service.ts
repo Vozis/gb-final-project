@@ -13,28 +13,40 @@ import { fileUploadHelper } from '../../utils/file-upload.helper';
 import { ToggleDto } from '../../utils/toggle.dto';
 import { EventParticipateNotification } from '../notification/dto/create-notification.dto';
 import { ENotificationType } from '../notification/notification.types';
-import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
-import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { FilterSearchDto } from './dto/search-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import {
-  EventFullSelect,
   EventSelect,
   returnEventFullObject,
   returnEventObject,
 } from './returnEventObject';
+import { CustomPrismaService } from 'nestjs-prisma';
+import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class EventService {
   constructor(
-    // private readonly prisma: PrismaExtensionService,
-    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    @Inject('PrismaService')
+    private prisma: CustomPrismaService<ExtendedPrismaClient>,
     private readonly userService: UserService,
     private readonly eventEmitter: EventEmitter2,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   // Get Methods ===============================================================
+
+  async clearCache(str: string = 'EVENTS') {
+    const keys: string[] = await this.cacheManager.store.keys();
+    keys.forEach(key => {
+      if (key.includes(str)) {
+        this.cacheManager.del(key);
+      }
+    });
+  }
   async getAllEvents(
     id?: number,
     filterSearchDto?: FilterSearchDto,
@@ -171,7 +183,7 @@ export class EventService {
 
     // console.log('eventsSearchFilter:', eventsSearchFilter);
 
-    const result = await this.prisma.event.findMany({
+    const result = await this.prisma.client.event.findMany({
       where: eventsSearchFilter,
       select: returnEventObject,
       orderBy: {
@@ -184,10 +196,8 @@ export class EventService {
     if (id) {
       return result.map(item => {
         if (item.users.some(user => user.id === id)) {
-          // @ts-ignore
           item.isParticipate = true;
         } else {
-          // @ts-ignore
           item.isParticipate = false;
         }
         return item;
@@ -198,20 +208,18 @@ export class EventService {
     }
   }
 
-  async getById(eventId: number, id?: number): Promise<EventFullSelect> {
-    const result = await this.prisma.event.findUnique({
+  async getById(eventId: number, id?: number): Promise<any> {
+    const result = await this.prisma.client.event.findUnique({
       where: { id: eventId },
-      select: returnEventFullObject,
+      select: { ...returnEventFullObject },
     });
 
     if (!result) throw new NotFoundException('Event not found');
 
     if (id) {
       if (result.users.some(user => user.id === id)) {
-        // @ts-ignore
         result.isParticipate = true;
       } else {
-        // @ts-ignore
         result.isParticipate = false;
       }
       return result;
@@ -223,7 +231,7 @@ export class EventService {
   async getFinishedEvents(id: number) {
     const currentDate = new Date();
 
-    const result = await this.prisma.event.findMany({
+    const result = await this.prisma.client.event.findMany({
       where: {
         users: {
           some: {
@@ -252,7 +260,7 @@ export class EventService {
 
     const thisTimeEvent = await this.checkTimeEvent(dto.eventTime, creatorId);
 
-    const newEvent = await this.prisma.event.create({
+    const newEvent = await this.prisma.client.event.create({
       data: {
         name: dto.name,
         description: dto.description,
@@ -277,11 +285,13 @@ export class EventService {
       select: returnEventObject,
     });
 
-    // @ts-ignore
     newEvent.isParticipate = !thisTimeEvent;
 
     this.eventEmitter.emit(ENotificationType.CreateEventNote, newEvent);
 
+    await this.clearCache();
+
+    // @ts-ignore
     return newEvent;
   }
 
@@ -291,13 +301,13 @@ export class EventService {
     dto: UpdateEventDto,
     image: Express.Multer.File,
   ): Promise<EventSelect> {
-    // console.log('UpdateEventDto: ', dto);
+    console.log('UpdateEventDto: ', dto);
 
     if (image) {
       dto.imageUrl = await fileUploadHelper(image, 'events');
     }
 
-    const updatedEvent = await this.prisma.event.update({
+    const updatedEvent = await this.prisma.client.event.update({
       where: { id },
       data: {
         name: dto.name,
@@ -320,13 +330,16 @@ export class EventService {
 
     this.eventEmitter.emit(ENotificationType.UpdateEventNote, updatedEvent);
 
+    await this.clearCache();
+
+    // @ts-ignore
     return updatedEvent;
   }
 
   async toggle(id: number, dto: ToggleDto) {
     const _event = await this.getById(id);
 
-    const isExist = await this.prisma.event
+    const isExist = await this.prisma.client.event
       .count({
         where: {
           id,
@@ -360,7 +373,7 @@ export class EventService {
       }
     }
 
-    const result = await this.prisma.event.update({
+    const result = await this.prisma.client.event.update({
       where: { id: id },
       data: {
         [dto.type]: {
@@ -397,11 +410,13 @@ export class EventService {
     } else {
       result.isParticipate = false;
     }
+    await this.clearCache();
     return result;
   }
 
   async cancelEvent(id: number) {
-    return this.prisma.event.update({
+    await this.clearCache();
+    return this.prisma.client.event.update({
       where: { id },
       data: {
         status: 'CANCELED',
@@ -427,7 +442,7 @@ export class EventService {
       ],
     };
 
-    const result = await this.prisma.event.findMany({
+    const result = await this.prisma.client.event.findMany({
       where: eventsSearchFilter,
       orderBy: {
         eventTime: 'desc',
@@ -452,7 +467,7 @@ export class EventService {
   // async getByUserTags(id: number): Promise<EventSelect[]> {
   //   const _user = await this.userService.getById(id);
   //
-  //   return this.prisma.event.findMany({
+  //   return this.prisma.client.event.findMany({
   //     where: {
   //       tags: {
   //         some: {
@@ -467,7 +482,8 @@ export class EventService {
   // }
 
   async delete(id: number) {
-    return this.prisma.event.delete({
+    await this.clearCache();
+    return this.prisma.client.event.delete({
       where: { id },
     });
   }
@@ -475,7 +491,7 @@ export class EventService {
   async changeScheduleEventStatus() {
     const currentDate = new Date();
 
-    const finishedEvents = await this.prisma.event.findMany({
+    const finishedEvents = await this.prisma.client.event.findMany({
       where: {
         eventTime: {
           lte: currentDate,
@@ -485,7 +501,7 @@ export class EventService {
     });
 
     for (const event of finishedEvents) {
-      const finishedEvent = await this.prisma.event.update({
+      const finishedEvent = await this.prisma.client.event.update({
         where: {
           id: event.id,
         },
@@ -520,6 +536,8 @@ export class EventService {
       );
     }
 
+    await this.clearCache();
+
     // return finishedEvents;
   }
 
@@ -528,7 +546,7 @@ export class EventService {
     const tomorrowDate = new Date(currentDate);
     tomorrowDate.setDate(tomorrowDate.getDate() + 1);
 
-    const result = await this.prisma.event.findMany({
+    const result = await this.prisma.client.event.findMany({
       where: {
         eventTime: {
           gt: currentDate,
@@ -549,7 +567,7 @@ export class EventService {
   }
 
   async getForRating(id: number) {
-    return this.prisma.event.findUnique({
+    return this.prisma.client.event.findUnique({
       where: {
         id,
       },
@@ -580,7 +598,7 @@ export class EventService {
     // console.log(minTime);
     // console.log(maxTime);
 
-    const result = await this.prisma.event.findFirst({
+    const result = await this.prisma.client.event.findFirst({
       where: {
         users: {
           some: {

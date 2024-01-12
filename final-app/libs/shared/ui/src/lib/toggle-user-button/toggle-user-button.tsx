@@ -14,6 +14,7 @@ import { AxiosError } from 'axios';
 import { errorCatch } from '@project/shared/utils';
 import { IEvent, IEventForCard } from '@project/shared/types';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 /* eslint-disable-next-line */
 export interface ToggleUserButtonProps {
@@ -27,6 +28,11 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
   const { filterParamsArray } = useFilterState();
   const navigate = useNavigate();
   const { submitToggleRoom } = useActions();
+  const [buttonColor, setButtonColor] = useState<string>('gray');
+
+  useEffect(() => {
+    setButtonColor(event.isParticipate ? 'red' : 'green');
+  }, []);
 
   if (!user) return null;
 
@@ -51,6 +57,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
         toast.loading('Процесс запущен...', {
           id: 'toggle-user',
         });
+        setButtonColor('orange');
       },
       onSuccess: async ({ data }) => {
         // console.log(data.data);
@@ -69,6 +76,7 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
         //   containerId: 1,
         //   toastId: 'toggle-user',
         // });
+        setButtonColor(data.isParticipate ? 'red' : 'green');
         toast.success(
           data.isParticipate
             ? `Вы присоединились к событию "${data.name}"`
@@ -127,7 +135,10 @@ export function ToggleUserButton({ event }: ToggleUserButtonProps) {
   return (
     <Button
       type={'button'}
-      className={cn(styles.toggleBtn, 'w-full')}
+      className={cn(styles.toggleBtn, `w-full hover:bg-blend-lighten`)}
+      style={{
+        backgroundColor: buttonColor,
+      }}
       onClick={() => handleToggle(user.id)}
       disabled={
         isLoading ||

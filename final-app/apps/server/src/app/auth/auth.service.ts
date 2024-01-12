@@ -78,23 +78,22 @@ export class AuthService {
 
   async getNewTokens({ refreshToken }: TokenDto): Promise<ReturnAuth> {
     if (!refreshToken) throw new BadRequestException('Please login');
+    try {
+      const result = await this.jwtService.verifyAsync<User>(refreshToken);
 
-    const result = await this.jwtService.verifyAsync<User>(refreshToken);
+      const user = await this.userService.getById(result.id);
 
-    if (!result) {
+      const returnUser = this.returnUserObject(user);
+
+      const tokens = await this.createTokens(returnUser);
+
+      return {
+        user: returnUser,
+        ...tokens,
+      };
+    } catch (err) {
       throw new UnauthorizedException('Invalid refresh token or expired token');
     }
-
-    const user = await this.userService.getById(result.id);
-
-    const returnUser = this.returnUserObject(user);
-
-    const tokens = await this.createTokens(returnUser);
-
-    return {
-      user: returnUser,
-      ...tokens,
-    };
   }
 
   async validateUser(dto: LoginAuthDto): Promise<UserSelect> {
@@ -115,22 +114,14 @@ export class AuthService {
   }
 
   async verify(token: string) {
-    const result = await this.jwtService.verifyAsync(token);
+    try {
+      const result = await this.jwtService.verifyAsync(token);
 
-    if (!result) throw new BadRequestException('Invalid token');
-
-    return result;
+      return result;
+    } catch (e) {
+      throw new BadRequestException('Invalid token');
+    }
   }
-
-  // async getUserFromToken(token: string) {
-  //   const payload: Partial<User> = await this.verify(token);
-  //
-  //   if (!payload) {
-  //     throw new UnauthorizedException('Invalid refresh token or expired token');
-  //   }
-  //
-  //   return this.userService.getById(payload.id);
-  // }
 
   private async createTokens(dto: UserSelect): Promise<ITokens> {
     const payload: Partial<User> = {

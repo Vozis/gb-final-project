@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "comments" ALTER COLUMN "parent_id" DROP DEFAULT,
+ALTER COLUMN "author_id" DROP DEFAULT,
+ALTER COLUMN "event_id" DROP DEFAULT;

@@ -54,11 +54,41 @@ services:
     links:
       - server
 
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis'
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - project-network
+      - final-project-common-network
+    volumes:
+      - sport-redis-data:/data
+    depends_on:
+      - server
+
+  redis-commander:
+    container_name: 'redis-commander'
+    image: 'ghcr.io/joeferner/redis-commander:latest'
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '8081:8081'
+    restart: always
+    networks:
+      - project-network
+      - final-project-common-network
+    depends_on:
+      - redis
+      - server
+
 volumes:
   mono-node-modules: null
   final-app-upload-files:
   application-web:
   application-server:
+  sport-redis-data:
 
 
 networks:

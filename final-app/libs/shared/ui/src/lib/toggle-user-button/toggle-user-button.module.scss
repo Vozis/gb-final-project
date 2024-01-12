@@ -1,7 +1,7 @@
 @use 'libs/shared/styles/variables' as v;
 
 .toggleBtn {
-  background-color: #1f85d5;
+  //background-color:forestgreen;
   border: 0;
   border-radius: v.$border-radius;
   color: #f2f2f2;
@@ -12,7 +12,7 @@
   transition: background-color 250ms ease-out;
 
   &:hover {
-    background-color: lighten(#1f85d5, 15%);
+    //background-color: lighten(forestgreen, 15%);
     color: #f8f8f8;
   }
 }
