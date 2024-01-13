@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
-    "node": "18.16.0",
-    "npm": "9.5.1"
+    "node": "18.19.0",
+    "npm": "10.2.3"
   },
   "scripts": {
     "start": "nx run-many --target=serve --all",
