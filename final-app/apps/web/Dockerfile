@@ -1,7 +1,7 @@
 ################################
 # Develop stage
 ################################
-FROM node:18.16.0-alpine as develop
+FROM node:18.19.0-alpine as develop
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update
 WORKDIR /usr/src/app
