@@ -8,6 +8,8 @@ RUN apk update
 WORKDIR /usr/src/app
 COPY package*.json ./
 ENV NODE_ENV development
+
+RUN npm install @nx/nx-linux-x64-musl
 RUN npm install
 COPY . .
 RUN npm run prisma-generate

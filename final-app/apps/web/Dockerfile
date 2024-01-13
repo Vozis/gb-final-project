@@ -6,6 +6,7 @@ MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update
 WORKDIR /usr/src/app
 COPY package*.json ./
+RUN npm install @nx/nx-linux-x64-musl
 RUN npm install
 COPY . .
 RUN npm run build:web
