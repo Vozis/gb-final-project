@@ -29,38 +29,38 @@ services:
       - redis-commander
 
   # React app
-  web:
-    container_name: final-project-web
-    volumes:
-      - application-web:/usr/src/app
-      - mono-node-modules:/usr/src/app/node_modules
-    build:
-      dockerfile: ./apps/web/Dockerfile
-      target: prod
-      context: .
-    stdin_open: true
-    tty: true
-    env_file:
-      - ./apps/web/.env
+ # web:
+ #   container_name: final-project-web
+ #   volumes:
+ #     - application-web:/usr/src/app
+ #     - web-node-modules:/usr/src/app/node_modules
+ #   build:
+ #     dockerfile: ./apps/web/Dockerfile
+ #     target: prod
+ #     context: .
+ #   stdin_open: true
+ #   tty: true
+ #   env_file:
+ #    - ./apps/web/.env
 #    environment:
 #      NX_SOCKET_HOST: ${NX_SOCKET_HOST}
-    ports:
-      - "4200:4200"
-    expose:
-      - 4200
-    networks:
-      - project-network
-      - final-project-common-network
-    depends_on:
-      - server
-      - redis
-      - redis-commander
-    links:
-      - server
+ #   ports:
+ #     - "4200:4200"
+ #   expose:
+ #     - 4200
+ #   networks:
+ #     - project-network
+ #     - final-project-common-network
+ #   depends_on:
+ #     - server
+ #     - redis
+ #     - redis-commander
+ #   links:
+ #     - server
 
   redis:
     image: 'redis:alpine'
-    container_name: 'redis'
+    container_name: 'final-project-redis'
     restart: always
     ports:
       - '6379:6379'
@@ -71,7 +71,7 @@ services:
       - sport-redis-data:/data
 
   redis-commander:
-    container_name: 'redis-commander'
+    container_name: 'final-project-redis-commander'
     image: 'ghcr.io/joeferner/redis-commander:latest'
     environment:
       - REDIS_HOSTS=local:redis:6379
@@ -86,6 +86,7 @@ services:
 
 volumes:
   mono-node-modules: null
+  web-node-modules: null
   final-app-upload-files:
   application-web:
   application-server:
