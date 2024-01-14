@@ -10,7 +10,7 @@ COPY package*.json ./
 ENV NODE_ENV development
 
 #RUN npm install @nx/nx-linux-x64-musl
-RUN npm install
+RUN npm install --fetch-timeout=600000
 
 COPY . .
 RUN npm run prisma-generate
