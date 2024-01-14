@@ -34,10 +34,6 @@ import { extendedPrismaClient } from './prisma/prisma.extension';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    EventEmitterModule.forRoot({
-      global: true,
-    }),
-    ScheduleModule.forRoot(),
     CustomPrismaModule.forRootAsync({
       isGlobal: true,
       name: 'PrismaService',
@@ -45,6 +41,10 @@ import { extendedPrismaClient } from './prisma/prisma.extension';
         return extendedPrismaClient;
       },
     }),
+    EventEmitterModule.forRoot({
+      global: true,
+    }),
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath:
         process.env.NODE_ENV === 'production'

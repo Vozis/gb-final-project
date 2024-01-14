@@ -29,34 +29,30 @@ services:
       - redis-commander
 
   # React app
- # web:
- #   container_name: final-project-web
- #   volumes:
- #     - application-web:/usr/src/app
- #     - web-node-modules:/usr/src/app/node_modules
- #   build:
- #     dockerfile: ./apps/web/Dockerfile
- #     target: prod
- #     context: .
- #   stdin_open: true
- #   tty: true
- #   env_file:
- #    - ./apps/web/.env
-#    environment:
-#      NX_SOCKET_HOST: ${NX_SOCKET_HOST}
- #   ports:
- #     - "4200:4200"
- #   expose:
- #     - 4200
- #   networks:
- #     - project-network
- #     - final-project-common-network
- #   depends_on:
- #     - server
- #     - redis
- #     - redis-commander
- #   links:
- #     - server
+  web:
+    container_name: final-project-web
+    volumes:
+      - application-web:/usr/src/app
+      - web-node-modules:/usr/src/app/node_modules
+    build:
+      dockerfile: ./apps/web/Dockerfile
+      target: prod
+      context: .
+    stdin_open: true
+    tty: true
+    env_file:
+     - ./apps/web/.env
+    ports:
+      - "4200:4200"
+    expose:
+      - 4200
+    networks:
+      - project-network
+      - final-project-common-network
+    depends_on:
+      - server
+    links:
+      - server
 
   redis:
     image: 'redis:alpine'

@@ -15,13 +15,13 @@ import { PrismaClientExceptionFilter } from 'nestjs-prisma';
     }),
   ],
   providers: [
-    {
-      provide: APP_FILTER,
-      useFactory: ({ httpAdapter }: HttpAdapterHost) => {
-        return new PrismaClientExceptionFilter(httpAdapter);
-      },
-      inject: [HttpAdapterHost],
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useFactory: ({ httpAdapter }: HttpAdapterHost) => {
+    //     return new PrismaClientExceptionFilter(httpAdapter);
+    //   },
+    //   inject: [HttpAdapterHost],
+    // },
   ],
   exports: [],
 })
