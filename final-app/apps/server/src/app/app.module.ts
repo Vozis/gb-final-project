@@ -24,7 +24,10 @@ import * as process from 'process';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, HttpAdapterHost } from '@nestjs/core';
+import { MyPrismaModule } from './prisma/myPrisma.module';
+import { CustomPrismaModule, PrismaClientExceptionFilter } from 'nestjs-prisma';
+import { extendedPrismaClient } from './prisma/prisma.extension';
 
 @Module({
   imports: [
@@ -35,7 +38,13 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       global: true,
     }),
     ScheduleModule.forRoot(),
-    PrismaModule,
+    CustomPrismaModule.forRootAsync({
+      isGlobal: true,
+      name: 'PrismaService',
+      useFactory: () => {
+        return extendedPrismaClient;
+      },
+    }),
     ServeStaticModule.forRoot({
       rootPath:
         process.env.NODE_ENV === 'production'
@@ -57,14 +66,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         // ttl: +configService.get('CACHE_TTL'),
       }),
     }),
-    // ServeStaticModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject:[ConfigService],
-    //   useFactory: (configService: ConfigService) => ({
-    //     rootPath: `${path}/`,
-    //     serveRoot: '/assets',
-    //   }),
-    // }),
     MailModule,
     UserModule,
     AuthModule,
@@ -77,6 +78,16 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     RatingModule,
   ],
   controllers: [AppController],
-  providers: [AppService, SocketGateway],
+  providers: [
+    AppService,
+    SocketGateway,
+    {
+      provide: APP_FILTER,
+      useFactory: ({ httpAdapter }: HttpAdapterHost) => {
+        return new PrismaClientExceptionFilter(httpAdapter);
+      },
+      inject: [HttpAdapterHost],
+    },
+  ],
 })
 export class AppModule {}
