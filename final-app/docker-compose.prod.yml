@@ -76,7 +76,7 @@ services:
     environment:
       - REDIS_HOSTS=local:redis:6378
     ports:
-      - '8081:8082'
+      - '8082:8082'
     restart: always
     networks:
       - project-network
