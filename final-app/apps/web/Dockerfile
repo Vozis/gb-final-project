@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 #RUN npm install @nx/nx-linux-x64-musl
 RUN npm config set registry https://registry.npmjs.org/
-RUN npm install --fetch-timeout=600000
+RUN npm install --maxsockets 1
 COPY . .
 RUN npm run build:web
 
