@@ -9,7 +9,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 ENV NODE_ENV development
 
-#RUN npm install @nx/nx-linux-x64-musl
+#RUN npm install @nx/nx-linux-x64-musl\
+RUN npm config set registry https://registry.npmjs.org/
 RUN npm install --fetch-timeout=600000
 
 COPY . .
