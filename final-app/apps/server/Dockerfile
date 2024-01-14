@@ -11,6 +11,7 @@ ENV NODE_ENV development
 
 RUN npm install @nx/nx-linux-x64-musl
 RUN npm install
+
 COPY . .
 RUN npm run prisma-generate
 RUN npm run build:server

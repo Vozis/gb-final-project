@@ -63,7 +63,7 @@ services:
     container_name: 'final-project-redis'
     restart: always
     ports:
-      - '6379:6379'
+      - '6379:6378'
     networks:
       - project-network
       - final-project-common-network
@@ -76,7 +76,7 @@ services:
     environment:
       - REDIS_HOSTS=local:redis:6379
     ports:
-      - '8081:8081'
+      - '8081:8082'
     restart: always
     networks:
       - project-network
