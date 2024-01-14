@@ -4,6 +4,7 @@
 FROM node:18.19.0-alpine as develop
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update
+RUN npm install -g npm@10.3.0
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install @nx/nx-linux-x64-musl
