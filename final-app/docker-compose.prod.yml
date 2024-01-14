@@ -63,7 +63,7 @@ services:
     container_name: 'final-project-redis'
     restart: always
     ports:
-      - '6379:6378'
+      - '6378:6378'
     networks:
       - project-network
       - final-project-common-network
@@ -74,7 +74,7 @@ services:
     container_name: 'final-project-redis-commander'
     image: 'ghcr.io/joeferner/redis-commander:latest'
     environment:
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis:6378
     ports:
       - '8081:8082'
     restart: always
