@@ -6,14 +6,7 @@ export type PrismaService = ReturnType<BasePrismaService['withExtensions']>;
 @Injectable()
 export class BasePrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
-    super({
-      log: [
-        {
-          emit: 'event',
-          level: 'query',
-        },
-      ],
-    });
+    super();
   }
 
   withExtensions() {

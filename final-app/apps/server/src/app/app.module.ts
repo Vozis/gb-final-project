@@ -23,23 +23,14 @@ import { RatingModule } from './rating/rating.module';
 import * as process from 'process';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
-import { HttpCacheInterceptor } from './common/interceptors/httpCache.interceptor';
-import { APP_FILTER, APP_INTERCEPTOR, HttpAdapterHost } from '@nestjs/core';
-import { MyPrismaModule } from './prisma/myPrisma.module';
-import { CustomPrismaModule, PrismaClientExceptionFilter } from 'nestjs-prisma';
+import { CustomPrismaModule } from 'nestjs-prisma/dist/custom';
 import { extendedPrismaClient } from './prisma/prisma.extension';
+import { PrismaCustomModule } from './prisma/prisma-custom.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-    }),
-    CustomPrismaModule.forRootAsync({
-      isGlobal: true,
-      name: 'PrismaService',
-      useFactory: () => {
-        return extendedPrismaClient;
-      },
     }),
     EventEmitterModule.forRoot({
       global: true,
@@ -76,18 +67,9 @@ import { extendedPrismaClient } from './prisma/prisma.extension';
     LikeModule,
     NotificationModule,
     RatingModule,
+    PrismaModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    SocketGateway,
-    {
-      provide: APP_FILTER,
-      useFactory: ({ httpAdapter }: HttpAdapterHost) => {
-        return new PrismaClientExceptionFilter(httpAdapter);
-      },
-      inject: [HttpAdapterHost],
-    },
-  ],
+  providers: [AppService, SocketGateway],
 })
 export class AppModule {}

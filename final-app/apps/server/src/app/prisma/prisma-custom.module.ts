@@ -14,15 +14,7 @@ import { PrismaClientExceptionFilter } from 'nestjs-prisma';
       },
     }),
   ],
-  providers: [
-    // {
-    //   provide: APP_FILTER,
-    //   useFactory: ({ httpAdapter }: HttpAdapterHost) => {
-    //     return new PrismaClientExceptionFilter(httpAdapter);
-    //   },
-    //   inject: [HttpAdapterHost],
-    // },
-  ],
+  providers: [],
   exports: [],
 })
-export class MyPrismaModule {}
+export class PrismaCustomModule {}

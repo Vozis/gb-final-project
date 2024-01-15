@@ -11,13 +11,6 @@ export const PRISMA_INJECTION_TOKEN = 'PrismaService';
   imports: [],
   providers: [
     {
-      provide: APP_FILTER,
-      useFactory: ({ httpAdapter }: HttpAdapterHost) => {
-        return new PrismaClientExceptionFilter(httpAdapter);
-      },
-      inject: [HttpAdapterHost],
-    },
-    {
       provide: PRISMA_INJECTION_TOKEN,
       useFactory(): PrismaService {
         return new BasePrismaService().withExtensions();

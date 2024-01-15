@@ -6,16 +6,18 @@ import { Tag } from '@prisma/client';
 import { returnTagObject, TagSelect } from './returnTagObject';
 import { CustomPrismaService } from 'nestjs-prisma';
 import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class TagService {
   constructor(
-    @Inject('PrismaService')
-    private prisma: CustomPrismaService<ExtendedPrismaClient>, // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    // @Inject('PrismaService')
+    // private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
   ) {}
 
   async create(createTagDto: CreateTagDto): Promise<TagSelect> {
-    const _tag = await this.prisma.client.tag.findUnique({
+    const _tag = await this.prisma.tag.findUnique({
       where: {
         shortName: createTagDto.shortName,
       },
@@ -23,7 +25,7 @@ export class TagService {
 
     if (_tag) throw new BadRequestException('Tag already exists');
 
-    return this.prisma.client.tag.create({
+    return this.prisma.tag.create({
       data: {
         name: createTagDto.name,
         shortName: createTagDto.shortName,
@@ -38,13 +40,13 @@ export class TagService {
   }
 
   async getAll(): Promise<TagSelect[]> {
-    return this.prisma.client.tag.findMany({
+    return this.prisma.tag.findMany({
       select: returnTagObject,
     });
   }
 
   async getByType(type: string): Promise<TagSelect[]> {
-    const isExistTag = await this.prisma.client.tag
+    const isExistTag = await this.prisma.tag
       .findFirst({
         where: {
           type: {
@@ -56,7 +58,7 @@ export class TagService {
 
     if (!isExistTag) throw new BadRequestException('Type does not exist');
 
-    return this.prisma.client.tag.findMany({
+    return this.prisma.tag.findMany({
       where: {
         type: {
           name: type,
@@ -67,7 +69,7 @@ export class TagService {
   }
 
   async getByShortName(shortName: string): Promise<TagSelect> {
-    const isExistTag = await this.prisma.client.tag
+    const isExistTag = await this.prisma.tag
       .findUnique({
         where: {
           shortName,
@@ -77,7 +79,7 @@ export class TagService {
 
     if (!isExistTag) throw new BadRequestException('Tag does not exist');
 
-    return this.prisma.client.tag.findUnique({
+    return this.prisma.tag.findUnique({
       where: { shortName },
       select: returnTagObject,
     });
@@ -85,19 +87,19 @@ export class TagService {
 
   async update(id: number, updateTagDto: UpdateTagDto) {
     if (updateTagDto.shortName) {
-      const _tag = await this.prisma.client.tag.findUnique({
+      const _tag = await this.prisma.tag.findUnique({
         where: { shortName: updateTagDto.shortName },
       });
 
       if (_tag) throw new BadRequestException('Tag already exists');
-      return this.prisma.client.tag.update({
+      return this.prisma.tag.update({
         where: { id },
         data: {
           ...updateTagDto,
         },
       });
     } else {
-      return this.prisma.client.tag.update({
+      return this.prisma.tag.update({
         where: { id },
         data: {
           ...updateTagDto,
@@ -107,7 +109,7 @@ export class TagService {
   }
 
   async delete(id: number): Promise<Tag> {
-    return this.prisma.client.tag.delete({
+    return this.prisma.tag.delete({
       where: { id },
     });
   }

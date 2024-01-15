@@ -5,15 +5,17 @@ import { returnTypeTagObject, TypeTag } from './returnTypeTagObject';
 import { PrismaService } from '../prisma/prisma.service';
 import { CustomPrismaService } from 'nestjs-prisma';
 import { ExtendedPrismaClient } from '../prisma/prisma.extension';
+import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 
 @Injectable()
 export class TypeTagService {
   constructor(
-    @Inject('PrismaService')
-    private prisma: CustomPrismaService<ExtendedPrismaClient>, // @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
+    // @Inject('PrismaService')
+    // private prisma: CustomPrismaService<ExtendedPrismaClient>,
+    @Inject(PRISMA_INJECTION_TOKEN) private readonly prisma: PrismaService,
   ) {}
   async create(CreateTypeTagDto: CreateTypeTagDto): Promise<TypeTag> {
-    return this.prisma.client.typeTag.create({
+    return this.prisma.typeTag.create({
       data: {
         name: CreateTypeTagDto.name,
       },
@@ -22,20 +24,20 @@ export class TypeTagService {
   }
 
   findAll(): Promise<TypeTag[]> {
-    return this.prisma.client.typeTag.findMany({
+    return this.prisma.typeTag.findMany({
       select: returnTypeTagObject,
     });
   }
 
   findOne(id: number): Promise<TypeTag> {
-    return this.prisma.client.typeTag.findUnique({
+    return this.prisma.typeTag.findUnique({
       where: { id },
       select: returnTypeTagObject,
     });
   }
 
   update(id: number, updateTypeTagDto: UpdateTypeTagDto) {
-    return this.prisma.client.typeTag.update({
+    return this.prisma.typeTag.update({
       where: { id },
       data: {
         ...updateTypeTagDto,
@@ -44,7 +46,7 @@ export class TypeTagService {
   }
 
   remove(id: number) {
-    return this.prisma.client.typeTag.delete({
+    return this.prisma.typeTag.delete({
       where: { id },
     });
   }
