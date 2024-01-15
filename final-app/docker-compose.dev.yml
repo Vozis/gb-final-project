@@ -5,6 +5,9 @@ services:
     image: 'redis:alpine'
     container_name: 'redis'
     restart: always
+    env_file:
+      - ./apps/server/.env
+    command: redis-server --requirepass Qjd#R7bBnWH7
     ports:
       - '6379:6379'
     networks:
@@ -16,7 +19,11 @@ services:
     container_name: 'redis-commander'
     image: 'ghcr.io/joeferner/redis-commander:latest'
     environment:
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=Qjd#R7bBnWH7
+      - HTTP_USER=root
+      - HTTP_PASSWORD=root
     ports:
       - '8081:8081'
     restart: always

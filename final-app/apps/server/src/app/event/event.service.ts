@@ -207,7 +207,7 @@ export class EventService {
         return item;
       });
     } else {
-      console.log('result: ', result);
+      // console.log('result: ', result);
       return result;
     }
   }

@@ -53,6 +53,8 @@ import { PrismaCustomModule } from './prisma/prisma-custom.module';
             host: configService.get('REDIS_HOST'),
             port: configService.get('REDIS_PORT'),
           },
+          username: configService.get('REDIS_USERNAME'),
+          password: configService.get('REDIS_PASSWORD'),
         }),
         // ttl: +configService.get('CACHE_TTL'),
       }),

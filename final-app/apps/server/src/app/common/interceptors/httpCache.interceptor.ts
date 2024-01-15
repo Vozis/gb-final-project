@@ -12,11 +12,12 @@ export class HttpCacheInterceptor extends CacheInterceptor {
     if (cacheKey) {
       const request = context.switchToHttp().getRequest();
       const params = Object.values(request.params)[0];
-      const str = params
-        ? `${cacheKey}-${Object.values(request.params)[0]}-${
-            request._parsedUrl.query
-          }`
-        : `${cacheKey}-${request._parsedUrl.query}`;
+      const str =
+        params && true
+          ? `${cacheKey}-${Object.values(request.params)[0]}-${
+              request._parsedUrl.query
+            }`
+          : `${cacheKey}-${request._parsedUrl.query}`;
 
       return str;
     }
