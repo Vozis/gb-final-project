@@ -5,6 +5,7 @@ import { CustomPrismaService } from 'nestjs-prisma';
 import { ExtendedPrismaClient } from '../prisma/prisma.extension';
 import { EventService } from '../event/event.service';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { EnumCacheEventRoutes } from '../event/constants';
 
 @Injectable()
 export class LikeService {
@@ -24,9 +25,19 @@ export class LikeService {
       where: {
         userId_commentId: data,
       },
+      include: {
+        comment: {
+          select: {
+            eventId: true,
+          },
+        },
+      },
     });
 
-    await this.eventService.clearCache();
+    await this.eventService.clearCache([
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${_like.comment.eventId}-null`,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${_like.comment.eventId}-null`,
+    ]);
 
     if (!_like) {
       return await this.prisma.like.create({

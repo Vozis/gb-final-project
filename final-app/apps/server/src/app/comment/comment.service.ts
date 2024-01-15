@@ -5,12 +5,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ENotificationType } from '../notification/notification.types';
-import { CustomPrismaService } from 'nestjs-prisma';
-import { ExtendedPrismaClient } from '../prisma/prisma.extension';
 import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { EventService } from '../event/event.service';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
+import { EnumCacheEventRoutes } from '../event/constants';
 
 @Injectable()
 export class CommentService {
@@ -338,7 +337,10 @@ export class CommentService {
 
     // console.log(newComment);
 
-    await this.eventService.clearCache('EVENTS_ID');
+    await this.eventService.clearCache([
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${newComment.eventId}-null`,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${newComment.eventId}-null`,
+    ]);
 
     this.eventEmitter.emit(ENotificationType.CreateCommentNote, newComment);
 
@@ -358,7 +360,10 @@ export class CommentService {
 
     if (!isAuthor) return new BadRequestException('You cannot update');
 
-    await this.eventService.clearCache('EVENTS_ID');
+    await this.eventService.clearCache([
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${_comment.eventId}-null`,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${_comment.eventId}-null`,
+    ]);
 
     return this.prisma.comment.update({
       where: {
@@ -377,7 +382,10 @@ export class CommentService {
 
     this.eventEmitter.emit(ENotificationType.DeleteCommentNote, deleteComment);
 
-    await this.eventService.clearCache('EVENTS_ID');
+    await this.eventService.clearCache([
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${deleteComment.eventId}-null`,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${deleteComment.eventId}-null`,
+    ]);
 
     return deleteComment;
   }

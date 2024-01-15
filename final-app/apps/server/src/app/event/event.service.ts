@@ -26,6 +26,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { PRISMA_INJECTION_TOKEN } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
+import { EnumCacheEventRoutes } from './constants';
 
 @Injectable()
 export class EventService {
@@ -40,12 +41,14 @@ export class EventService {
 
   // Get Methods ===============================================================
 
-  async clearCache(str: string = 'EVENTS') {
+  async clearCache(str: string[]) {
     const keys: string[] = await this.cacheManager.store.keys();
     keys.forEach(key => {
-      if (key.includes(str)) {
-        this.cacheManager.del(key);
-      }
+      str.forEach(strKey => {
+        if (key.includes(strKey)) {
+          this.cacheManager.del(key);
+        }
+      });
     });
   }
   async getAllEvents(
@@ -204,7 +207,7 @@ export class EventService {
         return item;
       });
     } else {
-      // console.log('result: ', result);
+      console.log('result: ', result);
       return result;
     }
   }
@@ -294,7 +297,12 @@ export class EventService {
 
     this.eventEmitter.emit(ENotificationType.CreateEventNote, newEvent);
 
-    await this.clearCache();
+    await this.clearCache([
+      EnumCacheEventRoutes.GET_ALL_EVENTS,
+      EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${newEvent.id}-null`,
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${newEvent.id}-null`,
+    ]);
 
     // @ts-ignore
     return newEvent;
@@ -335,7 +343,12 @@ export class EventService {
 
     this.eventEmitter.emit(ENotificationType.UpdateEventNote, updatedEvent);
 
-    await this.clearCache();
+    await this.clearCache([
+      EnumCacheEventRoutes.GET_ALL_EVENTS,
+      EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${updatedEvent.id}-null`,
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${updatedEvent.id}-null`,
+    ]);
 
     // @ts-ignore
     return updatedEvent;
@@ -415,12 +428,25 @@ export class EventService {
     } else {
       result.isParticipate = false;
     }
-    await this.clearCache();
+
+    await this.clearCache([
+      EnumCacheEventRoutes.GET_ALL_EVENTS,
+      EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${result.id}-null`,
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${result.id}-null`,
+    ]);
+
     return result;
   }
 
   async cancelEvent(id: number) {
-    await this.clearCache();
+    await this.clearCache([
+      EnumCacheEventRoutes.GET_ALL_EVENTS,
+      EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${id}-null`,
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${id}-null`,
+    ]);
+
     return this.prisma.event.update({
       where: { id },
       data: {
@@ -487,7 +513,12 @@ export class EventService {
   // }
 
   async delete(id: number) {
-    await this.clearCache();
+    await this.clearCache([
+      EnumCacheEventRoutes.GET_ALL_EVENTS,
+      EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+      `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${id}-null`,
+      `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${id}-null`,
+    ]);
     return this.prisma.event.delete({
       where: { id },
     });
@@ -539,11 +570,16 @@ export class EventService {
         ENotificationType.CompleteEventNote,
         finishedEvent,
       );
+
+      await this.clearCache([
+        EnumCacheEventRoutes.GET_ALL_EVENTS,
+        EnumCacheEventRoutes.GET_ALL_NO_USER_EVENTS,
+        `${EnumCacheEventRoutes.GET_EVENTS_BY_ID}-${finishedEvent.id}-null`,
+        `${EnumCacheEventRoutes.GET_PUBLIC_EVENTS_BY_ID}-${finishedEvent.id}-null`,
+      ]);
     }
 
-    await this.clearCache();
-
-    // return finishedEvents;
+    return finishedEvents;
   }
 
   async getTomorrowEvents() {
