@@ -27,6 +27,9 @@ services:
     depends_on:
       - redis
       - redis-commander
+    links:
+      - redis-commander
+      - redis
 
   # React app
   web:
@@ -99,6 +102,7 @@ volumes:
 
 networks:
   project-network:
+    driver: bridge
   final-project-common-network:
     external: true
 
