@@ -5,15 +5,14 @@ services:
     image: 'redis:alpine'
     container_name: 'redis'
     restart: always
-    env_file:
-      - ./apps/server/.env
-    command: redis-server --requirepass Qjd#R7bBnWH7
+    command: ["redis-server", "/etc/redis/redis.conf"]
     ports:
       - '6379:6379'
     networks:
       - redis-network
     volumes:
       - sport-redis-data:/data
+      - ./redis.conf:/etc/redis/redis.conf
 
   redis-commander:
     container_name: 'redis-commander'

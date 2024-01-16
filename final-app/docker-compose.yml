@@ -60,7 +60,7 @@ services:
     restart: always
     env_file:
       - ./apps/server/.env
-    command: redis-server --requirepass Qjd#R7bBnWH7
+    command: ["redis-server", "/etc/redis/redis.conf"]
     ports:
       - '6378:6379'
     networks:
@@ -68,6 +68,7 @@ services:
       - final-project-common-network
     volumes:
       - sport-redis-data:/data
+      - ./redis.conf:/etc/redis/redis.conf
 
   redis-commander:
     container_name: 'final-project-redis-commander'
