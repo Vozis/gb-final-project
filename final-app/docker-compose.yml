@@ -26,10 +26,6 @@ services:
       - final-project-common-network
     depends_on:
       - redis
-      - redis-commander
-    links:
-      - redis-commander
-      - redis
 
   # React app
   web:
