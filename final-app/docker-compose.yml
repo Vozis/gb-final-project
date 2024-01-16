@@ -53,9 +53,9 @@ services:
     links:
       - server
 
-  redis:
+  final-project-redis:
     image: 'redis:alpine'
-    container_name: 'final-project-redis'
+    container_name: final-project-redis
     restart: always
     env_file:
       - ./apps/server/.env
@@ -73,7 +73,7 @@ services:
     container_name: 'final-project-redis-commander'
     image: 'ghcr.io/joeferner/redis-commander:latest'
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=final-project-redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=Qjd#R7bBnWH7
       - HTTP_USER=root
