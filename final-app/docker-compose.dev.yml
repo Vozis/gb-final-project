@@ -7,7 +7,7 @@ services:
     restart: always
     command: ["redis-server", "/etc/redis/redis.conf"]
     ports:
-      - '6379:6379'
+      - '6378:6379'
     networks:
       - redis-network
     volumes:
@@ -24,7 +24,7 @@ services:
       - HTTP_USER=root
       - HTTP_PASSWORD=root
     ports:
-      - '8081:8081'
+      - '8082:8081'
     restart: always
     networks:
       - redis-network
