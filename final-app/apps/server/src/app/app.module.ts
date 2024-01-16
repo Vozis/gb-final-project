@@ -57,7 +57,7 @@ import { PrismaCustomModule } from './prisma/prisma-custom.module';
           port: configService.get('REDIS_PORT'),
           username: configService.get('REDIS_USERNAME'),
           password: configService.get('REDIS_PASSWORD'),
-          name: 'redis-cache-sport',
+          connectionName: 'redis-cache-sport',
         }),
         // ttl: +configService.get('CACHE_TTL'),
       }),
