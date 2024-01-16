@@ -22,7 +22,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RatingModule } from './rating/rating.module';
 import * as process from 'process';
 import { CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
+// import { redisStore } from 'cache-manager-redis-yet';
+import { redisStore } from 'cache-manager-ioredis-yet';
+// import * as redisStore from 'cache-manager-redis-store';
 import { CustomPrismaModule } from 'nestjs-prisma/dist/custom';
 import { extendedPrismaClient } from './prisma/prisma.extension';
 import { PrismaCustomModule } from './prisma/prisma-custom.module';
@@ -49,10 +51,10 @@ import { PrismaCustomModule } from './prisma/prisma-custom.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         store: await redisStore({
-          socket: {
-            host: configService.get('REDIS_HOST'),
-            port: configService.get('REDIS_PORT'),
-          },
+          // socket: {
+          // },
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
           username: configService.get('REDIS_USERNAME'),
           password: configService.get('REDIS_PASSWORD'),
           name: 'redis-cache-sport',

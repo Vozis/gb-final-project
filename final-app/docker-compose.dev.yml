@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  redis:
+  final-project-redis:
     image: 'redis:alpine'
     container_name: 'final-project-redis'
     restart: always
@@ -18,7 +18,7 @@ services:
     image: 'ghcr.io/joeferner/redis-commander:latest'
     container_name: 'final-project-redis-commander'
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=final-project-redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=Qjd#R7bBnWH7
       - HTTP_USER=root
@@ -29,7 +29,7 @@ services:
     networks:
       - redis-network
     depends_on:
-      - redis
+      - final-project-redis
 
 networks:
   redis-network:
